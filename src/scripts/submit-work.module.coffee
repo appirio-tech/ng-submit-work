@@ -6,4 +6,4 @@ dependencies = [
   'app.constants'
 ]
 
-angular.module 'appirio-tech-ng-submissions', dependencies
+angular.module 'appirio-tech-ng-submit-work', dependencies

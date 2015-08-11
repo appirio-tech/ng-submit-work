@@ -4,7 +4,7 @@ dependencies = [
   'ui.router'
   'ngResource'
   'app.constants'
-  'appirio-tech-ng-submissions'
+  'appirio-tech-ng-submit-work'
 ]
 
 angular.module 'example', dependencies

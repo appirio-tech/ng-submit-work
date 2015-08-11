@@ -27,7 +27,7 @@ window.__karma__.loaded = ->
   window.__karma__.start()
 
 beforeEach ->
-  module 'appirio-tech-ng-submissions'
+  module 'appirio-tech-ng-submit-work'
 
 # Transfer fakeserver responses to $httpBackend
 beforeEach inject ($httpBackend) ->

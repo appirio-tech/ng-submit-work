@@ -1,4 +1,4 @@
-- var portraitCSS  = ['submissions']
+- var portraitCSS  = ['submit-work']
 - var landscapeCSS = []
 - var desktopCSS   = []
 
@@ -26,7 +26,7 @@ each path in portraitCSS
 // endbuild
 = "\n"
 
-// build:css styles/mobile-landscape.css media="(min-width: 568px)"
+// build:css landscape.css media="(min-width: 568px)"
 = "\n"
 each path in landscapeCSS
   link(href="styles/#{path}.landscape.css", rel="stylesheet", media="(min-width: 568px)")
@@ -34,7 +34,7 @@ each path in landscapeCSS
 // endbuild
 = "\n"
 
-// build:css styles/desktop.css media="(min-width: 767px)"
+// build:css desktop.css media="(min-width: 767px)"
 = "\n"
 each path in desktopCSS
   link(href="styles/#{path}.desktop.css", rel="stylesheet", media="(min-width: 767px)")
