@@ -1,0 +1,10 @@
+@import "work-includes";
+
+submit-work .features {
+  > form {
+    width       : 548px;
+    margin-left : auto;
+    margin-right: auto;
+    display     : block;
+  }
+}

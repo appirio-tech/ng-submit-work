@@ -1,0 +1,36 @@
+@import "work-includes";
+
+submit-work .state.estimate {
+  h3 {
+    @include font-line(36px);
+  }
+
+  p {
+    margin-top: 12px;
+  }
+
+  > form {
+    width       : 300px;
+    margin-left : auto;
+    margin-right: auto;
+    display     : block;
+  }
+
+  .terms-link {
+    text-decoration: underline;
+  }
+
+  .terms {
+    $width     : 320px;
+    $height    : 480px;
+    padding    : 15px 20px;
+    width      : $width;
+    height     : $height;
+    margin-left: -$width / 2;
+    margin-top : -$height / 2;
+
+    p {
+      text-align: left;
+    }
+  }
+}

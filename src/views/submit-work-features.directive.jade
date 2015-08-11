@@ -1,0 +1,66 @@
+h2 What features does your app need?
+
+h3 Select from our list, or describe your own.
+
+form(name="featureForm", ng-submit="vm.submit()")
+  ul.features
+    li(ng-repeat="feature in vm.work.features")
+      input(id="{{'feature-' + feature.id}}", type="checkbox", ng-model="feature.selected")
+
+      .label-example
+        label(for="{{'feature-' + feature.id}}") {{feature.name}}
+
+        button.clean(
+          ng-if="!feature.custom",
+          type="button",
+          ng-click="vm.clickExample()",
+          title="View example"
+        )
+
+        button.x(
+          ng-if="feature.custom",
+          type="button",
+          ng-click="vm.deleteFeature($index)"
+        ) x
+
+      .desc {{feature.description}}
+
+      textarea(placeholder="explain briefly (optional)", ng-show="feature.selected", ng-model="feature.explanation")
+
+    li
+      input(type="checkbox", ng-model="vm.newFeature")
+
+      .label-example
+        label(for="{{'feature-' + feature.id}}") Additional Features
+
+      .desc Tell us about other features you need that are not listed here.
+
+  .new-feature(ng-show="vm.newFeature")
+    .title
+      input(
+        type="text",
+        ng-model="vm.newFeatureName",
+        placeholder="Name",
+        ng-enter="vm.add()"
+      )
+
+    .explanation-n-add
+      textarea(
+        type="text",
+        ng-model="vm.newFeatureExplanation",
+        ng-enter="vm.add()",
+        placeholder="Explanation"
+      )
+
+      button(type="button", ng-click="vm.add()") +
+
+  button.submit(type="submit", ng-show="featureForm.$valid") NEXT
+
+.example.layout-modal(ng-modal="showExample")
+  button.clean.close(type="button", ng-click="showExample = false")
+
+  h2 Email Login:
+
+  h3 allows users to login with email and username
+
+  img(src="/submit-work/images/phone.png")

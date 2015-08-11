@@ -1,0 +1,32 @@
+@import "work-includes";
+
+#submit-work-aside {
+  width   : 25%;
+  position: relative;
+  overflow: hidden;
+  float   : left;
+
+  .example {
+    max-width: 256px;
+  }
+
+  &.fixed {
+    .fixed-wrapper {
+      position : fixed;
+      top      : 0;
+      max-width: 256px;
+    }
+
+    height  : 100%;
+  }
+
+  .project {
+    .name {
+      @include font-line(24px);
+    }
+
+    .price {
+      @include font-line(20px);
+    }
+  }
+}

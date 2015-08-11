@@ -1,0 +1,44 @@
+h2 About your project
+
+h3(ng-show="vm.showYesNo || vm.showBrief") Do you have a project brief to upload?
+
+h3(ng-show="vm.showElevator") Give us your elevator pitch—a brief explanation of your app.
+
+form(name="questionForm", ng-submit="vm.questionSubmit()")
+  input(type="hidden", name="question" required="true", ng-model="vm.question")
+
+  button.yes(type="submit", ng-show="vm.showYesNo", ng-click="vm.question = 1") YES
+
+  button.no(type="submit", ng-show="vm.showYesNo", ng-click="vm.question = 0") NO
+
+  ul.invalid-messages(ng-show="questionForm.$dirty")
+    li(ng-show="questionForm.question.$error.required") Please tell us if you have a brief to upload.
+
+form(name="briefForm" ng-show="vm.showBrief")
+  ap-uploader(
+      config="vm.briefUploaderConfig"
+      uploading="vm.briefUploaderUploading"
+      has-errors="vm.briefUploaderHasErrors"
+    )
+  button.submit(type="button" ng-click="vm.submitBrief()" ng-hide="!vm.showBrief || vm.uploaderSingleStatus == 'started' ") NEXT
+
+form(name="elevatorForm", ng-show="vm.showElevator", ng-submit="vm.submitElevator()")
+  textarea(
+    name             = "elevator",
+    placeholder      = "I have an idea for a mobile app that lets people automatically monitor stocks, with automatic updates and alerts.",
+    ng-model         = "vm.work.summary",
+    ng-model-options ="{allowInvalid: true}",
+    required         = true,
+    ng-minlength     = "200"
+  )
+
+  .character-count {{ vm.work.summary.length || '&nbsp;' }}
+
+  ul.invalid-messages(ng-show="elevatorForm.$dirty || elevatorForm.elevator.$dirty")
+    li(ng-show="elevatorForm.summary.$error.required") This field is required.
+
+    li(ng-show="elevatorForm.summary.$error.minlength") Help our designers understand your needs, please enter at least 200 characters.
+
+  button.submit(type="submit", ng-show="elevatorForm.$valid") NEXT
+
+button.cancel(ng-hide="vm.showYesNo", ng-click="vm.toggleCancel()") Cancel

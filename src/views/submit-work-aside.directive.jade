@@ -1,0 +1,38 @@
+- aboutProject = { name: 'aboutProject', label: 'About Project', href: '#', kids: [] }
+- aboutProject.kids.push({ label: 'Project Name', href: '#', state: "name" })
+- aboutProject.kids.push({ label: 'Project Type', href: '#', state: "type" })
+- aboutProject.kids.push({ label: 'Project Specs', href: '#', state: "brief"  })
+- aboutProject.kids.push({ label: 'Similar Apps', href: '#', state: "competitors"  })
+
+- appUsers = { name: 'users', label: 'App Users', href: '#', kids: [] }
+- appUsers.kids.push({ label: 'Your Users', href: '#', state: "users" })
+
+- appFeatures = { name: 'features', label: 'App Features', href: '#', kids: [] }
+- appFeatures.kids.push({ label: 'Choose Your Features', href: '#', state: "features" })
+
+- appDesign = { name: 'design', label: 'App design', href: '#', kids: [] }
+- appDesign.kids.push({ label: 'Upload Design Files', href: '#', state: "designs" })
+
+- launch = { name: 'launch', label: 'Launch App', href: '#', kids: [] }
+- launch.kids.push({ label: 'Initial Estimate', href: '#', state: "estimate" })
+
+- navs = [aboutProject, appUsers, appFeatures, appDesign, launch]
+
+.fixed-wrapper
+  .project
+    .name {{ work.name }}
+
+    .type {{ work.requestType }}
+
+    .price {{asideService.getEstimate() | estimate}}
+
+  nav(role="navigation")
+    ul#submit-work-nav
+      each nav, i in navs
+        li(ng-class="{ completed: completed['#{nav.name}']}")
+          p!= nav.label
+
+          ul
+            each kid in nav.kids
+              li
+                a(class=kid.state, class="current", state=kid.state, ng-click="activeState = '#{kid.state}'")!= kid.label
