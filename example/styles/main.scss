@@ -1,0 +1,21 @@
+@import "work-styles";
+
+h1 {
+  text-align: center;
+}
+
+.layout-main {
+  background-color: white;
+  margin          : 0 auto;
+  padding         : 20px;
+}
+
+body > .nav {
+  @include flex-center(flex-start, $spacing);
+
+  a {
+    color: white;
+    margin: 10px;
+    display: inline-block;
+  }
+}

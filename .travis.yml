@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+- 0.10.25
+install:
+- npm install -g npm
+- npm install -g gulp
+- npm install -g bower
+- npm install
+- bower install
+before_script:
+- gulp clean
+- gulp test
+script:
+- gulp preprocessors
+- gulp useref
+- gulp copy-files
+sudo: false
+after_success:
+- gulp coveralls
