@@ -7,11 +7,10 @@ install:
 - npm install -g bower
 - npm install
 - bower install
-before_script:
-- gulp clean
-- gulp test
 script:
+- gulp clean
 - gulp preprocessors
+- gulp test
 - gulp useref
 - gulp copy-files
 sudo: false
