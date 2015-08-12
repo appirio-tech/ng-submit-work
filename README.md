@@ -1,6 +1,7 @@
-# Messaging
-[![Build Status](https://magnum.travis-ci.com/appirio-tech/messaging.svg?token=sjYcnNqPWxBpKgooh32F)](https://magnum.travis-ci.com/appirio-tech/messaging)
-[![Coverage Status](https://coveralls.io/repos/appirio-tech/messaging/badge.svg?branch=master&t=qP5jFO)](https://coveralls.io/r/appirio-tech/messaging?branch=master)
+# Submit Work
+[![GitHub version](https://badge.fury.io/gh/appirio-tech%2Fng-submissions.svg)](http://badge.fury.io/gh/appirio-tech%2Fng-submissions)
+[![Build Status](https://travis-ci.org/appirio-tech/ng-submit-work.svg)](https://travis-ci.org/appirio-tech/ng-submit-work)
+[![Coverage Status](https://coveralls.io/repos/appirio-tech/ng-submit-work/badge.svg?branch=master&service=github)](https://coveralls.io/github/appirio-tech/ng-submit-work?branch=master)
 
 ## Docs
 ### API
