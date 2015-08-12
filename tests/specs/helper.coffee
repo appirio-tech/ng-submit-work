@@ -10,22 +10,6 @@ window.unstashIt = (obj, key) ->
 
   delete stash[key]
 
-window.__karma__.loaded = ->
-  # prevent karma from starting
-  AutoConfigFakeServer.init()
-
-  AutoConfigFakeServer.fakeServer.respondImmediately = true
-
-  schemas = [
-    FIXTURES['bower_components/appirio-tech-api-schemas/swagger/v3-messages.json']
-    FIXTURES['bower_components/appirio-tech-api-schemas/swagger/v3-threads.json']
-    FIXTURES['bower_components/appirio-tech-api-schemas/swagger/v2.json']
-  ]
-
-  AutoConfigFakeServer.consume schemas
-
-  window.__karma__.start()
-
 beforeEach ->
   module 'appirio-tech-ng-submit-work'
 

@@ -6,6 +6,15 @@ configs.templateCache = []
 configs.templateCache.push
   files : [
     '.tmp/views/submit-work.directive.html'
+    '.tmp/views/submit-work-aside.directive.html'
+    '.tmp/views/submit-work-brief.directive.html'
+    '.tmp/views/submit-work-competitors.directive.html'
+    '.tmp/views/submit-work-designs.directive.html'
+    '.tmp/views/submit-work-estimate.directive.html'
+    '.tmp/views/submit-work-features.directive.html'
+    '.tmp/views/submit-work-name.directive.html'
+    '.tmp/views/submit-work-type.directive.html'
+    '.tmp/views/submit-work-users.directive.html'
   ]
   root  : 'views/'
   module: 'appirio-tech-ng-submit-work'
@@ -20,10 +29,7 @@ configs.templateCache.push
 
 configs.ngConstants =
   constants:
-    apiUrl                  : 'http://api.topcoder.com/v3/' # slash is grandfathered in, need to remove
-    API_URL                 : 'http://api.topcoder.com/v3'
-    API_URL_V2              : 'https://api.topcoder.com/v2'
-    AVATAR_URL              : 'http://www.topcoder.com'
+    API_URL: 'http://api.topcoder.com/v3'
 
 ### END CONFIG ###
 loadTasksModule = require __dirname + '/node_modules/appirio-gulp-tasks/load-tasks.coffee'
