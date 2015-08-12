@@ -46,7 +46,7 @@
           isManualScrolling = false;
         }
         else if (state) {
-          var stateElement = element.find('#starting-line-' + state);
+          var stateElement = $('#starting-line-' + state);
           $document.scrollToElementAnimated(stateElement, -100);
         }
       };

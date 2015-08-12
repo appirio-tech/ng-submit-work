@@ -82,21 +82,29 @@
       });
 
       if (!created) {
-        WorkAPIService.save(work).then(function(data) {
+        var resource = WorkAPIService.save(work);
+
+        resource.$promise.then(function(data) {
           created = true;
           service.id = data.result.content;
           service.work.id = service.id;
           service.savePrice();
           deferred.resolve(data);
-        }).catch(function(e) {
+        });
+
+        resource.$promise.catch(function(e) {
           $q.reject(e);
         });
       } else {
         work.id = service.id;
         service.work.id = service.id;
-        WorkAPIService.put(work).then(function(data) {
+        var resource = WorkAPIService.put(work)
+
+        resource.$promise.then(function(data) {
           deferred.resolve(data);
-        }).catch(function(e) {
+        });
+
+        resource.$promise.catch(function(e) {
           $q.reject(e);
         });
       }
@@ -128,7 +136,8 @@
     };
 
     service.savePrice = function() {
-      WorkAPIService.get({id: service.id}).then(function(data) {
+      var resource = WorkAPIService.get({id: service.id})
+      resource.$promise.then(function(data) {
         service.work.costEstimate = data.result.content.costEstimate;
       });
     };
@@ -179,7 +188,8 @@
 
     service.initializeWork = function(id) {
       var deferred = $q.defer();
-      WorkAPIService.get({id: id}).then(function(data) {
+      var resource = WorkAPIService.get({id: id});
+      resource.$promise.then(function(data) {
         service.work = data.result.content;
         service.id = id;
         created = true;

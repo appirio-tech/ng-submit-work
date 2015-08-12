@@ -21,13 +21,9 @@ submit-work .state.estimate {
   }
 
   .terms {
-    $width     : 320px;
-    $height    : 480px;
-    padding    : 15px 20px;
-    width      : $width;
-    height     : $height;
-    margin-left: -$width / 2;
-    margin-top : -$height / 2;
+    padding         : 0 $spacing $spacing $spacing-big;
+    width           : 320px;
+    background-color: white;
 
     p {
       text-align: left;
