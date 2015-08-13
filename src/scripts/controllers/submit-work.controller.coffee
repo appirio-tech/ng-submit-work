@@ -1,10 +1,11 @@
 'use strict'
 
 SubmitWorkController = ($scope, SubmitWorkService, NavService, $state) ->
+  vm                  = this
   $scope.activeState  = NavService.activeState
-  $scope.work         = SubmitWorkService.work
   $scope.completed    = NavService.completed
   $scope.asideService = getEstimate: SubmitWorkService.getEstimate
+
 
   # Watch service to set active state
   watchActiveState = ->
@@ -41,8 +42,20 @@ SubmitWorkController = ($scope, SubmitWorkService, NavService, $state) ->
       SubmitWorkService.save('Submitted', true).then ->
         $state.go 'view-work-multiple' , options
 
+  getWork = ->
+    SubmitWorkService.work
+
   activate = ->
-    SubmitWorkService.resetWork() unless $scope.work
+    $scope.$watch getWork, ->
+      vm.work = SubmitWorkService.work
+
+    if $scope.workId?.length
+      SubmitWorkService.initializeWork $scope.workId
+    else
+      SubmitWorkService.resetWork()
+      FeatureService.resetFeatures()
+
+    vm
 
   activate()
 

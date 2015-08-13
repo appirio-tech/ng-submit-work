@@ -1,6 +1,6 @@
 @import "work-includes";
 
-submit-work .brief {
+submit-work-brief {
   width: 100%;
 
   > form {
@@ -8,7 +8,7 @@ submit-work .brief {
   }
 }
 
-submit-work .brief {
+submit-work-brief {
   button.yes, button.no {
     width: 100px;
     margin: 30px 10px;
@@ -33,7 +33,7 @@ submit-work .brief {
   }
 }
 
-submit-work .competitors {
+submit-work-competitors {
   fieldset {
     overflow: hidden;
   }
@@ -84,7 +84,7 @@ submit-work .competitors {
   }
 }
 
-submit-work .elevator-pitch {
+submit-work-name {
   > form {
     width       : 300px;
     margin-left : auto;
@@ -93,16 +93,7 @@ submit-work .elevator-pitch {
   }
 }
 
-submit-work .name {
-  > form {
-    width       : 300px;
-    margin-left : auto;
-    margin-right: auto;
-    display     : block;
-  }
-}
-
-submit-work .type {
+submit-work-type {
   .project-types {
     li {
       display       : inline-block;

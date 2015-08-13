@@ -3,37 +3,36 @@ header
 main("ng-scroll-state"="activeState")
   .starting-line(id="starting-line-name")
 
-  submit-work-name.state-active(state="name", class="state name")
+  submit-work-name.state-active(state="name" class="state name")
 
   .starting-line(id="starting-line-type")
 
-  submit-work-type(state="type", class="state type")
+  submit-work-type(state="type" class="state type")
 
   .starting-line(id="starting-line-brief")
 
-  submit-work-brief(state="brief", class="state brief")
+  submit-work-brief(state="brief" class="state brief")
 
   .starting-line(id="starting-line-competitors")
 
-  submit-work-competitors(state="competitors", class="state competitors")
+  submit-work-competitors(state="competitors" class="state competitors")
 
   .starting-line(id="starting-line-users")
 
-  submit-work-users(state="users", class="state users")
+  submit-work-users(state="users" class="state users")
 
   .starting-line(id="starting-line-features")
 
-  submit-work-features(state="features", class="state features")
+  submit-work-features(state="features" class="state features" features="vm.work.features")
 
   .starting-line(id="starting-line-designs")
 
-  submit-work-designs(state="designs", class="state designs")
+  submit-work-designs(state="designs" class="state designs")
 
   .starting-line(id="starting-line-estimate")
 
-  submit-work-estimate(state="estimate", class="state estimate")
+  submit-work-estimate(state="estimate" class="state estimate")
 
   button.launch(type="button", ng-click="launch()", ng-class="{ active: activeState == 'estimate' }") SUBMIT PROJECT
-
 
 aside#submit-work-aside("ng-submit-work-aside"="work", ng-active-state="activeState", ng-completed="completed", aside-service="asideService")
