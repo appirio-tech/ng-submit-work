@@ -98,7 +98,7 @@
       } else {
         work.id = service.id;
         service.work.id = service.id;
-        var resource = WorkAPIService.put(work)
+        var resource = WorkAPIService.put({id: work.id}, work)
 
         resource.$promise.then(function(data) {
           deferred.resolve(data);
