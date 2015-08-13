@@ -2,12 +2,12 @@ h2 About your project
 
 h3 What type of project do you need?
 
-form(name="typeForm", ng-submit="vm.submit()")
+form(name="typeForm" ng-submit="vm.submit()")
   input(
-    name         = "type",
-    type         = "hidden",
-    required     = true,
-    ng-model     = "vm.work.requestType",
+    name     = "type"
+    type     = "hidden"
+    required = true
+    ng-model = "requestType"
   )
 
   ul.project-types
@@ -15,9 +15,9 @@ form(name="typeForm", ng-submit="vm.submit()")
       label(for="project-type-design") DESIGN
 
       button#project-type-design(
-        type="button",
-        ng-class="{'selected': vm.work.requestType == 'design'}",
-        ng-click="vm.setType($event, 'design')",
+        type="button"
+        ng-class="{'selected': requestType == 'design'}"
+        ng-click="vm.setType($event, 'design')"
         ng-enter="vm.submit()"
       )
         .starting-at starting at
@@ -32,9 +32,9 @@ form(name="typeForm", ng-submit="vm.submit()")
       label(for="project-type-code") CODE
 
       button#project-type-code(
-        type="button",
-        ng-class="{'selected': vm.work.requestType == 'code'}",
-        ng-click="vm.setType($event, 'code')",
+        type="button"
+        ng-class="{'selected': requestType == 'code'}"
+        ng-click="vm.setType($event, 'code')"
         ng-enter="vm.submit()"
       )
         .starting-at starting at
@@ -49,9 +49,9 @@ form(name="typeForm", ng-submit="vm.submit()")
       label(for="project-type-design-code") DESIGN &amp; CODE
 
       button#project-type-design-code(
-        type="button",
-        ng-class="{'selected': vm.work.requestType == 'both'}",
-        ng-click="vm.setType($event, 'both')",
+        type="button"
+        ng-class="{'selected': requestType == 'both'}"
+        ng-click="vm.setType($event, 'both')"
         ng-enter="vm.submit()"
       )
         .starting-at starting at
@@ -65,6 +65,6 @@ form(name="typeForm", ng-submit="vm.submit()")
   ul.invalid-messages(ng-show="typeForm.$dirty")
     li(ng-show="typeForm.type.$error.required") Please tell us the type of your project.
 
-  button.submit(type="submit", ng-show="typeForm.$valid") NEXT
+  button.submit(type="submit" ng-show="typeForm.$valid") NEXT
 
 
