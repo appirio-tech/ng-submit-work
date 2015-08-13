@@ -322,7 +322,7 @@ $templateCache.put("views/submit-work-users.directive.html","<h2>Your Users</h2>
   'use strict';
   var SubmitWorkController;
 
-  SubmitWorkController = function($scope, SubmitWorkService, NavService, $state) {
+  SubmitWorkController = function($scope, SubmitWorkService, NavService, $state, FeatureService) {
     var activate, getWork, setActiveState, setCompleted, vm, watchActiveState, watchCompleted;
     vm = this;
     $scope.activeState = NavService.activeState;
@@ -387,7 +387,7 @@ $templateCache.put("views/submit-work-users.directive.html","<h2>Your Users</h2>
     return activate();
   };
 
-  SubmitWorkController.$inject = ['$scope', 'SubmitWorkService', 'NavService', '$state'];
+  SubmitWorkController.$inject = ['$scope', 'SubmitWorkService', 'NavService', '$state', 'FeatureService'];
 
   angular.module('appirio-tech-ng-submit-work').controller('SubmitWorkController', SubmitWorkController);
 

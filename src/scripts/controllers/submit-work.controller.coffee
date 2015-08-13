@@ -1,6 +1,6 @@
 'use strict'
 
-SubmitWorkController = ($scope, SubmitWorkService, NavService, $state) ->
+SubmitWorkController = ($scope, SubmitWorkService, NavService, $state, FeatureService) ->
   vm                  = this
   $scope.activeState  = NavService.activeState
   $scope.completed    = NavService.completed
@@ -59,7 +59,7 @@ SubmitWorkController = ($scope, SubmitWorkService, NavService, $state) ->
 
   activate()
 
-SubmitWorkController.$inject = ['$scope', 'SubmitWorkService', 'NavService', '$state']
+SubmitWorkController.$inject = ['$scope', 'SubmitWorkService', 'NavService', '$state', 'FeatureService']
 
 angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkController', SubmitWorkController
 
