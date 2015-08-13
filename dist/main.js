@@ -827,36 +827,6 @@ $templateCache.put("views/submit-work-users.directive.html","<h2>Your Users</h2>
   }
 })();
 
-(function() {
-  'use strict';
-  var srv, transformResponse;
-
-  transformResponse = function(response) {
-    var parsed, ref;
-    parsed = JSON.parse(response);
-    return (parsed != null ? (ref = parsed.result) != null ? ref.content : void 0 : void 0) || [];
-  };
-
-  srv = function($resource, API_URL) {
-    var methods, params, url;
-    url = API_URL + '/work/:id';
-    params = {
-      id: '@id'
-    };
-    methods = {
-      put: {
-        method: 'PUT'
-      }
-    };
-    return $resource(url, {}, methods);
-  };
-
-  srv.$inject = ['$resource', 'API_URL'];
-
-  angular.module('appirio-tech-ng-submit-work').factory('WorkAPIService', srv);
-
-}).call(this);
-
 (function () {
   'use strict';
 
@@ -864,9 +834,9 @@ $templateCache.put("views/submit-work-users.directive.html","<h2>Your Users</h2>
     .module('appirio-tech-ng-submit-work')
     .factory('SubmitWorkService', SubmitWorkService);
 
-  SubmitWorkService.$inject = ['$q', 'WorkAPIService', 'FeatureService'];
+  SubmitWorkService.$inject = ['$q', 'SubmitWorkAPIService', 'FeatureService'];
   /* @ngInject */
-  function SubmitWorkService($q, WorkAPIService, FeatureService) {
+  function SubmitWorkService($q, SubmitWorkAPIService, FeatureService) {
     // local used by "save" function
     var created = false;
 
@@ -941,7 +911,7 @@ $templateCache.put("views/submit-work-users.directive.html","<h2>Your Users</h2>
       });
 
       if (!created) {
-        var resource = WorkAPIService.save(work);
+        var resource = SubmitWorkAPIService.save(work);
 
         resource.$promise.then(function(data) {
           created = true;
@@ -957,7 +927,7 @@ $templateCache.put("views/submit-work-users.directive.html","<h2>Your Users</h2>
       } else {
         work.id = service.id;
         service.work.id = service.id;
-        var resource = WorkAPIService.put({id: work.id}, work)
+        var resource = SubmitWorkAPIService.put({id: work.id}, work)
 
         resource.$promise.then(function(data) {
           deferred.resolve(data);
@@ -995,7 +965,7 @@ $templateCache.put("views/submit-work-users.directive.html","<h2>Your Users</h2>
     };
 
     service.savePrice = function() {
-      var resource = WorkAPIService.get({id: service.id})
+      var resource = SubmitWorkAPIService.get({id: service.id})
       resource.$promise.then(function(data) {
         service.work.costEstimate = data.result.content.costEstimate;
       });
@@ -1047,7 +1017,7 @@ $templateCache.put("views/submit-work-users.directive.html","<h2>Your Users</h2>
 
     service.initializeWork = function(id) {
       var deferred = $q.defer();
-      var resource = WorkAPIService.get({id: id});
+      var resource = SubmitWorkAPIService.get({id: id});
       resource.$promise.then(function(data) {
         service.work = data.result.content;
         service.id = id;
