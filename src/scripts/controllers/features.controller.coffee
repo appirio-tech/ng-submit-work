@@ -2,7 +2,6 @@
 
 controller = ($scope, SubmitWorkService, NavService) ->
   vm                       = this
-  vm.title                 = 'Features'
   vm.newFeatureName        = ''
   vm.newFeatureExplanation = ''
   vm.newFeature            = false
@@ -36,9 +35,6 @@ controller = ($scope, SubmitWorkService, NavService) ->
     $scope.features.splice i, 1
 
   activate = ->
-    $scope.$watch 'features', ->
-      vm.features = $scope.features
-
     $scope.$watch 'featureForm', (featureForm) ->
       NavService.findState('features').form = featureForm if featureForm
 
