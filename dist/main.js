@@ -827,6 +827,36 @@ $templateCache.put("views/submit-work-users.directive.html","<h2>Your Users</h2>
   }
 })();
 
+(function() {
+  'use strict';
+  var srv, transformResponse;
+
+  transformResponse = function(response) {
+    var parsed, ref;
+    parsed = JSON.parse(response);
+    return (parsed != null ? (ref = parsed.result) != null ? ref.content : void 0 : void 0) || [];
+  };
+
+  srv = function($resource, API_URL) {
+    var methods, params, url;
+    url = API_URL + '/work/:id';
+    params = {
+      id: '@id'
+    };
+    methods = {
+      put: {
+        method: 'PUT'
+      }
+    };
+    return $resource(url, {}, methods);
+  };
+
+  srv.$inject = ['$resource', 'API_URL'];
+
+  angular.module('appirio-tech-ng-submit-work').factory('SubmitWorkAPIService', srv);
+
+}).call(this);
+
 (function () {
   'use strict';
 

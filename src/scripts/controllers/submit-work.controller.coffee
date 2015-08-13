@@ -6,7 +6,6 @@ SubmitWorkController = ($scope, SubmitWorkService, NavService, $state, FeatureSe
   $scope.completed    = NavService.completed
   $scope.asideService = getEstimate: SubmitWorkService.getEstimate
 
-
   # Watch service to set active state
   watchActiveState = ->
     NavService.activeState
