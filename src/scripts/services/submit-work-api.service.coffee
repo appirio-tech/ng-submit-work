@@ -19,4 +19,4 @@ srv = ($resource, API_URL) ->
 
 srv.$inject = ['$resource', 'API_URL']
 
-angular.module('appirio-tech-ng-submit-work').factory 'WorkAPIService', srv
+angular.module('appirio-tech-ng-submit-work').factory 'SubmitWorkAPIService', srv

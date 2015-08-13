@@ -5,9 +5,9 @@
     .module('appirio-tech-ng-submit-work')
     .factory('SubmitWorkService', SubmitWorkService);
 
-  SubmitWorkService.$inject = ['$q', 'WorkAPIService', 'FeatureService'];
+  SubmitWorkService.$inject = ['$q', 'SubmitWorkAPIService', 'FeatureService'];
   /* @ngInject */
-  function SubmitWorkService($q, WorkAPIService, FeatureService) {
+  function SubmitWorkService($q, SubmitWorkAPIService, FeatureService) {
     // local used by "save" function
     var created = false;
 
@@ -82,7 +82,7 @@
       });
 
       if (!created) {
-        var resource = WorkAPIService.save(work);
+        var resource = SubmitWorkAPIService.save(work);
 
         resource.$promise.then(function(data) {
           created = true;
@@ -98,7 +98,7 @@
       } else {
         work.id = service.id;
         service.work.id = service.id;
-        var resource = WorkAPIService.put({id: work.id}, work)
+        var resource = SubmitWorkAPIService.put({id: work.id}, work)
 
         resource.$promise.then(function(data) {
           deferred.resolve(data);
@@ -136,7 +136,7 @@
     };
 
     service.savePrice = function() {
-      var resource = WorkAPIService.get({id: service.id})
+      var resource = SubmitWorkAPIService.get({id: service.id})
       resource.$promise.then(function(data) {
         service.work.costEstimate = data.result.content.costEstimate;
       });
@@ -188,7 +188,7 @@
 
     service.initializeWork = function(id) {
       var deferred = $q.defer();
-      var resource = WorkAPIService.get({id: id});
+      var resource = SubmitWorkAPIService.get({id: id});
       resource.$promise.then(function(data) {
         service.work = data.result.content;
         service.id = id;
