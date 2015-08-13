@@ -1,66 +1,62 @@
 @import "work-includes";
 
 #submit-work-aside {
-  background-color: #e6e6e6;
+  background-color: $primary-color-lightest;
   min-height      : 1px;
   padding         : 0;
 
   .fixed-wrapper {
-    padding: 18px;
+    padding: $spacing;
   }
 
   .project {
     @include roboto-thin();
 
     .price {
-      margin-top: 15px;
+      margin-top: $spacing;
       @include source-sans();
     }
 
     border-bottom: 1px solid #A7A9AB;
-    padding-bottom: 4px;
+    padding-bottom: $spacing-smallest;
   }
 
   nav > ul {
     > li {
-      margin-top: 30px;
-
-      @include font-line(16px);
-
       @include roboto();
 
-      &::before {
-        $diameter: 14px;
+      margin-top : $spacing-big;
 
-        margin-right    : 5px;
-        content         : '';
-        background      : no-repeat;
-        background-image: url("/submit-work/images/check-grey.png");
-        background-size : 12px;
-        height          : $diameter;
-        width           : $diameter;
-        display         : block;
-        margin-top      : 2px;
-        float           : left;
+      &.completed {
+        .checkmark-house {
+          background-color: $color-success;
+        }
       }
 
-      &.completed::before {
-        background-image: url("/submit-work/images/check-green.png");
+      label {
+        @include flex-center();
+
+        .checkmark-house {
+          @include display(flex);
+          @include align-items(center);
+          @include justify-content(center);
+
+          width: 22px;
+          height: 22px;
+          background-color: $primary-color-light;
+          border-radius: 50%;
+        }
+
+        p {
+          margin-left: $spacing-small;
+        }
       }
 
       ul {
         li {
-          margin: 10px 0 0 18px;
-
           @include source-sans-light();
 
-          .completed {
-            color: green;
-          }
-
-          .state-active {
-            @include source-sans();
-          }
+          margin: $spacing-small 0 0 22px + $spacing-small;
         }
       }
     }

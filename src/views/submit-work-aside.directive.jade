@@ -30,7 +30,11 @@
     ul#submit-work-nav
       each nav, i in navs
         li(ng-class="{ completed: completed['#{nav.name}']}")
-          p!= nav.label
+          label
+            .checkmark-house
+              .icon.checkmark.smallest
+
+            p!= nav.label
 
           ul
             each kid in nav.kids
