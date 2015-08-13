@@ -13,12 +13,12 @@ form(name="competitorForm", ng-submit="vm.submit($event)")
 
     button.add-competitor(type="button", ng-click="vm.add()") +
 
-  h6(ng-show="vm.work.competitorApps.length > 0") Your List of Similar Apps
+  h6(ng-show="competitorApps.length > 0") Your List of Similar Apps
 
   ul.added-competitors
-    li(ng-repeat="appName in vm.work.competitorApps")
+    li(ng-repeat="appName in competitorApps")
       .competitor {{appName}}
 
-      button.remove-competitor(type="button", ng-click="vm.work.competitorApps.splice($index, 1)") x
+      button.remove-competitor(type="button", ng-click="competitorApps.splice($index, 1)") x
 
   button.submit(type="submit", ng-show="competitorForm.$valid") NEXT

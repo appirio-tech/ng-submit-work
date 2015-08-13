@@ -26,13 +26,13 @@ form(name="elevatorForm", ng-show="vm.showElevator", ng-submit="vm.submitElevato
   textarea(
     name             = "elevator",
     placeholder      = "I have an idea for a mobile app that lets people automatically monitor stocks, with automatic updates and alerts.",
-    ng-model         = "vm.work.summary",
+    ng-model         = "summary",
     ng-model-options ="{allowInvalid: true}",
     required         = true,
     ng-minlength     = "200"
   )
 
-  .character-count {{ vm.work.summary.length || '&nbsp;' }}
+  .character-count {{ summary.length || '&nbsp;' }}
 
   ul.invalid-messages(ng-show="elevatorForm.$dirty || elevatorForm.elevator.$dirty")
     li(ng-show="elevatorForm.summary.$error.required") This field is required.

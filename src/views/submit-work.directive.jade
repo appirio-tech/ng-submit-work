@@ -11,11 +11,11 @@ main("ng-scroll-state"="activeState")
 
   .starting-line(id="starting-line-brief")
 
-  submit-work-brief(state="brief" class="state brief")
+  submit-work-brief(state="brief" class="state brief" work-id="vm.work.id" summary="vm.work.summary")
 
   .starting-line(id="starting-line-competitors")
 
-  submit-work-competitors(state="competitors" class="state competitors")
+  submit-work-competitors(state="competitors" class="state competitors" competitor-apps="vm.work.competitorApps")
 
   .starting-line(id="starting-line-users")
 
