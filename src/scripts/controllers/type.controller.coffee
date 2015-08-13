@@ -1,6 +1,6 @@
 'use strict'
 
-controller = ($scope, SubmitWorkService, NavService) ->
+controller = ($scope, NavService) ->
   vm = this
 
   vm.setType = (e, type) ->
@@ -19,7 +19,7 @@ controller = ($scope, SubmitWorkService, NavService) ->
 
   activate()
 
-controller.$inject = ['$scope', 'SubmitWorkService', 'NavService']
+controller.$inject = ['$scope', 'NavService']
 
 angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkTypeController', controller
 

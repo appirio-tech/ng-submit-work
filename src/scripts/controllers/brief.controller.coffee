@@ -1,6 +1,6 @@
 'use strict'
 
-controller = ($scope, $state, SubmitWorkService, NavService, API_URL) ->
+controller = ($scope, $state, NavService, API_URL) ->
   vm                        = this
   vm.briefFilename          = null
   vm.question               = null
@@ -76,7 +76,7 @@ controller = ($scope, $state, SubmitWorkService, NavService, API_URL) ->
 
   activate()
 
-controller.$inject = ['$scope', '$state', 'SubmitWorkService', 'NavService', 'API_URL']
+controller.$inject = ['$scope', '$state', 'NavService', 'API_URL']
 
 angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkBriefController', controller
 
