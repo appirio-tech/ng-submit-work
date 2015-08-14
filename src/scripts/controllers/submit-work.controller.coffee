@@ -10,7 +10,6 @@ SubmitWorkController = (
   vm                  = this
   $scope.activeState  = NavService.activeState
   $scope.completed    = NavService.completed
-  $scope.asideService = getEstimate: SubmitWorkService.getEstimate
 
   vm.work =
     name             : null
@@ -25,6 +24,8 @@ SubmitWorkController = (
     costEstimate     :
       low: 0
       high: 0
+
+  vm.estimate = SubmitWorkService.calculateEstimate()
 
   watchActiveState = ->
     NavService.activeState
@@ -81,9 +82,27 @@ SubmitWorkController = (
       resource.$promise.finally (data) ->
         #TODO:
 
+  currentFeatures = ->
+    vm.work.features
+
+  currentRequestType = ->
+    vm.work.requestType
+
+  refreshEstimate = ->
+    vm.estimate = SubmitWorkService.calculateEstimate(
+      vm.work.requestType,
+      vm.work.features,
+      vm.work.costEstimate
+    )
+
   activate = ->
     $scope.$watch watchActiveState, setActiveState, true
+
     $scope.$watch watchCompleted, setCompleted, true
+
+    $scope.$watch currentFeatures, refreshEstimate
+
+    $scope.$watch currentRequestType, refreshEstimate
 
     if $scope.workId?.length
       params =

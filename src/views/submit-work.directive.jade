@@ -7,7 +7,12 @@ main("ng-scroll-state"="activeState")
 
   .starting-line(id="starting-line-type")
 
-  submit-work-type(state="type" class="state type" request-type="vm.work.type" save="vm.save()")
+  submit-work-type(
+    state="type"
+    class="state type"
+    request-type="vm.work.requestType"
+    save="vm.save()"
+  )
 
   .starting-line(id="starting-line-brief")
 
@@ -33,8 +38,13 @@ main("ng-scroll-state"="activeState")
   )
 
   .starting-line(id="starting-line-features")
-
-  submit-work-features(state="features" class="state features" features="vm.work.features" save="vm.save()")
+  div {{vm.work.features}}
+  submit-work-features(
+    state="features"
+    class="state features"
+    features="vm.work.features"
+    save="vm.save()"
+  )
 
   .starting-line(id="starting-line-designs")
 
@@ -44,6 +54,16 @@ main("ng-scroll-state"="activeState")
 
   submit-work-estimate(state="estimate" class="state estimate" save="vm.save()")
 
-  button.launch(type="button", ng-click="vm.launch()", ng-class="{ active: activeState == 'estimate' }") SUBMIT PROJECT
+  button.launch(
+    type="button"
+    ng-click="vm.launch()"
+    ng-class="{ active: activeState == 'estimate' }"
+  ) SUBMIT PROJECT
 
-aside#submit-work-aside("ng-submit-work-aside"="work", ng-active-state="activeState", ng-completed="completed", aside-service="asideService")
+submit-work-nav(
+  active-state="activeState"
+  completed="completed"
+  name="vm.work.name"
+  request-type="vm.work.requestType"
+  estimate="vm.estimate"
+)

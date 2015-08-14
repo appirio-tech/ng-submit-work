@@ -3,21 +3,27 @@
 defaultFeatures = [
   name       : 'Login'
   description: 'Users can login / register for your app'
+  checked    : false
 ,
   name       : 'Social'
   description: 'Users can see data from social networks (FB, Twitter etc.) in your app'
+  checked    : false
 ,
   name       : 'Profiles'
   description: 'Users can create profiles with personal info'
+  checked    : false
 ,
   name       : 'Map'
   description: 'A map with a user\'s GPS location that helps them get to places'
+  checked    : false
 ,
   name       : 'Forms'
   description: 'Users send specific information to you via forms '
+  checked    : false
 ,
   name       : 'Listing'
   description: 'Display list of products, images, items that the user can browse or search through'
+  checked    : false
 ]
 
 controller = ($scope, NavService) ->
@@ -38,7 +44,6 @@ controller = ($scope, NavService) ->
 
       NavService.setNextState 'features'
 
-
   vm.add = ->
     isNotBlank = vm.newFeatureName.trim().length > 0 && vm.newFeatureExplanation.trim().length > 0
 
@@ -55,15 +60,31 @@ controller = ($scope, NavService) ->
       vm.newFeatureExplanation = ''
       vm.newFeature            = false
 
+  vm.checked = ->
+    $scope.features = []
+
+    for feature in vm.features
+      $scope.features.push feature if feature.checked
+
   syncWorkFeatures = ->
-    vm.features = angular.copy defaultFeatures
+    vm.features = angular.extend [], defaultFeatures
 
     for feature in $scope.features
-      vm.features.push
-        name       : feature.name
-        description: feature.description
-        explanation: feature.explanation
-        selected   : true
+      defaultFeature = isDefaultFeature feature.name
+
+      if defaultFeature
+        defaultFeature.checked     = true
+        defaultFeature.explanation = feature.explanation
+      else
+        vm.features.push
+          name       : feature.name
+          description: feature.description
+          explanation: feature.explanation
+          checked    : true
+
+  isDefaultFeature = (name) ->
+    for defaultFeature in defaultFeatures
+      return defaultFeature if defaultFeature.name == name
 
   vm.deleteFeature = (i) ->
     $scope.features.splice i, 1

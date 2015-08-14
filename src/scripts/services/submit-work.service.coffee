@@ -1,8 +1,24 @@
 'use strict'
 
-service = () ->
+service = ->
+  calculateEstimate = (requestType = null, features = null, costEstimate = null) ->
+    estimate =
+      low: 0
+      high: 0
 
-  calculateEstimate = ->
+    reduce = (x, y) ->
+      if y.selected
+        x.low += 800
+        x.high += 1200
+      x
+
+    if requestType && features
+      estimate.low  = 2000
+      estimate.high = 2000
+      estimate = features.reduce reduce, estimate
+      estimate = costEstimate if costEstimate?.low > estimate.low
+
+    estimate
 
   calculateEstimate: calculateEstimate
 

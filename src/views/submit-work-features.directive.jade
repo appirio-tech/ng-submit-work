@@ -5,10 +5,15 @@ h3 Select from our list, or describe your own.
 form(name="featureForm", ng-submit="vm.submit()")
   ul.features
     li(ng-repeat="feature in vm.features")
-      input(id="{{'feature-' + feature.id}}", type="checkbox", ng-model="feature.selected")
+      input(
+        id="{{ 'submit-work-feature-' + $index }}"
+        type="checkbox"
+        ng-model="feature.checked"
+        ng-change="vm.checked()"
+      )
 
       .label-example
-        label(for="{{'feature-' + feature.id}}") {{feature.name}}
+        label(for="{{ 'submit-work-feature-' + $index }}") {{ feature.name }}
 
         button.clean(
           ng-if="!feature.custom",
@@ -23,9 +28,9 @@ form(name="featureForm", ng-submit="vm.submit()")
           ng-click="vm.deleteFeature($index)"
         ) x
 
-      .desc {{feature.description}}
+      .desc {{ feature.description }}
 
-      textarea(placeholder="explain briefly (optional)", ng-show="feature.selected", ng-model="feature.explanation")
+      textarea(placeholder="explain briefly (optional)", ng-show="feature.checked", ng-model="feature.explanation")
 
     li
       input(id="submit-work-features-new" type="checkbox" ng-model="vm.newFeature")

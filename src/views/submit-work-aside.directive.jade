@@ -20,11 +20,11 @@
 
 .fixed-wrapper
   .project
-    .name {{ work.name }}
+    .name {{ name }}
 
-    .type {{ work.requestType }}
+    .type {{ requestType }}
 
-    .price {{asideService.getEstimate() | estimate}}
+    .price(ng-show="estimate.low > 0") ${{ estimate.low == estimate.high ? estimate.low : estimate.low + '-' + estimate.high }}
 
   nav(role="navigation")
     ul#submit-work-nav
