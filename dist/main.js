@@ -398,6 +398,7 @@ $templateCache.put("views/submit-work-users.directive.html","<h2>Your Users</h2>
       if (!vm.work.id) {
         resource = SubmitWorkAPIService.save(vm.work);
         resource.$promise.then(function(data) {
+          vm.work.id = data.result.content;
           return typeof onSuccess === "function" ? onSuccess(data) : void 0;
         });
         resource.$promise["catch"](function(data) {});

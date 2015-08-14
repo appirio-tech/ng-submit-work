@@ -57,6 +57,8 @@ SubmitWorkController = (
       resource = SubmitWorkAPIService.save vm.work
 
       resource.$promise.then (data) ->
+        vm.work.id = data.result.content
+
         onSuccess?(data)
 
       resource.$promise.catch (data) ->
