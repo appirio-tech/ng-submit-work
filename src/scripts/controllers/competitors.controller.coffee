@@ -16,7 +16,11 @@ controller = ($scope, NavService) ->
       vm.placeholder = ' '
 
   vm.submit = ->
-    NavService.setNextState 'competitors' if $scope.competitorForm.$valid
+    if $scope.competitorForm.$valid
+      $scope.save()
+
+      NavService.setNextState 'competitors'
+
 
   activate = ->
     $scope.$watch 'competitorForm', (competitorForm) ->

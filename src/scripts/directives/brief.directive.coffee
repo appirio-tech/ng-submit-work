@@ -7,5 +7,6 @@ directive = ->
   scope:
     workId : '='
     summary: '='
+    save: '&'
 
 angular.module('appirio-tech-ng-submit-work').directive 'submitWorkBrief', directive

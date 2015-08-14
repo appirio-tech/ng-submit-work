@@ -44,16 +44,19 @@ controller = ($scope, $state, NavService, API_URL) ->
     NavService.findState('brief').form = $scope.questionForm
 
   vm.submitElevator = ->
-    NavService.setNextState('brief') if $scope.elevatorForm.$valid
+    if $scope.elevatorForm.$valid
+      $scope.save()
+
+      NavService.setNextState 'brief'
 
   vm.submitBrief = ->
     if !vm.briefUploaderUploading && !vm.briefUploaderHasErrors
+      $scope.save()
       NavService.setNextState 'brief'
 
   vm.questionSubmit = ->
     vm.toggleYes() if vm.question == 1
     vm.toggleNo() if vm.question == 0
-
 
   activate = ->
     # Configure uploader initially so the view can render

@@ -6,5 +6,6 @@ directive = ->
   controller : 'SubmitWorkCompetitorsController as vm'
   scope:
     competitorApps: '='
+    save: '&'
 
 angular.module('appirio-tech-ng-submit-work').directive 'submitWorkCompetitors', directive

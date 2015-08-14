@@ -6,5 +6,6 @@ directive = ->
   controller  : 'SubmitWorkUsersController as vm'
   scope       :
     usageDescription: '='
+    save: '&'
 
 angular.module('appirio-tech-ng-submit-work').directive 'submitWorkUsers', directive

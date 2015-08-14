@@ -33,7 +33,11 @@ controller = ($scope, NavService) ->
     $scope.showExample = true
 
   vm.submit = ->
-    NavService.setNextState 'features' if $scope.featureForm.$valid
+    if $scope.featureForm.$valid
+      $scope.save()
+
+      NavService.setNextState 'features'
+
 
   vm.add = ->
     isNotBlank = vm.newFeatureName.trim().length > 0 && vm.newFeatureExplanation.trim().length > 0

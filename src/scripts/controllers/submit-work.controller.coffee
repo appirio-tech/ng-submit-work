@@ -51,15 +51,15 @@ SubmitWorkController = (
 
       options = saved: true
 
-      SubmitWorkService.save('Submitted', true).then ->
+      vm.save ->
         $state.go 'view-work-multiple' , options
 
-  vm.save = ->
+  vm.save = (onSuccess = null) ->
     unless vm.work.id
       resource = SubmitWorkAPIService.save vm.work
 
       resource.$promise.then (data) ->
-        #TODO:
+        onSuccess?(data)
 
       resource.$promise.catch (data) ->
         #TODO:
@@ -73,7 +73,7 @@ SubmitWorkController = (
       resource = SubmitWorkAPIService.put params, vm.work
 
       resource.$promise.then (data) ->
-        #TODO:
+        onSuccess?(data)
 
       resource.$promise.catch (data) ->
         #TODO:

@@ -4,7 +4,11 @@ controller = ($scope, NavService) ->
   vm = this
 
   vm.submit = ->
-    NavService.setNextState 'users' if $scope.usersForm.$valid
+    if $scope.usersForm.$valid
+      $scope.save()
+
+      NavService.setNextState 'users'
+
 
   activate = ->
     $scope.$watch 'usersForm', (usersForm) ->

@@ -9,7 +9,10 @@ controller = ($scope, NavService) ->
     $scope.requestType = type
 
   vm.submit = ->
-    NavService.setNextState 'type' if $scope.typeForm.$valid
+    if $scope.typeForm.$valid
+      $scope.save()
+
+      NavService.setNextState 'type'
 
   activate = ->
     $scope.$watch 'typeForm', (typeForm) ->

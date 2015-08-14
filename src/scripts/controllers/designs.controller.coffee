@@ -21,7 +21,9 @@ controller = ($scope, $state, NavService, API_URL) ->
         assetType: assetType
 
   vm.submit = ->
-    NavService.setNextState 'designs' if (!vm.designsUploaderUploading && !vm.designsUploaderHasErrors)
+    if !vm.designsUploaderUploading && !vm.designsUploaderHasErrors
+      $scope.save()
+      NavService.setNextState 'designs'
 
   activate = ->
     # Configure uploader initially so the view can render

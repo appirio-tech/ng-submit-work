@@ -7,31 +7,42 @@ main("ng-scroll-state"="activeState")
 
   .starting-line(id="starting-line-type")
 
-  submit-work-type(state="type" class="state type" request-type="vm.work.type")
+  submit-work-type(state="type" class="state type" request-type="vm.work.type" save="vm.save()")
 
   .starting-line(id="starting-line-brief")
 
-  submit-work-brief(state="brief" class="state brief" work-id="vm.work.id" summary="vm.work.summary")
+  submit-work-brief(
+    state="brief"
+    class="state brief"
+    work-id="vm.work.id"
+    summary="vm.work.summary"
+    save="vm.save()"
+  )
 
   .starting-line(id="starting-line-competitors")
 
-  submit-work-competitors(state="competitors" class="state competitors" competitor-apps="vm.work.competitorApps")
+  submit-work-competitors(state="competitors" class="state competitors" competitor-apps="vm.work.competitorApps" save="vm.save()")
 
   .starting-line(id="starting-line-users")
 
-  submit-work-users(state="users" class="state users" usage-description="vm.work.usageDescription")
+  submit-work-users(
+    state="users"
+    class="state users"
+    usage-description="vm.work.usageDescription"
+    save="vm.save()"
+  )
 
   .starting-line(id="starting-line-features")
 
-  submit-work-features(state="features" class="state features" features="vm.work.features")
+  submit-work-features(state="features" class="state features" features="vm.work.features" save="vm.save()")
 
   .starting-line(id="starting-line-designs")
 
-  submit-work-designs(state="designs" class="state designs" work-id="vm.work.id")
+  submit-work-designs(state="designs" class="state designs" work-id="vm.work.id" save="vm.save()")
 
   .starting-line(id="starting-line-estimate")
 
-  submit-work-estimate(state="estimate" class="state estimate")
+  submit-work-estimate(state="estimate" class="state estimate" save="vm.save()")
 
   button.launch(type="button", ng-click="vm.launch()", ng-class="{ active: activeState == 'estimate' }") SUBMIT PROJECT
 

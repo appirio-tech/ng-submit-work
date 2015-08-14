@@ -4,6 +4,7 @@ directive = ->
   restrict    : 'E'
   templateUrl : 'views/submit-work-estimate.directive.html'
   controller  : 'SubmitWorkEstimateController as vm'
-  scope       : true
+  scope       :
+    save: '&'
 
 angular.module('appirio-tech-ng-submit-work').directive 'submitWorkEstimate', directive
