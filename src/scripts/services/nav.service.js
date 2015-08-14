@@ -91,7 +91,7 @@
 
       setCompleted();
 
-      SubmitWorkService.save();
+      // SubmitWorkService.save();
     };
 
     service.findState = function(key) {

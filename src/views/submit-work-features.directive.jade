@@ -4,7 +4,7 @@ h3 Select from our list, or describe your own.
 
 form(name="featureForm", ng-submit="vm.submit()")
   ul.features
-    li(ng-repeat="feature in features")
+    li(ng-repeat="feature in vm.features")
       input(id="{{'feature-' + feature.id}}", type="checkbox", ng-model="feature.selected")
 
       .label-example
@@ -28,10 +28,10 @@ form(name="featureForm", ng-submit="vm.submit()")
       textarea(placeholder="explain briefly (optional)", ng-show="feature.selected", ng-model="feature.explanation")
 
     li
-      input(type="checkbox", ng-model="vm.newFeature")
+      input(id="submit-work-features-new" type="checkbox" ng-model="vm.newFeature")
 
       .label-example
-        label(for="{{'feature-' + feature.id}}") Additional Features
+        label(for="submit-work-features-new") Additional Features
 
       .desc Tell us about other features you need that are not listed here.
 

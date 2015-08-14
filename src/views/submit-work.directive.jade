@@ -33,6 +33,6 @@ main("ng-scroll-state"="activeState")
 
   submit-work-estimate(state="estimate" class="state estimate")
 
-  button.launch(type="button", ng-click="launch()", ng-class="{ active: activeState == 'estimate' }") SUBMIT PROJECT
+  button.launch(type="button", ng-click="vm.launch()", ng-class="{ active: activeState == 'estimate' }") SUBMIT PROJECT
 
 aside#submit-work-aside("ng-submit-work-aside"="work", ng-active-state="activeState", ng-completed="completed", aside-service="asideService")
