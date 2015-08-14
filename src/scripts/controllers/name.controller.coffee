@@ -8,6 +8,8 @@ controller = ($scope, NavService) ->
 
   vm.submit = ->
     if $scope.nameForm.$valid
+      $scope.save()
+
       NavService.findState('name').visited = true
 
       NavService.setNextState 'name'

@@ -2,7 +2,7 @@
 
 SubmitWorkController = (
   $scope
-  SubmitWorkService2
+  SubmitWorkService
   NavService
   $state
   SubmitWorkAPIService
@@ -10,7 +10,7 @@ SubmitWorkController = (
   vm                  = this
   $scope.activeState  = NavService.activeState
   $scope.completed    = NavService.completed
-  $scope.asideService = getEstimate: SubmitWorkService2.getEstimate
+  $scope.asideService = getEstimate: SubmitWorkService.getEstimate
 
   vm.work =
     name             : null
@@ -51,11 +51,35 @@ SubmitWorkController = (
 
       options = saved: true
 
-      SubmitWorkService2.save('Submitted', true).then ->
+      SubmitWorkService.save('Submitted', true).then ->
         $state.go 'view-work-multiple' , options
 
   vm.save = ->
+    unless vm.work.id
+      resource = SubmitWorkAPIService.save vm.work
 
+      resource.$promise.then (data) ->
+        #TODO:
+
+      resource.$promise.catch (data) ->
+        #TODO:
+
+      resource.$promise.finally (data) ->
+        #TODO:
+    else
+      params =
+        id: vm.work.id
+
+      resource = SubmitWorkAPIService.put params, vm.work
+
+      resource.$promise.then (data) ->
+        #TODO:
+
+      resource.$promise.catch (data) ->
+        #TODO:
+
+      resource.$promise.finally (data) ->
+        #TODO:
 
   activate = ->
     $scope.$watch watchActiveState, setActiveState, true
@@ -80,7 +104,7 @@ SubmitWorkController = (
 
 SubmitWorkController.$inject = [
   '$scope'
-  'SubmitWorkService2'
+  'SubmitWorkService'
   'NavService'
   '$state'
   'SubmitWorkAPIService'
