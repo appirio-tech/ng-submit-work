@@ -5,7 +5,8 @@ directive = ->
   templateUrl : 'views/submit-work-estimate.directive.html'
   controller  : 'SubmitWorkEstimateController as vm'
   scope       :
-    save: '&'
-    estimate: '='
+    save         : '&'
+    estimate     : '='
+    acceptedTerms: '='
 
 angular.module('appirio-tech-ng-submit-work').directive 'submitWorkEstimate', directive

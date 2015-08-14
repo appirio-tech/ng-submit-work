@@ -13,19 +13,15 @@ SubmitWorkController = (
 
   vm.work =
     name             : null
-    modelType        : 'app-project'
     requestType      : null
     usageDescription : null
     summary          : null
-    status           : 'Incomplete'
     competitorApps   : []
     features         : []
-    acceptedTerms    : false
-    costEstimate     :
-      low: 0
-      high: 0
 
   vm.estimate = SubmitWorkService.calculateEstimate()
+
+  vm.acceptedTerms = false
 
   watchActiveState = ->
     NavService.activeState

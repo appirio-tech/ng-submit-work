@@ -5,7 +5,7 @@ h3(ng-show="estimate.low > 0") ${{ estimate.low == estimate.high ? estimate.low 
 form(name="estimateForm")
   p This is our closest estimate for your project based on the information you’ve provided today. When you click "Submit Project," we'll process your info and provide a formal project proposal.
 
-  input#submit-work-accept-terms(name="acceptedTerms", type="checkbox", ng-model="vm.work.acceptedTerms", required=true, checked=false, ng-change="vm.change()")
+  input#submit-work-accept-terms(name="acceptedTerms", type="checkbox", ng-model="acceptedTerms", required=true, checked=false, ng-change="vm.change()")
 
   label(for="submit-work-accept-terms") Accept 
     a.terms-link(ng-click="vm.showTerms = true") Terms and Conditions
