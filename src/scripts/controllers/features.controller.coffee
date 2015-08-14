@@ -64,7 +64,13 @@ controller = ($scope, NavService) ->
     $scope.features = []
 
     for feature in vm.features
-      $scope.features.push feature if feature.checked
+      if feature.checked
+        defaultFeature = isDefaultFeature feature.name
+
+        $scope.features.push
+          name       : vm.newFeatureName
+          explanation: vm.newFeatureExplanation
+          custom     : !!defaultFeature
 
   syncWorkFeatures = ->
     vm.features = angular.extend [], defaultFeatures

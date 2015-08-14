@@ -774,14 +774,19 @@ $templateCache.put("views/submit-work-users.directive.html","<h2>Your Users</h2>
       }
     };
     vm.checked = function() {
-      var feature, j, len, ref, results;
+      var defaultFeature, feature, j, len, ref, results;
       $scope.features = [];
       ref = vm.features;
       results = [];
       for (j = 0, len = ref.length; j < len; j++) {
         feature = ref[j];
         if (feature.checked) {
-          results.push($scope.features.push(feature));
+          defaultFeature = isDefaultFeature(feature.name);
+          results.push($scope.features.push({
+            name: vm.newFeatureName,
+            explanation: vm.newFeatureExplanation,
+            custom: !!defaultFeature
+          }));
         } else {
           results.push(void 0);
         }
