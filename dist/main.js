@@ -345,6 +345,7 @@ $templateCache.put("views/submit-work-users.directive.html","<h2>Your Users</h2>
     $scope.completed = NavService.completed;
     vm.work = {
       name: null,
+      modelType: 'app-project',
       requestType: null,
       usageDescription: null,
       summary: null,

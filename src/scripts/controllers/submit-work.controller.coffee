@@ -13,6 +13,7 @@ SubmitWorkController = (
 
   vm.work =
     name             : null
+    modelType        : 'app-project'
     requestType      : null
     usageDescription : null
     summary          : null
