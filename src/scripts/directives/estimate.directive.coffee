@@ -6,5 +6,6 @@ directive = ->
   controller  : 'SubmitWorkEstimateController as vm'
   scope       :
     save: '&'
+    estimate: '='
 
 angular.module('appirio-tech-ng-submit-work').directive 'submitWorkEstimate', directive

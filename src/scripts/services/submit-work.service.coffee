@@ -7,9 +7,8 @@ service = ->
       high: 0
 
     reduce = (x, y) ->
-      if y.selected
-        x.low += 800
-        x.high += 1200
+      x.low += 800
+      x.high += 1200
       x
 
     if requestType && features

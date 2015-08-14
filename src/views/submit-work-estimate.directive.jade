@@ -1,6 +1,6 @@
 h2 Your Estimate
 
-h3 {{vm.getEstimate() | estimate}}
+h3(ng-show="estimate.low > 0") ${{ estimate.low == estimate.high ? estimate.low : estimate.low + '-' + estimate.high }}
 
 form(name="estimateForm")
   p This is our closest estimate for your project based on the information you’ve provided today. When you click "Submit Project," we'll process your info and provide a formal project proposal.

@@ -26,7 +26,12 @@ main("ng-scroll-state"="activeState")
 
   .starting-line(id="starting-line-competitors")
 
-  submit-work-competitors(state="competitors" class="state competitors" competitor-apps="vm.work.competitorApps" save="vm.save()")
+  submit-work-competitors(
+    state="competitors"
+    class="state competitors"
+    competitor-apps="vm.work.competitorApps"
+    save="vm.save()"
+  )
 
   .starting-line(id="starting-line-users")
 
@@ -38,7 +43,7 @@ main("ng-scroll-state"="activeState")
   )
 
   .starting-line(id="starting-line-features")
-  div {{vm.work.features}}
+
   submit-work-features(
     state="features"
     class="state features"
@@ -52,7 +57,12 @@ main("ng-scroll-state"="activeState")
 
   .starting-line(id="starting-line-estimate")
 
-  submit-work-estimate(state="estimate" class="state estimate" save="vm.save()")
+  submit-work-estimate(
+    state="estimate"
+    class="state estimate"
+    save="vm.save()"
+    estimate="vm.estimate"
+  )
 
   button.launch(
     type="button"
