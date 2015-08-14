@@ -11,6 +11,8 @@ describe 'SubmitWorkNameController', ->
     navServNameState = navServ.findState 'name'
     setNextStateSpy = sinon.spy navServ, 'setNextState'
     scope = $rootScope.$new()
+    scope.save = ->
+      #nothing
     scope.nameForm =
       $valid: true
     controller = $controller 'SubmitWorkNameController', $scope: scope
@@ -19,10 +21,6 @@ describe 'SubmitWorkNameController', ->
   describe 'Name controller', ->
     it 'should be created successfully', ->
       expect(controller).to.be.defined
-
-    describe 'after activate', ->
-      it 'should have title of Name', ->
-       expect(controller.title).to.equal('Name')
 
     describe 'submit', ->
       beforeEach ->

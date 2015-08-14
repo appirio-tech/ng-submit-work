@@ -67,19 +67,3 @@ describe 'SubmitWorkController', ->
     it 'should set completed to true', ->
       expect(scope.completed).to.ok
 
-  describe 'launch work', ->
-    context 'when all forms are valid', ->
-      beforeEach inject ->
-        scope.launch()
-
-      xit 'should set state to "launch-success"', ->
-        stateSpy.calledWith('view-work-multiple').should.ok
-
-    context 'when a form is invalid', ->
-      beforeEach inject ->
-        navServ.states[1].form.$valid = false
-        scope.launch()
-        scope.$apply()
-
-      it 'should set activeState to "type"', ->
-        expect(scope.activeState).to.equal 'type'

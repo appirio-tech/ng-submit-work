@@ -4,15 +4,13 @@ navServ        = null
 scope          = null
 state          = null
 activeState    = null
-saveSpy        = null
 submitWorkServ = null
 nextState      = null
 defaultCompleted = null
 
 describe 'NavService', ->
 
-  beforeEach inject ($rootScope, NavService, SubmitWorkService) ->
-    submitWorkServ = SubmitWorkService
+  beforeEach inject ($rootScope, NavService) ->
     navServ = NavService
     scope = $rootScope
 
@@ -30,27 +28,16 @@ describe 'NavService', ->
   describe 'set active state', ->
     context 'when state is a string', ->
       beforeEach ->
-        saveSpy = sinon.spy submitWorkServ, 'save'
         navServ.setActiveState 'type'
         activeState = navServ.activeState
-
-      it 'should call save on submitWorkService', ->
-        expect(saveSpy).to.have.been.called
 
       it 'should set correct active state', ->
         expect(activeState).to.equal('type')
 
     context 'when state is an object', ->
       beforeEach ->
-        saveSpy = sinon.spy submitWorkServ, 'save'
         navServ.setActiveState 'key': 'type'
         activeState = navServ.activeState
-
-      afterEach ->
-        saveSpy.restore()
-
-      it 'should call save on submitWorkService', ->
-        expect(saveSpy).to.have.been.called
 
       it 'should set correct active state', ->
         expect(activeState).to.equal('type')

@@ -26,10 +26,6 @@ describe 'SubmitWorkBriefController', ->
     it 'should be created successfully', ->
       expect(controller).to.be.defined
 
-  describe 'after activate', ->
-    it 'should have a title of Brief', ->
-      expect(controller.title).to.equal('Brief')
-
   describe 'toggleYes', ->
     beforeEach ->
       controller.toggleYes()
@@ -86,11 +82,16 @@ describe 'SubmitWorkBriefController', ->
 
   describe 'submitElevator', ->
     beforeEach ->
+      scope.save = ->
+        # nothing
+
       scope.elevatorForm =
         $valid: true
-      controller.submitElevator()
-      scope.$apply()
-    context 'when elevatorForm is valid', ->
 
-    it 'should call setNextState on NavService', ->
-      expect(setNextStateSpy).to.have.been.called
+      controller.submitElevator()
+
+      scope.$apply()
+
+    context 'when elevatorForm is valid', ->
+      it 'should call setNextState on NavService', ->
+        expect(setNextStateSpy).to.have.been.called

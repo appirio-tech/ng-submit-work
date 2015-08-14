@@ -7,9 +7,9 @@ SubmitWorkController = (
   $state
   SubmitWorkAPIService
 ) ->
-  vm                  = this
-  $scope.activeState  = NavService.activeState
-  $scope.completed    = NavService.completed
+  vm                 = this
+  $scope.activeState = NavService.activeState
+  $scope.completed   = NavService.completed
 
   vm.work =
     name             : null
