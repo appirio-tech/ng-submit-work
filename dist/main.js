@@ -783,8 +783,8 @@ $templateCache.put("views/submit-work-users.directive.html","<h2>Your Users</h2>
         if (feature.checked) {
           defaultFeature = isDefaultFeature(feature.name);
           results.push($scope.features.push({
-            name: vm.newFeatureName,
-            explanation: vm.newFeatureExplanation,
+            name: feature.name,
+            explanation: feature.explanation,
             custom: !!defaultFeature
           }));
         } else {

@@ -68,8 +68,8 @@ controller = ($scope, NavService) ->
         defaultFeature = isDefaultFeature feature.name
 
         $scope.features.push
-          name       : vm.newFeatureName
-          explanation: vm.newFeatureExplanation
+          name       : feature.name
+          explanation: feature.explanation
           custom     : !!defaultFeature
 
   syncWorkFeatures = ->
