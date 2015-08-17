@@ -385,6 +385,7 @@ $templateCache.put("views/submit-work-users.directive.html","<h2>Your Users</h2>
         options = {
           saved: true
         };
+        vm.work.status = 'Submitted';
         return vm.save(function() {
           return $state.go('view-work-multiple', options);
         });

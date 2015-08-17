@@ -49,6 +49,8 @@ SubmitWorkController = (
 
       options = saved: true
 
+      vm.work.status = 'Submitted'
+
       vm.save ->
         $state.go 'view-work-multiple' , options
 
