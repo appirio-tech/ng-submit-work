@@ -2,7 +2,7 @@
   'use strict';
   var dependencies;
 
-  dependencies = ['ui.router', 'ngResource', 'app.constants', 'duScroll'];
+  dependencies = ['ui.router', 'ngResource', 'app.constants', 'duScroll', 'appirio-tech-ng-api-services'];
 
   angular.module('appirio-tech-ng-submit-work', dependencies);
 
@@ -338,7 +338,7 @@ $templateCache.put("views/submit-work-users.directive.html","<h2>Your Users</h2>
   'use strict';
   var SubmitWorkController;
 
-  SubmitWorkController = function($scope, SubmitWorkService, NavService, $state, SubmitWorkAPIService) {
+  SubmitWorkController = function($scope, SubmitWorkService, NavService, $state, WorkAPIService) {
     var activate, currentFeatures, currentRequestType, refreshEstimate, setActiveState, setCompleted, vm, watchActiveState, watchCompleted;
     vm = this;
     $scope.activeState = NavService.activeState;
@@ -397,7 +397,7 @@ $templateCache.put("views/submit-work-users.directive.html","<h2>Your Users</h2>
         onSuccess = null;
       }
       if (!vm.work.id) {
-        resource = SubmitWorkAPIService.save(vm.work);
+        resource = WorkAPIService.save(vm.work);
         resource.$promise.then(function(data) {
           vm.work.id = data.result.content;
           return typeof onSuccess === "function" ? onSuccess(data) : void 0;
@@ -408,7 +408,7 @@ $templateCache.put("views/submit-work-users.directive.html","<h2>Your Users</h2>
         params = {
           id: vm.work.id
         };
-        resource = SubmitWorkAPIService.put(params, vm.work);
+        resource = WorkAPIService.put(params, vm.work);
         resource.$promise.then(function(data) {
           return typeof onSuccess === "function" ? onSuccess(data) : void 0;
         });
@@ -435,7 +435,7 @@ $templateCache.put("views/submit-work-users.directive.html","<h2>Your Users</h2>
         params = {
           id: $scope.workId
         };
-        resource = SubmitWorkAPIService.get(params);
+        resource = WorkAPIService.get(params);
         resource.$promise.then(function(data) {
           return vm.work = data.result.content;
         });
@@ -447,7 +447,7 @@ $templateCache.put("views/submit-work-users.directive.html","<h2>Your Users</h2>
     return activate();
   };
 
-  SubmitWorkController.$inject = ['$scope', 'SubmitWorkService', 'NavService', '$state', 'SubmitWorkAPIService'];
+  SubmitWorkController.$inject = ['$scope', 'SubmitWorkService', 'NavService', '$state', 'WorkAPIService'];
 
   angular.module('appirio-tech-ng-submit-work').controller('SubmitWorkController', SubmitWorkController);
 
@@ -941,36 +941,6 @@ $templateCache.put("views/submit-work-users.directive.html","<h2>Your Users</h2>
   controller.$inject = ['$scope', 'SubmitWorkService', 'NavService'];
 
   angular.module('appirio-tech-ng-submit-work').controller('SubmitWorkEstimateController', controller);
-
-}).call(this);
-
-(function() {
-  'use strict';
-  var srv, transformResponse;
-
-  transformResponse = function(response) {
-    var parsed, ref;
-    parsed = JSON.parse(response);
-    return (parsed != null ? (ref = parsed.result) != null ? ref.content : void 0 : void 0) || [];
-  };
-
-  srv = function($resource, API_URL) {
-    var methods, params, url;
-    url = API_URL + '/work/:id';
-    params = {
-      id: '@id'
-    };
-    methods = {
-      put: {
-        method: 'PUT'
-      }
-    };
-    return $resource(url, {}, methods);
-  };
-
-  srv.$inject = ['$resource', 'API_URL'];
-
-  angular.module('appirio-tech-ng-submit-work').factory('SubmitWorkAPIService', srv);
 
 }).call(this);
 
