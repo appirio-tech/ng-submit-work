@@ -11,7 +11,7 @@
     "angular-mocks": "^1.3.x",
     "sinon": "http://sinonjs.org/releases/sinon-1.12.1.js",
     "auto-config-fake-server": "2.x.x",
-    "appirio-tech-api-schemas": "3.0.309"
+    "appirio-tech-api-schemas": "5.x.x"
   },
   "dependencies": {
     "angular": "^1.4.x",
@@ -20,6 +20,7 @@
     "angular-resource": "^1.3.x",
     "appirio-tech-ng-file-upload": "0.x.x",
     "appirio-tech-ng-ui-components": "0.x.x",
+    "appirio-tech-ng-api-services": "0.x.x",
     "zepto": "1.1.x"
   },
   "ignore": [

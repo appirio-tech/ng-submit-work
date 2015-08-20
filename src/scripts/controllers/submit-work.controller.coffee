@@ -5,7 +5,7 @@ SubmitWorkController = (
   SubmitWorkService
   NavService
   $state
-  SubmitWorkAPIService
+  WorkAPIService
 ) ->
   vm                 = this
   $scope.activeState = NavService.activeState
@@ -56,7 +56,7 @@ SubmitWorkController = (
 
   vm.save = (onSuccess = null) ->
     unless vm.work.id
-      resource = SubmitWorkAPIService.save vm.work
+      resource = WorkAPIService.save vm.work
 
       resource.$promise.then (data) ->
         vm.work.id = data.result.content
@@ -72,7 +72,7 @@ SubmitWorkController = (
       params =
         id: vm.work.id
 
-      resource = SubmitWorkAPIService.put params, vm.work
+      resource = WorkAPIService.put params, vm.work
 
       resource.$promise.then (data) ->
         onSuccess?(data)
@@ -109,7 +109,7 @@ SubmitWorkController = (
       params =
         id: $scope.workId
 
-      resource = SubmitWorkAPIService.get params
+      resource = WorkAPIService.get params
 
       resource.$promise.then (data) ->
         vm.work = data.result.content
@@ -127,7 +127,7 @@ SubmitWorkController.$inject = [
   'SubmitWorkService'
   'NavService'
   '$state'
-  'SubmitWorkAPIService'
+  'WorkAPIService'
 ]
 
 angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkController', SubmitWorkController

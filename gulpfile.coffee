@@ -27,9 +27,6 @@ configs.templateCache.push
   root  : 'views/'
   module: 'example'
 
-configs.ngConstants =
-  constants:
-    API_URL: 'http://api.topcoder.com/v3'
 
 ### END CONFIG ###
 loadTasksModule = require __dirname + '/node_modules/appirio-gulp-tasks/load-tasks.coffee'
