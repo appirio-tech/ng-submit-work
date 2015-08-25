@@ -6,51 +6,26 @@
 - var services    = []
 
 - scripts.push('submit-work.module')
-- scripts.push('estimate.filter')
 - scripts.push('templates')
 
 - directives.push('submit-work')
-- directives.push('nav')
-- directives.push('name')
-- directives.push('type')
-- directives.push('brief')
-- directives.push('competitors')
-- directives.push('users')
-- directives.push('features')
-- directives.push('designs')
-- directives.push('estimate')
-- directives.push('scroll-state')
 
 - controllers.push('submit-work')
-- controllers.push('nav')
-- controllers.push('name')
-- controllers.push('type')
-- controllers.push('brief')
-- controllers.push('competitors')
-- controllers.push('users')
-- controllers.push('features')
-- controllers.push('designs')
-- controllers.push('estimate')
-
-- services.push('submit-work')
-- services.push('nav')
 
 each directive in directives
-  - scripts.push('/directives/' + directive + '.directive')
+  - scripts.push('directives/' + directive + '.directive')
 end
 
 each controller in controllers
-  - scripts.push('/controllers/' + controller + '.controller')
+  - scripts.push('controllers/' + controller + '.controller')
 end
 
 each service in services
-  - scripts.push('/services/' + service + '.service')
+  - scripts.push('services/' + service + '.service')
 end
 
-- bowers.push('zepto/zepto')
 - bowers.push('angular/angular')
 - bowers.push('angular-resource/angular-resource')
-- bowers.push('angular-scroll/angular-scroll')
 - bowers.push('angular-ui-router/release/angular-ui-router')
 - bowers.push('appirio-tech-ng-file-upload/dist/main')
 - bowers.push('appirio-tech-ng-ui-components/dist/main')
