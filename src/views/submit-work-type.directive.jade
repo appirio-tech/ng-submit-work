@@ -1,4 +1,4 @@
-form
+form(ng-submit="vm.save()")
   input(type="text" placeholder="Name your project..." required="true" ng-model="vm.work.name")
 
   hr
@@ -7,20 +7,20 @@ form
 
   ul
     li
-      button(type="button") Design
+      button(type="button" ng-click="vm.toggleType('Design')" ng-class="{success: vm.work.requestType == 'Design' || vm.work.requestType == 'Both'}") Design
 
     li
-      button(type="button") Development
+      button(type="button" ng-click="vm.toggleType('Code')" ng-class="{success: vm.work.requestType == 'Code' || vm.work.requestType == 'Both'}") Development
 
   hr
 
   h3 Can you share a brief overview?
 
-  textarea(placeholder="E.g. I need a mobile HR application with social features to support my growing organization")
+  textarea(placeholder="E.g. I need a mobile HR application with social features to support my growing organization" ng-model="vm.work.summary")
 
   ul
     li
       button(type="submit") Save
 
     li
-      button(type="submit") Create Project
+      button(type="button" ng-click="vm.createProject()") Create Project

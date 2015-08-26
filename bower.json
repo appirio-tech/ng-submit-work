@@ -25,5 +25,8 @@
   "ignore": [
     "**/*",
     "!dist/**/*"
-  ]
+  ],
+  "resolutions": {
+    "appirio-tech-ng-api-services": "master"
+  }
 }
