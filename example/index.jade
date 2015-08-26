@@ -28,8 +28,10 @@ html(ng-app='example')
     include css-files
 
   body
-    include nav
+    layout-header(role="banner")
 
-    main.layout-main("role"="main", class="{{ pageClass }}", ui-view="")
+    layout-main
+
+    layout-footer
 
     include js-files

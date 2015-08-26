@@ -12,6 +12,7 @@
     "sinon": "http://sinonjs.org/releases/sinon-1.12.1.js",
     "auto-config-fake-server": "2.x.x",
     "appirio-tech-api-schemas": "5.x.x",
+    "appirio-tech-ng-work-layout": "0.x.x",
     "angular-ui-router": "^0.2.x"
   },
   "dependencies": {
