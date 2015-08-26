@@ -33,20 +33,19 @@ TypeController = ($scope, SubmitWorkAPIService) ->
 
       resource = SubmitWorkAPIService.put params, vm.work
       resource.$promise.then (response) ->
-        onSuccess(response) if onSuccess?
+        onSuccess? response
       resource.$promise.catch (response) ->
         # TODO: add error handling
 
      else
       resource = SubmitWorkAPIService.post vm.work
       resource.$promise.then (response) ->
-        onSuccess(response) if onSuccess?
+        onSuccess? response
       resource.$promise.catch (response) ->
 
   vm.createProject = ->
     if vm.work.name && vm.work.requestType && vm.work.summary
       vm.work.status = 'Submitted'
-
       vm.save (response) ->
         #TODO: add success modal to markup
         vm.showSuccessModal = true;

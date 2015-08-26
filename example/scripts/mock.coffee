@@ -4,7 +4,7 @@ AutoConfigFakeServer.init()
 
 AutoConfigFakeServer.fakeServer.autoRespond = true
 
-fixtures = ['bower_components/appirio-tech-api-schemas/apiary/apworkmicroservice.json']
+fixtures = []
 
 for key, fixture of window.FIXTURES
   # apiary/messaging14.json needs to be updated on apiary
