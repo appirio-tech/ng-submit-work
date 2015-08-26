@@ -9,7 +9,6 @@ TypeController = ($scope, SubmitWorkAPIService) ->
     features   : []
 
   vm.loading          = true
-  vm.successModal     = true
   vm.showSuccessModal = false
   vm.workId           = $scope.workId
 
@@ -47,8 +46,7 @@ TypeController = ($scope, SubmitWorkAPIService) ->
     if vm.work.name && vm.work.requestType && vm.work.summary
       vm.work.status = 'Submitted'
       vm.save (response) ->
-        #TODO: add success modal to markup
-        vm.showSuccessModal = true;
+        vm.showSuccessModal = true
 
   activate = ->
 
