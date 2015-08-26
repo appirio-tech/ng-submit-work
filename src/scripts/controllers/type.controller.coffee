@@ -1,9 +1,15 @@
 'use strict'
 
-TypeController = ($scope, WorkAPIService) ->
+TypeController = ($scope, SubmitWorkAPIService) ->
   vm = this
-  vm.work = null
+  vm.work =
+    name: null
+    requestType: null
+    summary: null
+    features: []
+
   vm.loading = true
+  vm.showSuccessModal = false;
   vm.workId = $scope.workId
 
   vm.toggleType = (type) ->
@@ -19,49 +25,52 @@ TypeController = ($scope, WorkAPIService) ->
       else
         vm.work.requestType = 'Design'
 
-  vm.save = ->
+  vm.save = (onSuccess) ->
     if vm.workId
       params =
         id: vm.workId
 
-      resource = WorkAPIService.put params, vm.work
+      resource = SubmitWorkAPIService.put params, vm.work
       resource.$promise.then (response) ->
-        console.log('proj saved', response)
+        onSuccess(response) if onSuccess?
       resource.$promise.catch (response) ->
         # TODO: add error handling
 
      else
-      resource = WorkAPIService.post vm.work
+      resource = SubmitWorkAPIService.post vm.work
       resource.$promise.then (response) ->
-        console.log('proj created', response)
+        onSuccess(response) if onSuccess?
       resource.$promise.catch (response) ->
 
   vm.createProject = ->
     if vm.work.name && vm.work.requestType && vm.work.summary
       vm.work.status = 'Submitted'
-      vm.save()
+
+      vm.save (response) ->
+        #TODO: add success modal to markup
+        vm.showSuccessModal = true;
 
   activate = ->
 
-    params =
-      id      : vm.workId
+    if vm.workId
+      params =
+        id      : vm.workId
 
-    resource = WorkAPIService.get params
+      resource = SubmitWorkAPIService.get params
 
-    resource.$promise.then (response) ->
-      console.log('res', response)
-      vm.work = response
+      resource.$promise.then (response) ->
+        vm.work = response
 
-     resource.$promise.catch (response) ->
-       # TODO: add error handling
+       resource.$promise.catch (response) ->
+         # TODO: add error handling
 
-     resource.$promise.finally ->
-       vm.loading = false
+       resource.$promise.finally ->
+         vm.loading = false
 
     vm
 
   activate()
 
-TypeController.$inject = ['$scope', 'WorkAPIService']
+TypeController.$inject = ['$scope', 'SubmitWorkAPIService']
 
 angular.module('appirio-tech-ng-submit-work').controller 'TypeController', TypeController
