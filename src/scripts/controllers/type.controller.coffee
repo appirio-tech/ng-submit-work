@@ -1,16 +1,17 @@
 'use strict'
 
 TypeController = ($scope, SubmitWorkAPIService) ->
-  vm = this
+  vm      = this
   vm.work =
-    name: null
+    name       : null
     requestType: null
-    summary: null
-    features: []
+    summary    : null
+    features   : []
 
-  vm.loading = true
-  vm.showSuccessModal = false;
-  vm.workId = $scope.workId
+  vm.loading          = true
+  vm.successModal     = true
+  vm.showSuccessModal = false
+  vm.workId           = $scope.workId
 
   vm.toggleType = (type) ->
     if vm.work.requestType != null && vm.work.requestType != type && vm.work.requestType != 'Both'

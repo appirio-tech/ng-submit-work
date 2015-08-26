@@ -25,3 +25,16 @@ form(ng-submit="vm.save()")
 
     li
       button(type="button" ng-click="vm.createProject()") Create Project
+
+modal(show="vm.successModal")
+  .success
+    h2 Awesome!
+
+    p Your {{ vm.work.name }} is set up now
+
+    p Share your email to signup and we'll be sure to send a project link.
+
+    form
+      input(type="email" required=true)
+
+      button(type="submit") Submit
