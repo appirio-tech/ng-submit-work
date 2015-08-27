@@ -5,14 +5,49 @@ form(ng-submit="vm.save()")
 
   hr
 
+  h4 Devices
+
+  ul
+    li
+      checkbox(label="iPhone 5c")
+
+    li
+      checkbox(label="iPhone 5s")
+
+  h4 Orientation
+
+  ul
+    li
+      checkbox(label="Landscape")
+
+    li
+      checkbox(label="Portrait")
+
+  h4 OS
+
+  ul
+    li
+      checkbox(label="iOS 7")
+
+    li
+      checkbox(label="iOS 8")
+
   h3 Are you looking for design and development?
 
   ul
     li
-      button(type="button" ng-click="vm.toggleType('Design')" ng-class="{success: vm.work.requestType == 'Design' || vm.work.requestType == 'Both'}") Design
+      button(
+        type="button"
+        ng-click="vm.toggleType('Design')"
+        ng-class="{success: vm.work.requestType == 'Design' || vm.work.requestType == 'Both'}"
+      ) Design
 
     li
-      button(type="button" ng-click="vm.toggleType('Code')" ng-class="{success: vm.work.requestType == 'Code' || vm.work.requestType == 'Both'}") Development
+      button(
+        type="button"
+        ng-click="vm.toggleType('Code')"
+        ng-class="{success: vm.work.requestType == 'Code' || vm.work.requestType == 'Both'}"
+      ) Development
 
   hr
 
