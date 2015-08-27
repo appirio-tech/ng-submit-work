@@ -1,0 +1,42 @@
+form
+  p Select a category to help define your project features and user stories.
+
+  select
+    option App Category
+
+    option option 1
+
+    option option 2
+
+    option option 3
+
+  h5.define-a-feature + Define a feature
+
+  ul
+    li
+      checkbox(label="Onboarding")
+
+      button.clean example
+
+    li
+      checkbox(label="Login")
+
+      button.clean example
+
+    li
+      checkbox(label="Registration")
+
+      button.clean example
+
+    li
+      checkbox(label="Dates & Locations")
+
+      button.clean example
+
+modal(show="vm.showDefineAFeatureModal")
+  form
+    input(type="text" placeholder="Feature name...")
+
+    button(type="submit") Add Feature
+
+    button(type="button") Cancel
