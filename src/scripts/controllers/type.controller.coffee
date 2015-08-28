@@ -25,24 +25,24 @@ TypeController = ($scope, SubmitWorkAPIService) ->
       else
         vm.work.requestType = 'Design'
 
- vm.save = (onSuccess) ->
-  if vm.workId
-    params =
-      id: vm.workId
+  vm.save = (onSuccess) ->
+    if vm.workId
+      params =
+        id: vm.workId
 
-    resource = SubmitWorkAPIService.put params, vm.work
+      resource = SubmitWorkAPIService.put params, vm.work
 
-    resource.$promise.then (response) ->
-      onSuccess? response
+      resource.$promise.then (response) ->
+        onSuccess? response
 
-    resource.$promise.catch (response) ->
-  else
-    resource = SubmitWorkAPIService.post vm.work
+      resource.$promise.catch (response) ->
+    else
+      resource = SubmitWorkAPIService.post vm.work
 
-    resource.$promise.then (response) ->
-      onSuccess? response
+      resource.$promise.then (response) ->
+        onSuccess? response
 
-    resource.$promise.catch (response) ->
+      resource.$promise.catch (response) ->
 
   vm.createProject = ->
     if vm.work.name && vm.work.requestType && vm.work.summary
