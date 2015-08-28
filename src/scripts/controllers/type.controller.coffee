@@ -79,6 +79,8 @@ TypeController = ($scope, SubmitWorkAPIService) ->
 
        resource.$promise.finally ->
          vm.loading = false
+    else
+      vm.loading = false
 
     vm
 
