@@ -48,6 +48,19 @@ TypeController = ($scope, SubmitWorkAPIService) ->
       vm.save (response) ->
         vm.showSuccessModal = true
 
+  mockify = (work)->
+    work.devices =
+      iPhone5c: false
+      iPhone5s: false
+
+    work.orientation =
+      landscape: false
+      portrait: false
+
+    work.os =
+      iOS7: false
+      iOS8: false
+
   activate = ->
 
     if vm.workId
@@ -58,6 +71,8 @@ TypeController = ($scope, SubmitWorkAPIService) ->
 
       resource.$promise.then (response) ->
         vm.work = response
+        #TODO: remove once all properties are in payload
+        mockify vm.work
 
        resource.$promise.catch (response) ->
          # TODO: add error handling
