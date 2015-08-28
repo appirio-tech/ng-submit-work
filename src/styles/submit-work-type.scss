@@ -5,6 +5,12 @@ submit-work-type {
   position  : relative;
   text-align: center;
 
+  h3 {
+    strong {
+      font-weight: 600;
+    }
+  }
+
   ul.type {
     @include flex-center(center);
 
