@@ -25,13 +25,30 @@ TypeController = ($scope, SubmitWorkAPIService) ->
       else
         vm.work.requestType = 'Design'
 
+ vm.save = (onSuccess) ->
+  if vm.workId
+    params =
+      id: vm.workId
+
+    resource = SubmitWorkAPIService.put params, vm.work
+
+    resource.$promise.then (response) ->
+      onSuccess? response
+
+    resource.$promise.catch (response) ->
+  else
+    resource = SubmitWorkAPIService.post vm.work
+
+    resource.$promise.then (response) ->
+      onSuccess? response
+
+    resource.$promise.catch (response) ->
+
   vm.createProject = ->
     if vm.work.name && vm.work.requestType && vm.work.summary
       vm.work.status = 'Submitted'
 
-      resource = SubmitWorkAPIService.post vm.work
-
-      resource.$promise.then (response) ->
+      vm.save (response) ->
         vm.showSuccessModal = true
 
         onSuccess? response
@@ -50,6 +67,7 @@ TypeController = ($scope, SubmitWorkAPIService) ->
     work.os =
       iOS7: false
       iOS8: false
+
 
   activate = ->
     if vm.workId
