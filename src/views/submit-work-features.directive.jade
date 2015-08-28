@@ -1,16 +1,7 @@
 form
   p Select a category to help define your project features and user stories.
 
-  select
-    option App Category
-
-    option option 1
-
-    option option 2
-
-    option option 3
-
-  button.clean(ng-click="vm.showCustomFeatureModal()") + Define a feature
+  button(ng-click="vm.showCustomFeatureModal()") + Define a feature
 
   ul
     li(ng-repeat="feature in vm.defaultFeatures track by $index")
@@ -18,11 +9,13 @@ form
 
       button.clean example
 
-  button.clean(ng-click="vm.submitFeatures()") Submit Features
+  button(ng-click="vm.submitFeatures()") Submit Features
 
 modal(show="vm.showDefineAFeatureModal")
   form(ng-submit="vm.addCustomFeature()")
     input(type="text" placeholder="Feature name..." ng-model="vm.customFeature.name")
+
+    input(type="text" placeholder="Feature description..." ng-model="vm.customFeature.description")
 
     button(type="submit") Add Feature
 

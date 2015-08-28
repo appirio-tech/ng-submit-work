@@ -1,6 +1,6 @@
 'use strict'
 
-SubmitWorkFeaturesController = ($scope) ->
+SubmitWorkFeaturesController = ($scope, SubmitWorkAPIService) ->
   vm      = this
   vm.loading          = true
   vm.showDefineAFeatureModal = false
@@ -46,7 +46,6 @@ SubmitWorkFeaturesController = ($scope) ->
     vm.hideCustomFeatureModal()
 
   vm.save = (onSuccess) ->
-    console.log('saving', vm.workId)
     if vm.workId
       params =
         id: vm.workId
@@ -63,23 +62,22 @@ SubmitWorkFeaturesController = ($scope) ->
         vm.work.features.push(
           name: feature.name
           description: feature.description
+          custom: null
         )
     if vm.work.features.length
       # TODO: Replace with proper back-end status
       vm.work.status = 'FeaturesAdded'
       vm.save (response) ->
-        console.log('submitted features')
         # TODO: navigate to "proceed to visuals" view
 
   resetCustomFeature = ->
     vm.customFeature =
       name: null
       description: null
-
-  mockify = (work) ->
+      custom: true
 
   activate = ->
-    # initialize custom feature inputs
+    # initialize custom feature modal inputs
     resetCustomFeature()
 
     if vm.workId
@@ -103,6 +101,6 @@ SubmitWorkFeaturesController = ($scope) ->
 
   activate()
 
-SubmitWorkFeaturesController.$inject = ['$scope']
+SubmitWorkFeaturesController.$inject = ['$scope', 'SubmitWorkAPIService']
 
 angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkFeaturesController', SubmitWorkFeaturesController
