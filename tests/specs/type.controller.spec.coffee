@@ -1,7 +1,7 @@
 'use strict'
 
 controller = null
-createSpy  = null
+saveSpy  = null
 
 describe 'TypeController', ->
   beforeEach ->
@@ -21,10 +21,10 @@ describe 'TypeController', ->
 
     controller = $controller 'TypeController', $scope: scope
     scope.vm   = controller
-    createSpy  = sinon.spy controller, 'createProject'
+    saveSpy    = sinon.spy controller, 'save'
 
   afterEach ->
-    createSpy.restore()
+    saveSpy.restore()
 
   describe 'Type Controller', ->
     it 'should be created successfully', ->
@@ -44,6 +44,9 @@ describe 'TypeController', ->
     it 'should have a toggleType method', ->
       expect(controller.toggleType).to.exist
 
+    it 'should have a save method', ->
+      expect(controller.save).to.exist
+
     it 'should have a createProject method', ->
      expect(controller.createProject).to.exist
 
@@ -51,12 +54,23 @@ describe 'TypeController', ->
       controller.toggleType('Design')
       expect(controller.work.requestType).to.equal('Design')
 
+    it 'should call API service with put to save project', ->
+      controller.workId = '123'
+      controller.save()
+      expect(SubmitWorkAPIService.put.called).to.be.ok
+
+    it 'should call API service with post to create new project', ->
+      controller.save()
+      expect(SubmitWorkAPIService.post.called).to.be.ok
+
     it 'should create a project when all fields are completed', ->
       controller.work.name        = 'abc'
       controller.work.requestType = 'Design'
       controller.work.summary     = 'abc'
+
       controller.createProject()
-      expect(createSpy.called).to.be.ok
+
+      expect(saveSpy.called).to.be.ok
 
     it 'should initialize work', ->
       expect(controller.work).to.be.defined
