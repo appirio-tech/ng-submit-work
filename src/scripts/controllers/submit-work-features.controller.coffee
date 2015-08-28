@@ -2,17 +2,51 @@
 
 SubmitWorkFeaturesController = ($scope) ->
   vm      = this
+  vm.loading          = true
+  vm.showDefineAFeatureModal = false
+  vm.workId           = $scope.workId
+
   vm.work =
     name       : null
     requestType: null
     summary    : null
     features   : []
 
-  vm.loading          = true
-  vm.showSuccessModal = false
-  vm.workId           = $scope.workId
+#TODO: replace palceholder features & descriptions
+  vm.defaultFeatures = [
+    {
+      name: 'Login',
+      description: 'Users can login / register for your app',
+      checked: false
+    }, {
+      name: 'Onboarding',
+      description: 'Users can see data from social networks (FB, Twitter etc.) in your app',
+      checked: false
+    }, {
+      name: 'Registration',
+      description: 'Users can create profiles with personal info',
+      checked: false
+    }, {
+      name: 'Dates & Location',
+      description: 'A map with a user\'s GPS location that helps them get to places',
+      checked: false
+    }
+  ];
+
+  vm.showCustomFeatureModal = ->
+    vm.showDefineAFeatureModal = true
+
+  vm.hideCustomFeatureModal = ->
+    resetCustomFeature()
+    vm.showDefineAFeatureModal = false
+
+  vm.addCustomFeature = ->
+    vm.work.features.push vm.customFeature
+    resetCustomFeature()
+    vm.hideCustomFeatureModal()
 
   vm.save = (onSuccess) ->
+    console.log('saving', vm.workId)
     if vm.workId
       params =
         id: vm.workId
@@ -23,21 +57,30 @@ SubmitWorkFeaturesController = ($scope) ->
       resource.$promise.catch (response) ->
         # TODO: add error handling
 
-     else
-      resource = SubmitWorkAPIService.post vm.work
-      resource.$promise.then (response) ->
-        onSuccess? response
-      resource.$promise.catch (response) ->
-
-  vm.createProject = ->
-    if vm.work.name && vm.work.requestType && vm.work.summary
-      vm.work.status = 'Submitted'
+  vm.submitFeatures = ->
+    vm.defaultFeatures.forEach (feature) ->
+      if feature.checked
+        vm.work.features.push(
+          name: feature.name
+          description: feature.description
+        )
+    if vm.work.features.length
+      # TODO: Replace with proper back-end status
+      vm.work.status = 'FeaturesAdded'
       vm.save (response) ->
-        vm.showSuccessModal = true
+        console.log('submitted features')
+        # TODO: navigate to "proceed to visuals" view
+
+  resetCustomFeature = ->
+    vm.customFeature =
+      name: null
+      description: null
 
   mockify = (work) ->
 
   activate = ->
+    # initialize custom feature inputs
+    resetCustomFeature()
 
     if vm.workId
       params =
@@ -53,6 +96,8 @@ SubmitWorkFeaturesController = ($scope) ->
 
        resource.$promise.finally ->
          vm.loading = false
+    else
+      vm.loading = false
 
     vm
 

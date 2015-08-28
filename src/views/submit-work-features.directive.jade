@@ -10,33 +10,20 @@ form
 
     option option 3
 
-  h5.define-a-feature + Define a feature
+  button.clean(ng-click="vm.showCustomFeatureModal()") + Define a feature
 
   ul
-    li
-      checkbox(label="Onboarding")
+    li(ng-repeat="feature in vm.defaultFeatures track by $index")
+      checkbox(label="{{feature.name}}" ng-model="feature.checked")
 
       button.clean example
 
-    li
-      checkbox(label="Login")
-
-      button.clean example
-
-    li
-      checkbox(label="Registration")
-
-      button.clean example
-
-    li
-      checkbox(label="Dates & Locations")
-
-      button.clean example
+  button.clean(ng-click="vm.submitFeatures()") Submit Features
 
 modal(show="vm.showDefineAFeatureModal")
-  form
-    input(type="text" placeholder="Feature name...")
+  form(ng-submit="vm.addCustomFeature()")
+    input(type="text" placeholder="Feature name..." ng-model="vm.customFeature.name")
 
     button(type="submit") Add Feature
 
-    button(type="button") Cancel
+    button(type="button" ng-click="vm.hideCustomFeatureModal()") Cancel
