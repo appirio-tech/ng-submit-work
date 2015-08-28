@@ -1,8 +1,19 @@
 @import "work-includes";
 
 submit-work-type {
-  display: block;
-  position: relative;
+  display   : block;
+  position  : relative;
+  text-align: center;
+
+  ul.type {
+    @include flex-center(center);
+
+    img {
+      display: inline-block;
+      width  : 250px;
+      height : 125px;
+    }
+  }
 
   modal .success {
     background-color: #fff;

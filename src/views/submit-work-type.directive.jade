@@ -34,16 +34,28 @@ form(ng-submit="vm.save()")
 
   h3 Are you looking for design and development?
 
-  ul
+  ul.type
     li
-      button(
+      h4 Design
+
+      p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+      img(src="http://www.collegequest.com/wp-content/uploads/what-do-graphic-designers-do.jpg")
+
+      selected-button(
         type="button"
         ng-click="vm.toggleType('Design')"
         ng-class="{success: vm.work.requestType == 'Design' || vm.work.requestType == 'Both'}"
       ) Design
 
     li
-      button(
+      h4 Development
+
+      p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+      img(src="http://pbwebdev.com/blog/wp-content/uploads/2014/06/developer.jpg")
+
+      selected-button(
         type="button"
         ng-click="vm.toggleType('Code')"
         ng-class="{success: vm.work.requestType == 'Code' || vm.work.requestType == 'Both'}"
