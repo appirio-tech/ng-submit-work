@@ -1,6 +1,9 @@
 @import "work-includes";
 
 submit-work-type {
+  display: block;
+  position: relative;
+
   modal .success {
     background-color: #fff;
     width: 400px;

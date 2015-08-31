@@ -1,6 +1,8 @@
-form
-  p Select a category to help define your project features and user stories.
+h1 Congratulations!
 
+p Your <strong>{{vm.work.name}}</strong> project is now set up.
+
+form
   button(ng-click="vm.showCustomFeatureModal()") + Define a feature
 
   ul
@@ -9,13 +11,30 @@ form
 
       button.clean example
 
-  button(ng-click="vm.submitFeatures()") Submit Features
+  hr
+
+  ul.additional
+    li.files
+      h2 Additional Files
+
+      section
+        button.clean
+          .icon.download.biggest
+
+        p Upload any additional documents that might be useful. E.g. - interaction designs, wireframes, product description, etc.
+
+    li.details
+      h2 Anything else you want to share?
+
+      textarea(placeholder="Tell us specific details that you want to share regarding features and functionalities." ng-model="vm.work.featuresDetails")
+
+  button.wide.save-features(type="button" ng-click="vm.submitFeatures()") Save
 
 modal(show="vm.showDefineAFeatureModal")
-  form(ng-submit="vm.addCustomFeature()")
+  form.define-feature(ng-submit="vm.addCustomFeature()")
     input(type="text" placeholder="Feature name..." ng-model="vm.customFeature.name")
 
-    input(type="text" placeholder="Feature description..." ng-model="vm.customFeature.description")
+    textarea(placeholder="Feature description..." ng-model="vm.customFeature.description")
 
     button(type="submit") Add Feature
 
