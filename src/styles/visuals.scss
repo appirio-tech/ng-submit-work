@@ -1,0 +1,30 @@
+@import "work-includes";
+
+submit-work-visuals {
+  display: block;
+  text-align: center;
+
+  > form > ul {
+    @include flex-center(flex-start, $padding-big);
+
+    background-color: $neutral-color-lightest;
+    padding         : $padding-big 0 0 $padding-big;
+    margin-top      : $margin-big;
+
+    > * {
+      @include flex-grow(1);
+    }
+
+    .img {
+      display         : inline-block;
+      width           : 160px;
+      height          : 160px;
+      background-color: pink;
+      margin-top      : $margin;
+    }
+
+    selected-button {
+      margin-top: $margin;
+    }
+  }
+}
