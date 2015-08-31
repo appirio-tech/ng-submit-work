@@ -1,25 +1,30 @@
 'use strict'
+
+controller = null
+saveSpy  = null
+
 describe 'TypeController', ->
-
-  controller = null
-  saveSpy = null
-
   beforeEach ->
     bard.inject this, '$rootScope', '$q', '$controller', 'SubmitWorkAPIService'
     scope = $rootScope.$new()
 
-    bard.mockService SubmitWorkAPIService,
-      _default:
-        $promise:
-          $q.when
-            name       : null
-            requestType: null
-            summary    : null
-            features   : []
+    work =
+      name       : null
+      requestType: null
+      summary    : null
+      features   : []
 
-    controller = $controller('TypeController', $scope: scope)
-    scope.vm = controller
-    saveSpy = sinon.spy controller, 'save'
+    promise  = $q.when work
+    _default = $promise: promise
+
+    bard.mockService SubmitWorkAPIService, _default: _default
+
+    controller = $controller 'TypeController', $scope: scope
+    scope.vm   = controller
+    saveSpy    = sinon.spy controller, 'save'
+
+  afterEach ->
+    saveSpy.restore()
 
   describe 'Type Controller', ->
     it 'should be created successfully', ->
@@ -40,30 +45,26 @@ describe 'TypeController', ->
       expect(controller.toggleType).to.exist
 
     it 'should have a save method', ->
-     expect(controller.save).to.exist
-
-    it 'should have a createProject method', ->
-     expect(controller.createProject).to.exist
+      expect(controller.save).to.exist
 
     it 'should set requestType of project', ->
       controller.toggleType('Design')
       expect(controller.work.requestType).to.equal('Design')
 
     it 'should call API service with put to save project', ->
-      controller.workId = '123'
+      controller.workId           = '123'
+      controller.work.name        = 'abc'
+      controller.work.requestType = 'Design'
+      controller.work.summary     = 'abc'
       controller.save()
       expect(SubmitWorkAPIService.put.called).to.be.ok
 
     it 'should call API service with post to create new project', ->
+      controller.work.name        = 'abc'
+      controller.work.requestType = 'Design'
+      controller.work.summary     = 'abc'
       controller.save()
       expect(SubmitWorkAPIService.post.called).to.be.ok
-
-    it 'should create a project when all fields are completed', ->
-      controller.work.name = 'abc'
-      controller.work.requestType = 'Design'
-      controller.work.summary = 'abc'
-      controller.createProject()
-      expect(saveSpy.called).to.be.ok
 
     it 'should initialize work', ->
       expect(controller.work).to.be.defined
