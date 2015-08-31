@@ -1,15 +1,9 @@
+h1 Congratulations!
+
+p Your <strong>HR App</strong> project is now set up.
+
+
 form
-  p Select a category to help define your project features and user stories.
-
-  select
-    option App Category
-
-    option option 1
-
-    option option 2
-
-    option option 3
-
   h5.define-a-feature + Define a feature
 
   ul
@@ -33,10 +27,28 @@ form
 
       button.clean example
 
+  hr
+
+  ul.additional
+    li.files
+      h2 Additional Files
+
+      section
+        .icon.download.biggest
+
+        p Upload any additional documents that might be useful. E.g. - interaction designs, wireframes, product description, etc.
+
+    li.details
+      h2 Anything else you want to share?
+
+      textarea(placeholder="Tell us specific details that you want to share regarding features and functionalities.")
+
+  button.wide.save-features(type="submit") Save
+
 modal(show="vm.showDefineAFeatureModal")
-  form
+  form.define-feature
     input(type="text" placeholder="Feature name...")
 
-    button(type="submit") Add Feature
+    textarea(placeholder="Feature description...")
 
-    button(type="button") Cancel
+    button(type="submit") Add Feature
