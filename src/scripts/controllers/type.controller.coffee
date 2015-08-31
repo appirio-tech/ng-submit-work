@@ -25,28 +25,35 @@ TypeController = ($scope, SubmitWorkAPIService) ->
       else
         vm.work.requestType = 'Design'
 
+  isValid = ->
+    vm.work.name && vm.work.requestType && vm.work.summary
+
   vm.save = (onSuccess) ->
-    if vm.workId
-      params =
-        id: vm.workId
+    if isValid()
+      if vm.workId
+        params =
+          id: vm.workId
 
-      resource = SubmitWorkAPIService.put params, vm.work
-      resource.$promise.then (response) ->
+        resource = SubmitWorkAPIService.put params, vm.work
+
+        resource.$promise.then (response) ->
+          onSuccess? response
+
+        resource.$promise.catch (response) ->
+      else
+        vm.work.status = 'Submitted'
+        resource       = SubmitWorkAPIService.post vm.work
+
+        resource.$promise.then (response) ->
+          vm.showSuccessModal = true
+
+          onSuccess? response
+
+        resource.$promise.catch (response) ->
+
         onSuccess? response
-      resource.$promise.catch (response) ->
-        # TODO: add error handling
 
-     else
-      resource = SubmitWorkAPIService.post vm.work
-      resource.$promise.then (response) ->
-        onSuccess? response
       resource.$promise.catch (response) ->
-
-  vm.createProject = ->
-    if vm.work.name && vm.work.requestType && vm.work.summary
-      vm.work.status = 'Submitted'
-      vm.save (response) ->
-        vm.showSuccessModal = true
 
   mockify = (work) ->
     work.devices =
@@ -61,11 +68,11 @@ TypeController = ($scope, SubmitWorkAPIService) ->
       iOS7: false
       iOS8: false
 
-  activate = ->
 
+  activate = ->
     if vm.workId
       params =
-        id      : vm.workId
+        id: vm.workId
 
       resource = SubmitWorkAPIService.get params
 
