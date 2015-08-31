@@ -22,7 +22,8 @@ submit-work-type {
   }
 
   ul.target-platform {
-    @include flex-center();
+    @include flex-center(flex-start, $margin-small);
+    @include align-items(stretch);
     @include flex-wrap(nowrap);
 
     text-align: left;
@@ -34,7 +35,6 @@ submit-work-type {
         @include flex-center();
 
         border           : 1px solid $neutral-color;
-        border-left-width: 0;
         margin-top       : $margin-smallest;
 
         li {
@@ -44,10 +44,6 @@ submit-work-type {
 
       &.devices {
         @include flex-grow(2);
-
-        > ul {
-          border-left-width: 1px;
-        }
       }
     }
   }
