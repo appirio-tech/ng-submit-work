@@ -20,18 +20,18 @@ submit-work-features {
       }
 
       p {
-        margin-top: $spacing-big;
+        margin-top: $margin-big;
       }
     }
   }
 
   .define-feature {
     button {
-      margin-top: $spacing-small;
+      margin-top: $margin-small;
     }
   }
 
   button.save-features {
-    margin-top: $spacing;
+    margin-top: $margin;
   }
 }

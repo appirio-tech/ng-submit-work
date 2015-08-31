@@ -21,6 +21,37 @@ submit-work-type {
     }
   }
 
+  ul.target-platform {
+    @include flex-center();
+    @include flex-wrap(nowrap);
+
+    text-align: left;
+
+    > li {
+      @include flex-grow(1);
+
+      > ul {
+        @include flex-center();
+
+        border           : 1px solid $neutral-color;
+        border-left-width: 0;
+        margin-top       : $margin-smallest;
+
+        li {
+          padding: $padding-small;
+        }
+      }
+
+      &.devices {
+        @include flex-grow(2);
+
+        > ul {
+          border-left-width: 1px;
+        }
+      }
+    }
+  }
+
   modal .success {
     background-color: #fff;
     width: 400px;

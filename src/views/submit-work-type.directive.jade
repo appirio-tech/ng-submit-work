@@ -5,32 +5,35 @@ form(ng-submit="vm.save()")
 
   hr
 
-  h4 Devices
+  ul.target-platform
+    li.devices
+      h4 Devices
 
-  ul
-    li
-      checkbox(label="iPhone 5c" ng-model="vm.work.devices.iPhone5c")
+      ul
+        li
+          checkbox(label="iPhone 5c" ng-model="vm.work.devices.iPhone5c")
 
-    li
-      checkbox(label="iPhone 5s" ng-model="vm.work.devices.iPhone5s")
-
-  h4 Orientation
-
-  ul
-    li
-      checkbox(label="Landscape" ng-model="vm.work.orientation.landscape")
+        li
+          checkbox(label="iPhone 5s" ng-model="vm.work.devices.iPhone5s")
 
     li
-      checkbox(label="Portrait" ng-model="vm.work.orientation.portrait")
+      h4 Orientation
 
-  h4 OS
+      ul
+        li
+          checkbox(label="Landscape" ng-model="vm.work.orientation.landscape")
 
-  ul
+        li
+          checkbox(label="Portrait" ng-model="vm.work.orientation.portrait")
     li
-      checkbox(label="iOS 7" ng-model="vm.work.os.iOS7")
+      h4 OS
 
-    li
-      checkbox(label="iOS 8" ng-model="vm.work.os.iOS8")
+      ul
+        li
+          checkbox(label="iOS 7" ng-model="vm.work.os.iOS7")
+
+        li
+          checkbox(label="iOS 8" ng-model="vm.work.os.iOS8")
 
   h3 What <strong>type of work</strong> are you looking for?
 
