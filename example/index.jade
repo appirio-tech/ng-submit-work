@@ -27,8 +27,15 @@ html(ng-app='example')
 
     include css-files
 
+    script(src="//use.typekit.net/jjo6pal.js")
+
+    script.
+      try{Typekit.load({ async: true });}catch(e){}
+
   body
     layout-header(role="banner")
+
+    include nav
 
     layout-main
 

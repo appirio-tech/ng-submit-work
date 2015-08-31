@@ -1,0 +1,53 @@
+h1 Congratulations!
+
+p Your <strong>HR App</strong> project is now set up.
+
+form
+  h5.define-a-feature + Define a feature
+
+  ul
+    li
+      checkbox(label="Onboarding")
+
+      button.clean example
+
+    li
+      checkbox(label="Login")
+
+      button.clean example
+
+    li
+      checkbox(label="Registration")
+
+      button.clean example
+
+    li
+      checkbox(label="Dates & Locations")
+
+      button.clean example
+
+  hr
+
+  ul.additional
+    li.files
+      h2 Additional Files
+
+      section
+        .icon.download.biggest
+
+        p Upload any additional documents that might be useful. E.g. - interaction designs, wireframes, product description, etc.
+
+    li.details
+      h2 Anything else you want to share?
+
+      textarea(placeholder="Tell us specific details that you want to share regarding features and functionalities.")
+
+  button.wide.save-features(type="submit") Save
+
+modal(show="vm.showDefineAFeatureModal")
+  form.define-feature
+    input(type="text" placeholder="Feature name...")
+
+    textarea(placeholder="Feature description...")
+
+    button(type="submit") Add Feature

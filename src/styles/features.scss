@@ -1,0 +1,37 @@
+@import "work-includes";
+
+submit-work-features {
+  display: block;
+  text-align: center;
+
+  .additional {
+    li {
+      width: 50%;
+      float: left;
+    }
+
+    section {
+      background-color: $white;
+    }
+
+    .files {
+      .icon {
+        display: inline-block;
+      }
+
+      p {
+        margin-top: $spacing-big;
+      }
+    }
+  }
+
+  .define-feature {
+    button {
+      margin-top: $spacing-small;
+    }
+  }
+
+  button.save-features {
+    margin-top: $spacing;
+  }
+}
