@@ -11,7 +11,7 @@ SubmitWorkFeaturesController = ($scope, SubmitWorkAPIService) ->
     requestType: null
     summary    : null
     features   : []
-    featuresDetails: ''
+    featuresDetails: null
 
 #TODO: replace palceholder features & descriptions
   vm.defaultFeatures = [
@@ -90,7 +90,7 @@ SubmitWorkFeaturesController = ($scope, SubmitWorkAPIService) ->
       resource.$promise.then (response) ->
         vm.work = response
         # TODO: remove once details are added to payload
-        vm.work.featuresDetails = ''
+        vm.work.featuresDetails = null
 
        resource.$promise.catch (response) ->
          # TODO: add error handling
