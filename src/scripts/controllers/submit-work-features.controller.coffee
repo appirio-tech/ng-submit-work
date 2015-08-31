@@ -60,11 +60,11 @@ SubmitWorkFeaturesController = ($scope, SubmitWorkAPIService) ->
   vm.submitFeatures = ->
     vm.defaultFeatures.forEach (feature) ->
       if feature.checked
-        vm.work.features.push(
+        vm.work.features.push
           name: feature.name
           description: feature.description
           custom: null
-        )
+
     if vm.work.features.length
       # TODO: Replace with proper back-end status
       vm.work.status = 'FeaturesAdded'
