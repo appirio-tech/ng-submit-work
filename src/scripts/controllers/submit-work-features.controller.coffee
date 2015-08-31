@@ -15,23 +15,21 @@ SubmitWorkFeaturesController = ($scope, SubmitWorkAPIService) ->
 
 #TODO: replace palceholder features & descriptions
   vm.defaultFeatures = [
-    {
       name: 'Login',
       description: 'Users can login / register for your app',
       checked: false
-    }, {
+    ,
       name: 'Onboarding',
       description: 'Users can see data from social networks (FB, Twitter etc.) in your app',
       checked: false
-    }, {
+    ,
       name: 'Registration',
       description: 'Users can create profiles with personal info',
       checked: false
-    }, {
+    ,
       name: 'Dates & Location',
       description: 'A map with a user\'s GPS location that helps them get to places',
       checked: false
-    }
   ];
 
   vm.showCustomFeatureModal = ->
