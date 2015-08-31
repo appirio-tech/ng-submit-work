@@ -11,13 +11,26 @@ submit-work-type {
     }
   }
 
+  button.create, button.save, textarea.brief {
+    margin-top: $margin-big;
+  }
+
   ul.type {
-    @include flex-center(center);
+    @include flex-center(center, $padding-biggest);
+
+    margin-top      : $margin;
+    padding         : $padding-biggest 0 0 $padding-biggest;
+    background-color: $neutral-color-lightest;
 
     img {
-      display: inline-block;
-      width  : 250px;
-      height : 125px;
+      display   : inline-block;
+      width     : 250px;
+      height    : 125px;
+      margin-top: $margin-big;
+    }
+
+    button {
+      margin-top: $margin-big;
     }
   }
 
