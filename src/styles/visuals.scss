@@ -1,5 +1,7 @@
 @import "work-includes";
 
+$card-max-width: 180px;
+
 submit-work-visuals {
   display: block;
   text-align: center;
@@ -9,16 +11,25 @@ submit-work-visuals {
 
     background-color: $neutral-color-lightest;
     padding         : $padding-big 0 0 $padding-big;
-    margin-top      : $margin-big;
+    margin-top      : $margin;
 
-    > * {
+    > li {
       @include flex-grow(1);
+
+      > h3, > p {
+        max-width: $card-max-width;
+        margin: 0 auto;
+      }
+
+      button {
+        width: $card-max-width;
+      }
     }
 
     .img {
       display         : inline-block;
-      width           : 160px;
-      height          : 160px;
+      width           : $card-max-width;
+      height          : $card-max-width;
       background-color: pink;
       margin-top      : $margin;
     }
@@ -26,5 +37,24 @@ submit-work-visuals {
     selected-button {
       margin-top: $margin;
     }
+  }
+
+  .upload-documents {
+    margin-top      : $margin;
+    background-color: $neutral-color-lightest;
+    padding         : $padding-big;
+
+    button {
+      margin-top: $margin;
+    }
+
+    p {
+      width: 50%;
+      margin: $margin-big auto 0 auto;
+    }
+  }
+
+  .save {
+    margin-top: $margin-big;
   }
 }
