@@ -1,0 +1,69 @@
+@import "work-includes";
+
+submit-work-type {
+  display   : block;
+  position  : relative;
+  text-align: center;
+
+  h3 {
+    strong {
+      font-weight: 600;
+    }
+  }
+
+  button.create, button.save, textarea.brief {
+    margin-top: $margin-big;
+  }
+
+  ul.type {
+    @include flex-center(center, $padding-biggest);
+
+    margin-top      : $margin;
+    padding         : $padding-biggest 0 0 $padding-biggest;
+    background-color: $neutral-color-lightest;
+
+    img {
+      display   : inline-block;
+      width     : 250px;
+      height    : 125px;
+      margin-top: $margin-big;
+    }
+
+    button {
+      margin-top: $margin-big;
+    }
+  }
+
+  ul.target-platform {
+    @include flex-center(flex-start, $margin-small);
+    @include align-items(stretch);
+    @include flex-wrap(nowrap);
+
+    text-align: left;
+
+    > li {
+      @include flex-grow(1);
+
+      > ul {
+        @include flex-center();
+
+        border     : 1px solid $neutral-color;
+        margin-top : $margin-smallest;
+
+        li {
+          padding: $padding-small;
+        }
+      }
+
+      &.devices {
+        @include flex-grow(2);
+      }
+    }
+  }
+
+  modal .success {
+    background-color: #fff;
+    width: 400px;
+    height: 300px;
+  }
+}
