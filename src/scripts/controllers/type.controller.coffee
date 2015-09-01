@@ -1,6 +1,6 @@
 'use strict'
 
-TypeController = ($scope, SubmitWorkAPIService) ->
+SubmitWorkTypeController = ($scope, SubmitWorkAPIService) ->
   vm      = this
   vm.work =
     name       : null
@@ -93,6 +93,6 @@ TypeController = ($scope, SubmitWorkAPIService) ->
 
   activate()
 
-TypeController.$inject = ['$scope', 'SubmitWorkAPIService']
+SubmitWorkTypeController.$inject = ['$scope', 'SubmitWorkAPIService']
 
-angular.module('appirio-tech-ng-submit-work').controller 'TypeController', TypeController
+angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkTypeController', SubmitWorkTypeController
