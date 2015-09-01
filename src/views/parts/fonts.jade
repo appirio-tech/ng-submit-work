@@ -1,0 +1,11 @@
+h1 Tell us your <strong>font preference</strong>
+
+ul
+  li(ng-repeat="font in vm.visualDesign.fonts track by $index")
+    h3 {{font.name}}
+
+    p {{font.description}}
+
+    .img
+
+    selected-button( type="button" ng-model="font.selected")

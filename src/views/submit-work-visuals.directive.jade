@@ -31,70 +31,21 @@ form
 
       selected-button
 
-  h1 Tell us your <strong>font preference</strong>
+  include parts/fonts
 
-  ul
-    li
-      h3 Serif
+  include parts/colors
 
-      p a small line attached to the end of a stroke
+  include parts/icons
 
-      .img
+  h1 Upload <strong>Documents</strong>
 
-      selected-button(
-        type="button"
-        ng-click="vm.selectFont('Serif')"
-        ng-class="{ success: vm.work.visualDesign.font == 'Serif' }"
-      )
+  .upload-documents
+    button.clean(type="button")
+      .icon.download.biggest
 
-    li
-      h3 Sans Serif
+    p You can upload documents that can act as a strong visual brief to the visual designer. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
-      p does not have the small `serifs`
+    button(type="button") Upload
 
-      .img
+  button.save.wide(type="button" ng-click="vm.submitVisuals()") Save
 
-      selected-button(
-        type="button"
-        ng-click="vm.selectFont('Sans Serif')"
-        ng-class="{ success: vm.work.visualDesign.font == 'Sans Serif' }"
-      )
-
-    li
-      h3 Slap Serif
-
-      p does not have the small `serifs`
-
-      .img
-
-      selected-button(
-        type="button"
-        ng-click="vm.selectFont('Slap Serif')"
-        ng-class="{ success: vm.work.visualDesign.font == 'Slap Serif' }"
-      )
-
-    li
-      h3 Script
-
-      p does not have the small `serifs`
-
-      .img
-
-      selected-button(
-        type="button"
-        ng-click="vm.selectFont('Script')"
-        ng-class="{ success: vm.work.visualDesign.font == 'Script' }"
-      )
-
-    li
-      h3 Grunge
-
-      p does not have the small `serifs`
-
-      .img
-
-      selected-button(
-        type="button"
-        ng-click="vm.selectFont('Grunge')"
-        ng-class="{ success: vm.work.visualDesign.font == 'Grunge' }"
-      )
