@@ -5,8 +5,8 @@ SubmitWorkFeaturesController = ($scope, SubmitWorkAPIService, API_URL) ->
   vm.loading          = true
   vm.showDefineAFeatureModal = false
   vm.workId           = $scope.workId
-  vm.featuresUploaderUploading = null;
-  vm.featuresUploaderHasErrors = null;
+  vm.featuresUploaderUploading = null
+  vm.featuresUploaderHasErrors = null
 
   vm.work =
     name       : null

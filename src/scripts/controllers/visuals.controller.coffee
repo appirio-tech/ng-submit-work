@@ -1,9 +1,11 @@
 'use strict'
 
-SubmitWorkVisualController = ($scope, SubmitWorkAPIService) ->
+SubmitWorkVisualController = ($scope, SubmitWorkAPIService, API_URL) ->
   vm      = this
   vm.loading = true
   vm.workId = $scope.workId
+  vm.visualsUploaderUploading = null
+  vm.visualsUploaderHasErrors = null
 
   vm.work =
     name       : null
@@ -123,7 +125,22 @@ SubmitWorkVisualController = ($scope, SubmitWorkAPIService) ->
       colors: []
       icons: []
 
+  configureUploader = ->
+    assetType = 'specs';
+    queryUrl = API_URL + '/v3/work-files/assets?filter=workId%3D' + vm.workId + '%26assetType%3D' + assetType;
+    vm.visualsUploaderConfig =
+      name: 'uploader' + vm.workId
+      allowMultiple: true
+      queryUrl: queryUrl
+      urlPresigner: API_URL + '/v3/work-files/uploadurl'
+      fileEndpoint: API_URL + '/v3/work-files/:fileId'
+      saveParams:
+        workId: vm.workId
+        assetType: assetType
+
   activate = ->
+    configureUploader()
+
     if vm.workId
       params =
         id: vm.workId
@@ -145,6 +162,6 @@ SubmitWorkVisualController = ($scope, SubmitWorkAPIService) ->
 
   activate()
 
-SubmitWorkVisualController.$inject = ['$scope', 'SubmitWorkAPIService']
+SubmitWorkVisualController.$inject = ['$scope', 'SubmitWorkAPIService', 'API_URL']
 
 angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkVisualController', SubmitWorkVisualController
