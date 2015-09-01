@@ -56,14 +56,16 @@ SubmitWorkFeaturesController = ($scope, SubmitWorkAPIService) ->
         # TODO: add error handling
 
   vm.submitFeatures = ->
+    workFeatures = vm.work.features
+
     vm.defaultFeatures.forEach (feature) ->
       if feature.checked
-        vm.work.features.push
+         workFeatures.push
           name: feature.name
           description: feature.description
           custom: null
 
-    if vm.work.features.length
+    if workFeatures.length
       # TODO: Replace with proper back-end status
       vm.work.status = 'FeaturesAdded'
       vm.save (response) ->

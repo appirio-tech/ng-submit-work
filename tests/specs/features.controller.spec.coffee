@@ -53,9 +53,10 @@ describe 'SubmitWorkFeaturesController', ->
 
     it 'should set add custom features to work features', ->
       controller.work.features = []
-      controller.customFeature = {name: 'feature'}
+      controller.customFeature =
+        name: 'feature'
       controller.addCustomFeature()
-      expect(controller.work.features).to.eql([{name: 'feature'}])
+      expect(controller.work.features).to.eql([name: 'feature'])
 
     it 'should call API service with put to save project', ->
       controller.workId = '123'
@@ -65,15 +66,13 @@ describe 'SubmitWorkFeaturesController', ->
     it 'should add default features', ->
       controller.work.features = []
       controller.defaultFeatures = [
-        {
           name: 'Login',
           description: 'Users can login / register for your app',
           checked: true
-        }, {
+        ,
           name: 'Onboarding',
           description: 'Users can see data from social networks (FB, Twitter etc.) in your app',
           checked: false
-        }
       ]
       controller.submitFeatures()
       expect(controller.work.features.length).to.equal(1)
