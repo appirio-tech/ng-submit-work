@@ -1,10 +1,12 @@
 'use strict'
 
-SubmitWorkFeaturesController = ($scope, SubmitWorkAPIService) ->
+SubmitWorkFeaturesController = ($scope, SubmitWorkAPIService, API_URL) ->
   vm      = this
   vm.loading          = true
   vm.showDefineAFeatureModal = false
   vm.workId           = $scope.workId
+  vm.featuresUploaderUploading = null;
+  vm.featuresUploaderHasErrors = null;
 
   vm.work =
     name       : null
@@ -77,9 +79,23 @@ SubmitWorkFeaturesController = ($scope, SubmitWorkAPIService) ->
       description: null
       custom: true
 
+  configureUploader = ->
+    assetType = 'specs';
+    queryUrl = API_URL + '/v3/work-files/assets?filter=workId%3D' + vm.workId + '%26assetType%3D' + assetType;
+    vm.featuresUploaderConfig =
+      name: 'uploader' + vm.workId
+      allowMultiple: true
+      queryUrl: queryUrl
+      urlPresigner: API_URL + '/v3/work-files/uploadurl'
+      fileEndpoint: API_URL + '/v3/work-files/:fileId'
+      saveParams:
+        workId: vm.workId
+        assetType: assetType
+
   activate = ->
     # initialize custom feature modal inputs
     resetCustomFeature()
+    configureUploader()
 
     if vm.workId
       params =
@@ -104,6 +120,6 @@ SubmitWorkFeaturesController = ($scope, SubmitWorkAPIService) ->
 
   activate()
 
-SubmitWorkFeaturesController.$inject = ['$scope', 'SubmitWorkAPIService']
+SubmitWorkFeaturesController.$inject = ['$scope', 'SubmitWorkAPIService', 'API_URL']
 
 angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkFeaturesController', SubmitWorkFeaturesController
