@@ -41,7 +41,11 @@ form
 
       .img
 
-      selected-button
+      selected-button(
+        type="button"
+        ng-click="vm.selectFont('Serif')"
+        ng-class="{ success: vm.work.visualDesign.font == 'Serif' }"
+      )
 
     li
       h3 Sans Serif
@@ -50,31 +54,47 @@ form
 
       .img
 
-      selected-button
+      selected-button(
+        type="button"
+        ng-click="vm.selectFont('Sans Serif')"
+        ng-class="{ success: vm.work.visualDesign.font == 'Sans Serif' }"
+      )
 
     li
-      h3 Sans Serif
+      h3 Slap Serif
 
       p does not have the small `serifs`
 
       .img
 
-      selected-button
+      selected-button(
+        type="button"
+        ng-click="vm.selectFont('Slap Serif')"
+        ng-class="{ success: vm.work.visualDesign.font == 'Slap Serif' }"
+      )
 
     li
-      h3 Sans Serif
+      h3 Script
 
       p does not have the small `serifs`
 
       .img
 
-      selected-button
+      selected-button(
+        type="button"
+        ng-click="vm.selectFont('Script')"
+        ng-class="{ success: vm.work.visualDesign.font == 'Script' }"
+      )
 
     li
-      h3 Sans Serif
+      h3 Grunge
 
       p does not have the small `serifs`
 
       .img
 
-      selected-button
+      selected-button(
+        type="button"
+        ng-click="vm.selectFont('Grunge')"
+        ng-class="{ success: vm.work.visualDesign.font == 'Grunge' }"
+      )
