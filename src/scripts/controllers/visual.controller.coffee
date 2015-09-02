@@ -94,6 +94,8 @@ SubmitWorkVisualController = ($scope, SubmitWorkAPIService, API_URL) ->
     workFonts = vm.work.visualDesign.fonts
     workColors = vm.work.visualDesign.colors
     workIcons = vm.work.visualDesign.icons
+    formsValid = workFonts.length && workColors.length && workIcons.length
+    uploaderValid = !vm.visualsUploaderUploading && ! vm.visualsUploaderHasErrors
 
     vm.visualDesign.fonts.forEach (font) ->
       if font.selected
@@ -113,7 +115,7 @@ SubmitWorkVisualController = ($scope, SubmitWorkAPIService, API_URL) ->
           name: icon.name
           description: icon.description
 
-    if workFonts.length && workColors.length && workIcons.length
+    if formsValid && uploaderValid
       # TODO: replace with proper status
       vm.work.status = 'visualsAdded'
       vm.save (response) ->
@@ -126,8 +128,8 @@ SubmitWorkVisualController = ($scope, SubmitWorkAPIService, API_URL) ->
       icons: []
 
   configureUploader = ->
-    assetType = 'specs';
-    queryUrl = API_URL + '/v3/work-files/assets?filter=workId%3D' + vm.workId + '%26assetType%3D' + assetType;
+    assetType = 'specs'
+    queryUrl = API_URL + '/v3/work-files/assets?filter=workId%3D' + vm.workId + '%26assetType%3D' + assetType
     vm.visualsUploaderConfig =
       name: 'uploader' + vm.workId
       allowMultiple: true
