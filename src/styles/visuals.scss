@@ -48,18 +48,23 @@ submit-work-visuals {
       margin-top: $margin;
     }
 
-<<<<<<< HEAD
-=======
     .icon {
       background-color: green;
       width: 75px;
       height: 75px;
     }
 
->>>>>>> fe0561159c800d695d5b1faacbeda193a7a06a44
     p {
       width: 50%;
       margin: $margin-big auto 0 auto;
+    }
+
+    .uploader {
+      // @include flex-center(center, $padding-big);
+      margin-top: $margin;
+      button {
+        margin: $margin-smallest;
+      }
     }
   }
 

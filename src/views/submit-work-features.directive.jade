@@ -2,8 +2,8 @@ h1 Congratulations!
 
 p Your <strong>{{vm.work.name}}</strong> project is now set up.
 
-form
-  button(ng-click="vm.showCustomFeatureModal()") + Define a feature
+form(ng-submit="vm.submitFeatures()")
+  button(ng-click="vm.showCustomFeatureModal()" type="button") + Define a feature
 
   ul
     li(ng-repeat="feature in vm.defaultFeatures track by $index")
@@ -28,7 +28,7 @@ form
 
       textarea(placeholder="Tell us specific details that you want to share regarding features and functionalities." ng-model="vm.work.featuresDetails")
 
-  button.wide.save-features(type="button" ng-click="vm.submitFeatures()") Save
+  button.wide.save-features(type="submit") Save
 
 modal(show="vm.showDefineAFeatureModal")
   form.define-feature(ng-submit="vm.addCustomFeature()")

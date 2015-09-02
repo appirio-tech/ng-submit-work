@@ -1,4 +1,4 @@
-form
+form(ng-submit="vm.submitVisuals()")
   h2 Tell us more about <strong>Visual Style</strong>
 
   p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -45,7 +45,7 @@ form
 
     p You can upload documents that can act as a strong visual brief to the visual designer. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
-    ap-uploader(config="vm.visualsUploaderConfig" uploading="vm.visualsUploaderUploading" has-errors="vm.visualsUploaderHasErrors")
+    ap-uploader.uploader(config="vm.visualsUploaderConfig" uploading="vm.visualsUploaderUploading" has-errors="vm.visualsUploaderHasErrors")
 
-  button.save.wide(type="button" ng-click="vm.submitVisuals()") Save
+  button.save.wide(type="submit") Save
 
