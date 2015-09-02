@@ -11,6 +11,19 @@ submit-work-features {
   .interactive-section {
     background-color: $neutral-color-lightest;
     padding: $padding-big;
+
+    .uploaderWrapper {
+      .failed {
+        color: $danger-color
+      }
+      margin-top: $margin-small;
+      .uploader {
+        margin: $margin-smallest;
+        button {
+          margin: $margin-smallest;
+        }
+      }
+    }
   }
 
   ul.additional {

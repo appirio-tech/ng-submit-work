@@ -59,11 +59,16 @@ submit-work-visuals {
       margin: $margin-big auto 0 auto;
     }
 
-    .uploader {
-      // @include flex-center(center, $padding-big);
-      margin-top: $margin;
-      button {
+    .uploaderWrapper {
+      margin-top: $margin-small;
+      .failed {
+        color: $danger-color
+      }
+      .uploader {
         margin: $margin-smallest;
+        button {
+          margin: $margin-smallest;
+        }
       }
     }
   }
