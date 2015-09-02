@@ -52,8 +52,8 @@ submit-work-type {
       > ul {
         @include flex-center();
 
-        border           : 1px solid $neutral-color;
-        margin-top       : $margin-smallest;
+        border     : 1px solid $neutral-color;
+        margin-top : $margin-smallest;
 
         li {
           padding: $padding-small;
