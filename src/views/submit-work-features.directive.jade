@@ -19,7 +19,11 @@ form(ng-submit="vm.submitFeatures()")
 
       section
 
-        ap-uploader(config="vm.featuresUploaderConfig" uploading="vm.featuresUploaderUploading" has-errors="vm.featuresUploaderHasErrors")
+        ap-uploader(
+          config="vm.featuresUploaderConfig"
+          uploading="vm.featuresUploaderUploading"
+          has-errors="vm.featuresUploaderHasErrors"
+        )
 
         p Upload any additional documents that might be useful. E.g. - interaction designs, wireframes, product description, etc.
 

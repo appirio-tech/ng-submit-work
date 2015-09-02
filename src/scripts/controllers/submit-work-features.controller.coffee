@@ -60,7 +60,7 @@ SubmitWorkFeaturesController = ($scope, SubmitWorkAPIService, API_URL) ->
   vm.submitFeatures = ->
     workFeatures = vm.work.features
     formsValid = workFeatures.length
-    uploaderValid = !vm.featuresUploaderUploading && ! vm.featuresUploaderHasErrors
+    uploaderValid = !vm.featuresUploaderUploading && !vm.featuresUploaderHasErrors
 
     vm.defaultFeatures.forEach (feature) ->
       if feature.checked

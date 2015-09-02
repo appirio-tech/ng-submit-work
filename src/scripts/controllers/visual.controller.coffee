@@ -95,7 +95,7 @@ SubmitWorkVisualController = ($scope, SubmitWorkAPIService, API_URL) ->
     workColors = vm.work.visualDesign.colors
     workIcons = vm.work.visualDesign.icons
     formsValid = workFonts.length && workColors.length && workIcons.length
-    uploaderValid = !vm.visualsUploaderUploading && ! vm.visualsUploaderHasErrors
+    uploaderValid = !vm.visualsUploaderUploading && !vm.visualsUploaderHasErrors
 
     vm.visualDesign.fonts.forEach (font) ->
       if font.selected
