@@ -55,7 +55,7 @@ TypeController = ($scope, SubmitWorkAPIService) ->
 
       resource.$promise.catch (response) ->
 
-  mockify = (work)->
+  mockify = (work) ->
     work.devices =
       iPhone5c: false
       iPhone5s: false
@@ -86,6 +86,8 @@ TypeController = ($scope, SubmitWorkAPIService) ->
 
        resource.$promise.finally ->
          vm.loading = false
+    else
+      vm.loading = false
 
     vm
 

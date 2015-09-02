@@ -1,28 +1,13 @@
 h1 Congratulations!
 
-p Your <strong>HR App</strong> project is now set up.
+p Your <strong>{{vm.work.name}}</strong> project is now set up.
 
 form
-  h5.define-a-feature + Define a feature
+  button(ng-click="vm.showCustomFeatureModal()") + Define a feature
 
   ul
-    li
-      checkbox(label="Onboarding")
-
-      button.clean example
-
-    li
-      checkbox(label="Login")
-
-      button.clean example
-
-    li
-      checkbox(label="Registration")
-
-      button.clean example
-
-    li
-      checkbox(label="Dates & Locations")
+    li(ng-repeat="feature in vm.defaultFeatures track by $index")
+      checkbox(label="{{feature.name}}" ng-model="feature.checked")
 
       button.clean example
 
@@ -33,21 +18,24 @@ form
       h3 Additional Files
 
       section
-        .icon.download.biggest
+        button.clean
+          .icon.download.biggest
 
         p Upload any additional documents that might be useful. E.g. - interaction designs, wireframes, product description, etc.
 
     li.details
       h3 Anything else you want to share?
 
-      textarea(placeholder="Tell us specific details that you want to share regarding features and functionalities.")
+      textarea(placeholder="Tell us specific details that you want to share regarding features and functionalities." ng-model="vm.work.featuresDetails")
 
-  button.wide.save-features(type="submit") Save
+  button.wide.save-features(type="button" ng-click="vm.submitFeatures()") Save
 
 modal(show="vm.showDefineAFeatureModal")
-  form.define-feature
-    input(type="text" placeholder="Feature name...")
+  form.define-feature(ng-submit="vm.addCustomFeature()")
+    input(type="text" placeholder="Feature name..." ng-model="vm.customFeature.name")
 
-    textarea(placeholder="Feature description...")
+    textarea(placeholder="Feature description..." ng-model="vm.customFeature.description")
 
     button(type="submit") Add Feature
+
+    button(type="button" ng-click="vm.hideCustomFeatureModal()") Cancel
