@@ -4,10 +4,32 @@ submit-work-features {
   display: block;
   text-align: center;
 
-  .additional {
+  h2 {
+    margin: $margin-big;
+  }
+
+  .interactive-section {
+    background-color: $neutral-color-lightest;
+    padding: $padding-big;
+  }
+
+  ul.additional {
+    @include flex-center(space-around, $padding-big);
+    @include align-items(flex-start);
+
+    padding-right: 0;
+    padding-bottom: 0;
+
+    section {
+      padding: $padding;
+    }
+
+    h3 {
+      margin-bottom: $margin;
+    }
+
     li {
-      width: 50%;
-      float: left;
+      max-width: 400px;
     }
 
     section {

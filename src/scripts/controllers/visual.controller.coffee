@@ -117,7 +117,7 @@ SubmitWorkVisualController = ($scope, SubmitWorkAPIService, API_URL) ->
       # TODO: replace with proper status
       vm.work.status = 'visualsAdded'
       vm.save (response) ->
-        # TODO: navigate to "development" view\
+        # TODO: navigate to "development" view
 
   mockify = (work) ->
     work.visualDesign =

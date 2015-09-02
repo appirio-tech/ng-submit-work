@@ -5,22 +5,25 @@ submit-work-type {
   position  : relative;
   text-align: center;
 
-  h3 {
-    strong {
-      font-weight: 600;
-    }
+  h2 {
+    margin: $margin-big;
   }
 
-  button.create, button.save, textarea.brief {
+  .interactive-section {
+    background-color: $neutral-color-lightest;
+    padding: $padding-big;
+  }
+
+  button.create, button.save {
     margin-top: $margin-big;
   }
 
   ul.type {
-    @include flex-center(center, $padding-biggest);
+    @include flex-center(center, $margin-big);
+    @include align-items(flex-start);
 
-    margin-top      : $margin;
-    padding         : $padding-biggest 0 0 $padding-biggest;
-    background-color: $neutral-color-lightest;
+    padding-right: 0;
+    padding-bottom: 0;
 
     img {
       display   : inline-block;
@@ -35,11 +38,13 @@ submit-work-type {
   }
 
   ul.target-platform {
-    @include flex-center(flex-start, $margin-small);
+    @include flex-center(flex-start, $padding-big);
     @include align-items(stretch);
     @include flex-wrap(nowrap);
 
     text-align: left;
+    padding-right: 0;
+    padding-bottom: 0;
 
     > li {
       @include flex-grow(1);

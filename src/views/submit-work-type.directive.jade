@@ -1,11 +1,12 @@
 loader(ng-show="vm.loading")
 
 form(ng-submit="vm.save()")
-  input(type="text" placeholder="Name your project..." required="true" ng-model="vm.work.name")
+  .interactive-section
+    input(type="text" placeholder="Name your project..." required="true" ng-model="vm.work.name")
 
-  hr
+  h2 Target <strong>Platform</strong>
 
-  ul.target-platform
+  ul.target-platform.interactive-section
     li.devices
       h4 Devices
 
@@ -35,9 +36,9 @@ form(ng-submit="vm.save()")
         li
           checkbox(label="iOS 8" ng-model="vm.work.os.iOS8")
 
-  h3 What <strong>type of work</strong> are you looking for?
+  h2 What <strong>type of work</strong> are you looking for?
 
-  ul.type
+  ul.type.interactive-section
     li
       h4 Design
 
@@ -64,11 +65,10 @@ form(ng-submit="vm.save()")
         ng-class="{success: vm.work.requestType == 'Code' || vm.work.requestType == 'Both'}"
       ) Development
 
-  hr
+  h2 Can you share a <strong>brief</strong> overview?
 
-  h3 Can you share a brief overview?
-
-  textarea.brief(placeholder="E.g. I need a mobile HR application with social features to support my growing organization" ng-model="vm.work.summary")
+  .interactive-section
+    textarea.brief(placeholder="E.g. I need a mobile HR application with social features to support my growing organization" ng-model="vm.work.summary")
 
   button.create(type="submit" ng-if="!vm.workId") Create Project
 
