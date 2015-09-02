@@ -19,7 +19,8 @@ submit-work-type {
   }
 
   ul.type {
-    @include flex-center(center, $padding-big);
+    @include flex-center(center, $margin-big);
+    @include align-items(flex-start);
 
     padding-right: 0;
     padding-bottom: 0;
