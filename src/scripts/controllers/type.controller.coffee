@@ -1,6 +1,6 @@
 'use strict'
 
-TypeController = ($scope, SubmitWorkAPIService) ->
+SubmitWorkTypeController = ($scope, SubmitWorkAPIService) ->
   vm      = this
   vm.work =
     name       : null
@@ -55,7 +55,7 @@ TypeController = ($scope, SubmitWorkAPIService) ->
 
       resource.$promise.catch (response) ->
 
-  mockify = (work)->
+  mockify = (work) ->
     work.devices =
       iPhone5c: false
       iPhone5s: false
@@ -86,11 +86,13 @@ TypeController = ($scope, SubmitWorkAPIService) ->
 
        resource.$promise.finally ->
          vm.loading = false
+    else
+      vm.loading = false
 
     vm
 
   activate()
 
-TypeController.$inject = ['$scope', 'SubmitWorkAPIService']
+SubmitWorkTypeController.$inject = ['$scope', 'SubmitWorkAPIService']
 
-angular.module('appirio-tech-ng-submit-work').controller 'TypeController', TypeController
+angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkTypeController', SubmitWorkTypeController
