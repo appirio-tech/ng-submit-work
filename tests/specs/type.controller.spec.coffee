@@ -3,7 +3,7 @@
 controller = null
 saveSpy  = null
 
-describe 'TypeController', ->
+describe 'SubmitWorkTypeController', ->
   beforeEach ->
     bard.inject this, '$rootScope', '$q', '$controller', 'SubmitWorkAPIService'
     scope = $rootScope.$new()
@@ -19,7 +19,7 @@ describe 'TypeController', ->
 
     bard.mockService SubmitWorkAPIService, _default: _default
 
-    controller = $controller 'TypeController', $scope: scope
+    controller = $controller 'SubmitWorkTypeController', $scope: scope
     scope.vm   = controller
     saveSpy    = sinon.spy controller, 'save'
 
