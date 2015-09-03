@@ -29,7 +29,7 @@ SubmitWorkFeaturesController = ($scope, SubmitWorkAPIService, API_URL) ->
       description: 'Users can create profiles with personal info',
       checked: false
     ,
-      name: 'Dates & Location',
+      name: 'Location',
       description: 'A map with a user\'s GPS location that helps them get to places',
       checked: false
   ];
