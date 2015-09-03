@@ -16,67 +16,67 @@ SubmitWorkVisualController = ($scope, SubmitWorkAPIService) ->
     fonts: [
       name: 'Serif'
       description: 'a small line attached to the end of a stroke'
-      selected : false
+      id: '1234'
     ,
       name: 'Sans Serif'
       description: 'does not have the small `serifs`'
-      selected: false
+      id: '1235'
     ,
       name: 'Slap Serif'
       description: 'does not have the small `serifs`'
-      selected: false
+      id: '1236'
     ,
       name: 'Script'
       description: 'does not have the small `serifs`'
-      selected: false
+      id: '1237'
     ,
       name: 'Grunge'
       description: 'does not have the small `serifs`'
-      selected: false
+      id: '1238'
     ] ,
 
     colors: [
       name: 'Palette 1'
       description: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-      selected: false
+      id: '1234'
     ,
       name: 'Palette 2'
       description: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-      selected: false
+      id: '1235'
     ,
       name: 'Palette 3'
       description: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-      selected: false
+      id: '1236'
     ,
       name: 'Palette 4'
       description: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-      selected: false
+      id: '1237'
     ,
       name: 'Palette 5'
       description: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-      selected: false
+      id: '1238'
     ] ,
 
     icons: [
       name: 'Google'
       description: 'Lorem ipsum dolor sit amet'
-      selected: false
+      id: '1234'
     ,
       name: 'Anamorphic'
       description: 'Lorem ipsum dolor sit amet'
-      selected: false
+      id: '1235'
     ,
       name: 'iOS Style'
       description: 'Lorem ipsum dolor sit amet'
-      selected: false
+      id: '1236'
     ,
       name: 'Android'
       description: 'Lorem ipsum dolor sit amet'
-      selected: false
+      id: '1237'
     ,
       name: 'Windows 8'
       description: 'Lorem ipsum dolor sit amet'
-      selected: false
+      id: '1238'
     ]
 
   vm.save = (onSuccess) ->
@@ -95,24 +95,6 @@ SubmitWorkVisualController = ($scope, SubmitWorkAPIService) ->
     workColors = vm.work.visualDesign.colors
     workIcons = vm.work.visualDesign.icons
 
-    vm.visualDesign.fonts.forEach (font) ->
-      if font.selected
-        workFonts.push
-          name: font.name
-          description: font.description
-
-    vm.visualDesign.colors.forEach (color) ->
-      if color.selected
-        workColors.push
-          name: color.name
-          description: color.description
-
-    vm.visualDesign.icons.forEach (icon) ->
-      if icon.selected
-        workIcons.push
-          name: icon.name
-          description: icon.description
-
     if workFonts.length && workColors.length && workIcons.length
       # TODO: replace with proper status
       vm.work.status = 'visualsAdded'
@@ -120,10 +102,10 @@ SubmitWorkVisualController = ($scope, SubmitWorkAPIService) ->
         # TODO: navigate to "development" view
 
   mockify = (work) ->
-    work.visualDesign =
-      fonts: []
-      colors: []
-      icons: []
+    work.visualDesign = {}
+    work.visualDesign.fonts = []
+    work.visualDesign.colors = []
+    work.visualDesign.icons = []
 
   activate = ->
     if vm.workId
