@@ -96,7 +96,6 @@ SubmitWorkDevelopmentController = ($scope, SubmitWorkAPIService) ->
 
     vm
 
-
   activate()
 
 SubmitWorkDevelopmentController.$inject = ['$scope', 'SubmitWorkAPIService']
