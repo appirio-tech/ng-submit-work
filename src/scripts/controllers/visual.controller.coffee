@@ -14,69 +14,69 @@ SubmitWorkVisualController = ($scope, SubmitWorkAPIService) ->
 
   vm.visualDesign = {}
   vm.visualDesign.fonts = [
-      name: 'Serif'
-      description: 'a small line attached to the end of a stroke'
-      id: '1234'
-    ,
-      name: 'Sans Serif'
-      description: 'does not have the small `serifs`'
-      id: '1235'
-    ,
-      name: 'Slap Serif'
-      description: 'does not have the small `serifs`'
-      id: '1236'
-    ,
-      name: 'Script'
-      description: 'does not have the small `serifs`'
-      id: '1237'
-    ,
-      name: 'Grunge'
-      description: 'does not have the small `serifs`'
-      id: '1238'
+    name: 'Serif'
+    description: 'a small line attached to the end of a stroke'
+    id: '1234'
+  ,
+    name: 'Sans Serif'
+    description: 'does not have the small `serifs`'
+    id: '1235'
+  ,
+    name: 'Slap Serif'
+    description: 'does not have the small `serifs`'
+    id: '1236'
+  ,
+    name: 'Script'
+    description: 'does not have the small `serifs`'
+    id: '1237'
+  ,
+    name: 'Grunge'
+    description: 'does not have the small `serifs`'
+    id: '1238'
   ]
 
   vm.visualDesign.colors = [
-      name: 'Palette 1'
-      description: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-      id: '1234'
-    ,
-      name: 'Palette 2'
-      description: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-      id: '1235'
-    ,
-      name: 'Palette 3'
-      description: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-      id: '1236'
-    ,
-      name: 'Palette 4'
-      description: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-      id: '1237'
-    ,
-      name: 'Palette 5'
-      description: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-      id: '1238'
+    name: 'Palette 1'
+    description: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+    id: '1234'
+  ,
+    name: 'Palette 2'
+    description: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+    id: '1235'
+  ,
+    name: 'Palette 3'
+    description: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+    id: '1236'
+  ,
+    name: 'Palette 4'
+    description: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+    id: '1237'
+  ,
+    name: 'Palette 5'
+    description: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+    id: '1238'
   ]
 
   vm.visualDesign.icons = [
-      name: 'Google'
-      description: 'Lorem ipsum dolor sit amet'
-      id: '1234'
-    ,
-      name: 'Anamorphic'
-      description: 'Lorem ipsum dolor sit amet'
-      id: '1235'
-    ,
-      name: 'iOS Style'
-      description: 'Lorem ipsum dolor sit amet'
-      id: '1236'
-    ,
-      name: 'Android'
-      description: 'Lorem ipsum dolor sit amet'
-      id: '1237'
-    ,
-      name: 'Windows 8'
-      description: 'Lorem ipsum dolor sit amet'
-      id: '1238'
+    name: 'Google'
+    description: 'Lorem ipsum dolor sit amet'
+    id: '1234'
+  ,
+    name: 'Anamorphic'
+    description: 'Lorem ipsum dolor sit amet'
+    id: '1235'
+  ,
+    name: 'iOS Style'
+    description: 'Lorem ipsum dolor sit amet'
+    id: '1236'
+  ,
+    name: 'Android'
+    description: 'Lorem ipsum dolor sit amet'
+    id: '1237'
+  ,
+    name: 'Windows 8'
+    description: 'Lorem ipsum dolor sit amet'
+    id: '1238'
   ]
 
   vm.save = (onSuccess) ->
