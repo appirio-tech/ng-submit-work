@@ -1,6 +1,6 @@
 h1 Features
 
-form
+form(ng-submit="vm.submitFeatures()")
   .interactive-section
     ul.features
       li(ng-repeat="feature in vm.defaultFeatures track by $index")
@@ -8,9 +8,9 @@ form
 
         .img
 
-        selected-button(ng-model="feature.checked")
+        selected-button(type="button" ng-model="vm.work.features" value="feature")
 
-    button(ng-click="vm.showCustomFeatureModal()") + Define a feature
+    button(type="button" ng-click="vm.showCustomFeatureModal()") + Define a feature
 
   h2 Features &amp; user stories all set!
 
@@ -29,7 +29,7 @@ form
 
       textarea(placeholder="Tell us specific details that you want to share regarding features and functionalities." ng-model="vm.work.featuresDetails")
 
-  button.wide.save-features(type="button" ng-click="vm.submitFeatures()") Save
+  button.wide.save-features(type="submit") Save
 
 modal(show="vm.showDefineAFeatureModal")
   form.define-feature(ng-submit="vm.addCustomFeature()")
