@@ -12,8 +12,8 @@ SubmitWorkVisualController = ($scope, SubmitWorkAPIService) ->
     features   : []
     featuresDetails : null
 
-  vm.visualDesign =
-    fonts: [
+  vm.visualDesign = {}
+  vm.visualDesign.fonts = [
       name: 'Serif'
       description: 'a small line attached to the end of a stroke'
       id: '1234'
@@ -33,9 +33,9 @@ SubmitWorkVisualController = ($scope, SubmitWorkAPIService) ->
       name: 'Grunge'
       description: 'does not have the small `serifs`'
       id: '1238'
-    ] ,
+  ]
 
-    colors: [
+  vm.visualDesign.colors = [
       name: 'Palette 1'
       description: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
       id: '1234'
@@ -55,9 +55,9 @@ SubmitWorkVisualController = ($scope, SubmitWorkAPIService) ->
       name: 'Palette 5'
       description: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
       id: '1238'
-    ] ,
+  ]
 
-    icons: [
+  vm.visualDesign.icons = [
       name: 'Google'
       description: 'Lorem ipsum dolor sit amet'
       id: '1234'
@@ -77,7 +77,7 @@ SubmitWorkVisualController = ($scope, SubmitWorkAPIService) ->
       name: 'Windows 8'
       description: 'Lorem ipsum dolor sit amet'
       id: '1238'
-    ]
+  ]
 
   vm.save = (onSuccess) ->
     if vm.workId
