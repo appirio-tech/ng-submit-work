@@ -1,0 +1,39 @@
+@import "work-includes";
+
+$card-max-width: 180px;
+
+submit-work-development {
+  display: block;
+  text-align: center;
+
+  .interactive {
+    background-color: $neutral-color-lightest;
+    padding         : $padding-big;
+    margin-top      : $margin;
+
+    > p, > selected-button, textarea {
+      margin-top: $margin;
+    }
+  }
+
+  > form > ul {
+    @include flex-center(flex-start, $padding-big);
+
+    padding-right : 0;
+    padding-bottom: 0;
+
+    > li {
+      @include flex-grow(1);
+
+      > h3, > p {
+        max-width: $card-max-width;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      button {
+        width: $card-max-width;
+      }
+    }
+  }
+}
