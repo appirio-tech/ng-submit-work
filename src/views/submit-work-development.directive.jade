@@ -52,7 +52,7 @@ form(ng-submit="vm.submitDevelopment()")
 
       .img
 
-      selected-button(ng-model="vm.work.development.securityLevel" value="vm.securityLevels.none")
+      selected-button(type="button" ng-model="vm.work.development.securityLevel" value="vm.securityLevels.none")
 
     li
       h3 Minimal
@@ -61,7 +61,7 @@ form(ng-submit="vm.submitDevelopment()")
 
       .img
 
-      selected-button(ng-model="vm.work.development.securityLevel" value="vm.securityLevels.minimal")
+      selected-button(type="button" ng-model="vm.work.development.securityLevel" value="vm.securityLevels.minimal")
 
     li
       h3 Complete
@@ -70,7 +70,7 @@ form(ng-submit="vm.submitDevelopment()")
 
       .img
 
-      selected-button(ng-model="vm.work.development.securityLevel" value="vm.securityLevels.complete")
+      selected-button(type="button" ng-model="vm.work.development.securityLevel" value="vm.securityLevels.complete")
 
   h2 Third party integrations
 

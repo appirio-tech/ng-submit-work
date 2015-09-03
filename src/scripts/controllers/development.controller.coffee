@@ -48,10 +48,21 @@ SubmitWorkDevelopmentController = ($scope, SubmitWorkAPIService) ->
         # TODO: add error handling
 
   vm.submitDevelopment = ->
-    # TODO: replace with proper status
-    vm.work.status = 'developmentAdded'
-    vm.save (response) ->
-      # TODO: navigate to "development" view
+    workIntegrations = vm.work.development.thirdPartyIntegrations
+    if workIntegrations.length && workValid vm.work.development
+      # TODO: replace with proper status
+      vm.work.status = 'developmentAdded'
+      vm.save (response) ->
+        # TODO: navigate to "development" view
+
+  workValid = (work) ->
+    isValid = true
+    for property, value of work
+      if value == null
+        isValid = false
+      else if typeof value == 'object' && !Array.isArray value
+        isValid = workValid value
+    isValid
 
   mockify = (work) ->
     work.development =
@@ -84,6 +95,7 @@ SubmitWorkDevelopmentController = ($scope, SubmitWorkAPIService) ->
       vm.loading = false
 
     vm
+
 
   activate()
 
