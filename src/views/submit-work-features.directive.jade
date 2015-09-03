@@ -1,15 +1,16 @@
-h1 Congratulations!
-
-p Your <strong>{{vm.work.name}}</strong> project is now set up.
+h1 Features
 
 form
-  button(ng-click="vm.showCustomFeatureModal()") + Define a feature
+  .interactive-section
+    ul.features
+      li(ng-repeat="feature in vm.defaultFeatures track by $index")
+        h3 {{feature.name}}
 
-  ul
-    li(ng-repeat="feature in vm.defaultFeatures track by $index")
-      checkbox(label="{{feature.name}}" ng-model="feature.checked")
+        .img
 
-      button.clean example
+        selected-button(ng-model="feature.checked")
+
+    button(ng-click="vm.showCustomFeatureModal()") + Define a feature
 
   h2 Features &amp; user stories all set!
 

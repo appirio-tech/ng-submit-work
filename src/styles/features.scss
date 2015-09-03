@@ -1,16 +1,51 @@
 @import "work-includes";
 
+$card-max-width: 180px;
+
 submit-work-features {
   display: block;
   text-align: center;
 
   h2 {
-    margin: $margin-big;
+    margin-top: $margin-big
   }
 
   .interactive-section {
     background-color: $neutral-color-lightest;
     padding: $padding-big;
+    margin-top: $margin-big
+  }
+
+  ul.features {
+    @include flex-center(flex-start, $padding-big);
+
+    padding-right : 0;
+    padding-bottom: 0;
+
+    > li {
+      @include flex-grow(1);
+
+      > * {
+        margin-top: $margin;
+      }
+
+      > h3, > p {
+        max-width   : $card-max-width;
+        margin-right: auto;
+        margin-left : auto;
+      }
+
+      .img {
+        display         : inline-block;
+        width           : $card-max-width;
+        height          : $card-max-width;
+        background-color: pink;
+      }
+
+      button {
+        width: $card-max-width;
+      }
+    }
   }
 
   ul.additional {
