@@ -1,8 +1,15 @@
 loader(ng-show="vm.loading")
 
+header
+  h1 How to create a new project
+
+  p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
 form(ng-submit="vm.save()")
   .interactive-section
-    input(type="text" placeholder="Name your project..." required="true" ng-model="vm.work.name")
+    input.wider(type="text" placeholder="Name your project..." required="true" ng-model="vm.work.name")
+
+  button.clean.continue(type="button") continue
 
   h2 Target <strong>Platform</strong>
 
