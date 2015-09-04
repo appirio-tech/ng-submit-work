@@ -7,25 +7,26 @@ submit-work-features {
   text-align: center;
 
   h2 {
-    margin-top: $margin-big
+    margin-top: $margin-big;
   }
 
   .interactive-section {
     background-color: $neutral-color-lightest;
     padding: $padding-big;
+    margin-top: $margin-big;
 
     .uploaderWrapper {
+      margin-top: $margin-small;
       .failed {
         color: $danger-color;
       }
-      margin-top: $margin-small;
       .uploader {
         margin: $margin-smallest;
         button {
           margin: $margin-smallest;
         }
-    margin-top: $margin-big
-  }
+      }
+    }
 
   ul.features {
     @include flex-center(flex-start, $padding-big);
