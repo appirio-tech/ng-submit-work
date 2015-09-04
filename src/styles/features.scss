@@ -21,12 +21,16 @@ submit-work-features {
         color: $danger-color;
       }
       .uploader {
+        .fileActions {
+          margin-top: $margin-smallest;
+        }
         margin: $margin-smallest;
         button {
           margin: $margin-smallest;
         }
       }
     }
+  }
 
   ul.features {
     @include flex-center(flex-start, $padding-big);
