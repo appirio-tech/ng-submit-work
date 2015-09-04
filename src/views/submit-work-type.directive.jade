@@ -9,12 +9,12 @@ form(ng-submit="vm.save()")
   .interactive-section
     input.wider(type="text" placeholder="Name your project..." required="true" ng-model="vm.work.name")
 
-  button.clean.continue(type="button") continue
+    button.clean.continue(type="button") continue
 
-  h2 Target <strong>Platform</strong>
+  h2 IOS <strong>platform details</strong>
 
   ul.target-platform.interactive-section
-    li.devices
+    li
       h4 Devices
 
       ul
@@ -42,6 +42,9 @@ form(ng-submit="vm.save()")
 
         li
           checkbox(label="iOS 8" ng-model="vm.work.os.iOS8")
+
+    li
+      button.clean.continue(type="button") continue
 
   h2 What <strong>type of work</strong> are you looking for?
 
@@ -72,16 +75,19 @@ form(ng-submit="vm.save()")
         ng-class="{success: vm.work.requestType == 'Code' || vm.work.requestType == 'Both'}"
       ) Development
 
-  h2 Can you share a <strong>brief</strong> overview?
+    li
+      button.clean.continue(type="button") continue
+
+  h2 Can you <strong>share a brief</strong> overview?
 
   .interactive-section
     textarea.brief(placeholder="E.g. I need a mobile HR application with social features to support my growing organization" ng-model="vm.work.summary")
 
-  button.create(type="submit" ng-if="!vm.workId") Create Project
+    button.create.wide(type="submit" ng-if="!vm.workId") Create Project
 
-  button.save(type="submit" ng-if="vm.workId") Save
+    button.save.wide(type="submit" ng-if="vm.workId") Save
 
-modal(show="vm.showSuccessModal")
+modal(show="vm.showSuccessModal" background-click-close=true)
   .success
     h2 Awesome!
 
