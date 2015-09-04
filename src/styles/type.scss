@@ -6,7 +6,10 @@ submit-work-type {
   text-align: center;
 
   .continue {
-    margin-top: $margin;
+    margin-top  : $margin;
+    display     : block;
+    margin-left : auto;
+    margin-right: auto;
   }
 
   header {
@@ -48,46 +51,77 @@ submit-work-type {
       display   : inline-block;
       width     : 250px;
       height    : 125px;
-      margin-top: $margin-big;
+      margin-top: $margin;
     }
 
     button {
-      margin-top: $margin-big;
+      margin-top: $margin;
+    }
+
+    > li:last-child {
+      width: 100%;
+
+      .continue {
+        margin-top: 0;
+      }
     }
   }
 
   ul.target-platform {
-    @include flex-center(flex-start, $padding-big);
-    @include align-items(stretch);
-    @include flex-wrap(nowrap);
-
     text-align: left;
-    padding-right: 0;
-    padding-bottom: 0;
+
+    h4 {
+      border-bottom: 1px solid $neutral-color-light;
+      padding-bottom: $padding-small;
+    }
 
     > li {
-      @include flex-grow(1);
+      max-width: 700px;
+      margin: 0 auto;
+      margin-top: $margin-small;
 
-      > ul {
-        @include flex-center();
-
-        border     : 1px solid $neutral-color;
-        margin-top : $margin-smallest;
-
-        li {
-          padding: $padding-small;
-        }
+      &:first-child {
+        margin-top: 0;
       }
 
-      &.devices {
-        @include flex-grow(2);
+      > ul {
+        margin-top : $margin-smallest;
+
+        > li {
+          display: inline-block;
+          margin-right: $margin-big;
+          margin-bottom: $margin-small;
+        }
       }
     }
   }
 
-  modal .success {
-    background-color: #fff;
-    width: 400px;
-    height: 300px;
+
+  modal {
+    background-color: $primary-color;
+    color: $white;
+
+    .success {
+      h2 {
+        margin: 0;
+      }
+
+      input {
+        margin-top: $margin;
+      }
+
+      button {
+        display   : block;
+        margin    : 0 auto;
+        margin-top: $margin-small;
+      }
+    }
+  }
+
+  .brief {
+    width: 100%;
+    max-width: 700px;
+    height: 200px;
+    margin: 0 auto;
   }
 }
