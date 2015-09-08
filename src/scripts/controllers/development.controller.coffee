@@ -49,7 +49,8 @@ SubmitWorkDevelopmentController = ($scope, SubmitWorkAPIService) ->
 
   vm.submitDevelopment = ->
     workIntegrations = vm.work.development.thirdPartyIntegrations
-    if workIntegrations.length && workValid vm.work.development
+    developmentValid = workValid vm.work.development
+    if workIntegrations.length && developmentValid
       # TODO: replace with proper status
       vm.work.status = 'developmentAdded'
       vm.save (response) ->
@@ -58,9 +59,10 @@ SubmitWorkDevelopmentController = ($scope, SubmitWorkAPIService) ->
   workValid = (work) ->
     isValid = true
     for property, value of work
+      isObject = typeof value == 'object' && !Array.isArray value
       if value == null
         isValid = false
-      else if typeof value == 'object' && !Array.isArray value
+      else if isObject
         isValid = workValid value
     isValid
 
