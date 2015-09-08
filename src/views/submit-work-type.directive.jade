@@ -58,8 +58,8 @@ form(ng-submit="vm.save()")
 
       selected-button(
         type="button"
-        ng-click="vm.toggleType('Design')"
-        ng-class="{success: vm.work.requestType == 'Design' || vm.work.requestType == 'Both'}"
+        value="vm.requestTypes.design"
+        ng-model="vm.work.requestTypes"
       ) Design
 
     li
@@ -71,8 +71,8 @@ form(ng-submit="vm.save()")
 
       selected-button(
         type="button"
-        ng-click="vm.toggleType('Code')"
-        ng-class="{success: vm.work.requestType == 'Code' || vm.work.requestType == 'Both'}"
+        value="vm.requestTypes.code"
+        ng-model="vm.work.requestTypes"
       ) Development
 
     li
