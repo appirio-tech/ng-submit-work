@@ -6,29 +6,23 @@ submit-work-type {
   text-align: center;
 
   .continue {
-    margin-top  : $margin;
-    display     : block;
-    margin-left : auto;
-    margin-right: auto;
+    margin : $margin auto;
+    display: block;
   }
 
   header {
     background-color: $neutral-color-dark;
-    padding: 50px;
+    padding: $padding-biggest;
 
     > * {
-      max-width: 300px;
-      text-align: left;
+      max-width: 400px;
       color: $white;
+      margin: 0 auto;
     }
 
     p {
       margin-top: $margin-small;
     }
-  }
-
-  h2 {
-    margin: $margin;
   }
 
   .interactive-section {
@@ -41,7 +35,7 @@ submit-work-type {
   }
 
   ul.type {
-    @include flex-center(center, $margin-big);
+    @include flex-center(center);
     @include align-items(flex-start);
 
     padding-right: 0;
@@ -58,11 +52,12 @@ submit-work-type {
       margin-top: $margin;
     }
 
-    > li:last-child {
-      width: 100%;
+    > li {
+      margin: $margin-big $margin;
+      margin-top: 0;
 
-      .continue {
-        margin-top: 0;
+      &:first-child {
+        width: 100%;
       }
     }
   }
@@ -76,12 +71,13 @@ submit-work-type {
     }
 
     > li {
-      max-width: 700px;
-      margin: 0 auto;
+      margin    : 0 auto;
       margin-top: $margin-small;
+      max-width : 700px;
 
       &:first-child {
         margin-top: 0;
+        text-align: center;
       }
 
       > ul {
@@ -119,9 +115,10 @@ submit-work-type {
   }
 
   .brief {
-    width: 100%;
-    max-width: 700px;
-    height: 200px;
-    margin: 0 auto;
+    width     : 100%;
+    max-width : 700px;
+    height    : 200px;
+    margin    : 0 auto;
+    margin-top: $margin-big;
   }
 }
