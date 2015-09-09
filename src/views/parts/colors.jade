@@ -1,47 +1,11 @@
 h2 Tell us the <strong>color palette</strong> you prefer
 
 ul
-  li
-    h3 Lorem ipsum dolor sit amet
+  li(ng-repeat="color in vm.visualDesign.colors track by $index")
+    h3 {{color.name}}
 
-    p Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-
-    .img
-
-    selected-button
-
-  li
-    h3 Lorem ipsum dolor sit amet
-
-    p Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    p {{color.description}}
 
     .img
 
-    selected-button
-
-  li
-    h3 Lorem ipsum dolor sit amet
-
-    p Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-
-    .img
-
-    selected-button
-
-  li
-    h3 Lorem ipsum dolor sit amet
-
-    p Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-
-    .img
-
-    selected-button
-
-  li
-    h3 Lorem ipsum dolor sit amet
-
-    p Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-
-    .img
-
-    selected-button
+    selected-button(ng-model="vm.work.visualDesign.colors" value="color.id")

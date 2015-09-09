@@ -1,47 +1,11 @@
 h2 Tell us your <strong>font preference</strong>
 
 ul
-  li
-    h3 Serif
+  li(ng-repeat="font in vm.visualDesign.fonts track by $index")
+    h3 {{font.name}}
 
-    p a small line attached to the end of a stroke
-
-    .img
-
-    selected-button(ng-model="vm.abc")
-
-  li
-    h3 Sans Serif
-
-    p does not have the small `serifs`
+    p {{font.description}}
 
     .img
 
-    selected-button
-
-  li
-    h3 Sans Serif
-
-    p does not have the small `serifs`
-
-    .img
-
-    selected-button
-
-  li
-    h3 Sans Serif
-
-    p does not have the small `serifs`
-
-    .img
-
-    selected-button
-
-  li
-    h3 Sans Serif
-
-    p does not have the small `serifs`
-
-    .img
-
-    selected-button
+    selected-button(ng-model="vm.work.visualDesign.fonts" value="font.id")
