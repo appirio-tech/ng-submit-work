@@ -9,86 +9,83 @@ form(ng-submit="vm.save()")
   .interactive-section
     input.wider(type="text" placeholder="Name your project..." required="true" ng-model="vm.work.name")
 
-    button.clean.continue(type="button" ng-click="vm.scrollToElement('platformDetails')") continue
+  button.wider.continue.action(type="button" ng-click="vm.scrollToElement('platformDetails')") continue
 
-  #platformDetails
-    h2 IOS <strong>platform details</strong>
+  ul.target-platform.interactive-section(id="platformDetails")
+    li
+      h2 IOS <strong>platform details</strong>
 
-    ul.target-platform.interactive-section
-      li
-        h4 Devices
+    li
+      h4 Devices
 
-        ul
-          li
-            checkbox(label="iPhone 5c" ng-model="vm.work.devices.iPhone5c")
+      ul
+        li
+          checkbox(label="iPhone 5c" ng-model="vm.work.devices.iPhone5c")
 
-          li
-            checkbox(label="iPhone 5s" ng-model="vm.work.devices.iPhone5s")
+        li
+          checkbox(label="iPhone 5s" ng-model="vm.work.devices.iPhone5s")
 
-      li
-        h4 Orientation
+    li
+      h4 Orientation
 
-        ul
-          li
-            checkbox(label="Landscape" ng-model="vm.work.orientation.landscape")
+      ul
+        li
+          checkbox(label="Landscape" ng-model="vm.work.orientation.landscape")
 
-          li
-            checkbox(label="Portrait" ng-model="vm.work.orientation.portrait")
-      li
-        h4 OS
+        li
+          checkbox(label="Portrait" ng-model="vm.work.orientation.portrait")
+    li
+      h4 OS
 
-        ul
-          li
-            checkbox(label="iOS 7" ng-model="vm.work.os.iOS7")
+      ul
+        li
+          checkbox(label="iOS 7" ng-model="vm.work.os.iOS7")
 
-          li
-            checkbox(label="iOS 8" ng-model="vm.work.os.iOS8")
+        li
+          checkbox(label="iOS 8" ng-model="vm.work.os.iOS8")
 
-      li
-        button.clean.continue(type="button" ng-click="vm.scrollToElement('typeDetails')") continue
+  button.wider.continue.action(type="button" ng-click="vm.scrollToElement('typeDetails')") continue
 
-  #typeDetails
-    h2 What <strong>type of work</strong> are you looking for?
+  ul.type.interactive-section(id="typeDetails")
+    li
+      h2 What <strong>type of work</strong> are you looking for?
 
-    ul.type.interactive-section
-      li
-        h4 Design
+    li
+      h4 Design
 
-        p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
-        img(src="http://www.collegequest.com/wp-content/uploads/what-do-graphic-designers-do.jpg")
+      img(src="http://www.collegequest.com/wp-content/uploads/what-do-graphic-designers-do.jpg")
 
-        selected-button(
-          type="button"
-          value="vm.requestTypes.design"
-          ng-model="vm.work.requestTypes"
-        ) Design
+      selected-button(
+        type="button"
+        value="vm.requestTypes.design"
+        ng-model="vm.work.requestTypes"
+      ) Design
 
-      li
-        h4 Development
+    li
+      h4 Development
 
-        p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
-        img(src="http://pbwebdev.com/blog/wp-content/uploads/2014/06/developer.jpg")
+      img(src="http://pbwebdev.com/blog/wp-content/uploads/2014/06/developer.jpg")
 
-        selected-button(
-          type="button"
-          value="vm.requestTypes.code"
-          ng-model="vm.work.requestTypes"
-        ) Development
+      selected-button(
+        type="button"
+        value="vm.requestTypes.code"
+        ng-model="vm.work.requestTypes"
+      ) Development
 
-      li
-        button.clean.continue(type="button" ng-click="vm.scrollToElement('briefDetails')") continue
+  button.wider.continue.action(type="button" ng-click="vm.scrollToElement('briefDetails')") continue
 
-  #briefDetails
+  .interactive-section(id="briefDetails")
     h2 Can you <strong>share a brief</strong> overview?
 
-    .interactive-section
-      textarea.brief(placeholder="E.g. I need a mobile HR application with social features to support my growing organization" ng-model="vm.work.summary")
+    textarea.brief(placeholder="E.g. I need a mobile HR application with social features to support my growing organization" ng-model="vm.work.summary")
 
-  button.create.wide(type="submit" ng-if="!vm.workId") Create Project
+    button.create.wider(type="submit" ng-if="!vm.workId") Create Project
 
-  button.save.wide(type="submit" ng-if="vm.workId") Save
+    button.save.wider(type="submit" ng-if="vm.workId") Save
 
 modal(show="vm.showSuccessModal" background-click-close=true)
   .success
