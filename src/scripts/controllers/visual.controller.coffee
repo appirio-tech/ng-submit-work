@@ -4,11 +4,8 @@ SubmitWorkVisualController = ($scope, SubmitWorkAPIService, API_URL) ->
   vm      = this
   vm.loading = true
   vm.workId = $scope.workId
-<<<<<<< HEAD
   vm.visualsUploaderUploading = null
   vm.visualsUploaderHasErrors = null
-=======
->>>>>>> 4b010bb8beb538ea84326a8241be22de7daa5759
 
   vm.work =
     name       : null
@@ -112,7 +109,22 @@ SubmitWorkVisualController = ($scope, SubmitWorkAPIService, API_URL) ->
     work.visualDesign.colors = []
     work.visualDesign.icons = []
 
+  configureUploader = ->
+    assetType = 'specs'
+    queryUrl = API_URL + '/v3/work-files/assets?filter=workId%3D' + vm.workId + '%26assetType%3D' + assetType
+    vm.visualsUploaderConfig =
+      name: 'uploader' + vm.workId
+      allowMultiple: true
+      queryUrl: queryUrl
+      urlPresigner: API_URL + '/v3/work-files/uploadurl'
+      fileEndpoint: API_URL + '/v3/work-files/:fileId'
+      saveParams:
+        workId: vm.workId
+        assetType: assetType
+
   activate = ->
+    configureUploader()
+
     if vm.workId
       params =
         id: vm.workId
