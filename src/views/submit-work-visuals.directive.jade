@@ -1,0 +1,55 @@
+form(ng-submit="vm.submitVisuals()")
+  h2 Tell us more about <strong>Visual Style</strong>
+
+  p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+  ul
+    li
+      h3 Fonts
+
+      p Choose font styles
+
+      .img
+
+      selected-button
+
+    li
+      h3 Colors
+
+      p Choose color styles
+
+      .img
+
+      selected-button
+
+    li
+      h3 Icons
+
+      p Choose icon styles
+
+      .img
+
+      selected-button
+
+  include parts/fonts
+
+  include parts/colors
+
+  include parts/icons
+
+  h2 Upload <strong>Documents</strong>
+
+  .upload-documents
+    button.clean(type="button")
+      .icon.biggest
+
+    p You can upload documents that can act as a strong visual brief to the visual designer. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+    ap-uploader(
+      config="vm.visualsUploaderConfig"
+      uploading="vm.visualsUploaderUploading"
+      has-errors="vm.visualsUploaderHasErrors"
+    )
+
+  button.save.wide(type="submit") Save
+

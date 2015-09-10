@@ -1,0 +1,11 @@
+h2 Tell us which <strong>icons</strong> you prefer
+
+ul
+  li(ng-repeat="icon in vm.visualDesign.icons track by $index")
+    h3 {{icon.name}}
+
+    p {{icon.description}}
+
+    .img
+
+    selected-button(ng-model="vm.work.visualDesign.icons" value="icon.id")

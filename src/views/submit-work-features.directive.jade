@@ -1,34 +1,38 @@
-h1 Congratulations!
+h1 Features
 
-p Your <strong>{{vm.work.name}}</strong> project is now set up.
+form(ng-submit="vm.submitFeatures()")
+  .interactive-section
+    ul.features
+      li(ng-repeat="feature in vm.defaultFeatures track by $index")
+        h3 {{feature.name}}
 
-form
-  button(ng-click="vm.showCustomFeatureModal()") + Define a feature
+        .img
 
-  ul
-    li(ng-repeat="feature in vm.defaultFeatures track by $index")
-      checkbox(label="{{feature.name}}" ng-model="feature.checked")
+        selected-button(ng-model="vm.work.features" value="feature")
 
-      button.clean example
+    button(type="button" ng-click="vm.showCustomFeatureModal()") + Define a feature
 
-  hr
+  h2 Features &amp; user stories all set!
 
-  ul.additional
+  ul.additional.interactive-section
     li.files
-      h2 Additional Files
+      h3 Additional Files
 
       section
-
-        ap-uploader(config="vm.featuresUploaderConfig" uploading="vm.featuresUploaderUploading" has-errors="vm.featuresUploaderHasErrors")
+        ap-uploader(
+          config="vm.featuresUploaderConfig"
+          uploading="vm.featuresUploaderUploading"
+          has-errors="vm.featuresUploaderHasErrors"
+        )
 
         p Upload any additional documents that might be useful. E.g. - interaction designs, wireframes, product description, etc.
 
     li.details
-      h2 Anything else you want to share?
+      h3 Anything else you want to share?
 
       textarea(placeholder="Tell us specific details that you want to share regarding features and functionalities." ng-model="vm.work.featuresDetails")
 
-  button.wide.save-features(type="button" ng-click="vm.submitFeatures()") Save
+  button.wide.save-features(type="submit") Save
 
 modal(show="vm.showDefineAFeatureModal")
   form.define-feature(ng-submit="vm.addCustomFeature()")

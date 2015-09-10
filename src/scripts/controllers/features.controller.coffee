@@ -5,8 +5,8 @@ SubmitWorkFeaturesController = ($scope, SubmitWorkAPIService, API_URL) ->
   vm.loading          = true
   vm.showDefineAFeatureModal = false
   vm.workId           = $scope.workId
-  vm.featuresUploaderUploading = null;
-  vm.featuresUploaderHasErrors = null;
+  vm.featuresUploaderUploading = null
+  vm.featuresUploaderHasErrors = null
 
   vm.work =
     name       : null
@@ -19,19 +19,19 @@ SubmitWorkFeaturesController = ($scope, SubmitWorkAPIService, API_URL) ->
   vm.defaultFeatures = [
       name: 'Login',
       description: 'Users can login / register for your app',
-      checked: false
+      custom: null
     ,
       name: 'Onboarding',
       description: 'Users can see data from social networks (FB, Twitter etc.) in your app',
-      checked: false
+      custom: null
     ,
       name: 'Registration',
       description: 'Users can create profiles with personal info',
-      checked: false
+      custom: null
     ,
-      name: 'Dates & Location',
+      name: 'Location',
       description: 'A map with a user\'s GPS location that helps them get to places',
-      checked: false
+      custom: null
   ];
 
   vm.showCustomFeatureModal = ->
@@ -59,6 +59,8 @@ SubmitWorkFeaturesController = ($scope, SubmitWorkAPIService, API_URL) ->
 
   vm.submitFeatures = ->
     workFeatures = vm.work.features
+    formsValid = workFeatures.length
+    uploaderValid = !vm.featuresUploaderUploading && !vm.featuresUploaderHasErrors
 
     vm.defaultFeatures.forEach (feature) ->
       if feature.checked
@@ -67,7 +69,7 @@ SubmitWorkFeaturesController = ($scope, SubmitWorkAPIService, API_URL) ->
           description: feature.description
           custom: null
 
-    if workFeatures.length
+    if formsValid && uploaderValid
       # TODO: Replace with proper back-end status
       vm.work.status = 'FeaturesAdded'
       vm.save (response) ->
@@ -80,8 +82,8 @@ SubmitWorkFeaturesController = ($scope, SubmitWorkAPIService, API_URL) ->
       custom: true
 
   configureUploader = ->
-    assetType = 'specs';
-    queryUrl = API_URL + '/v3/work-files/assets?filter=workId%3D' + vm.workId + '%26assetType%3D' + assetType;
+    assetType = 'specs'
+    queryUrl = API_URL + '/v3/work-files/assets?filter=workId%3D' + vm.workId + '%26assetType%3D' + assetType
     vm.featuresUploaderConfig =
       name: 'uploader' + vm.workId
       allowMultiple: true

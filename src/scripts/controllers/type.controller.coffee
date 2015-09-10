@@ -1,6 +1,6 @@
 'use strict'
 
-TypeController = ($scope, SubmitWorkAPIService) ->
+SubmitWorkTypeController = ($scope, SubmitWorkAPIService) ->
   vm      = this
   vm.work =
     name       : null
@@ -8,25 +8,15 @@ TypeController = ($scope, SubmitWorkAPIService) ->
     summary    : null
     features   : []
 
+  vm.requestTypes =
+    code: 'code'
+    design: 'design'
   vm.loading          = true
   vm.showSuccessModal = false
   vm.workId           = $scope.workId
 
-  vm.toggleType = (type) ->
-    if vm.work.requestType != null && vm.work.requestType != type && vm.work.requestType != 'Both'
-      vm.work.requestType = 'Both'
-    else if vm.work.requestType == null
-      vm.work.requestType = type
-    else if vm.work.requestType == type
-      vm.work.requestType = null
-    else if vm.work.requestType == 'Both'
-      if type == 'Design'
-        vm.work.requestType = 'Code'
-      else
-        vm.work.requestType = 'Design'
-
   isValid = ->
-    vm.work.name && vm.work.requestType && vm.work.summary
+    vm.work.name && vm.work.requestTypes.length && vm.work.summary
 
   vm.save = (onSuccess) ->
     if isValid()
@@ -56,6 +46,7 @@ TypeController = ($scope, SubmitWorkAPIService) ->
       resource.$promise.catch (response) ->
 
   mockify = (work) ->
+    work.requestTypes = []
     work.devices =
       iPhone5c: false
       iPhone5s: false
@@ -93,6 +84,6 @@ TypeController = ($scope, SubmitWorkAPIService) ->
 
   activate()
 
-TypeController.$inject = ['$scope', 'SubmitWorkAPIService']
+SubmitWorkTypeController.$inject = ['$scope', 'SubmitWorkAPIService']
 
-angular.module('appirio-tech-ng-submit-work').controller 'TypeController', TypeController
+angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkTypeController', SubmitWorkTypeController

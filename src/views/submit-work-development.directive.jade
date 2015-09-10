@@ -1,0 +1,87 @@
+h1 Development
+
+form(ng-submit="vm.submitDevelopment()")
+  h2 What is your application for?
+
+  ul.interactive
+    li
+      h3 Enterprise
+
+      p Lorem ipsum dolor sit amet, consectetur adipiscing elite
+
+      .img
+
+      selected-button(ng-model="vm.work.development.appPurpose" value="vm.appPurposes.enterprise")
+
+    li
+      h3 App Store
+
+      p Lorem ipsum dolor sit amet, consectetur adipiscing elite
+
+      .img
+
+      selected-button(ng-model="vm.work.development.appPurpose" value="vm.appPurposes.appStore")
+
+  h2 Offline access to data?
+
+  .interactive
+    p Do you require your users to have offline access to data? Are your user's going to need and access data when you have little connectivity?
+
+    selected-button(ng-model="vm.work.development.offlineAccess.required" label="yes" value="true")
+
+    selected-button(ng-model="vm.work.development.offlineAccess.required" label="no" value="false")
+
+    textarea(placeholder="comments..." ng-model="vm.work.development.offlineAccess.comments")
+
+  h2 Personal information
+
+  .interactive
+    p Is there any level of personal information? (stored or transmitted)
+
+    selected-button(ng-model="vm.work.development.hasPersonalInformation" label="yes" value="true")
+
+    selected-button(ng-model="vm.work.development.hasPersonalInformation" label="no" value="false")
+
+  h2 Level of security
+
+  ul.interactive
+    li
+      h3 None
+
+      p Lorem ipsum dolor sit amet, consectetur adipiscing elite
+
+      .img
+
+      selected-button(ng-model="vm.work.development.securityLevel" value="vm.securityLevels.none")
+
+    li
+      h3 Minimal
+
+      p Lorem ipsum dolor sit amet, consectetur adipiscing elite
+
+      .img
+
+      selected-button(ng-model="vm.work.development.securityLevel" value="vm.securityLevels.minimal")
+
+    li
+      h3 Complete
+
+      p Lorem ipsum dolor sit amet, consectetur adipiscing elite
+
+      .img
+
+      selected-button(ng-model="vm.work.development.securityLevel" value="vm.securityLevels.complete")
+
+  h2 Third party integrations
+
+  ul.interactive
+    li(ng-repeat="integration in vm.thirdPartyIntegrations")
+      h3 {{integration.name}}
+
+      p {{integration.description}}
+
+      .img
+
+      selected-button(ng-model="vm.work.development.thirdPartyIntegrations" value="integration.id")
+
+  button.save.wide(type="submit") Save

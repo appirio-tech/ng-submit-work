@@ -3,7 +3,7 @@
 directive = ->
   restrict    : 'E'
   templateUrl : 'views/submit-work-type.directive.html'
-  controller: 'TypeController as vm'
+  controller  : 'SubmitWorkTypeController as vm'
   scope       :
     workId: '@workId'
 
