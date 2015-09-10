@@ -41,27 +41,20 @@ describe 'SubmitWorkTypeController', ->
       it 'should initialize work', ->
         expect(controller.work).to.be.ok
 
-    it 'should have a toggleType method', ->
-      expect(controller.toggleType).to.exist
-
     it 'should have a save method', ->
       expect(controller.save).to.exist
-
-    it 'should set requestType of project', ->
-      controller.toggleType('Design')
-      expect(controller.work.requestType).to.equal('Design')
 
     it 'should call API service with put to save project', ->
       controller.workId           = '123'
       controller.work.name        = 'abc'
-      controller.work.requestType = 'Design'
+      controller.work.requestTypes = ['Design', 'Code']
       controller.work.summary     = 'abc'
       controller.save()
       expect(SubmitWorkAPIService.put.called).to.be.ok
 
     it 'should call API service with post to create new project', ->
       controller.work.name        = 'abc'
-      controller.work.requestType = 'Design'
+      controller.work.requestTypes = ['Design']
       controller.work.summary     = 'abc'
       controller.save()
       expect(SubmitWorkAPIService.post.called).to.be.ok

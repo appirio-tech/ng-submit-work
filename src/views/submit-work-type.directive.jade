@@ -1,13 +1,21 @@
 loader(ng-show="vm.loading")
 
+header
+  h1 How to create a new project
+
+  p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
 form(ng-submit="vm.save()")
   .interactive-section
-    input(type="text" placeholder="Name your project..." required="true" ng-model="vm.work.name")
+    input.wider(type="text" placeholder="Name your project..." required="true" ng-model="vm.work.name")
 
-  h2 Target <strong>Platform</strong>
+  button.wider.continue.action(type="button") continue
 
   ul.target-platform.interactive-section
-    li.devices
+    li
+      h2 IOS <strong>platform details</strong>
+
+    li
       h4 Devices
 
       ul
@@ -36,9 +44,12 @@ form(ng-submit="vm.save()")
         li
           checkbox(label="iOS 8" ng-model="vm.work.os.iOS8")
 
-  h2 What <strong>type of work</strong> are you looking for?
+  button.wider.continue.action(type="button") continue
 
   ul.type.interactive-section
+    li
+      h2 What <strong>type of work</strong> are you looking for?
+
     li
       h4 Design
 
@@ -48,8 +59,8 @@ form(ng-submit="vm.save()")
 
       selected-button(
         type="button"
-        ng-click="vm.toggleType('Design')"
-        ng-class="{success: vm.work.requestType == 'Design' || vm.work.requestType == 'Both'}"
+        value="vm.requestTypes.design"
+        ng-model="vm.work.requestTypes"
       ) Design
 
     li
@@ -61,20 +72,22 @@ form(ng-submit="vm.save()")
 
       selected-button(
         type="button"
-        ng-click="vm.toggleType('Code')"
-        ng-class="{success: vm.work.requestType == 'Code' || vm.work.requestType == 'Both'}"
+        value="vm.requestTypes.code"
+        ng-model="vm.work.requestTypes"
       ) Development
 
-  h2 Can you share a <strong>brief</strong> overview?
+  button.wider.continue.action(type="button") continue
 
   .interactive-section
+    h2 Can you <strong>share a brief</strong> overview?
+
     textarea.brief(placeholder="E.g. I need a mobile HR application with social features to support my growing organization" ng-model="vm.work.summary")
 
-  button.create(type="submit" ng-if="!vm.workId") Create Project
+    button.create.wider(type="submit" ng-if="!vm.workId") Create Project
 
-  button.save(type="submit" ng-if="vm.workId") Save
+    button.save.wider(type="submit" ng-if="vm.workId") Save
 
-modal(show="vm.showSuccessModal")
+modal(show="vm.showSuccessModal" background-click-close=true)
   .success
     h2 Awesome!
 

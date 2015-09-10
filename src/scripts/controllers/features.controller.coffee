@@ -19,19 +19,19 @@ SubmitWorkFeaturesController = ($scope, SubmitWorkAPIService, API_URL) ->
   vm.defaultFeatures = [
       name: 'Login',
       description: 'Users can login / register for your app',
-      checked: false
+      custom: null
     ,
       name: 'Onboarding',
       description: 'Users can see data from social networks (FB, Twitter etc.) in your app',
-      checked: false
+      custom: null
     ,
       name: 'Registration',
       description: 'Users can create profiles with personal info',
-      checked: false
+      custom: null
     ,
       name: 'Location',
       description: 'A map with a user\'s GPS location that helps them get to places',
-      checked: false
+      custom: null
   ];
 
   vm.showCustomFeatureModal = ->

@@ -50,52 +50,20 @@ describe 'SubmitWorkVisualController', ->
       controller.save()
       expect(SubmitWorkAPIService.put.called).to.be.ok
 
-    it 'should add default visual designs', ->
+    it 'should save visual designs when options are selected', ->
       controller.work.visualDesign =
-        fonts: []
-        colors: []
-        icons: []
-
-      controller.visualDesign =
-        fonts: [
-          name: 'Serif'
-          description: 'a small line attached to the end of a stroke'
-          selected : true
-        ,
-          name: 'Sans Serif'
-          description: 'does not have the small `serifs`'
-          selected: false
-        ] ,
-        colors: [
-          name: 'Palette 1'
-          description: 'Consectetur adipiscing'
-          selected: true
-        ,
-          name: 'Palette 2'
-          description: 'Consectetur adipiscing'
-          selected: false
-        ] ,
-        icons: [
-          name: 'Google'
-          description: 'Lorem ipsum dolor sit amet'
-          selected: false
-        ,
-          name: 'Anamorphic'
-          description: 'Lorem ipsum dolor sit amet'
-          selected: true
-        ]
+        fonts: ['123']
+        colors: ['123']
+        icons: ['123']
 
       controller.submitVisuals()
-      expect(controller.work.visualDesign).to.eql
-        fonts: [
-          name: 'Serif'
-          description: 'a small line attached to the end of a stroke'
-        ],
-        colors: [
-          name: 'Palette 1'
-          description: 'Consectetur adipiscing'
-        ],
-        icons: [
-          name: 'Anamorphic'
-          description: 'Lorem ipsum dolor sit amet'
-        ]
+      expect(saveSpy.called).to.be.ok
+
+    it 'should not save visual designs when options are incomplete', ->
+      controller.work.visualDesign =
+        fonts: []
+        colors: ['123']
+        icons: []
+
+      controller.submitVisuals()
+      expect(saveSpy.called).not.to.be.ok
