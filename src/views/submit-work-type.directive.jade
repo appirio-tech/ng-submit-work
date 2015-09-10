@@ -9,7 +9,7 @@ form(ng-submit="vm.save()")
   .interactive-section
     input.wider(type="text" placeholder="Name your project..." required="true" ng-model="vm.work.name")
 
-  button.wider.continue.action(type="button" ng-click="vm.scrollToElement('platformDetails')") continue
+  button.wider.continue.action(type="button" scroll-element="platformDetails") continue
 
   ul.target-platform.interactive-section(id="platformDetails")
     li
@@ -44,7 +44,7 @@ form(ng-submit="vm.save()")
         li
           checkbox(label="iOS 8" ng-model="vm.work.os.iOS8")
 
-  button.wider.continue.action(type="button" ng-click="vm.scrollToElement('typeDetails')") continue
+  button.wider.continue.action(type="button" scroll-element="typeDetails") continue
 
   ul.type.interactive-section(id="typeDetails")
     li
@@ -76,7 +76,7 @@ form(ng-submit="vm.save()")
         ng-model="vm.work.requestTypes"
       ) Development
 
-  button.wider.continue.action(type="button" ng-click="vm.scrollToElement('briefDetails')") continue
+  button.wider.continue.action(type="button" scroll-element="briefDetails") continue
 
   .interactive-section(id="briefDetails")
     h2 Can you <strong>share a brief</strong> overview?

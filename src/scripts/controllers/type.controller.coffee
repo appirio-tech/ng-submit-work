@@ -1,6 +1,6 @@
 'use strict'
 
-SubmitWorkTypeController = ($scope, $document, SubmitWorkAPIService) ->
+SubmitWorkTypeController = ($scope, SubmitWorkAPIService) ->
   vm      = this
   vm.work =
     name       : null
@@ -45,10 +45,6 @@ SubmitWorkTypeController = ($scope, $document, SubmitWorkAPIService) ->
 
       resource.$promise.catch (response) ->
 
-  vm.scrollToElement = (elementId) ->
-    element = angular.element document.getElementById(elementId)
-    $document.scrollToElementAnimated element
-
   mockify = (work) ->
     work.requestTypes = []
     work.devices =
@@ -88,6 +84,6 @@ SubmitWorkTypeController = ($scope, $document, SubmitWorkAPIService) ->
 
   activate()
 
-SubmitWorkTypeController.$inject = ['$scope', '$document', 'SubmitWorkAPIService']
+SubmitWorkTypeController.$inject = ['$scope', 'SubmitWorkAPIService']
 
 angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkTypeController', SubmitWorkTypeController
