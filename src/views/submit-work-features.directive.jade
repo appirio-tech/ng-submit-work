@@ -1,7 +1,92 @@
-h1 Features
+header
+  .house
+    .icon.checkmark.biggest
+
+  h1 Specify Features
+
+  p Tell us what features we need to include in your new app.
+
+ul.interactive.define-or-upload
+  li
+    .icon
+
+    h3 Define features
+
+    p UX design greating the usability, accessibility, and costume journey.
+
+    button.action.wide select
+
+  li
+    .icon
+
+    h3 Upload document
+
+    p Upload your specs or any documents you have.
+
+    button.action.wide select
+
+button.wider.action go to design
+
+modal.define-features(show="true" background-click-close=true)
+  h2 Data booklet mobile app <strong>features</strong>
+
+  main
+    ul.features
+      li
+        ul
+          li(ng-repeat="feature in vm.defaultFeatures track by $index")
+            button.widest.clean
+              .icon
+
+              span {{ feature.name }}
+
+      li
+        button.widest.clean
+          span Define a new feature
+
+          .icon +
+
+    ul.contents
+      li
+        //- .default
+        //-   h4 Select and define features for your app
+
+        //-   p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+        .description
+          h4 Select and define features for your app
+
+          h5 {{ feature.name }} description
+
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+          textarea.widest(placeholder="Notes...")
+
+          button.wider.action apply feature
+
+        //- form.new-feature
+        //-   h4 Define a new feature
+
+        //-   label New feature title
+
+        //-   input.widest(type="text")
+
+        //-   label New feature description
+
+        //-   textarea.widest
+
+        //-   button.wider.action(type="submit") add new feature
+
+        .example
+          .phone
+
+      li
+        .count 0 features added
+
+        button.wider.action next
 
 form(ng-submit="vm.submitFeatures()")
-  .interactive-section
+  .interactive
     ul.features
       li(ng-repeat="feature in vm.defaultFeatures track by $index")
         h3 {{feature.name}}
@@ -14,7 +99,7 @@ form(ng-submit="vm.submitFeatures()")
 
   h2 Features &amp; user stories all set!
 
-  ul.additional.interactive-section
+  ul.additional.interactive
     li.files
       h3 Additional Files
 
