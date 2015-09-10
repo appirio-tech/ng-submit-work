@@ -96,6 +96,7 @@ SubmitWorkVisualController = ($scope, SubmitWorkAPIService, API_URL) ->
     workFonts = vm.work.visualDesign.fonts
     workColors = vm.work.visualDesign.colors
     workIcons = vm.work.visualDesign.icons
+    uploaderValid = !vm.visualsUploaderUploading && !vm.visualsUploaderHasErrors
 
     if workFonts.length && workColors.length && workIcons.length
       # TODO: replace with proper status
