@@ -21,7 +21,8 @@
     "angular-resource": "^1.3.x",
     "appirio-tech-ng-file-upload": "0.x.x",
     "appirio-tech-ng-ui-components": "0.x.x",
-    "appirio-tech-ng-api-services": "0.x.x"
+    "appirio-tech-ng-api-services": "0.x.x",
+    "appirio-tech-ng-file-upload": "master"
   },
   "ignore": [
     "**/*",

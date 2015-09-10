@@ -58,6 +58,19 @@ submit-work-visuals {
       width: 50%;
       margin: $margin-big auto 0 auto;
     }
+
+    .uploaderWrapper {
+      margin-top: $margin-small;
+      .failed {
+        color: $danger-color;
+      }
+      .uploader {
+        margin: $margin-smallest;
+        button {
+          margin: $margin-smallest;
+        }
+      }
+    }
   }
 
   .save {

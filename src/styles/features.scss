@@ -7,13 +7,29 @@ submit-work-features {
   text-align: center;
 
   h2 {
-    margin-top: $margin-big
+    margin-top: $margin-big;
   }
 
   .interactive-section {
     background-color: $neutral-color-lightest;
     padding: $padding-big;
-    margin-top: $margin-big
+    margin-top: $margin-big;
+
+    .uploaderWrapper {
+      margin-top: $margin-small;
+      .failed {
+        color: $danger-color;
+      }
+      .uploader {
+        .fileActions {
+          margin-top: $margin-smallest;
+        }
+        margin: $margin-smallest;
+        button {
+          margin: $margin-smallest;
+        }
+      }
+    }
   }
 
   ul.features {
