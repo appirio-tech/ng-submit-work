@@ -10,7 +10,7 @@ submit-work-features {
   text-align: center;
 
   > button.action {
-    margin-top: $margin;
+    margin: $margin;
   }
 
   h2 {
@@ -158,6 +158,11 @@ submit-work-features {
         .default, .description, .new-feature {
           width: 400px;
           padding: $padding-big;
+          display: none;
+
+          &.active {
+            display: block;
+          }
 
           p {
             margin-top: $margin-smallest;
@@ -202,47 +207,27 @@ submit-work-features {
     }
   }
 
-  ul.additional {
-    @include flex-center(space-around, $padding-big);
-    @include align-items(flex-start);
+  modal.upload-features {
+    background-color: $neutral-color-light;
 
-    padding-right: 0;
-    padding-bottom: 0;
-
-    section {
-      padding: $padding;
+    .close {
+      background-color: initial;
     }
 
-    h3 {
-      margin-bottom: $margin;
+    h2 {
+      margin-top: $margin;
     }
 
-    li {
-      max-width: 400px;
-    }
-
-    section {
-      background-color: $white;
-    }
-
-    .files {
-      .icon {
-        display: inline-block;
-      }
-
-      p {
-        margin-top: $margin-big;
-      }
-    }
-  }
-
-  .define-feature {
-    button {
+    p, button {
       margin-top: $margin-small;
     }
-  }
 
-  button.save-features {
-    margin-top: $margin;
+    .icon.upload {
+      width: 200px;
+      height: 100px;
+      margin: 0 auto;
+
+      background-color: pink;
+    }
   }
 }

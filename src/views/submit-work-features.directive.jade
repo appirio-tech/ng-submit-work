@@ -27,7 +27,7 @@ ul.interactive.define-or-upload
 
 button.wider.action go to design
 
-modal.define-features(show="true" background-click-close=true)
+modal.define-features(show="false" background-click-close=true)
   h2 Data booklet mobile app <strong>features</strong>
 
   main
@@ -48,10 +48,10 @@ modal.define-features(show="true" background-click-close=true)
 
     ul.contents
       li
-        //- .default
-        //-   h4 Select and define features for your app
+        .default.active
+          h4 Select and define features for your app
 
-        //-   p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
         .description
           h4 Select and define features for your app
@@ -64,18 +64,20 @@ modal.define-features(show="true" background-click-close=true)
 
           button.wider.action apply feature
 
-        //- form.new-feature
-        //-   h4 Define a new feature
+        form.new-feature(ng-submit="vm.addCustomFeature()")
+          h4 Define a new feature
 
-        //-   label New feature title
+          label New feature title
 
-        //-   input.widest(type="text")
+          input.widest(type="text" ng-model="vm.customFeature.name")
 
-        //-   label New feature description
+          label New feature description
 
-        //-   textarea.widest
+          textarea.widest(ng-model="vm.customFeature.description")
 
-        //-   button.wider.action(type="submit") add new feature
+          button.wider.action(type="submit") add new feature
+
+          button(type="button" ng-click="vm.hideCustomFeatureModal()") Cancel
 
         .example
           .phone
@@ -85,43 +87,13 @@ modal.define-features(show="true" background-click-close=true)
 
         button.wider.action next
 
-form(ng-submit="vm.submitFeatures()")
-  .interactive
-    ul.features
-      li(ng-repeat="feature in vm.defaultFeatures track by $index")
-        h3 {{feature.name}}
+modal.upload-features(show="false" background-click-close=true)
+  .upload
+    .icon.upload
 
-        .img
+    h2 Upload <strong>documents</strong>
 
-        selected-button(ng-model="vm.work.features" value="feature")
+    p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
-    button(type="button" ng-click="vm.showCustomFeatureModal()") + Define a feature
+    button.wider.action upload
 
-  h2 Features &amp; user stories all set!
-
-  ul.additional.interactive
-    li.files
-      h3 Additional Files
-
-      section
-        button.clean
-          .icon.download.biggest
-
-        p Upload any additional documents that might be useful. E.g. - interaction designs, wireframes, product description, etc.
-
-    li.details
-      h3 Anything else you want to share?
-
-      textarea(placeholder="Tell us specific details that you want to share regarding features and functionalities." ng-model="vm.work.featuresDetails")
-
-  button.wide.save-features(type="submit") Save
-
-modal(show="vm.showDefineAFeatureModal")
-  form.define-feature(ng-submit="vm.addCustomFeature()")
-    input(type="text" placeholder="Feature name..." ng-model="vm.customFeature.name")
-
-    textarea(placeholder="Feature description..." ng-model="vm.customFeature.description")
-
-    button(type="submit") Add Feature
-
-    button(type="button" ng-click="vm.hideCustomFeatureModal()") Cancel
