@@ -125,7 +125,6 @@ SubmitWorkVisualController = ($scope, SubmitWorkAPIService, API_URL) ->
 
   activate = ->
     configureUploader()
-
     if vm.workId
       params =
         id: vm.workId
