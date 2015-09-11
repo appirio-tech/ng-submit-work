@@ -57,7 +57,11 @@ submit-work-features {
                 .icon {
                   display         : inline-block;
                   margin-right    : $margin-smallest;
-                  background-color: purple;
+                  background-color: $neutral-color;
+
+                  &.selected {
+                    background-color: $primary-color;
+                  }
                 }
               }
             }

@@ -14,7 +14,7 @@ ul.path-choices
 
     p UX design greating the usability, accessibility, and costume journey.
 
-    button.action.wide select
+    button.action.wide(ng-click="vm.showFeatures()") select
 
   li
     .icon
@@ -23,11 +23,11 @@ ul.path-choices
 
     p Upload your specs or any documents you have.
 
-    button.action.wide select
+    button.action.wide(ng-click="vm.showUpload()") select
 
-button.wider.action go to design
+button.wider.action(ng-click="vm.showFeatures()") go to design
 
-modal.full.define-features(show="false" background-click-close=true)
+modal.full.define-features(show="vm.showFeaturesModal" background-click-close=true)
   h2 Data booklet mobile app <strong>features</strong>
 
   main
@@ -35,59 +35,59 @@ modal.full.define-features(show="false" background-click-close=true)
       li
         ul
           li(ng-repeat="feature in vm.defaultFeatures track by $index")
-            button.widest.clean
-              .icon
+            button.widest.clean(ng-click="vm.activateFeature(feature)")
+              .icon(ng-class="{selected: vm.activeFeature.name == feature.name}")
 
               span {{ feature.name }}
 
       li
-        button.widest.clean
+        button.widest.clean(ng-click="vm.toggleDefineFeatures()")
           span Define a new feature
 
           .icon +
 
     ul.contents
       li
-        .default.active
+        .default.active(ng-class="{active: !vm.activeFeature}")
           h4 Select and define features for your app
 
           p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
-        .description
+        .description(ng-class="{active: vm.activeFeature}")
           h4 Select and define features for your app
 
-          h5 {{ feature.name }} description
+          h5 {{ vm.activeFeature.name }} description
 
           p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
-          textarea.widest(placeholder="Notes...")
+          textarea.widest(placeholder="Notes..." ng-model="vm.activeFeature.notes")
 
-          button.wider.action apply feature
+          button.wider.action(ng-click="vm.applyFeature()") apply feature
 
-        form.new-feature(ng-submit="vm.addCustomFeature()")
+        form.new-feature(ng-submit="vm.addCustomFeature()" ng-class="{active: vm.showDefineFeaturesForm}")
           h4 Define a new feature
 
           label New feature title
 
-          input.widest(type="text" ng-model="vm.customFeature.name")
+          input.widest(type="text" ng-model="vm.customFeature.name" required=true)
 
           label New feature description
 
-          textarea.widest(ng-model="vm.customFeature.description")
+          textarea.widest(ng-model="vm.customFeature.description" required=true)
 
           button.wider.action(type="submit") add new feature
 
-          button(type="button" ng-click="vm.hideCustomFeatureModal()") Cancel
+          button(type="button" ng-click="vm.hideCustomFeatures()") Cancel
 
         .example
           .phone
 
       li
-        .count 0 features added
+        .count {{vm.work.features.length}} features added
 
-        button.wider.action next
+        button.wider.action(ng-click="vm.submitFeatures()") next
 
-modal.upload-documents(show="false" background-click-close=true)
+modal.upload-documents(show="vm.showUploadModal" background-click-close=true)
   .upload
     .icon.upload
 
