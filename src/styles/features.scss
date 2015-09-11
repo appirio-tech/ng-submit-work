@@ -4,45 +4,9 @@
 $card-max-width: 180px;
 
 submit-work-features {
-  @include submit-work-header;
-
-  display: block;
-  text-align: center;
-
-  > button.action {
-    margin: $margin;
-  }
-
-  h2 {
-    margin-top: $margin-big
-  }
-
-  ul.define-or-upload {
-    @include flex-center(center);
-
-    padding         : $padding-big;
-    background-color: $neutral-color-lightest;
-
-    > li {
-      margin: 0 $margin;
-
-      > * {
-        margin-top: $margin-smallest;
-      }
-
-      .icon {
-        width: 50px;
-        height: 50px;
-        border: 4px solid black;
-        display: inline-block;
-      }
-    }
-  }
-
   modal.define-features {
     @include flex-direction(column);
     @include flex-wrap(nowrap);
-
     text-align: left;
     background-color: $white;
 
@@ -206,28 +170,21 @@ submit-work-features {
       }
     }
   }
-
-  modal.upload-features {
-    background-color: $neutral-color-light;
-
-    .close {
-      background-color: initial;
-    }
-
-    h2 {
-      margin-top: $margin;
-    }
-
-    p, button {
+  modal.upload-documents {
+    .uploaderWrapper {
       margin-top: $margin-small;
-    }
-
-    .icon.upload {
-      width: 200px;
-      height: 100px;
-      margin: 0 auto;
-
-      background-color: pink;
+      .failed {
+        color: $danger-color;
+      }
+      .uploader {
+        .fileActions {
+          margin-top: $margin-smallest;
+        }
+        margin: $margin-smallest;
+        button {
+          margin: $margin-smallest;
+        }
+      }
     }
   }
 }

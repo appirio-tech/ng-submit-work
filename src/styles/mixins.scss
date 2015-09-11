@@ -1,28 +1,7 @@
 @import "work-includes";
 
 @mixin submit-work-header() {
-  header {
-    background-color: $neutral-color-dark;
-    padding: $padding-biggest;
-
-    > * {
-      max-width: 400px;
-      color: $white;
-      margin: 0 auto;
-    }
-
-    .house {
-      border       : 5px solid $white;
-      border-radius: 50%;
-      display      : inline-block;
-      padding      : $padding;
-      margin-bottom: $margin-small;
-    }
-
-    p {
-      margin-top: $margin-smallest;
-    }
-  }
+  
 }
 
 

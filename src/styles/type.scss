@@ -1,12 +1,7 @@
 @import "work-includes";
-@import "mixins";
 
 submit-work-type {
-  @include submit-work-header;
-
-  display   : block;
   position  : relative;
-  text-align: center;
 
   .continue {
     margin : $margin auto;

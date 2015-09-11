@@ -1,3 +1,117 @@
+header
+  .house
+    .icon.checkmark.biggest
+
+  h1 Visual Design
+
+  p Help us define the visual style of your mobile app.
+
+ul.path-choices
+  li
+    .icon
+
+    h3 Choose Styles
+
+    p Pick few fonts style for your mobile app
+
+    button.action.wide select
+
+  li
+    .icon
+
+    h3 Upload styles
+
+    p Pick color palette for your mobile app
+
+    button.action.wide select
+
+  li
+    .icon
+
+    h3 Get style from url
+
+    p Pick graphic style for your mobile app.
+
+    button.action.wide select
+
+button.wider.action go to development
+
+modal.upload-documents(show="false" background-click-close=true)
+  .upload
+    .icon.upload
+
+    h2 Upload <strong>documents</strong>
+
+    p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+    button.wider.action upload
+
+modal.enter-url(show="false" background-click-close=true)
+  .upload
+    .icon.upload
+
+    h2 Enter your <strong>url</strong>
+
+    p You can enter your website address and we'll grab your colors, fonts amd ocpms to use when designing your new app.
+
+    input.wide(type="text" placeholder="http://www.example.com")
+
+    button.wider.action enter
+
+modal.choose-styles(show="true" background-click-close=true)
+  ul.nav
+    li
+      button.clean &lt;
+
+    li
+      button.clean fonts
+
+    li
+      button.clean colors
+
+    li
+      button.clean icons
+
+    li
+      button.clean &gt;
+
+  .fonts
+    h2 Tell us your <strong>font preference</strong>
+
+    ul
+      li
+        h3 Serif
+
+        hr
+
+        p Classic design, good legiblity for large and small text.
+
+        p Baskerville is a serif font.
+
+        p Times New Roman is a serif font
+
+        p Courier is a serif font.
+
+        selected-button
+
+      li
+        h3 Sans Serif
+
+        hr
+
+        p Modern design, good for headers and body text.
+
+        p Sofia is a sans-serif font.
+
+        p Arial is a sans-serif font.
+
+        p Musero Sans is a sans-serif font.
+
+        selected-button
+
+  footer
+    button.action.wider next
+
 form(ng-submit="vm.submitVisuals()")
   h2 Tell us more about <strong>Visual Style</strong>
 
@@ -45,7 +159,11 @@ form(ng-submit="vm.submitVisuals()")
 
     p You can upload documents that can act as a strong visual brief to the visual designer. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
-    button(type="button") Upload
+    ap-uploader(
+      config="vm.visualsUploaderConfig"
+      uploading="vm.visualsUploaderUploading"
+      has-errors="vm.visualsUploaderHasErrors"
+    )
 
   button.save.wide(type="submit") Save
 

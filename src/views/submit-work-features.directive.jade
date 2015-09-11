@@ -6,7 +6,7 @@ header
 
   p Tell us what features we need to include in your new app.
 
-ul.interactive.define-or-upload
+ul.path-choices
   li
     .icon
 
@@ -95,5 +95,10 @@ modal.upload-features(show="vm.showUpload" background-click-close=true)
 
     p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
-    button.wider.action upload
+    ap-uploader(
+      config="vm.featuresUploaderConfig"
+      uploading="vm.featuresUploaderUploading"
+      has-errors="vm.featuresUploaderHasErrors"
+    )
+
 
