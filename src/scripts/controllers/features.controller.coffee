@@ -62,10 +62,9 @@ SubmitWorkFeaturesController = ($scope, SubmitWorkAPIService, API_URL) ->
     features = vm.work.features
 
     features.forEach (feature) ->
-      if feature.name == vm.activeFeature.name
-        featureAdded = true
+      featureAdded = true if feature.name == vm.activeFeature.name
 
-    if !featureAdded
+    unless featureAdded
       features.push vm.activeFeature
       vm.activeFeature = null
 
