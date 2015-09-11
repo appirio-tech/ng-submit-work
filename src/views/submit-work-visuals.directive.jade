@@ -58,7 +58,7 @@ modal.enter-url(show="false" background-click-close=true)
 
     button.wider.action enter
 
-modal.choose-styles(show="true" background-click-close=true)
+modal.full.choose-styles(show="true" background-click-close=true)
   ul.nav
     li
       button.clean &lt;
@@ -75,7 +75,7 @@ modal.choose-styles(show="true" background-click-close=true)
     li
       button.clean &gt;
 
-  .fonts
+  main.fonts(ng-show="false")
     h2 Tell us your <strong>font preference</strong>
 
     ul
@@ -86,13 +86,17 @@ modal.choose-styles(show="true" background-click-close=true)
 
         p Classic design, good legiblity for large and small text.
 
-        p Baskerville is a serif font.
+        ul.samples
+          li.baskerville Baskerville is a serif font.
 
-        p Times New Roman is a serif font
+          li.times Times New Roman is a serif font
 
-        p Courier is a serif font.
+          li.courier Courier is a serif font.
 
         selected-button
+
+      li.or
+        .house OR
 
       li
         h3 Sans Serif
@@ -101,16 +105,93 @@ modal.choose-styles(show="true" background-click-close=true)
 
         p Modern design, good for headers and body text.
 
-        p Sofia is a sans-serif font.
+        ul.samples
+          li.sofia Sofia is a sans-serif font.
 
-        p Arial is a sans-serif font.
+          li.arial Arial is a sans-serif font.
 
-        p Musero Sans is a sans-serif font.
+          li.museo Museo Sans is a sans-serif font.
+
+        selected-button
+
+  main.colors(ng-show="false")
+    h2 Tell us <strong>the colors</strong> you like
+
+    ul
+      li.picker
+        ul.samples
+          li
+            button +
+
+            p #abc123
+
+          li
+            button +
+
+            p #abc123
+
+
+          li
+            button +
+
+            p #abc123
+
+        h4 Enter your custom color
+
+      li.or
+        .house OR
+
+      li.swatches
+        ul.samples
+          li
+
+          li
+
+          li
+
+          li
+
+        h4 Select swatches and edit colors
+
+        a View All Swatches
+
+  main.icons
+    h2 Tell us <strong>the icons</strong> you like
+
+    ul
+      li
+        .icon
+
+        h4 Flat colors
+
+        p Lorem ipsum dolor sit amet
+
+        selected-button
+
+      li
+        .icon
+
+        h4 Thin line
+
+        p Lorem ipsum dolor sit amet
+
+        selected-button
+
+      li
+        .icon
+
+        h4 Solid line
+
+        p Lorem ipsum dolor sit amet
 
         selected-button
 
   footer
+    button.wider back
+
     button.action.wider next
+
+    button.action.wider finish design
 
 form(ng-submit="vm.submitVisuals()")
   h2 Tell us more about <strong>Visual Style</strong>

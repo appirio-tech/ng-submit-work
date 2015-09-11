@@ -6,7 +6,147 @@ $card-max-width: 180px;
 submit-work-visuals {
   @include submit-work-header;
 
+  .baskerville {
+    font-family: Baskerville;
+  }
+
+  .times {
+    font-family: Times New Roman;
+  }
+
+  .courier {
+    font-family: Courier;
+  }
+
+  .arial {
+    font-family: Arial;
+  }
+
+  .museo {
+    font-family: Museo Sans;
+  }
+
   .choose-styles {
-    background-color: $white;
+    .nav {
+      @include flex-center(space-between);
+
+      width: 300px;
+      margin: $margin;
+    }
+
+    footer {
+      button {
+        margin: $margin-small;
+      }
+    }
+
+    > main {
+      @include flex-grow(2);
+
+      background-color: $neutral-color-light;
+      width           : 100%;
+      border-top      : 1px solid $neutral-color;
+
+      h2 {
+        margin-top: $margin-big;
+      }
+
+      > ul {
+        @include flex-center(center);
+
+        margin-top: $margin-big;
+
+        li {
+          hr {
+            margin-bottom: $margin-smallest;
+            background-color: $neutral-color;
+          }
+
+          &.or {
+            margin: 0 $margin;
+            background-color: $neutral-color;
+            font-size: $font-size-big;
+            color: $white;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            border-radius: 50%;
+          }
+
+          selected-button {
+            margin-top: $margin;
+          }
+        }
+      }
+    }
+
+    .colors {
+      .fonts .samples {
+        margin-top: $margin;
+
+        li {
+          font-size: $font-size-big;
+          margin-top: $margin-small;
+        }
+      }
+
+      .picker .samples {
+        @include flex-center(center, 2px);
+
+        width: 396px;
+
+        button {
+          height     : 120px;
+          width      : 70px;
+          color      : $neutral-color-dark;
+          font-size  : 36px;
+          font-weight: bold;
+          border     : none;
+        }
+
+        p {
+          margin-top: $margin-smallest;
+        }
+      }
+
+      .swatches {
+        h4 {
+          margin-top: 0;
+          margin-bottom: $margin-smallest;
+        }
+
+        .samples {
+          @include flex-center(center, $margin);
+
+          width: 396px;
+          padding-top: $margin;
+          padding-left: $margin;
+
+          li {
+            background-color: purple;
+            width: 150px;
+
+            height: 90px;
+          }
+        }
+      }
+    }
+
+    .icons {
+      > ul {
+        @include justify-content(space-between);
+
+        margin: $margin-biggest;
+
+        li {
+          .icon {
+            height: 100px;
+            width: 75px;
+            background-color: red;
+            margin: 0 auto;
+          }
+        }
+      }
+    }
   }
 }
