@@ -2,10 +2,18 @@
 
 SubmitWorkVisualController = ($scope, SubmitWorkAPIService, API_URL) ->
   vm      = this
-  vm.loading = true
   vm.workId = $scope.workId
+  vm.loading = true
   vm.visualsUploaderUploading = null
   vm.visualsUploaderHasErrors = null
+  vm.showPaths = true
+  vm.showChooseStylesModal = false
+  vm.showUploadStylesModal = false
+  vm.showUrlStylesModal = false
+  vm.activeStyleModal = null
+  vm.nextButtonDisabled = false
+  vm.backButtonDisabled = false
+  vm.styleModals = ['fonts', 'colors', 'icons']
 
   vm.work =
     name       : null
@@ -15,27 +23,10 @@ SubmitWorkVisualController = ($scope, SubmitWorkAPIService, API_URL) ->
     featuresDetails : null
 
   vm.visualDesign = {}
-  vm.visualDesign.fonts = [
-    name: 'Serif'
-    description: 'a small line attached to the end of a stroke'
-    id: '1234'
-  ,
-    name: 'Sans Serif'
-    description: 'does not have the small `serifs`'
-    id: '1235'
-  ,
-    name: 'Slap Serif'
-    description: 'does not have the small `serifs`'
-    id: '1236'
-  ,
-    name: 'Script'
-    description: 'does not have the small `serifs`'
-    id: '1237'
-  ,
-    name: 'Grunge'
-    description: 'does not have the small `serifs`'
-    id: '1238'
-  ]
+  vm.visualDesign.fonts =
+    serif: 'serif',
+    sansSerif: 'sans serif'
+
 
   vm.visualDesign.colors = [
     name: 'Palette 1'
@@ -60,26 +51,48 @@ SubmitWorkVisualController = ($scope, SubmitWorkAPIService, API_URL) ->
   ]
 
   vm.visualDesign.icons = [
-    name: 'Google'
+    name: 'Flat Colors'
     description: 'Lorem ipsum dolor sit amet'
     id: '1234'
   ,
-    name: 'Anamorphic'
+    name: 'Thin Line'
     description: 'Lorem ipsum dolor sit amet'
     id: '1235'
   ,
-    name: 'iOS Style'
+    name: 'Solid Line'
     description: 'Lorem ipsum dolor sit amet'
     id: '1236'
-  ,
-    name: 'Android'
-    description: 'Lorem ipsum dolor sit amet'
-    id: '1237'
-  ,
-    name: 'Windows 8'
-    description: 'Lorem ipsum dolor sit amet'
-    id: '1238'
   ]
+
+  vm.showChooseStyles = ->
+    vm.showPaths = false
+    vm.showChooseStylesModal = true
+    vm.backButtonDisabled = true
+    vm.activateModal('fonts')
+
+  vm.showUploadStyles = ->
+    vm.showUploadStylesModal = true
+
+  vm.showUrlStyles = ->
+    vm.showUrlStylesModal = true
+
+  vm.activateModal = (modal) ->
+    vm.activeStyleModal = modal
+    updateButtons()
+
+  vm.viewNext = ->
+    currentIndex = vm.styleModals.indexOf vm.activeStyleModal
+    isValid = currentIndex < vm.styleModals.length - 1
+    if isValid
+      nextModal = vm.styleModals[currentIndex + 1]
+      vm.activateModal(nextModal)
+
+  vm.viewPrevious = ->
+    currentIndex = vm.styleModals.indexOf vm.activeStyleModal
+    isValid = currentIndex > 0
+    if isValid
+      previousModal = vm.styleModals[currentIndex - 1]
+      vm.activateModal(previousModal)
 
   vm.save = (onSuccess) ->
     if vm.workId
@@ -104,9 +117,23 @@ SubmitWorkVisualController = ($scope, SubmitWorkAPIService, API_URL) ->
       vm.save (response) ->
         # TODO: navigate to "development" view
 
+  updateButtons = ->
+    currentIndex = vm.styleModals.indexOf vm.activeStyleModal
+    isFirst = currentIndex == 0
+    isLast = currentIndex == vm.styleModals.length - 1
+    if isFirst
+      vm.backButtonDisabled = true
+    else if isLast
+      vm.nextButtonDisabled = true
+      vm.showFinishDesignButton = true
+    else
+      vm.nextButtonDisabled = false
+      vm.backButtonDisabled = false
+      vm.showFinishDesignButton = false
+
   mockify = (work) ->
     work.visualDesign = {}
-    work.visualDesign.fonts = []
+    work.visualDesign.font = null
     work.visualDesign.colors = []
     work.visualDesign.icons = []
 

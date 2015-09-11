@@ -6,7 +6,7 @@ header
 
   p Help us define the visual style of your mobile app.
 
-ul.path-choices
+ul.path-choices(ng-class="{active: vm.showPaths}")
   li
     .icon
 
@@ -14,7 +14,7 @@ ul.path-choices
 
     p Pick few fonts style for your mobile app
 
-    button.action.wide select
+    button.action.wide(ng-click="vm.showChooseStyles()") select
 
   li
     .icon
@@ -23,7 +23,7 @@ ul.path-choices
 
     p Pick color palette for your mobile app
 
-    button.action.wide select
+    button.action.wide(ng-click="vm.showUploadStyles()") select
 
   li
     .icon
@@ -32,11 +32,11 @@ ul.path-choices
 
     p Pick graphic style for your mobile app.
 
-    button.action.wide select
+    button.action.wide(ng-click="vm.showUrlStyles()") select
 
-button.wider.action go to development
+button.wider.action(ui-sref="submit-work-development") go to development
 
-modal.upload-documents(show="false" background-click-close=true)
+modal.upload-documents(show="vm.showUploadStylesModal" background-click-close=true)
   .upload
     .icon.upload
 
@@ -46,7 +46,7 @@ modal.upload-documents(show="false" background-click-close=true)
 
     button.wider.action upload
 
-modal.enter-url(show="false" background-click-close=true)
+modal.enter-url(show="vm.showUrlStylesModal" background-click-close=true)
   .upload
     .icon.upload
 
@@ -58,24 +58,24 @@ modal.enter-url(show="false" background-click-close=true)
 
     button.wider.action enter
 
-modal.full.choose-styles(show="true" background-click-close=true)
+modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=true)
   ul.nav
     li
-      button.clean &lt;
+      button.clean(ng-click="vm.viewPrevious()") &lt;
 
     li
-      button.clean fonts
+      button.clean(ng-click="vm.activateModal('fonts')") fonts
 
     li
-      button.clean colors
+      button.clean(ng-click="vm.activateModal('colors')") colors
 
     li
-      button.clean icons
+      button.clean(ng-click="vm.activateModal('icons')") icons
 
     li
-      button.clean &gt;
+      button.clean(ng-click="vm.previewNext()") &gt;
 
-  main.fonts(ng-show="false")
+  main.fonts(ng-show="vm.activeStyleModal == 'fonts' ")
     h2 Tell us your <strong>font preference</strong>
 
     ul
@@ -93,7 +93,7 @@ modal.full.choose-styles(show="true" background-click-close=true)
 
           li.courier Courier is a serif font.
 
-        selected-button
+        selected-button(ng-model="vm.work.font" value="vm.visualDesign.fonts.serif")
 
       li.or
         .house OR
@@ -112,9 +112,9 @@ modal.full.choose-styles(show="true" background-click-close=true)
 
           li.museo Museo Sans is a sans-serif font.
 
-        selected-button
+        selected-button(ng-model="vm.work.font" value="vm.visualDesign.fonts.sansSerif")
 
-  main.colors(ng-show="false")
+  main.colors(ng-show="vm.activeStyleModal == 'colors' ")
     h2 Tell us <strong>the colors</strong> you like
 
     ul
@@ -155,7 +155,7 @@ modal.full.choose-styles(show="true" background-click-close=true)
 
         a View All Swatches
 
-  main.icons
+  main.icons(ng-show="vm.activeStyleModal == 'icons' ")
     h2 Tell us <strong>the icons</strong> you like
 
     ul
@@ -187,10 +187,10 @@ modal.full.choose-styles(show="true" background-click-close=true)
         selected-button
 
   footer
-    button.wider back
+    button.wider(ng-hide="vm.backButtonDisabled" ng-click="vm.viewPrevious()") back
 
-    button.action.wider next
+    button.action.wider(ng-hide="vm.nextButtonDisabled" ng-click="vm.viewNext()") next
 
-    button.action.wider finish design
+    button.action.wider(ng-show="vm.showFinishDesignButton") finish design
 
 
