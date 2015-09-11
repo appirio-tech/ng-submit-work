@@ -39,7 +39,7 @@ describe 'SubmitWorkFeaturesController', ->
     it 'should have a toggleDefineFeatures method', ->
       expect(controller.toggleDefineFeatures).to.exist
 
-    it 'should have a hideCustomFeaturesl method', ->
+    it 'should have a hideCustomFeatures method', ->
       expect(controller.hideCustomFeatures).to.exist
 
     it 'should have a addCustomFeature method', ->
