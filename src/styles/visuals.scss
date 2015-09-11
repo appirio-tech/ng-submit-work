@@ -1,66 +1,12 @@
 @import "work-includes";
+@import "mixins";
 
 $card-max-width: 180px;
 
 submit-work-visuals {
-  display: block;
-  text-align: center;
+  @include submit-work-header;
 
-  > form > ul {
-    @include flex-center(flex-start, $padding-big);
-
-    background-color: $neutral-color-lightest;
-    padding         : $padding-big 0 0 $padding-big;
-    margin-top      : $margin;
-
-    > li {
-      @include flex-grow(1);
-
-      > h3, > p {
-        max-width: $card-max-width;
-        margin: 0 auto;
-      }
-
-      button {
-        width: $card-max-width;
-      }
-    }
-
-    .img {
-      display         : inline-block;
-      width           : $card-max-width;
-      height          : $card-max-width;
-      background-color: pink;
-      margin-top      : $margin;
-    }
-
-    selected-button {
-      margin-top: $margin;
-    }
-  }
-
-  .upload-documents {
-    margin-top      : $margin;
-    background-color: $neutral-color-lightest;
-    padding         : $padding-big;
-
-    button {
-      margin-top: $margin;
-    }
-
-    .icon {
-      background-color: green;
-      width: 75px;
-      height: 75px;
-    }
-
-    p {
-      width: 50%;
-      margin: $margin-big auto 0 auto;
-    }
-  }
-
-  .save {
-    margin-top: $margin-big;
+  .choose-styles {
+    background-color: $white;
   }
 }

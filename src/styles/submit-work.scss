@@ -1,0 +1,88 @@
+@import "work-includes";
+
+submit-work-type, submit-work-features, submit-work-visuals, submit-work-development {
+  display: block;
+  text-align: center;
+
+  > button.action {
+    margin: $margin;
+  }
+
+  h2 {
+    margin-top: $margin-big
+  }
+
+  header {
+    background-color: $neutral-color-dark;
+    padding: $padding-biggest;
+
+    > * {
+      max-width: 400px;
+      color: $white;
+      margin: 0 auto;
+    }
+
+    .house {
+      border       : 5px solid $white;
+      border-radius: 50%;
+      display      : inline-block;
+      padding      : $padding;
+      margin-bottom: $margin-small;
+    }
+
+    p {
+      margin-top: $margin-smallest;
+    }
+  }
+
+  ul.path-choices {
+    @include flex-center(center);
+
+    padding         : $padding-big;
+    background-color: $neutral-color-lightest;
+
+    > li {
+      margin: 0 $margin;
+
+      > * {
+        margin-top: $margin-smallest;
+      }
+
+      .icon {
+        width: 50px;
+        height: 50px;
+        border: 4px solid black;
+        display: inline-block;
+      }
+    }
+  }
+
+  .upload-documents, .enter-url {
+    background-color: $neutral-color-light;
+
+    .close {
+      background-color: initial;
+    }
+
+    h2 {
+      margin-top: $margin;
+    }
+
+    input {
+      margin: 0 auto;
+      margin-top: $margin;
+    }
+
+    p, button {
+      margin-top: $margin-small;
+    }
+
+    .icon.upload {
+      width: 200px;
+      height: 100px;
+      margin: 0 auto;
+
+      background-color: pink;
+    }
+  }
+}
