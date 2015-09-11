@@ -36,11 +36,11 @@ describe 'SubmitWorkFeaturesController', ->
       it 'should initialize work', ->
         expect(controller.work).to.be.ok
 
-    it 'should have a showCustomFeatureModal method', ->
-      expect(controller.showCustomFeatureModal).to.exist
+    it 'should have a toggleDefineFeatures method', ->
+      expect(controller.toggleDefineFeatures).to.exist
 
-    it 'should have a hideCustomFeatureModal method', ->
-      expect(controller.hideCustomFeatureModal).to.exist
+    it 'should have a hideCustomFeaturesl method', ->
+      expect(controller.hideCustomFeatures).to.exist
 
     it 'should have a addCustomFeature method', ->
       expect(controller.addCustomFeature).to.exist
@@ -55,26 +55,22 @@ describe 'SubmitWorkFeaturesController', ->
       controller.work.features = []
       controller.customFeature =
         name: 'feature'
+        description: 'description'
       controller.addCustomFeature()
-      expect(controller.work.features).to.eql([name: 'feature'])
+      expect(controller.work.features.length).to.equal(1)
 
     it 'should call API service with put to save project', ->
       controller.workId = '123'
       controller.save()
       expect(SubmitWorkAPIService.put.called).to.be.ok
 
-    it 'should add default features', ->
+    it 'should apply default features', ->
       controller.work.features = []
-      controller.defaultFeatures = [
-          name: 'Login',
-          description: 'Users can login / register for your app',
-          checked: true
-        ,
-          name: 'Onboarding',
-          description: 'Users can see data from social networks (FB, Twitter etc.) in your app',
-          checked: false
-      ]
-      controller.submitFeatures()
+      controller.activeFeature =
+        name: 'Login',
+        description: 'Users can login / register for your app',
+
+      controller.applyFeature()
       expect(controller.work.features.length).to.equal(1)
 
     it 'should initialize work', ->
