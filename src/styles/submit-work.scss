@@ -35,6 +35,13 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
     }
   }
 
+  modal.full {
+    @include flex-direction(column);
+    @include flex-wrap(nowrap);
+
+    background-color: $white;
+  }
+
   ul.path-choices {
     @include flex-center(center);
 

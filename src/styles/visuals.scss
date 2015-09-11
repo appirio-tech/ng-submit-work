@@ -6,7 +6,87 @@ $card-max-width: 180px;
 submit-work-visuals {
   @include submit-work-header;
 
+  .baskerville {
+    font-family: Baskerville;
+  }
+
+  .times {
+    font-family: Times New Roman;
+  }
+
+  .courier {
+    font-family: Courier;
+  }
+
+  .arial {
+    font-family: Arial;
+  }
+
+  .museo {
+    font-family: Museo Sans;
+  }
+
   .choose-styles {
-    background-color: $white;
+    .nav {
+      @include flex-center(space-between);
+
+      width: 300px;
+      margin: $margin;
+    }
+
+    footer {
+      button {
+        margin: $margin-small;
+      }
+    }
+
+    > main {
+      @include flex-grow(2);
+
+      background-color: $neutral-color-light;
+      width           : 100%;
+      border-top      : 1px solid $neutral-color;
+
+      h2 {
+        margin-top: $margin-big;
+      }
+
+      > ul {
+        @include flex-center(center);
+
+        margin-top: $margin-big;
+
+        li {
+          hr {
+            margin-bottom: $margin-smallest;
+            background-color: $neutral-color;
+          }
+
+          &.or {
+            margin: 0 $margin;
+            background-color: $neutral-color;
+            font-size: $font-size-big;
+            color: $white;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            border-radius: 50%;
+          }
+
+          .samples {
+            margin-top: $margin;
+
+            li {
+              font-size: $font-size-big;
+              margin-top: $margin-small;
+            }
+          }
+
+          selected-button {
+            margin-top: $margin;
+          }
+        }
+      }
+    }
   }
 }
