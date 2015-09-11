@@ -73,17 +73,77 @@ submit-work-visuals {
             border-radius: 50%;
           }
 
-          .samples {
-            margin-top: $margin;
-
-            li {
-              font-size: $font-size-big;
-              margin-top: $margin-small;
-            }
-          }
-
           selected-button {
             margin-top: $margin;
+          }
+        }
+      }
+    }
+
+    .colors {
+      .fonts .samples {
+        margin-top: $margin;
+
+        li {
+          font-size: $font-size-big;
+          margin-top: $margin-small;
+        }
+      }
+
+      .picker .samples {
+        @include flex-center(center, 2px);
+
+        width: 396px;
+
+        button {
+          height     : 120px;
+          width      : 70px;
+          color      : $neutral-color-dark;
+          font-size  : 36px;
+          font-weight: bold;
+          border     : none;
+        }
+
+        p {
+          margin-top: $margin-smallest;
+        }
+      }
+
+      .swatches {
+        h4 {
+          margin-top: 0;
+          margin-bottom: $margin-smallest;
+        }
+
+        .samples {
+          @include flex-center(center, $margin);
+
+          width: 396px;
+          padding-top: $margin;
+          padding-left: $margin;
+
+          li {
+            background-color: purple;
+            width: 150px;
+
+            height: 90px;
+          }
+        }
+      }
+    }
+
+    .icons {
+      > ul {
+        @include justify-content(space-between);
+
+        margin: $margin-biggest;
+
+        li {
+          .icon {
+            height: 100px;
+            width: 75px;
+            background-color: red;
+            margin: 0 auto;
           }
         }
       }

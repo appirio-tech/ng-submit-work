@@ -75,7 +75,7 @@ modal.full.choose-styles(show="true" background-click-close=true)
     li
       button.clean &gt;
 
-  main.fonts
+  main.fonts(ng-show="false")
     h2 Tell us your <strong>font preference</strong>
 
     ul
@@ -114,8 +114,84 @@ modal.full.choose-styles(show="true" background-click-close=true)
 
         selected-button
 
+  main.colors(ng-show="false")
+    h2 Tell us <strong>the colors</strong> you like
+
+    ul
+      li.picker
+        ul.samples
+          li
+            button +
+
+            p #abc123
+
+          li
+            button +
+
+            p #abc123
+
+
+          li
+            button +
+
+            p #abc123
+
+        h4 Enter your custom color
+
+      li.or
+        .house OR
+
+      li.swatches
+        ul.samples
+          li
+
+          li
+
+          li
+
+          li
+
+        h4 Select swatches and edit colors
+
+        a View All Swatches
+
+  main.icons
+    h2 Tell us <strong>the icons</strong> you like
+
+    ul
+      li
+        .icon
+
+        h4 Flat colors
+
+        p Lorem ipsum dolor sit amet
+
+        selected-button
+
+      li
+        .icon
+
+        h4 Thin line
+
+        p Lorem ipsum dolor sit amet
+
+        selected-button
+
+      li
+        .icon
+
+        h4 Solid line
+
+        p Lorem ipsum dolor sit amet
+
+        selected-button
+
   footer
+    button.wider back
+
     button.action.wider next
+
+    button.action.wider finish design
 
 form(ng-submit="vm.submitVisuals()")
   h2 Tell us more about <strong>Visual Style</strong>
