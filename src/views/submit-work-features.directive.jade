@@ -23,11 +23,11 @@ ul.interactive.define-or-upload
 
     p Upload your specs or any documents you have.
 
-    button.action.wide select
+    button.action.wide(ng-click="vm.showUpload = true") select
 
-button.wider.action go to design
+button.wider.action(ng-click="vm.showFeatures = true") go to design
 
-modal.define-features(show="false" background-click-close=true)
+modal.define-features(show="vm.showFeatures" background-click-close=true)
   h2 Data booklet mobile app <strong>features</strong>
 
   main
@@ -41,7 +41,7 @@ modal.define-features(show="false" background-click-close=true)
               span {{ feature.name }}
 
       li
-        button.widest.clean
+        button.widest.clean(ng-click="vm.showDefineFeatures = true")
           span Define a new feature
 
           .icon +
@@ -64,7 +64,7 @@ modal.define-features(show="false" background-click-close=true)
 
           button.wider.action apply feature
 
-        form.new-feature(ng-submit="vm.addCustomFeature()")
+        form.new-feature(ng-submit="vm.addCustomFeature()" ng-class="{active: vm.showDefineFeatures}")
           h4 Define a new feature
 
           label New feature title
@@ -83,11 +83,11 @@ modal.define-features(show="false" background-click-close=true)
           .phone
 
       li
-        .count 0 features added
+        .count {{vm.work.features.length}} features added
 
         button.wider.action next
 
-modal.upload-features(show="false" background-click-close=true)
+modal.upload-features(show="vm.showUpload" background-click-close=true)
   .upload
     .icon.upload
 

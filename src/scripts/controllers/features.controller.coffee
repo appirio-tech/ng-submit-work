@@ -3,7 +3,9 @@
 SubmitWorkFeaturesController = ($scope, SubmitWorkAPIService) ->
   vm      = this
   vm.loading          = true
-  vm.showDefineAFeatureModal = false
+  vm.showFeatures = false
+  vm.showUpload = false
+  vm.showDefineFeatures = false
   vm.workId           = $scope.workId
 
   vm.work =
@@ -32,12 +34,9 @@ SubmitWorkFeaturesController = ($scope, SubmitWorkAPIService) ->
       custom: null
   ];
 
-  vm.showCustomFeatureModal = ->
-    vm.showDefineAFeatureModal = true
-
   vm.hideCustomFeatureModal = ->
     resetCustomFeature()
-    vm.showDefineAFeatureModal = false
+    vm.showDefineFeatures = false
 
   vm.addCustomFeature = ->
     vm.work.features.push vm.customFeature
