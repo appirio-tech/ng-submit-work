@@ -2,11 +2,12 @@
 
 SubmitWorkFeaturesController = ($scope, SubmitWorkAPIService, API_URL) ->
   vm      = this
-  vm.loading          = true
-  vm.showFeatures = false
-  vm.showUpload = false
-  vm.showDefineFeatures = false
   vm.workId           = $scope.workId
+  vm.loading          = true
+  vm.showFeaturesModal = false
+  vm.showUploadModal = false
+  vm.showDefineFeaturesForm = false
+  vm.activeFeature = null
   vm.featuresUploaderUploading = null
   vm.featuresUploaderHasErrors = null
 
@@ -21,29 +22,53 @@ SubmitWorkFeaturesController = ($scope, SubmitWorkAPIService, API_URL) ->
   vm.defaultFeatures = [
       name: 'Login',
       description: 'Users can login / register for your app',
+      notes: null,
       custom: null
     ,
       name: 'Onboarding',
       description: 'Users can see data from social networks (FB, Twitter etc.) in your app',
+      notes: null,
       custom: null
     ,
       name: 'Registration',
       description: 'Users can create profiles with personal info',
+      notes: null,
       custom: null
     ,
       name: 'Location',
       description: 'A map with a user\'s GPS location that helps them get to places',
+      notes: null,
       custom: null
   ];
 
-  vm.hideCustomFeatureModal = ->
+  vm.showFeatures = ->
+    vm.showFeaturesModal = true
+
+  vm.showUpload = ->
+    vm.showUploadModal = true
+
+  vm.showDefineFeatures = ->
+    vm.showDefineFeaturesForm = true
+
+  vm.hideCustomFeatures= ->
     resetCustomFeature()
-    vm.showDefineFeatures = false
+    vm.showDefineFeaturesForm = false
+
+  vm.activateFeature = (feature) ->
+    vm.activeFeature = feature
+
+  vm.applyFeature = ->
+    featureAdded = false
+    vm.work.features.forEach (feature) ->
+      if feature.name == vm.activateFeature.name
+        featureAdded = true
+
+    vm.work.features.push vm.activeFeature unless featureAdded
 
   vm.addCustomFeature = ->
     vm.work.features.push vm.customFeature
     resetCustomFeature()
-    vm.hideCustomFeatureModal()
+    vm.hideCustomFeatures()
 
   vm.save = (onSuccess) ->
     if vm.workId
