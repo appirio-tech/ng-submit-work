@@ -5,10 +5,7 @@ $card-max-width: 180px;
 
 submit-work-features {
   modal.define-features {
-    @include flex-direction(column);
-    @include flex-wrap(nowrap);
     text-align: left;
-    background-color: $white;
 
     .close {
       background-color: initial;
