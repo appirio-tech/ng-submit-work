@@ -41,7 +41,7 @@ modal.define-features(show="vm.showFeaturesModal" background-click-close=true)
               span {{ feature.name }}
 
       li
-        button.widest.clean(ng-click="vm.showDefineFeatures()")
+        button.widest.clean(ng-click="vm.toggleDefineFeatures()")
           span Define a new feature
 
           .icon +
@@ -69,11 +69,11 @@ modal.define-features(show="vm.showFeaturesModal" background-click-close=true)
 
           label New feature title
 
-          input.widest(type="text" ng-model="vm.customFeature.name")
+          input.widest(type="text" ng-model="vm.customFeature.name" required=true)
 
           label New feature description
 
-          textarea.widest(ng-model="vm.customFeature.description")
+          textarea.widest(ng-model="vm.customFeature.description" required=true)
 
           button.wider.action(type="submit") add new feature
 
@@ -87,7 +87,7 @@ modal.define-features(show="vm.showFeaturesModal" background-click-close=true)
 
         button.wider.action(ng-click="vm.submitFeatures()") next
 
-modal.upload-features(show="vm.showUploadModal" background-click-close=true)
+modal.upload-documents(show="vm.showUploadModal" background-click-close=true)
   .upload
     .icon.upload
 

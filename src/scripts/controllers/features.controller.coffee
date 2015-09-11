@@ -47,8 +47,8 @@ SubmitWorkFeaturesController = ($scope, SubmitWorkAPIService, API_URL) ->
   vm.showUpload = ->
     vm.showUploadModal = true
 
-  vm.showDefineFeatures = ->
-    vm.showDefineFeaturesForm = true
+  vm.toggleDefineFeatures = ->
+    vm.showDefineFeaturesForm = !vm.showDefineFeaturesForm
 
   vm.hideCustomFeatures= ->
     resetCustomFeature()
@@ -70,9 +70,12 @@ SubmitWorkFeaturesController = ($scope, SubmitWorkAPIService, API_URL) ->
       vm.activeFeature = null
 
   vm.addCustomFeature = ->
-    vm.work.features.push vm.customFeature
-    resetCustomFeature()
-    vm.hideCustomFeatures()
+    customFeatureValid = vm.customFeature.name && vm.customFeature.description
+
+    if customFeatureValid
+      vm.work.features.push vm.customFeature
+      resetCustomFeature()
+      vm.hideCustomFeatures()
 
   vm.save = (onSuccess) ->
     if vm.workId
