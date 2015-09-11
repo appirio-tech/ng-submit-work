@@ -171,6 +171,7 @@ submit-work-features {
     }
   }
   modal.upload-documents {
+    @include display(flex);
     .uploaderWrapper {
       margin-top: $margin-small;
       .failed {
