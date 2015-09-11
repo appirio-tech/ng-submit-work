@@ -95,5 +95,10 @@ modal.upload-documents(show="false" background-click-close=true)
 
     p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
-    button.wider.action upload
+    ap-uploader(
+      config="vm.featuresUploaderConfig"
+      uploading="vm.featuresUploaderUploading"
+      has-errors="vm.featuresUploaderHasErrors"
+    )
+
 

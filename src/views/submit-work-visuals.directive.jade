@@ -159,7 +159,11 @@ form(ng-submit="vm.submitVisuals()")
 
     p You can upload documents that can act as a strong visual brief to the visual designer. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
-    button(type="button") Upload
+    ap-uploader(
+      config="vm.visualsUploaderConfig"
+      uploading="vm.visualsUploaderUploading"
+      has-errors="vm.visualsUploaderHasErrors"
+    )
 
   button.save.wide(type="submit") Save
 

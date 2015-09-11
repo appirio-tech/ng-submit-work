@@ -7,7 +7,6 @@ submit-work-features {
   modal.define-features {
     @include flex-direction(column);
     @include flex-wrap(nowrap);
-
     text-align: left;
     background-color: $white;
 
@@ -167,6 +166,23 @@ submit-work-features {
           text-align      : center;
           height          : 60px;
           border-top      : 1px solid $neutral-color-light;
+        }
+      }
+    }
+  }
+  modal.upload-documents {
+    .uploaderWrapper {
+      margin-top: $margin-small;
+      .failed {
+        color: $danger-color;
+      }
+      .uploader {
+        .fileActions {
+          margin-top: $margin-smallest;
+        }
+        margin: $margin-smallest;
+        button {
+          margin: $margin-smallest;
         }
       }
     }
