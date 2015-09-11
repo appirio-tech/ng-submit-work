@@ -1,28 +1,11 @@
 @import "work-includes";
 
 submit-work-type {
-  display   : block;
   position  : relative;
-  text-align: center;
 
   .continue {
     margin : $margin auto;
     display: block;
-  }
-
-  header {
-    background-color: $neutral-color-dark;
-    padding: $padding-biggest;
-
-    > * {
-      max-width: 400px;
-      color: $white;
-      margin: 0 auto;
-    }
-
-    p {
-      margin-top: $margin-small;
-    }
   }
 
   .interactive-section {

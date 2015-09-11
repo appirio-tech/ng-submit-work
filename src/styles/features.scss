@@ -1,20 +1,176 @@
 @import "work-includes";
+@import "mixins";
 
 $card-max-width: 180px;
 
 submit-work-features {
-  display: block;
-  text-align: center;
+  modal.define-features {
+    @include flex-direction(column);
+    @include flex-wrap(nowrap);
+    text-align: left;
+    background-color: $white;
 
-  h2 {
-    margin-top: $margin-big;
+    .close {
+      background-color: initial;
+    }
+
+    > h2 {
+      margin: $margin;
+      text-align: center;
+    }
+
+    h4 {
+      color: $primary-color;
+    }
+
+    > main {
+      @include display(flex);
+      @include align-items(stretch);
+      @include flex-grow(2);
+
+      width: 100%;
+      border-top: 1px solid $neutral-color-light;
+
+      ul.features {
+        @include display(flex);
+        @include flex-direction(column);
+
+        min-width       : 220px;
+        background-color: $neutral-color-light;
+        border-right    : 1px solid $neutral-color;
+
+        > li {
+          &:first-child {
+            > ul {
+              max-height: 560px;
+              overflow: auto;
+
+              li {
+                margin-top: $margin-small;
+                margin-left: $margin-smallest;
+
+                button {
+                  @include vertical-align-middle();
+
+                  text-align : left;
+                  padding    : $padding-small;
+                  color      : $black;
+                }
+
+                .icon {
+                  display         : inline-block;
+                  margin-right    : $margin-smallest;
+                  background-color: purple;
+                }
+              }
+            }
+          }
+
+          &:last-child {
+            @include flex-grow(2);
+
+            position: relative;
+
+            button {
+              @include vertical-align-middle();
+
+              position        : absolute;
+              bottom          : 0;
+              left            : 0;
+              background-color: $white;
+              color           : $neutral-color-darkest;
+              text-align      : center;
+              height          : 60px;
+
+              .icon {
+                color           : $white;
+                background-color: $primary-color;
+                border-radius   : 50%;
+                text-align      : center;
+                font-size       : 20px;
+                margin-left     : $margin-smallest;
+                margin-right    : 0;
+              }
+            }
+          }
+        }
+      }
+
+      ul.contents {
+        @include display(flex);
+        @include flex-direction(column);
+        @include flex-grow(2);
+
+        li:first-child {
+          @include flex-grow(2);
+          @include display(flex);
+
+          .example {
+            @include flex-grow(2);
+
+            background-color: $neutral-color-light;
+
+            .phone {
+              width           : 250px;
+              height          : 500px;
+              margin          : $margin auto;
+              background-color: pink;
+            }
+          }
+        }
+
+        .default, .description, .new-feature {
+          width: 400px;
+          padding: $padding-big;
+          display: none;
+
+          &.active {
+            display: block;
+          }
+
+          p {
+            margin-top: $margin-smallest;
+          }
+
+          input {
+            display: block;
+          }
+
+          label {
+            display: block;
+            margin-top: $margin;
+            margin-bottom: $margin-small;
+          }
+
+          button {
+            margin-top: $margin;
+          }
+        }
+
+        .description {
+          h5 {
+            margin-top: $margin;
+          }
+
+          textarea {
+            margin-top: $margin-big;
+          }
+        }
+
+        li:last-child {
+          @include flex-center(space-between);
+
+          background-color: $white;
+          padding: $padding;
+          color           : $neutral-color-darkest;
+          text-align      : center;
+          height          : 60px;
+          border-top      : 1px solid $neutral-color-light;
+        }
+      }
+    }
   }
-
-  .interactive-section {
-    background-color: $neutral-color-lightest;
-    padding: $padding-big;
-    margin-top: $margin-big;
-
+  modal.upload-documents {
     .uploaderWrapper {
       margin-top: $margin-small;
       .failed {
@@ -30,81 +186,5 @@ submit-work-features {
         }
       }
     }
-  }
-
-  ul.features {
-    @include flex-center(flex-start, $padding-big);
-
-    padding-right : 0;
-    padding-bottom: 0;
-
-    > li {
-      @include flex-grow(1);
-
-      > * {
-        margin-top: $margin;
-      }
-
-      > h3, > p {
-        max-width   : $card-max-width;
-        margin-right: auto;
-        margin-left : auto;
-      }
-
-      .img {
-        display         : inline-block;
-        width           : $card-max-width;
-        height          : $card-max-width;
-        background-color: pink;
-      }
-
-      button {
-        width: $card-max-width;
-      }
-    }
-  }
-
-  ul.additional {
-    @include flex-center(space-around, $padding-big);
-    @include align-items(flex-start);
-
-    padding-right: 0;
-    padding-bottom: 0;
-
-    section {
-      padding: $padding;
-    }
-
-    h3 {
-      margin-bottom: $margin;
-    }
-
-    li {
-      max-width: 400px;
-    }
-
-    section {
-      background-color: $white;
-    }
-
-    .files {
-      .icon {
-        display: inline-block;
-      }
-
-      p {
-        margin-top: $margin-big;
-      }
-    }
-  }
-
-  .define-feature {
-    button {
-      margin-top: $margin-small;
-    }
-  }
-
-  button.save-features {
-    margin-top: $margin;
   }
 }

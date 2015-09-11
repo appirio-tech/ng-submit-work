@@ -1,45 +1,104 @@
-h1 Features
+header
+  .house
+    .icon.checkmark.biggest
 
-form(ng-submit="vm.submitFeatures()")
-  .interactive-section
+  h1 Specify Features
+
+  p Tell us what features we need to include in your new app.
+
+ul.path-choices
+  li
+    .icon
+
+    h3 Define features
+
+    p UX design greating the usability, accessibility, and costume journey.
+
+    button.action.wide select
+
+  li
+    .icon
+
+    h3 Upload document
+
+    p Upload your specs or any documents you have.
+
+    button.action.wide select
+
+button.wider.action go to design
+
+modal.define-features(show="false" background-click-close=true)
+  h2 Data booklet mobile app <strong>features</strong>
+
+  main
     ul.features
-      li(ng-repeat="feature in vm.defaultFeatures track by $index")
-        h3 {{feature.name}}
+      li
+        ul
+          li(ng-repeat="feature in vm.defaultFeatures track by $index")
+            button.widest.clean
+              .icon
 
-        .img
+              span {{ feature.name }}
 
-        selected-button(ng-model="vm.work.features" value="feature")
+      li
+        button.widest.clean
+          span Define a new feature
 
-    button(type="button" ng-click="vm.showCustomFeatureModal()") + Define a feature
+          .icon +
 
-  h2 Features &amp; user stories all set!
+    ul.contents
+      li
+        .default.active
+          h4 Select and define features for your app
 
-  ul.additional.interactive-section
-    li.files
-      h3 Additional Files
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
-      section
-        ap-uploader(
-          config="vm.featuresUploaderConfig"
-          uploading="vm.featuresUploaderUploading"
-          has-errors="vm.featuresUploaderHasErrors"
-        )
+        .description
+          h4 Select and define features for your app
 
-        p Upload any additional documents that might be useful. E.g. - interaction designs, wireframes, product description, etc.
+          h5 {{ feature.name }} description
 
-    li.details
-      h3 Anything else you want to share?
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
-      textarea(placeholder="Tell us specific details that you want to share regarding features and functionalities." ng-model="vm.work.featuresDetails")
+          textarea.widest(placeholder="Notes...")
 
-  button.wide.save-features(type="submit") Save
+          button.wider.action apply feature
 
-modal(show="vm.showDefineAFeatureModal")
-  form.define-feature(ng-submit="vm.addCustomFeature()")
-    input(type="text" placeholder="Feature name..." ng-model="vm.customFeature.name")
+        form.new-feature(ng-submit="vm.addCustomFeature()")
+          h4 Define a new feature
 
-    textarea(placeholder="Feature description..." ng-model="vm.customFeature.description")
+          label New feature title
 
-    button(type="submit") Add Feature
+          input.widest(type="text" ng-model="vm.customFeature.name")
 
-    button(type="button" ng-click="vm.hideCustomFeatureModal()") Cancel
+          label New feature description
+
+          textarea.widest(ng-model="vm.customFeature.description")
+
+          button.wider.action(type="submit") add new feature
+
+          button(type="button" ng-click="vm.hideCustomFeatureModal()") Cancel
+
+        .example
+          .phone
+
+      li
+        .count 0 features added
+
+        button.wider.action next
+
+modal.upload-documents(show="false" background-click-close=true)
+  .upload
+    .icon.upload
+
+    h2 Upload <strong>documents</strong>
+
+    p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+    ap-uploader(
+      config="vm.featuresUploaderConfig"
+      uploading="vm.featuresUploaderUploading"
+      has-errors="vm.featuresUploaderHasErrors"
+    )
+
+
