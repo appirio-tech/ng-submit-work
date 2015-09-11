@@ -35,8 +35,8 @@ modal.define-features(show="vm.showFeaturesModal" background-click-close=true)
       li
         ul
           li(ng-repeat="feature in vm.defaultFeatures track by $index")
-            button.widest.clean(ng-click="activateFeature(feature)")
-              .icon.selected
+            button.widest.clean(ng-click="vm.activateFeature(feature)")
+              .icon(ng-class="{selected: vm.activeFeature.name == feature.name}")
 
               span {{ feature.name }}
 
@@ -62,7 +62,7 @@ modal.define-features(show="vm.showFeaturesModal" background-click-close=true)
 
           textarea.widest(placeholder="Notes..." ng-model="vm.activeFeature.notes")
 
-          button.wider.action() apply feature
+          button.wider.action(ng-click="vm.applyFeature()") apply feature
 
         form.new-feature(ng-submit="vm.addCustomFeature()" ng-class="{active: vm.showDefineFeaturesForm}")
           h4 Define a new feature

@@ -59,11 +59,15 @@ SubmitWorkFeaturesController = ($scope, SubmitWorkAPIService, API_URL) ->
 
   vm.applyFeature = ->
     featureAdded = false
-    vm.work.features.forEach (feature) ->
-      if feature.name == vm.activateFeature.name
+    features = vm.work.features
+
+    features.forEach (feature) ->
+      if feature.name == vm.activeFeature.name
         featureAdded = true
 
-    vm.work.features.push vm.activeFeature unless featureAdded
+    if !featureAdded
+      features.push vm.activeFeature
+      vm.activeFeature = null
 
   vm.addCustomFeature = ->
     vm.work.features.push vm.customFeature
@@ -85,13 +89,6 @@ SubmitWorkFeaturesController = ($scope, SubmitWorkAPIService, API_URL) ->
     workFeatures = vm.work.features
     formsValid = workFeatures.length
     uploaderValid = !vm.featuresUploaderUploading && !vm.featuresUploaderHasErrors
-
-    vm.defaultFeatures.forEach (feature) ->
-      if feature.checked
-         workFeatures.push
-          name: feature.name
-          description: feature.description
-          custom: null
 
     if formsValid && uploaderValid
       # TODO: Replace with proper back-end status
