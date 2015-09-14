@@ -8,6 +8,10 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
     margin: $margin;
   }
 
+  button.continue {
+    margin: $margin auto;
+  }
+
   h2 {
     margin-top: $margin-big
   }
