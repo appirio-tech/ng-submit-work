@@ -1,6 +1,6 @@
 'use strict'
 
-SubmitWorkVisualController = ($scope, SubmitWorkAPIService, API_URL) ->
+SubmitWorkVisualController = ($scope, $state, SubmitWorkAPIService, API_URL) ->
   vm      = this
   vm.workId = $scope.workId
   vm.loading = true
@@ -27,7 +27,6 @@ SubmitWorkVisualController = ($scope, SubmitWorkAPIService, API_URL) ->
     serif: 'serif',
     sansSerif: 'sans serif'
 
-
   vm.visualDesign.colors = [
     name: 'Palette 1'
     description: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
@@ -44,10 +43,6 @@ SubmitWorkVisualController = ($scope, SubmitWorkAPIService, API_URL) ->
     name: 'Palette 4'
     description: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
     id: '1237'
-  ,
-    name: 'Palette 5'
-    description: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-    id: '1238'
   ]
 
   vm.visualDesign.icons = [
@@ -106,16 +101,25 @@ SubmitWorkVisualController = ($scope, SubmitWorkAPIService, API_URL) ->
         # TODO: add error handling
 
   vm.submitVisuals = ->
-    workFonts = vm.work.visualDesign.fonts
-    workColors = vm.work.visualDesign.colors
-    workIcons = vm.work.visualDesign.icons
+    fontValid = vm.work.visualDesign.font
+    # TODO: Add colors functionality
+    iconsValid = vm.work.visualDesign.icons.length
     uploaderValid = !vm.visualsUploaderUploading && !vm.visualsUploaderHasErrors
+    chooseStylesValid = fontValid && iconsValid && uploaderValid
+    urlValid = vm.work.visualDesign.url
 
-    if workFonts.length && workColors.length && workIcons.length
+    if chooseStylesValid || urlValid
       # TODO: replace with proper status
       vm.work.status = 'visualsAdded'
       vm.save (response) ->
-        # TODO: navigate to "development" view
+        $state.go("submit-work-development")
+
+  vm.navigateDevelopment = ->
+    uploaderValid = !vm.visualsUploaderUploading && !vm.visualsUploaderHasErrors
+    chooseStylesValid = vm.work.visualDesign.icons.length && vm.work.visualDesign.font
+    urlValid = vm.work.visualDesign.url
+    if chooseStylesValid || urlValid
+      $state.go("submit-work-development")
 
   updateButtons = ->
     currentIndex = vm.styleModals.indexOf vm.activeStyleModal
@@ -133,6 +137,7 @@ SubmitWorkVisualController = ($scope, SubmitWorkAPIService, API_URL) ->
 
   mockify = (work) ->
     work.visualDesign = {}
+    work.visualDesign.url = null
     work.visualDesign.font = null
     work.visualDesign.colors = []
     work.visualDesign.icons = []
@@ -175,6 +180,6 @@ SubmitWorkVisualController = ($scope, SubmitWorkAPIService, API_URL) ->
 
   activate()
 
-SubmitWorkVisualController.$inject = ['$scope', 'SubmitWorkAPIService', 'API_URL']
+SubmitWorkVisualController.$inject = ['$scope', '$state', 'SubmitWorkAPIService', 'API_URL']
 
 angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkVisualController', SubmitWorkVisualController

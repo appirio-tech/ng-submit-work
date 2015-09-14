@@ -34,7 +34,7 @@ ul.path-choices(ng-class="{active: vm.showPaths}")
 
     button.action.wide(ng-click="vm.showUrlStyles()") select
 
-button.wider.action(ui-sref="submit-work-development") go to development
+button.wider.action(ng-click="vm.navigateDevelopment()") go to development
 
 modal.upload-documents(show="vm.showUploadStylesModal" background-click-close=true)
   .upload
@@ -44,7 +44,11 @@ modal.upload-documents(show="vm.showUploadStylesModal" background-click-close=tr
 
     p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
-    button.wider.action upload
+    ap-uploader(
+      config="vm.visualsUploaderConfig"
+      uploading="vm.visualsUploaderUploading"
+      has-errors="vm.visualsUploaderHasErrors"
+    )
 
 modal.enter-url(show="vm.showUrlStylesModal" background-click-close=true)
   .upload
@@ -54,9 +58,10 @@ modal.enter-url(show="vm.showUrlStylesModal" background-click-close=true)
 
     p You can enter your website address and we'll grab your colors, fonts amd ocpms to use when designing your new app.
 
-    input.wide(type="text" placeholder="http://www.example.com")
+    form(ng-submit="vm.submitVisuals()")
+      input.wide(type="url" placeholder="http://www.example.com" ng-model="vm.work.visualDesign.url" required=true)
 
-    button.wider.action enter
+      button.wider.action(type="submit") enter
 
 modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=true)
   ul.nav
@@ -93,7 +98,7 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
 
           li.courier Courier is a serif font.
 
-        selected-button(ng-model="vm.work.font" value="vm.visualDesign.fonts.serif")
+        selected-button(ng-model="vm.work.visualDesign.font" value="vm.visualDesign.fonts.serif")
 
       li.or
         .house OR
@@ -112,7 +117,7 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
 
           li.museo Museo Sans is a sans-serif font.
 
-        selected-button(ng-model="vm.work.font" value="vm.visualDesign.fonts.sansSerif")
+        selected-button(ng-model="vm.work.visualDesign.font" value="vm.visualDesign.fonts.sansSerif")
 
   main.colors(ng-show="vm.activeStyleModal == 'colors' ")
     h2 Tell us <strong>the colors</strong> you like
@@ -143,13 +148,7 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
 
       li.swatches
         ul.samples
-          li
-
-          li
-
-          li
-
-          li
+          li(ng-repeat="color in vm.visualDesign.colors") {{color.name}}
 
         h4 Select swatches and edit colors
 
@@ -159,38 +158,20 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
     h2 Tell us <strong>the icons</strong> you like
 
     ul
-      li
-        .icon
+      li(ng-repeat="icon in vm.visualDesign.icons")
+        .colorIcon
 
-        h4 Flat colors
+        h4 {{icon.name}}
 
-        p Lorem ipsum dolor sit amet
+        p {{icon.description}}
 
-        selected-button
-
-      li
-        .icon
-
-        h4 Thin line
-
-        p Lorem ipsum dolor sit amet
-
-        selected-button
-
-      li
-        .icon
-
-        h4 Solid line
-
-        p Lorem ipsum dolor sit amet
-
-        selected-button
+        selected-button(ng-model="vm.work.visualDesign.icons" value="icon.id")
 
   footer
     button.wider(ng-hide="vm.backButtonDisabled" ng-click="vm.viewPrevious()") back
 
     button.action.wider(ng-hide="vm.nextButtonDisabled" ng-click="vm.viewNext()") next
 
-    button.action.wider(ng-show="vm.showFinishDesignButton") finish design
+    button.action.wider(ng-show="vm.showFinishDesignButton" ng-click="vm.submitVisuals()") finish design
 
 
