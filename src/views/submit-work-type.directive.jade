@@ -6,12 +6,12 @@ header
   p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
 form(ng-submit="vm.save()")
-  .interactive-section
+  .interactive
     input.wider(type="text" placeholder="Name your project..." required="true" ng-model="vm.work.name")
 
   button.wider.continue.action(type="button" scroll-element="platformDetails") continue
 
-  ul.target-platform.interactive-section(id="platformDetails")
+  ul.target-platform.interactive(id="platformDetails")
     li
       h2 IOS <strong>platform details</strong>
 
@@ -46,7 +46,7 @@ form(ng-submit="vm.save()")
 
   button.wider.continue.action(type="button" scroll-element="typeDetails") continue
 
-  ul.type.interactive-section(id="typeDetails")
+  ul.type.interactive(id="typeDetails")
     li
       h2 What <strong>type of work</strong> are you looking for?
 
@@ -78,7 +78,7 @@ form(ng-submit="vm.save()")
 
   button.wider.continue.action(type="button" scroll-element="briefDetails") continue
 
-  .interactive-section(id="briefDetails")
+  .interactive(id="briefDetails")
     h2 Can you <strong>share a brief</strong> overview?
 
     textarea.brief(placeholder="E.g. I need a mobile HR application with social features to support my growing organization" ng-model="vm.work.summary")
