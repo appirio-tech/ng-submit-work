@@ -58,8 +58,8 @@ modal.enter-url(show="vm.showUrlStylesModal" background-click-close=true)
 
     p You can enter your website address and we'll grab your colors, fonts amd ocpms to use when designing your new app.
 
-    form(ng-submit="vm.submitVisuals()")
-      input.wide(type="url" placeholder="http://www.example.com" ng-model="vm.work.visualDesign.url" required=true)
+    form(ng-submit="vm.save()")
+      input.wide(type="url" placeholder="http://www.example.com" ng-model="vm.visualDesign.url" required=true)
 
       button.wider.action(type="submit") enter
 
@@ -83,41 +83,33 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
   main.fonts(ng-show="vm.activeStyleModal == 'fonts' ")
     h2 Tell us your <strong>font preference</strong>
 
-    ul
-      li
-        h3 Serif
+    ul.or-choices
+
+      li(ng-repeat-start="font in vm.visualDesign.fonts")
+        h3 {{font.name}}
 
         hr
 
-        p Classic design, good legiblity for large and small text.
+        p {{font.description}}
 
-        ul.samples
+        ul.samples(ng-if="font.name == 'Serif' ")
           li.baskerville Baskerville is a serif font.
 
           li.times Times New Roman is a serif font
 
           li.courier Courier is a serif font.
 
-        selected-button(ng-model="vm.work.visualDesign.font" value="vm.visualDesign.fonts.serif")
-
-      li.or
-        .house OR
-
-      li
-        h3 Sans Serif
-
-        hr
-
-        p Modern design, good for headers and body text.
-
-        ul.samples
+        ul.samples(ng-if="font.name == 'Sans Serif' ")
           li.sofia Sofia is a sans-serif font.
 
           li.arial Arial is a sans-serif font.
 
           li.museo Museo Sans is a sans-serif font.
 
-        selected-button(ng-model="vm.work.visualDesign.font" value="vm.visualDesign.fonts.sansSerif")
+        button(selectable=true type="button" ng-model="font.selected" value="true")
+
+      li.or(ng-repeat-end ng-if="font.name == 'Serif' ")
+        .house OR
 
   main.colors(ng-show="vm.activeStyleModal == 'colors' ")
     h2 Tell us <strong>the colors</strong> you like
@@ -165,13 +157,13 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
 
         p {{icon.description}}
 
-        selected-button(ng-model="vm.work.visualDesign.icons" value="icon.id")
+        selected-button(ng-model="icon.selected" value="true")
 
   footer
     button.wider(ng-hide="vm.backButtonDisabled" ng-click="vm.viewPrevious()") back
 
     button.action.wider(ng-hide="vm.nextButtonDisabled" ng-click="vm.viewNext()") next
 
-    button.action.wider(ng-show="vm.showFinishDesignButton" ng-click="vm.submitVisuals()") finish design
+    button.action.wider(ng-show="vm.showFinishDesignButton" ng-click="vm.save()") finish design
 
 

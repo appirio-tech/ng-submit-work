@@ -1,62 +1,74 @@
 'use strict'
 
-SubmitWorkVisualController = ($scope, $state, SubmitWorkAPIService, API_URL) ->
-  vm      = this
-  vm.workId = $scope.workId
-  vm.loading = true
+SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Optimist, API_URL) ->
+  vm                          = this
+  vm.workId                   = $scope.workId
+  vm.loading                  = true
   vm.visualsUploaderUploading = null
   vm.visualsUploaderHasErrors = null
-  vm.showPaths = true
-  vm.showChooseStylesModal = false
-  vm.showUploadStylesModal = false
-  vm.showUrlStylesModal = false
-  vm.activeStyleModal = null
-  vm.nextButtonDisabled = false
-  vm.backButtonDisabled = false
-  vm.styleModals = ['fonts', 'colors', 'icons']
+  vm.showPaths                = true
+  vm.showChooseStylesModal    = false
+  vm.showUploadStylesModal    = false
+  vm.showUrlStylesModal       = false
+  vm.activeStyleModal         = null
+  vm.nextButtonDisabled       = false
+  vm.backButtonDisabled       = false
+  vm.styleModals              = ['fonts', 'colors', 'icons']
 
-  vm.work =
-    name       : null
-    requestType: null
-    summary    : null
-    features   : []
-    featuresDetails : null
+  config = {}
+  config.fonts = [
+    name: 'Serif'
+    description: 'Classic design, good legiblity for large and small text.'
+    id: '123'
+    selected: false
+  ,
+    name: 'Sans Serif'
+    id: '456'
+    description: 'Modern design, good for headers and body text.'
+    selected: false
+  ]
 
-  vm.visualDesign = {}
-  vm.visualDesign.fonts =
-    serif: 'serif',
-    sansSerif: 'sans serif'
-
-  vm.visualDesign.colors = [
+  config.colors = [
     name: 'Palette 1'
     description: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
     id: '1234'
+    selected: false
   ,
     name: 'Palette 2'
     description: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
     id: '1235'
+    selected: false
+
   ,
     name: 'Palette 3'
     description: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
     id: '1236'
+    selected: false
+
   ,
     name: 'Palette 4'
     description: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
     id: '1237'
+    selected: false
   ]
 
-  vm.visualDesign.icons = [
+  config.icons = [
     name: 'Flat Colors'
     description: 'Lorem ipsum dolor sit amet'
     id: '1234'
+    selected: false
+
   ,
     name: 'Thin Line'
     description: 'Lorem ipsum dolor sit amet'
     id: '1235'
+    selected: false
+
   ,
     name: 'Solid Line'
     description: 'Lorem ipsum dolor sit amet'
     id: '1236'
+    selected: false
   ]
 
   vm.showChooseStyles = ->
@@ -89,36 +101,52 @@ SubmitWorkVisualController = ($scope, $state, SubmitWorkAPIService, API_URL) ->
       previousModal = vm.styleModals[currentIndex - 1]
       vm.activateModal(previousModal)
 
-  vm.save = (onSuccess) ->
-    if vm.workId
-      params =
-        id: vm.workId
-
-      resource = SubmitWorkAPIService.put params, vm.work
-      resource.$promise.then (response) ->
-        onSuccess? response
-      resource.$promise.catch (response) ->
-        # TODO: add error handling
-
-  vm.submitVisuals = ->
-    fontValid = vm.work.visualDesign.font
-    # TODO: Add colors functionality
-    iconsValid = vm.work.visualDesign.icons.length
-    uploaderValid = !vm.visualsUploaderUploading && !vm.visualsUploaderHasErrors
-    chooseStylesValid = fontValid && iconsValid && uploaderValid
-    urlValid = vm.work.visualDesign.url
-
-    if chooseStylesValid || urlValid
-      # TODO: replace with proper status
-      vm.work.status = 'visualsAdded'
-      vm.save (response) ->
+  vm.save = ->
+    visualsValid = visualDesignValid()
+    updates = getUpdates()
+    if visualsValid
+      SubmitWorkService.save(updates).then ->
         $state.go("submit-work-development")
 
-  vm.navigateDevelopment = ->
+  visualDesignValid = ->
+    updates = getUpdates()
     uploaderValid = !vm.visualsUploaderUploading && !vm.visualsUploaderHasErrors
-    chooseStylesValid = vm.work.visualDesign.icons.length && vm.work.visualDesign.font
-    urlValid = vm.work.visualDesign.url
-    if chooseStylesValid || urlValid
+    # TODO: add updates.colors.length check
+    hasVisualChoices = updates.fonts.length && updates.icons.length
+    # check if visuals are selected or entered via url
+    hasVisuals = hasVisualChoices || updates.url
+    hasVisuals
+
+  getUpdates = ->
+    updates =
+      fonts:  []
+      colors: []
+      icons:  []
+      url:    null
+
+    vm.visualDesign.fonts.forEach (font) ->
+      if font.selected
+       updates.fonts.push
+        id: font.id
+
+    vm.visualDesign.colors.forEach (color) ->
+     if color.selected
+       updates.colors.push
+        id: color.id
+
+    vm.visualDesign.icons.forEach (icon) ->
+      if icon.selected
+       updates.icons.push
+        id: icon.id
+
+    if vm.visualDesign.url
+      updates.url = vm.visualDesign.url
+
+    updates
+
+  vm.navigateDevelopment = ->
+    visualsValid = visualsValid()
+    if visualsValid
       $state.go("submit-work-development")
 
   updateButtons = ->
@@ -135,12 +163,6 @@ SubmitWorkVisualController = ($scope, $state, SubmitWorkAPIService, API_URL) ->
       vm.backButtonDisabled = false
       vm.showFinishDesignButton = false
 
-  mockify = (work) ->
-    work.visualDesign = {}
-    work.visualDesign.url = null
-    work.visualDesign.font = null
-    work.visualDesign.colors = []
-    work.visualDesign.icons = []
 
   configureUploader = ->
     assetType = 'specs'
@@ -155,31 +177,55 @@ SubmitWorkVisualController = ($scope, $state, SubmitWorkAPIService, API_URL) ->
         workId: vm.workId
         assetType: assetType
 
+  onChange = ->
+    if SubmitWorkService.work.o.hasPending
+      return false
+
+    vm.loading = false
+
+    # TODO: Remove mock data once visualDesign is in payload
+    SubmitWorkService.work.visualDesign        = {}
+    SubmitWorkService.work.visualDesign.url    = null
+    SubmitWorkService.work.visualDesign.fonts  = [id: '123']
+    SubmitWorkService.work.visualDesign.colors = [id: '1236']
+    SubmitWorkService.work.visualDesign.icons  = [id: '1234']
+
+    unless vm.visualDesign
+      vm.visualDesign        = config
+      vm.visualDesign.url    = null
+      vm.visualDesign.fonts  = config.fonts
+      vm.visualDesign.colors = config.colors
+      vm.visualDesign.icons  = config.icons
+
+      SubmitWorkService.work.fonts?.forEach (font) ->
+        font.selected = true
+        vm.visualDesign.fonts.push font
+
+      SubmitWorkService.work.colors?.forEach (color) ->
+        color.selected = true
+        vm.visualDesign.colors.push color
+
+      SubmitWorkService.work.icons?.forEach (icon) ->
+        icon.selected = true
+        vm.visualDesign.icons.push icon
+
+    vm.work = SubmitWorkService.work
+
+
   activate = ->
+    destroyWorkListener = $rootScope.$on "SubmitWorkService.work:changed", ->
+      onChange()
+
+    $scope.$on '$destroy', ->
+      destroyWorkListener()
+
+    SubmitWorkService.fetch(vm.workId)
     configureUploader()
-    if vm.workId
-      params =
-        id: vm.workId
-
-      resource = SubmitWorkAPIService.get params
-
-      resource.$promise.then (response) ->
-        vm.work = response
-        #TODO: remove once all properties are in payload
-        mockify vm.work
-
-       resource.$promise.catch (response) ->
-         # TODO: add error handling
-
-       resource.$promise.finally ->
-         vm.loading = false
-    else
-      vm.loading = false
 
     vm
 
   activate()
 
-SubmitWorkVisualController.$inject = ['$scope', '$state', 'SubmitWorkAPIService', 'API_URL']
+SubmitWorkVisualController.$inject = ['$scope', '$rootScope', '$state', 'SubmitWorkService', 'Optimist', 'API_URL']
 
 angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkVisualController', SubmitWorkVisualController
