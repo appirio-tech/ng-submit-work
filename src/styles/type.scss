@@ -8,15 +8,6 @@ submit-work-type {
     display: block;
   }
 
-  .interactive-section {
-    background-color: $neutral-color-lightest;
-    padding: $padding-biggest 0;
-
-    input {
-      margin: 0 auto;
-    }
-  }
-
   button.create, button.save {
     margin-top: $margin-big;
   }
