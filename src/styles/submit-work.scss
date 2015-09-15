@@ -4,11 +4,7 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
   display: block;
   text-align: center;
 
-  > button.action {
-    margin: $margin;
-  }
-
-  button.continue {
+  > button.continue, > button.action {
     margin: $margin auto;
   }
 
@@ -39,6 +35,45 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
     }
   }
 
+  .interactive {
+    background-color: $neutral-color-lightest;
+    padding: $padding-biggest 0;
+
+    input {
+      margin: 0 auto;
+    }
+  }
+
+  ul.or-choices {
+    @include flex-center(center);
+    @include flex-wrap(nowrap);
+
+    margin-top: $margin-big;
+
+    li {
+      hr {
+        margin-bottom: $margin-smallest;
+        background-color: $neutral-color;
+      }
+
+      &.or {
+        margin          : 0 $margin;
+        background-color: $neutral-color;
+        font-size       : $font-size-big;
+        color           : $white;
+        min-width       : 40px;
+        max-width       : 40px;
+        height          : 40px;
+        line-height     : 40px;
+        border-radius   : 50%;
+      }
+
+      selected-button {
+        margin-top: $margin;
+      }
+    }
+  }
+
   modal.full {
     @include flex-direction(column);
     @include flex-wrap(nowrap);
@@ -64,6 +99,11 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
         height: 50px;
         border: 4px solid black;
         display: inline-block;
+      }
+
+      button {
+        margin-left: auto;
+        margin-right: auto;
       }
     }
   }
