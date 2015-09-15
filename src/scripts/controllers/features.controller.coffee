@@ -1,16 +1,16 @@
 'use strict'
 
 SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWorkAPIService, API_URL) ->
-  vm      = this
-  vm.workId           = $scope.workId
-  vm.loading          = true
-  vm.showFeaturesModal = false
-  vm.showUploadModal = false
-  vm.showDefineFeaturesForm = false
-  vm.activeFeature = null
+  vm                           = this
+  vm.workId                    = $scope.workId
+  vm.loading                   = true
+  vm.showFeaturesModal         = false
+  vm.showUploadModal           = false
+  vm.showDefineFeaturesForm    = false
+  vm.activeFeature             = null
   vm.featuresUploaderUploading = null
   vm.featuresUploaderHasErrors = null
-  vm.features = []
+  vm.features                  = []
 
   # TODO: replace palceholder features & descriptions
   config = {}
@@ -56,7 +56,6 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
 
   vm.hideCustomFeatures= ->
     vm.showDefineFeaturesForm = false
-    onChange()
 
   vm.activateFeature = (feature) ->
     vm.activeFeature = feature
@@ -67,11 +66,21 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
         feature.selected = true
 
     vm.activeFeature = null
+    onChange()
+
+  vm.removeFeature = ->
+    vm.features.forEach (feature, index) ->
+      if feature.name == vm.activeFeature.name
+        vm.features.splice(index, 1)
+
+    vm.activeFeature = null
+    onChange()
 
   vm.addCustomFeature = ->
     customFeatureValid = vm.customFeature.name && vm.customFeature.description
 
     if customFeatureValid
+      vm.customFeature.selected = true
       vm.features.push vm.customFeature
       vm.hideCustomFeatures()
       onChange()
@@ -79,22 +88,26 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
   vm.save = ->
     uploaderValid = !vm.featuresUploaderUploading && !vm.featuresUploaderHasErrors
 
+    updates = getUpdates()
+
+    hasFeatures = updates.selectedFeatures.length || updates.customFeatures.length
+
+    if uploaderValid && hasFeatures
+      SubmitWorkService.save(updates)
+
+  getUpdates = ->
     updates =
       selectedFeatures: []
       customFeatures: []
-
     vm.features.forEach (feature) ->
       if feature.id
         if feature.selected
           updates.selectedFeatures.push
             id: feature.id
       else
-        updates.customFeatures.push feature
-
-    hasFeatures = updates.selectedFeatures.length || updates.customFeatures.length
-
-    if uploaderValid && hasFeatures
-      SubmitWorkService.save(updates)
+        if feature.selected
+          updates.customFeatures.push feature
+    updates
 
   configureUploader = ->
     assetType = 'specs'
@@ -125,13 +138,16 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
         vm.features.push feature
 
       SubmitWorkService.work.features.forEach (feature) ->
+        feature.selected = true
         vm.features.push feature
+
+    updates = getUpdates()
+    vm.selectedFeaturesCount = updates.selectedFeatures.length + updates.customFeatures.length
 
     vm.work = SubmitWorkService.work
 
 
   activate = ->
-    # initialize custom feature modal inputs
     destroyWorkListener = $rootScope.$on "SubmitWorkService.work:changed", ->
       onChange()
 
