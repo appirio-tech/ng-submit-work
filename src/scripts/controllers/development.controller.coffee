@@ -1,105 +1,83 @@
 'use strict'
 
-SubmitWorkDevelopmentController = ($scope, SubmitWorkAPIService) ->
-  vm      = this
-  vm.loading = true
-  vm.workId = $scope.workId
-
-  vm.work =
-    name       : null
-    requestType: null
-    summary    : null
-    features   : []
-    featuresDetails : null
-    visualDesign: {}
+SubmitWorkDevelopmentController = ($scope, $rootScope, SubmitWorkService, API_URL) ->
+  vm                              = this
+  vm.loading                      = true
+  vm.workId                       = $scope.workId
+  vm.showUploadModal              = false
+  vm.showSpecsModal               = false
+  vm.developmentUploaderUploading = false
+  vm.developmentUploaderHasErrors = false
 
   vm.securityLevels =
     none: 'none'
     minimal: 'minimal'
     complete: 'complete'
 
-  vm.appPurposes =
-    enterprise: 'enterprise'
-    appStore: 'appStore'
+  vm.showUpload = ->
+    vm.showUploadModal = true
 
-  vm.thirdPartyIntegrations = [
-    name: 'Google'
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elite'
-    id: '1234'
-  ,
-    name: 'Yahoo'
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elite'
-    id: '1235'
-  ,
-    name: 'Paypal'
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elite'
-    id: '1236'
-  ]
+  vm.showSpecs = ->
+    vm.showSpecsModal = true
 
-  vm.save = (onSuccess) ->
-    if vm.workId
-      params =
-        id: vm.workId
-
-      resource = SubmitWorkAPIService.put params, vm.work
-      resource.$promise.then (response) ->
-        onSuccess? response
-      resource.$promise.catch (response) ->
-        # TODO: add error handling
-
-  vm.submitDevelopment = ->
-    workIntegrations = vm.work.development.thirdPartyIntegrations
+  vm.save = ->
     developmentValid = workValid vm.work.development
-    if workIntegrations.length && developmentValid
-      # TODO: replace with proper status
-      vm.work.status = 'developmentAdded'
-      vm.save (response) ->
-        # TODO: navigate to "development" view
+    uploaderValid = !vm.developmentUploaderUploading && !vm.developmentUploaderHasErrors
+    updates = vm.work.development
+
+    if developmentValid && uploaderValid
+      SubmitWorkService.save(updates)
 
   workValid = (work) ->
     isValid = true
     for property, value of work
-      isObject = typeof value == 'object' && !Array.isArray value
       if value == null
         isValid = false
-      else if isObject
-        isValid = workValid value
     isValid
 
-  mockify = (work) ->
-    work.development =
-      appPurpose: null
-      offlineAccess:
-        required: null
-        comments: null
+  configureUploader = ->
+    assetType = 'specs'
+    queryUrl = API_URL + '/v3/work-files/assets?filter=workId%3D' + vm.workId + '%26assetType%3D' + assetType
+    vm.developmentUploaderConfig =
+      name: 'uploader' + vm.workId
+      allowMultiple: true
+      queryUrl: queryUrl
+      urlPresigner: API_URL + '/v3/work-files/uploadurl'
+      fileEndpoint: API_URL + '/v3/work-files/:fileId'
+      saveParams:
+        workId: vm.workId
+        assetType: assetType
+
+  onChange = ->
+    if SubmitWorkService.work.o.hasPending
+      return false
+
+    vm.loading = false
+
+    # TODO: Remove mock data once development is in payload
+    SubmitWorkService.work.development =
+      offlineAccessRequired: null
       hasPersonalInformation: null
       securityLevel: null
-      thirdPartyIntegrations : []
+      thirdPartyIntegrations : null
+
+    vm.work = SubmitWorkService.work
+
 
   activate = ->
-    if vm.workId
-      params =
-        id: vm.workId
+    destroyWorkListener = $rootScope.$on "SubmitWorkService.work:changed", ->
+      onChange()
 
-      resource = SubmitWorkAPIService.get params
+    $scope.$on '$destroy', ->
+      destroyWorkListener()
 
-      resource.$promise.then (response) ->
-        vm.work = response
-        #TODO: remove once all properties are in payload
-        mockify vm.work
-
-       resource.$promise.catch (response) ->
-         # TODO: add error handling
-
-       resource.$promise.finally ->
-         vm.loading = false
-    else
-      vm.loading = false
+    SubmitWorkService.fetch(vm.workId)
+    configureUploader()
 
     vm
 
   activate()
 
-SubmitWorkDevelopmentController.$inject = ['$scope', 'SubmitWorkAPIService']
+SubmitWorkDevelopmentController.$inject = ['$scope', '$rootScope', 'SubmitWorkService', 'API_URL']
 
 angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkDevelopmentController', SubmitWorkDevelopmentController
