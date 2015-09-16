@@ -15,6 +15,8 @@ SubmitWorkTypeController = ($scope, SubmitWorkAPIService) ->
   vm.showSuccessModal = false
   vm.workId           = $scope.workId
 
+  $scope.appName = vm.work.name
+
   isValid = ->
     vm.work.name && vm.work.requestTypes.length && vm.work.summary
 
