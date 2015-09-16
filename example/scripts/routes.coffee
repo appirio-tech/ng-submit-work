@@ -23,6 +23,11 @@ config = ($stateProvider) ->
     title       : 'submit work development'
     templateUrl : 'views/submit-work-development.html'
 
+  states['submit-work-development-specs'] =
+    url         : '/submit-work/development-specs'
+    title       : 'submit work development specs'
+    templateUrl : 'views/submit-work-development-specs.html'
+
   for key, state of states
     $stateProvider.state key, state
 

@@ -1,0 +1,14 @@
+@import "work-includes";
+
+submit-work-development-specs {
+  display: block;
+  text-align: center;
+
+  .save {
+    margin-top: $margin;
+  }
+
+  input[type="number"] {
+    margin-top: $margin-small;
+  }
+}
