@@ -95,9 +95,6 @@ SubmitWorkTypeController = ($scope, $rootScope, Optimist, SubmitWorkService) ->
     updates
 
   onChange = ->
-    if SubmitWorkService.work.o.hasPending
-      return false
-
     if SubmitWorkService.work
       # TODO: remove mock data
       SubmitWorkService.work.requestTypes = [id:'1234']

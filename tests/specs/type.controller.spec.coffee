@@ -5,7 +5,7 @@ saveSpy  = null
 
 describe 'SubmitWorkTypeController', ->
   beforeEach ->
-    bard.inject this, '$rootScope', '$q', '$controller', 'SubmitWorkAPIService'
+    bard.inject this, '$rootScope', '$q', '$controller', 'SubmitWorkService'
     scope = $rootScope.$new()
 
     work =
@@ -17,11 +17,13 @@ describe 'SubmitWorkTypeController', ->
     promise  = $q.when work
     _default = $promise: promise
 
-    bard.mockService SubmitWorkAPIService, _default: _default
+    bard.mockService SubmitWorkService,
+      _default: _default
+      save: $q.when
 
     controller = $controller 'SubmitWorkTypeController', $scope: scope
     scope.vm   = controller
-    saveSpy    = sinon.spy controller, 'save'
+    saveSpy    = sinon.spy SubmitWorkService, 'save'
 
   afterEach ->
     saveSpy.restore()
@@ -31,8 +33,8 @@ describe 'SubmitWorkTypeController', ->
       expect(controller).to.be.defined
 
     context 'when a new project', ->
-      it 'should not call API service for work data', ->
-        expect(SubmitWorkAPIService.get.called).not.to.be.ok
+      it 'should call service for work data', ->
+        expect(SubmitWorkService.fetch.called).not.to.be.ok
 
       it 'should initialize work', ->
         expect(controller.work).to.be.ok
@@ -44,20 +46,28 @@ describe 'SubmitWorkTypeController', ->
     it 'should have a save method', ->
       expect(controller.save).to.exist
 
-    it 'should call API service with put to save project', ->
+    it 'should call service to save project', ->
       controller.workId           = '123'
       controller.work.name        = 'abc'
-      controller.work.requestTypes = ['Design', 'Code']
       controller.work.summary     = 'abc'
+      controller.type.requestTypes = [
+        name: 'Design'
+        selected: true
+      ]
+      controller.type.devices = [
+        name: 'iphone'
+        selected: true
+      ]
+      controller.type.orientations = [
+        name: 'landscape'
+        selected: true
+      ]
+      controller.type.operatingSystems = [
+        name: 'ios'
+        selected: true
+      ]
       controller.save()
-      expect(SubmitWorkAPIService.put.called).to.be.ok
-
-    it 'should call API service with post to create new project', ->
-      controller.work.name        = 'abc'
-      controller.work.requestTypes = ['Design']
-      controller.work.summary     = 'abc'
-      controller.save()
-      expect(SubmitWorkAPIService.post.called).to.be.ok
+      expect(SubmitWorkService.save.called).to.be.ok
 
     it 'should initialize work', ->
       expect(controller.work).to.be.defined
