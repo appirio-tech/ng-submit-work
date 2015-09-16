@@ -152,7 +152,6 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
 
     vm.work = SubmitWorkService.work
 
-
   activate = ->
     destroyWorkListener = $rootScope.$on "SubmitWorkService.work:changed", ->
       onChange()

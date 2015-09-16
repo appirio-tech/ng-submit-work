@@ -14,10 +14,13 @@ describe 'SubmitWorkFeaturesController', ->
             name       : null
             requestType: null
             summary    : null
-            features   : []
-
-        save:
-          $q.when
+            features   : [id: '1235']
+            o:
+              hasPending: false
+      work:
+        o:
+          hasPending: false
+        features: [id: '1234']
 
     controller = $controller('SubmitWorkFeaturesController', $scope: scope)
     scope.vm = controller
@@ -25,10 +28,6 @@ describe 'SubmitWorkFeaturesController', ->
   describe 'Features Controller', ->
     it 'should be created successfully', ->
       expect(controller).to.be.defined
-
-    context 'when an existing project', ->
-      it 'should initialize work', ->
-        expect(controller.work).to.be.ok
 
     it 'should have a toggleDefineFeatures method', ->
       expect(controller.toggleDefineFeatures).to.exist
@@ -50,19 +49,28 @@ describe 'SubmitWorkFeaturesController', ->
       controller.addCustomFeature()
       expect(controller.features.length).to.equal(1)
 
-    it 'should call API service with put to save project', ->
+    it 'should call submit work service with put to save project', ->
       controller.workId = '123'
+      controller.features = [
+        id: '123'
+        name: 'Login'
+        description: 'Users can login / register for your app'
+        notes: null
+        custom: null
+        selected: true
+      ]
       controller.save()
       expect(SubmitWorkService.save.called).to.be.ok
 
     it 'should apply default features', ->
-      controller.work.features = []
+      controller.features = [id: '1234']
       controller.activeFeature =
         name: 'Login',
+        id: '123'
         description: 'Users can login / register for your app',
 
       controller.applyFeature()
-      expect(controller.work.features.length).to.equal(1)
+      expect(controller.features.length).to.equal(1)
 
     it 'should initialize work', ->
       expect(controller.work).to.be.defined
