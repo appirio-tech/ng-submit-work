@@ -10,6 +10,14 @@ submit-work-type {
     }
   }
 
+  header {
+    padding: $padding-biggest;
+
+    p {
+      margin-top: $margin-small;
+    }
+  }
+
   button.create, button.save {
     margin-top: $margin-big;
   }
