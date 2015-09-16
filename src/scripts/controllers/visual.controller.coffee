@@ -189,7 +189,7 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Opt
     SubmitWorkService.work.visualDesign.fonts  = [id: '123']
     SubmitWorkService.work.visualDesign.colors = [id: '1236']
     SubmitWorkService.work.visualDesign.icons  = [id: '1234']
-
+    # initialize vm
     unless vm.visualDesign
       vm.visualDesign        = config
       vm.visualDesign.url    = null
@@ -197,17 +197,20 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Opt
       vm.visualDesign.colors = config.colors
       vm.visualDesign.icons  = config.icons
 
-      SubmitWorkService.work.fonts?.forEach (font) ->
-        font.selected = true
-        vm.visualDesign.fonts.push font
+      SubmitWorkService.work.visualDesign.fonts.forEach (font) ->
+        vm.visualDesign.fonts.forEach (vmFont) ->
+          if vmFont.id == font.id
+            vmFont.selected = true
 
-      SubmitWorkService.work.colors?.forEach (color) ->
-        color.selected = true
-        vm.visualDesign.colors.push color
+      SubmitWorkService.work.visualDesign.colors.forEach (color) ->
+        vm.visualDesign.colors.forEach (vmColor) ->
+          if vmColor.id == color.id
+            vmColor.selected = true
 
-      SubmitWorkService.work.icons?.forEach (icon) ->
-        icon.selected = true
-        vm.visualDesign.icons.push icon
+      SubmitWorkService.work.visualDesign.icons.forEach (icon) ->
+        vm.visualDesign.icons.forEach (vmIcon) ->
+          if vmIcon.id == icon.id
+            vmIcon.selected = true
 
     vm.work = SubmitWorkService.work
 

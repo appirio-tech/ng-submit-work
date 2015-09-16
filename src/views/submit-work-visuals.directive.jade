@@ -78,7 +78,7 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
       button.clean(ng-click="vm.activateModal('icons')") icons
 
     li
-      button.clean(ng-click="vm.previewNext()") &gt;
+      button.clean(ng-click="vm.viewNext()") &gt;
 
   main.fonts(ng-show="vm.activeStyleModal == 'fonts' ")
     h2 Tell us your <strong>font preference</strong>
@@ -157,7 +157,7 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
 
         p {{icon.description}}
 
-        selected-button(ng-model="icon.selected" value="true")
+        button(type="button" selectable=true ng-model="icon.selected" value="true")
 
   footer
     button.wider(ng-hide="vm.backButtonDisabled" ng-click="vm.viewPrevious()") back
