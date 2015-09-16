@@ -136,10 +136,16 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
     unless vm.features.length
       config.defaultFeatures.forEach (feature) ->
         vm.features.push feature
-
+      # add any custom features to vm
       SubmitWorkService.work.features.forEach (feature) ->
-        feature.selected = true
-        vm.features.push feature
+        if !feature.id
+          feature.selected = true
+          vm.features.push feature
+      # set already selected features to selected on vm
+      SubmitWorkService.work.features.forEach (feature) ->
+        vm.features.forEach (vmFeature) ->
+          if feature.id == vmFeature.id
+            vmFeature.selected = true
 
     updates = getUpdates()
     vm.selectedFeaturesCount = updates.selectedFeatures.length + updates.customFeatures.length
