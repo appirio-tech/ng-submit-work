@@ -60,8 +60,7 @@ SubmitWorkTypeController = ($scope, $rootScope, Optimist, SubmitWorkService) ->
     updates = getUpdates()
     isValid = true
     for type, value of updates
-      if !value.length
-        isValid = false
+      isValid = false unless value.length
 
     isValid
 
