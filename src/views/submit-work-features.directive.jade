@@ -48,12 +48,12 @@ modal.full.define-features(show="vm.showFeaturesModal" background-click-close=tr
 
     ul.contents
       li
-        .default.active(ng-class="{active: !vm.activeFeature}")
+        .default.active(ng-hide="vm.showDefineFeaturesForm" ng-class="{active: !vm.activeFeature}")
           h4 Select and define features for your app
 
           p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
-        .description(ng-class="{active: vm.activeFeature}")
+        .description(ng-hide="vm.showDefineFeaturesForm" ng-class="{active: vm.activeFeature}")
           h4 Select and define features for your app
 
           h5 {{ vm.activeFeature.name }} description
