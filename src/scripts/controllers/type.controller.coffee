@@ -1,89 +1,163 @@
 'use strict'
 
-SubmitWorkTypeController = ($scope, SubmitWorkAPIService) ->
-  vm      = this
-  vm.work =
-    name       : null
-    requestType: null
-    summary    : null
-    features   : []
-
-  vm.requestTypes =
-    code: 'code'
-    design: 'design'
+SubmitWorkTypeController = ($scope, $rootScope, Optimist, SubmitWorkService) ->
+  vm                  = this
   vm.loading          = true
   vm.showSuccessModal = false
   vm.workId           = $scope.workId
 
-  isValid = ->
-    vm.work.name && vm.work.requestTypes.length && vm.work.summary
+  config =
+    name: null
 
-  vm.save = (onSuccess) ->
-    if isValid()
-      if vm.workId
-        params =
-          id: vm.workId
+  config.requestTypes = [
+    name: 'Design'
+    id: '1235'
+    selected: false
+  ,
+    name: 'Development'
+    id: '1234'
+    selected: false
+  ]
 
-        resource = SubmitWorkAPIService.put params, vm.work
+  config.devices = [
+    name: 'iPhone5c'
+    id: '1234'
+    selected: false
+  ,
+    name: 'iPhone5s'
+    id: '1235'
+    selected: false
+  ]
 
-        resource.$promise.then (response) ->
-          onSuccess? response
+  config.orientations = [
+    name: 'Landscape'
+    id: '1234'
+    selected: false
+  ,
+    name: 'Portrait'
+    id: '1235'
+    selected: false
+  ]
 
-        resource.$promise.catch (response) ->
-      else
-        vm.work.status = 'Submitted'
-        resource       = SubmitWorkAPIService.post vm.work
+  config.operatingSystems = [
+    name: 'iOS7'
+    id: '1234'
+    selected: false
+  ,
+    name: 'iOS8'
+    id: '1235'
+    selected: false
+  ]
 
-        resource.$promise.then (response) ->
-          vm.showSuccessModal = true
+  vm.save = ->
+    workValid = typeValid()
+    updates = getUpdates()
+    if workValid
+      SubmitWorkService.save(updates).then ->
+        vm.showSuccessModal = true
 
-          onSuccess? response
+  typeValid = ->
+    updates = getUpdates()
+    isValid = true
+    for type, value of updates
+      if !value.length
+        isValid = false
 
-        resource.$promise.catch (response) ->
+    isValid
 
-        onSuccess? response
+  getUpdates = ->
+    updates =
+      requestTypes:     []
+      devices:          []
+      orientations:     []
+      operatingSystems: []
 
-      resource.$promise.catch (response) ->
+    vm.type.requestTypes.forEach (requestType) ->
+      if requestType.selected
+       updates.requestTypes.push
+        id: requestType.id
 
-  mockify = (work) ->
-    work.requestTypes = []
-    work.devices =
-      iPhone5c: false
-      iPhone5s: false
+    vm.type.devices.forEach (device) ->
+     if device.selected
+       updates.devices.push
+        id: device.id
 
-    work.orientation =
-      landscape: false
-      portrait: false
+    vm.type.orientations.forEach (orientation) ->
+      if orientation.selected
+       updates.orientations.push
+        id: orientation.id
 
-    work.os =
-      iOS7: false
-      iOS8: false
+    vm.type.operatingSystems.forEach (operatingSystem) ->
+      if operatingSystem.selected
+       updates.operatingSystems.push
+        id: operatingSystem.id
 
+    updates
+
+  onChange = ->
+    if SubmitWorkService.work.o.hasPending
+      return false
+
+    if SubmitWorkService.work
+      # TODO: remove mock data
+      SubmitWorkService.work.requestTypes = [id:'1234']
+      SubmitWorkService.work.devices = [id:'1234']
+      SubmitWorkService.work.orientations = [id:'1235']
+      SubmitWorkService.work.operatingSystems = [id:'1235']
+
+      vm.work = SubmitWorkService.work
+    else
+      vm.work =
+        name: null
+        requestType: null
+        summary    : null
+        devices: []
+        orientations: []
+        operatingSystems: []
+
+    vm.loading = false
+
+    unless vm.type
+      vm.type = config
+      # set already selected choices to selected on vm
+      vm.work.requestTypes.forEach (requestType) ->
+        vm.type.requestTypes.forEach (vmRequestType) ->
+          if requestType.id == vmRequestType.id
+            vmRequestType.selected = true
+
+      vm.work.devices.forEach (device) ->
+        vm.type.devices.forEach (vmDevice) ->
+          if device.id == vmDevice.id
+            vmDevice.selected = true
+
+      vm.work.orientations.forEach (orientation) ->
+        vm.type.orientations.forEach (vmOrientation) ->
+          if orientation.id == vmOrientation.id
+            vmOrientation.selected = true
+
+      vm.work.operatingSystems.forEach (os) ->
+        vm.type.operatingSystems.forEach (vmOs) ->
+          if os.id == vmOs.id
+            vmOs.selected = true
+
+    updates = getUpdates()
 
   activate = ->
+    destroyWorkListener = $rootScope.$on "SubmitWorkService.work:changed", ->
+      onChange()
+
+    $scope.$on '$destroy', ->
+      destroyWorkListener()
+
     if vm.workId
-      params =
-        id: vm.workId
-
-      resource = SubmitWorkAPIService.get params
-
-      resource.$promise.then (response) ->
-        vm.work = response
-        #TODO: remove once all properties are in payload
-        mockify vm.work
-
-       resource.$promise.catch (response) ->
-         # TODO: add error handling
-
-       resource.$promise.finally ->
-         vm.loading = false
+      SubmitWorkService.fetch(vm.workId)
     else
-      vm.loading = false
+      onChange()
 
     vm
 
   activate()
 
-SubmitWorkTypeController.$inject = ['$scope', 'SubmitWorkAPIService']
+SubmitWorkTypeController.$inject = ['$scope', '$rootScope', 'Optimist', 'SubmitWorkService']
 
 angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkTypeController', SubmitWorkTypeController
