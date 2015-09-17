@@ -2,39 +2,33 @@
 describe 'SubmitWorkVisualController', ->
 
   controller = null
-  saveSpy = null
 
   beforeEach ->
-    bard.inject this, '$rootScope', '$q', '$controller', 'SubmitWorkAPIService'
+    bard.inject this, '$rootScope', '$q', '$controller', 'SubmitWorkService'
     scope = $rootScope.$new()
 
-    bard.mockService SubmitWorkAPIService,
+    bard.mockService SubmitWorkService,
       _default:
         $promise:
           $q.when
             name       : null
             requestType: null
             summary    : null
-            features   : []
+            o:
+              hasPending: false
+      work:
+        o:
+          hasPending: false
 
     controller = $controller('SubmitWorkVisualController', $scope: scope)
     scope.vm = controller
-    saveSpy = sinon.spy controller, 'save'
 
   describe 'Visuals Controller', ->
     it 'should be created successfully', ->
       expect(controller).to.be.defined
 
-    context 'when a new project', ->
-      it 'should not call API service for work data', ->
-        expect(SubmitWorkAPIService.get.called).not.to.be.ok
-
-      it 'should initialize work', ->
-        expect(controller.work).to.be.ok
-
-    context 'when an existing project', ->
-      it 'should initialize work', ->
-        expect(controller.work).to.be.ok
+    it 'should initialize work', ->
+      expect(controller.work).to.be.ok
 
     it 'should initialize visualDesign', ->
       expect(controller.visualDesign).to.be.ok
@@ -43,24 +37,28 @@ describe 'SubmitWorkVisualController', ->
      expect(controller.save).to.exist
 
     it 'should have a submitVisualsmethod', ->
-     expect(controller.submitVisuals).to.exist
+     expect(controller.save).to.exist
 
-    it 'should call API service with put to save project', ->
-      controller.workId = '123'
+    it 'should call service to save project', ->
+      controller.workId              = '123'
+      controller.visualDesign = {}
+      controller.visualDesign.fonts  = [id: '1234', selected: true]
+      controller.visualDesign.colors = [id: '1234', selected: true]
+      controller.visualDesign.icons  = [id: '1234', selected: true]
       controller.save()
-      expect(SubmitWorkAPIService.put.called).to.be.ok
+      expect(SubmitWorkService.save.called).to.be.ok
 
     it 'should save visual designs when options are selected', ->
-      controller.work.visualDesign =
+      controller.visualDesign =
         fonts: ['123']
         colors: ['123']
         icons: ['123']
 
       controller.submitVisuals()
-      expect(saveSpy.called).to.be.ok
+      expect(SubmitWorkService.save.called).to.be.ok
 
     it 'should not save visual designs when options are incomplete', ->
-      controller.work.visualDesign =
+      controller.visualDesign =
         fonts: []
         colors: ['123']
         icons: []

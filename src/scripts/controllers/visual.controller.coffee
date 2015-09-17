@@ -111,35 +111,20 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Opt
   visualDesignValid = ->
     updates = getUpdates()
     uploaderValid = !vm.visualsUploaderUploading && !vm.visualsUploaderHasErrors
-    # TODO: add updates.colors.length check
-    hasVisualChoices = updates.fonts.length && updates.icons.length
+    # TODO: add updates.colors check
+    hasVisualChoices = updates.font && updates.icons
     # check if visuals are selected or entered via url
     hasVisuals = hasVisualChoices || updates.url
     hasVisuals
 
   getUpdates = ->
     updates =
-      fonts:  []
-      colors: []
-      icons:  []
+      font:  vm.work.font
+      colors: vm.work.colors
+      icons:  vm.work.icons
       url:    null
 
-    vm.visualDesign.fonts.forEach (font) ->
-      if font.selected
-       updates.fonts.push
-        id: font.id
-
-    vm.visualDesign.colors.forEach (color) ->
-     if color.selected
-       updates.colors.push
-        id: color.id
-
-    vm.visualDesign.icons.forEach (icon) ->
-      if icon.selected
-       updates.icons.push
-        id: icon.id
-
-    if vm.visualDesign.url
+    if vm.work.url
       updates.url = vm.visualDesign.url
 
     updates
@@ -186,33 +171,24 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Opt
     # TODO: Remove mock data once visualDesign is in payload
     SubmitWorkService.work.visualDesign        = {}
     SubmitWorkService.work.visualDesign.url    = null
-    SubmitWorkService.work.visualDesign.fonts  = [id: '123']
-    SubmitWorkService.work.visualDesign.colors = [id: '1236']
-    SubmitWorkService.work.visualDesign.icons  = [id: '1234']
+    SubmitWorkService.work.visualDesign.font  =
+      id: '123'
+    SubmitWorkService.work.visualDesign.colors =
+      id: '1236'
+    SubmitWorkService.work.visualDesign.icons  =
+      id: '1234'
     # initialize vm
     unless vm.visualDesign
       vm.visualDesign        = config
-      vm.visualDesign.url    = null
       vm.visualDesign.fonts  = config.fonts
       vm.visualDesign.colors = config.colors
       vm.visualDesign.icons  = config.icons
 
-      SubmitWorkService.work.visualDesign.fonts.forEach (font) ->
-        vm.visualDesign.fonts.forEach (vmFont) ->
-          if vmFont.id == font.id
-            vmFont.selected = true
-
-      SubmitWorkService.work.visualDesign.colors.forEach (color) ->
-        vm.visualDesign.colors.forEach (vmColor) ->
-          if vmColor.id == color.id
-            vmColor.selected = true
-
-      SubmitWorkService.work.visualDesign.icons.forEach (icon) ->
-        vm.visualDesign.icons.forEach (vmIcon) ->
-          if vmIcon.id == icon.id
-            vmIcon.selected = true
-
-    vm.work = SubmitWorkService.work
+    vm.work = {}
+    vm.work.icons = SubmitWorkService.work.visualDesign.icons
+    vm.work.colors = SubmitWorkService.work.visualDesign.colors
+    vm.work.font = SubmitWorkService.work.visualDesign.font
+    vm.work.url = null
 
 
   activate = ->

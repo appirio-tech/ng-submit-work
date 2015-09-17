@@ -59,7 +59,7 @@ modal.enter-url(show="vm.showUrlStylesModal" background-click-close=true)
     p You can enter your website address and we'll grab your colors, fonts amd ocpms to use when designing your new app.
 
     form(ng-submit="vm.save()")
-      input.wide(type="url" placeholder="http://www.example.com" ng-model="vm.visualDesign.url" required=true)
+      input.wide(type="url" placeholder="http://www.example.com" ng-model="vm.work.url" required=true)
 
       button.wider.action(type="submit") enter
 
@@ -106,7 +106,7 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
 
           li.museo Museo Sans is a sans-serif font.
 
-        button(selectable=true type="button" ng-model="font.selected" value="true")
+        button(selectable=true type="button" ng-model="vm.work.font" value="font.id")
 
       li.or(ng-repeat-end ng-if="font.name == 'Serif' ")
         .house OR
@@ -157,7 +157,7 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
 
         p {{icon.description}}
 
-        button(type="button" selectable=true ng-model="icon.selected" value="true")
+        button(type="button" selectable=true ng-model="vm.work.icons" value="icon.id")
 
   footer
     button.wider(ng-hide="vm.backButtonDisabled" ng-click="vm.viewPrevious()") back
