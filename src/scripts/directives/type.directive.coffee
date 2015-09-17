@@ -6,6 +6,5 @@ directive = ->
   controller  : 'SubmitWorkTypeController as vm'
   scope       :
     workId : '@workId'
-    appName: '=appName'
 
 angular.module('appirio-tech-ng-submit-work').directive 'submitWorkType', directive
