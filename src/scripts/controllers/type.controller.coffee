@@ -10,11 +10,11 @@ SubmitWorkTypeController = ($scope, $rootScope, Optimist, SubmitWorkService) ->
     name: null
 
   config.requestTypes = [
-    name: 'Design'
+    design: 'Design'
     id: '1235'
     selected: false
   ,
-    name: 'Development'
+    designDevelopment: 'Development'
     id: '1234'
     selected: false
   ]
@@ -66,15 +66,12 @@ SubmitWorkTypeController = ($scope, $rootScope, Optimist, SubmitWorkService) ->
 
   getUpdates = ->
     updates =
-      requestTypes:     []
+      requestType:     vm.work.requestType
+      name: vm.work.name
+      summary: vm.work.summary
       devices:          []
       orientations:     []
       operatingSystems: []
-
-    vm.type.requestTypes.forEach (requestType) ->
-      if requestType.selected
-       updates.requestTypes.push
-        id: requestType.id
 
     vm.type.devices.forEach (device) ->
      if device.selected
@@ -96,12 +93,17 @@ SubmitWorkTypeController = ($scope, $rootScope, Optimist, SubmitWorkService) ->
   onChange = ->
     if SubmitWorkService.work
       # TODO: remove mock data
-      SubmitWorkService.work.requestTypes = [id:'1234']
       SubmitWorkService.work.devices = [id:'1234']
       SubmitWorkService.work.orientations = [id:'1235']
       SubmitWorkService.work.operatingSystems = [id:'1235']
 
-      vm.work = SubmitWorkService.work
+      vm.work =
+        name: SubmitWorkService.work.name
+        requestType: SubmitWorkService.work.requestType
+        summary    : SubmitWorkService.work.summary
+        devices: []
+        orientations: []
+        operatingSystems: []
     else
       vm.work =
         name: null
@@ -116,11 +118,6 @@ SubmitWorkTypeController = ($scope, $rootScope, Optimist, SubmitWorkService) ->
     unless vm.type
       vm.type = config
       # set already selected choices to selected on vm
-      vm.work.requestTypes.forEach (requestType) ->
-        vm.type.requestTypes.forEach (vmRequestType) ->
-          if requestType.id == vmRequestType.id
-            vmRequestType.selected = true
-
       vm.work.devices.forEach (device) ->
         vm.type.devices.forEach (vmDevice) ->
           if device.id == vmDevice.id
