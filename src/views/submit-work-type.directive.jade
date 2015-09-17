@@ -49,12 +49,13 @@ form(ng-submit="vm.save()")
 
       img(ng-if="requestType.name == 'Design'" src="http://www.collegequest.com/wp-content/uploads/what-do-graphic-designers-do.jpg")
 
-      img(ng-if="requestType.name == 'Development'" src="http://pbwebdev.com/blog/wp-content/uploads/2014/06/developer.jpg")
+      img(ng-if="requestType.name == 'Design & Development'" src="http://pbwebdev.com/blog/wp-content/uploads/2014/06/developer.jpg")
 
       button(
         type="button"
         selectable="true"
-        ng-model="requestType.selected"
+        ng-model="vm.work.requestType"
+        value="requestType.name"
       ) Design
 
 

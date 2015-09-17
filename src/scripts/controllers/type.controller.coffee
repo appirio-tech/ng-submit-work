@@ -10,11 +10,11 @@ SubmitWorkTypeController = ($scope, $rootScope, Optimist, SubmitWorkService) ->
     name: null
 
   config.requestTypes = [
-    design: 'Design'
+    name: 'Design'
     id: '1235'
     selected: false
   ,
-    designDevelopment: 'Development'
+    name: 'Design & Development'
     id: '1234'
     selected: false
   ]
@@ -101,9 +101,9 @@ SubmitWorkTypeController = ($scope, $rootScope, Optimist, SubmitWorkService) ->
         name: SubmitWorkService.work.name
         requestType: SubmitWorkService.work.requestType
         summary    : SubmitWorkService.work.summary
-        devices: []
-        orientations: []
-        operatingSystems: []
+        devices: SubmitWorkService.work.devices
+        orientations: SubmitWorkService.work.orientations
+        operatingSystems: SubmitWorkService.work.operatingSystems
     else
       vm.work =
         name: null
