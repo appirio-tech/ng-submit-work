@@ -60,13 +60,16 @@ SubmitWorkTypeController = ($scope, $rootScope, Optimist, SubmitWorkService) ->
     updates = getUpdates()
     isValid = true
     for type, value of updates
-      isValid = false unless value.length
+      if Array.isArray value
+        isValid = false unless value.length
+      else
+        isValid = value
 
     isValid
 
   getUpdates = ->
     updates =
-      requestType:     vm.work.requestType
+      requestType: vm.work.requestType
       name: vm.work.name
       summary: vm.work.summary
       devices:          []
