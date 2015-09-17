@@ -200,6 +200,8 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Opt
 
     SubmitWorkService.fetch(vm.workId)
     configureUploader()
+    # TODO: remove once work gets fetched
+    onChange()
 
     vm
 

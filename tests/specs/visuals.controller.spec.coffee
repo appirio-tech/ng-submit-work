@@ -2,6 +2,7 @@
 describe 'SubmitWorkVisualController', ->
 
   controller = null
+  saveSpy = null
 
   beforeEach ->
     bard.inject this, '$rootScope', '$q', '$controller', 'SubmitWorkService'
@@ -16,6 +17,7 @@ describe 'SubmitWorkVisualController', ->
             summary    : null
             o:
               hasPending: false
+      save: $q.when
       work:
         o:
           hasPending: false
@@ -36,32 +38,19 @@ describe 'SubmitWorkVisualController', ->
     it 'should have a save method', ->
      expect(controller.save).to.exist
 
-    it 'should have a submitVisualsmethod', ->
-     expect(controller.save).to.exist
-
     it 'should call service to save project', ->
       controller.workId              = '123'
-      controller.visualDesign = {}
-      controller.visualDesign.fonts  = [id: '1234', selected: true]
-      controller.visualDesign.colors = [id: '1234', selected: true]
-      controller.visualDesign.icons  = [id: '1234', selected: true]
-      controller.save()
-      expect(SubmitWorkService.save.called).to.be.ok
-
-    it 'should save visual designs when options are selected', ->
       controller.visualDesign =
-        fonts: ['123']
-        colors: ['123']
-        icons: ['123']
-
-      controller.submitVisuals()
-      expect(SubmitWorkService.save.called).to.be.ok
+        fonts: '123'
+        colors:'123'
+        icons: '123'
+      controller.save()
+      expect(SubmitWorkService.save).to.have.been.called
 
     it 'should not save visual designs when options are incomplete', ->
       controller.visualDesign =
-        fonts: []
-        colors: ['123']
-        icons: []
-
-      controller.submitVisuals()
-      expect(saveSpy.called).not.to.be.ok
+        fonts: null
+        colors: null
+        icons: '123'
+      controller.save()
+      expect(SubmitWorkService.save.called).not.to.be.ok
