@@ -21,9 +21,9 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, SubmitWorkService, API_UR
     vm.showSpecsModal = true
 
   vm.save = ->
-    developmentValid = workValid vm.work.development
+    developmentValid = workValid vm.work
     uploaderValid = !vm.developmentUploaderUploading && !vm.developmentUploaderHasErrors
-    updates = vm.work.development
+    updates = vm.work
 
     if developmentValid && uploaderValid
       SubmitWorkService.save(updates)
@@ -55,13 +55,17 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, SubmitWorkService, API_UR
     vm.loading = false
 
     # TODO: Remove mock data once development is in payload
-    SubmitWorkService.work.development =
-      offlineAccessRequired: null
-      hasPersonalInformation: null
-      securityLevel: null
-      thirdPartyIntegrations : null
+    SubmitWorkService.work.offlineAccessRequired = null
+    SubmitWorkService.work.hasPersonalInformation = null
+    SubmitWorkService.work.securityLevel = null
+    SubmitWorkService.work.thirdPartyIntegrations = null
 
-    vm.work = SubmitWorkService.work
+    vm.work = {}
+    vm.work.offlineAccessRequired = SubmitWorkService.work.offlineAccessRequired
+    vm.work.hasPersonalInformation = SubmitWorkService.work.hasPersonalInformation
+    vm.work.securityLevel = SubmitWorkService.work.securityLevel
+    vm.work.thirdPartyIntegrations = SubmitWorkService.work.thirdPartyIntegrations
+
 
 
   activate = ->
@@ -73,6 +77,8 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, SubmitWorkService, API_UR
 
     SubmitWorkService.fetch(vm.workId)
     configureUploader()
+    # TODO: remove once work is fetched
+    onChange()
 
     vm
 
