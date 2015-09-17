@@ -4,6 +4,10 @@ submit-work-development {
   display: block;
   text-align: center;
 
+  .save {
+    margin-top: $margin;
+  }
+
   .img {
     display         : inline-block;
     background-color: pink;
@@ -11,4 +15,9 @@ submit-work-development {
     height          : 200px;
     margin-top      : $margin-small;
   }
+
+  input[type="number"] {
+    margin-top: $margin-small;
+  }
+
 }
