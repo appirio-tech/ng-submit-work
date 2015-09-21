@@ -19,30 +19,22 @@ form(ng-submit="vm.save()")
       h4 Devices
 
       ul
-        li
-          checkbox(label="iPhone 5c" ng-model="vm.work.devices.iPhone5c")
-
-        li
-          checkbox(label="iPhone 5s" ng-model="vm.work.devices.iPhone5s")
+        li(ng-repeat="device in vm.type.devices")
+          checkbox(label="{{device.name}}" ng-model="device.selected")
 
     li
       h4 Orientation
 
       ul
-        li
-          checkbox(label="Landscape" ng-model="vm.work.orientation.landscape")
+        li(ng-repeat="orientation in vm.type.orientations")
+          checkbox(label="{{orientation.name}}" ng-model="orientation.selected")
 
-        li
-          checkbox(label="Portrait" ng-model="vm.work.orientation.portrait")
     li
       h4 OS
 
       ul
-        li
-          checkbox(label="iOS 7" ng-model="vm.work.os.iOS7")
-
-        li
-          checkbox(label="iOS 8" ng-model="vm.work.os.iOS8")
+        li(ng-repeat="os in vm.type.operatingSystems")
+          checkbox(label="{{os.name}}" ng-model="os.selected")
 
   button.wider.continue.action(type="button" scroll-element="typeDetails") continue
 
@@ -50,31 +42,22 @@ form(ng-submit="vm.save()")
     li
       h2 What <strong>type of work</strong> are you looking for?
 
-    li
-      h4 Design
+    li(ng-repeat="requestType in vm.type.requestTypes")
+      h4 {{requestType.name}}
 
       p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
-      img(src="http://www.collegequest.com/wp-content/uploads/what-do-graphic-designers-do.jpg")
+      img(ng-if="requestType.name == 'Design'" src="http://www.collegequest.com/wp-content/uploads/what-do-graphic-designers-do.jpg")
 
-      selected-button(
+      img(ng-if="requestType.name == 'Design & Development'" src="http://pbwebdev.com/blog/wp-content/uploads/2014/06/developer.jpg")
+
+      button(
         type="button"
-        value="vm.requestTypes.design"
-        ng-model="vm.work.requestTypes"
+        selectable="true"
+        ng-model="vm.work.requestType"
+        value="requestType.name"
       ) Design
 
-    li
-      h4 Development
-
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-
-      img(src="http://pbwebdev.com/blog/wp-content/uploads/2014/06/developer.jpg")
-
-      selected-button(
-        type="button"
-        value="vm.requestTypes.code"
-        ng-model="vm.work.requestTypes"
-      ) Development
 
   button.wider.continue.action(type="button" scroll-element="briefDetails") continue
 
