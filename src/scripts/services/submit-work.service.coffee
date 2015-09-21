@@ -38,7 +38,6 @@ srv = ($rootScope, Optimist, SubmitWorkAPIService) ->
       apiCall: apiCall
       updateCallback: emitUpdates
 
-
   submitWorkService
 
 srv.$inject = ['$rootScope', 'Optimist', 'SubmitWorkAPIService']

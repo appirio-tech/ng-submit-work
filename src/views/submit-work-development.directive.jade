@@ -9,7 +9,7 @@ header
 
   p Help us understand the technical requirements of your app.
 
-modal.upload-documents(show="true" background-click-close=true)
+modal.upload-documents(show="vm.showUploadModal" background-click-close=true)
   .upload
     .icon.upload
 
@@ -17,7 +17,11 @@ modal.upload-documents(show="true" background-click-close=true)
 
     p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
-    ap-uploader()
+    ap-uploader(
+      config="vm.developmentUploaderConfig"
+      uploading="vm.developmentUploaderUploading"
+      has-errors="vm.developmentUploaderHasErrors"
+    )
 
     button.wider.continue.action kick off project
 
@@ -27,20 +31,20 @@ ul.path-choices
 
     h3 Define development specs
 
-    button.action.wide select
+    button.action.wide(type="button" scroll-element="offlineAccess") select
 
   li
     .icon
 
     h3 Upload development specs
 
-    button.action.wide select
+    button.action.wide(ng-click="vm.showUpload()") select
 
-button.wider.continue(type="button" scroll-element="") continue
+button.wider.continue(type="button" scroll-element="offlineAccess") continue
 
-form(ng-submit="vm.submitDevelopment()")
+form(ng-submit="vm.save()")
 
-  .interactive
+  #offlineAccess.interactive
     h2 Do you require users to have <strong>offline access to data</strong>?
 
     p This will affect backps and scalability.
@@ -48,7 +52,7 @@ form(ng-submit="vm.submitDevelopment()")
     ul.or-choices
       li
         button.big.widest(
-          ng-model="vm.work.development.offlineAccess.required"
+          ng-model="vm.work.offlineAccessRequired"
           label="yes"
           value="true"
           selectable=true
@@ -62,7 +66,7 @@ form(ng-submit="vm.submitDevelopment()")
 
       li
         button.big.widest(
-          ng-model="vm.work.development.offlineAccess.required"
+          ng-model="vm.work.offlineAccessRequired"
           label="no"
           value="false"
           selectable=true
@@ -71,9 +75,9 @@ form(ng-submit="vm.submitDevelopment()")
 
         p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
-  button.wider.continue(type="button" scroll-element="") continue
+  button.wider.continue(type="button" scroll-element="personalInfo") continue
 
-  .interactive
+  #personalInfo.interactive
     h2 Personal information
 
     p Is there any level of personal information? (stored or transmitted)
@@ -81,7 +85,7 @@ form(ng-submit="vm.submitDevelopment()")
     ul.or-choices
       li
         button.big.widest(
-          ng-model="vm.work.development.hasPersonalInformation"
+          ng-model="vm.work.hasPersonalInformation"
           label="yes"
           value="true"
           selectable=true
@@ -95,7 +99,7 @@ form(ng-submit="vm.submitDevelopment()")
 
       li
         button.big.widest(
-          ng-model="vm.work.development.hasPersonalInformation"
+          ng-model="vm.work.hasPersonalInformation"
           label="no"
           value="false"
           selectable=true
@@ -104,9 +108,9 @@ form(ng-submit="vm.submitDevelopment()")
 
         p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
-  button.wider.continue(type="button" scroll-element="") continue
+  button.wider.continue(type="button" scroll-element="securityLevel") continue
 
-  .interactive
+  #securityLevel.interactive
     h2 What level of <strong>security do you need</strong>?
 
     ul.path-choices
@@ -115,32 +119,32 @@ form(ng-submit="vm.submitDevelopment()")
 
         h3 No security
 
-        button(selectable=true type="button" ng-model="vm.work.development.securityLevel" value="vm.securityLevels.none")
+        button(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.none")
 
       li
         .img
 
         h3 Minimal security
 
-        button(selectable=true type="button" ng-model="vm.work.development.securityLevel" value="vm.securityLevels.minimal")
+        button(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.minimal")
 
       li
         .img
 
         h3 Complete security
 
-        button(selectable=true type="button" ng-model="vm.work.development.securityLevel" value="vm.securityLevels.complete")
+        button(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.complete")
 
-  button.wider.continue(type="button" scroll-element="") continue
+  button.wider.continue(type="button" scroll-element="thirdPartyIntegrations") continue
 
-  .interactive
+  #thirdPartyIntegrations.interactive
     h2 How many 3rd party integrations</strong>?
 
     p Enter the number of 3rd party integrations so we can estimate effort involved.
 
-    input(type="number")
+    input(type="number" min=1 max=6 ng-model="vm.work.thirdPartyIntegrations")
 
-  button.wider.continue(type="button" scroll-element="") save
+  button.wider.continue(type="button") save
 
   button.wider.continue.action(type="submit") kick off project
 
