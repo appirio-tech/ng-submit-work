@@ -1,1 +1,8 @@
-submit-work-type(work-id="123")
+layout-header(role="banner" app-name="{{ vm.appName }}") {{ vm.appName }} 123
+
+include ../nav
+
+main.layout-main("role"="main" layout-main=true)
+  submit-work-type(work-id="123")
+
+layout-footer

@@ -50,34 +50,6 @@ submit-work-visuals {
       h2 {
         margin-top: $margin-big;
       }
-
-      > ul {
-        @include flex-center(center);
-
-        margin-top: $margin-big;
-
-        li {
-          hr {
-            margin-bottom: $margin-smallest;
-            background-color: $neutral-color;
-          }
-
-          &.or {
-            margin: 0 $margin;
-            background-color: $neutral-color;
-            font-size: $font-size-big;
-            color: $white;
-            width: 40px;
-            height: 40px;
-            line-height: 40px;
-            border-radius: 50%;
-          }
-
-          selected-button {
-            margin-top: $margin;
-          }
-        }
-      }
     }
 
     .colors {
@@ -134,16 +106,20 @@ submit-work-visuals {
 
     .icons {
       > ul {
-        @include justify-content(space-between);
+        @include flex-center(space-between);
 
         margin: $margin-biggest;
 
         li {
-          .colorIcon {
+           > .icon {
             height: 100px;
             width: 75px;
             background-color: red;
             margin: 0 auto;
+          }
+
+          button {
+            margin-top: $margin-small;
           }
         }
       }

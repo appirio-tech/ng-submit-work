@@ -20,26 +20,23 @@ srv = ($rootScope, Optimist, SubmitWorkAPIService) ->
     apiCall = () ->
       SubmitWorkAPIService.get(params).$promise
 
-    Optimist.fetchOne {
+    Optimist.fetchOne
       model: submitWorkService.work
       apiCall: apiCall
       updateCallback: emitUpdates
-    }
 
   submitWorkService.save = (updates) ->
-    console.log updates
     apiCall = (model) ->
       params =
         id: currentWorkId
 
       SubmitWorkAPIService.put(params, model).$promise
 
-    Optimist.update {
+    Optimist.update
       model: submitWorkService.work
       updates: updates
       apiCall: apiCall
       updateCallback: emitUpdates
-    }
 
 
   submitWorkService

@@ -4,8 +4,41 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
   display: block;
   text-align: center;
 
-  > button.action {
-    margin: $margin;
+  button.continue, > button.action {
+    margin: $margin auto;
+  }
+
+  button {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .app-name {
+    margin-top: 0;
+  }
+
+  .navs {
+    @include flex-center(space-between);
+
+    width: 400px;
+    margin: $margin-small auto;
+
+    a {
+      color: $neutral-color;
+      text-transform: uppercase;
+    }
+
+    .active {
+      a {
+        color: $white;
+      }
+    }
+  }
+
+  progress {
+    width: 400px;
+    margin: 0 auto;
+    margin-top: 0;
   }
 
   h2 {
@@ -13,8 +46,13 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
   }
 
   header {
-    background-color: $neutral-color-dark;
-    padding: $padding-biggest;
+    background-color: $neutral-color-darkest;
+    padding: $padding;
+    padding-bottom: $padding-big;
+
+    a {
+      color: $white;
+    }
 
     > * {
       max-width: 400px;
@@ -32,6 +70,45 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
 
     p {
       margin-top: $margin-smallest;
+    }
+  }
+
+  .interactive {
+    background-color: $neutral-color-lightest;
+    padding: $padding-biggest 0;
+
+    input {
+      margin: 0 auto;
+    }
+  }
+
+  ul.or-choices {
+    @include flex-center(center);
+    @include flex-wrap(nowrap);
+
+    margin-top: $margin-big;
+
+    li {
+      hr {
+        margin-bottom: $margin-smallest;
+        background-color: $neutral-color;
+      }
+
+      &.or {
+        margin          : 0 $margin;
+        background-color: $neutral-color;
+        font-size       : $font-size-big;
+        color           : $white;
+        min-width       : 40px;
+        max-width       : 40px;
+        height          : 40px;
+        line-height     : 40px;
+        border-radius   : 50%;
+      }
+
+      selected-button {
+        margin-top: $margin;
+      }
     }
   }
 
@@ -60,6 +137,11 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
         height: 50px;
         border: 4px solid black;
         display: inline-block;
+      }
+
+      button {
+        margin-left: auto;
+        margin-right: auto;
       }
     }
   }

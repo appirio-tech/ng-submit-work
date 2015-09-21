@@ -1,4 +1,7 @@
 header
+  include nav
+
+header
   .house
     .icon.checkmark.biggest
 
@@ -84,7 +87,6 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
     h2 Tell us your <strong>font preference</strong>
 
     ul.or-choices
-
       li(ng-repeat-start="font in vm.visualDesign.fonts")
         h3 {{font.name}}
 
@@ -98,6 +100,7 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
           li.times Times New Roman is a serif font
 
           li.courier Courier is a serif font.
+
 
         ul.samples(ng-if="font.name == 'Sans Serif' ")
           li.sofia Sofia is a sans-serif font.
