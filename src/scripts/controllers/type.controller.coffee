@@ -1,6 +1,6 @@
 'use strict'
 
-SubmitWorkTypeController = ($scope, $rootScope, Optimist, SubmitWorkService) ->
+SubmitWorkTypeController = ($scope, $rootScope, $state, Optimist, SubmitWorkService) ->
   vm                  = this
   vm.loading          = true
   vm.showSuccessModal = false
@@ -56,6 +56,14 @@ SubmitWorkTypeController = ($scope, $rootScope, Optimist, SubmitWorkService) ->
       SubmitWorkService.save(updates).then ->
         vm.showSuccessModal = true
 
+  vm.saveEmail = ->
+    email = vm.work.email
+    if email
+      update =
+        email:email
+      SubmitWorkService.save(update).then ->
+        $state.go('submit-work-features')
+
   typeValid = ->
     updates = getUpdates()
     isValid = true
@@ -96,6 +104,7 @@ SubmitWorkTypeController = ($scope, $rootScope, Optimist, SubmitWorkService) ->
   onChange = ->
     if SubmitWorkService.work
       # TODO: remove mock data
+      SubmitWorkService.work.email = null
       SubmitWorkService.work.devices = [id:'1234']
       SubmitWorkService.work.orientations = [id:'1235']
       SubmitWorkService.work.operatingSystems = [id:'1235']
@@ -104,6 +113,7 @@ SubmitWorkTypeController = ($scope, $rootScope, Optimist, SubmitWorkService) ->
         name: SubmitWorkService.work.name
         requestType: SubmitWorkService.work.requestType
         summary    : SubmitWorkService.work.summary
+        email: SubmitWorkService.work.email
         devices: SubmitWorkService.work.devices
         orientations: SubmitWorkService.work.orientations
         operatingSystems: SubmitWorkService.work.operatingSystems
@@ -112,6 +122,7 @@ SubmitWorkTypeController = ($scope, $rootScope, Optimist, SubmitWorkService) ->
         name: null
         requestType: null
         summary    : null
+        email: null
         devices: []
         orientations: []
         operatingSystems: []
@@ -154,6 +165,6 @@ SubmitWorkTypeController = ($scope, $rootScope, Optimist, SubmitWorkService) ->
 
   activate()
 
-SubmitWorkTypeController.$inject = ['$scope', '$rootScope', 'Optimist', 'SubmitWorkService']
+SubmitWorkTypeController.$inject = ['$scope', '$rootScope', '$state', 'Optimist', 'SubmitWorkService']
 
 angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkTypeController', SubmitWorkTypeController

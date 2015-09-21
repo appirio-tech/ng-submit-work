@@ -78,7 +78,7 @@ modal(show="vm.showSuccessModal" background-click-close=true)
 
     p Share your email to signup and we'll be sure to send a project link.
 
-    form
-      input(type="email" required=true)
+    form(ng-submit="vm.saveEmail()")
+      input(type="email" ng-model="vm.work.email" required=true)
 
       button(type="submit") Submit
