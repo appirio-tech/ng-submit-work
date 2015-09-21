@@ -1,4 +1,7 @@
 header
+  include nav
+
+header
   .house
     .icon.checkmark.biggest
 
@@ -78,7 +81,7 @@ modal.full.choose-styles(show="true" background-click-close=true)
   main.fonts(ng-show="false")
     h2 Tell us your <strong>font preference</strong>
 
-    ul
+    ul.or-choices
       li
         h3 Serif
 
@@ -93,7 +96,7 @@ modal.full.choose-styles(show="true" background-click-close=true)
 
           li.courier Courier is a serif font.
 
-        selected-button
+        button(selectable=true)
 
       li.or
         .house OR
@@ -112,7 +115,7 @@ modal.full.choose-styles(show="true" background-click-close=true)
 
           li.museo Museo Sans is a sans-serif font.
 
-        selected-button
+        button(selectable=true)
 
   main.colors(ng-show="false")
     h2 Tell us <strong>the colors</strong> you like
@@ -166,7 +169,7 @@ modal.full.choose-styles(show="true" background-click-close=true)
 
         p Lorem ipsum dolor sit amet
 
-        selected-button
+        button(selectable=true)
 
       li
         .icon
@@ -175,7 +178,7 @@ modal.full.choose-styles(show="true" background-click-close=true)
 
         p Lorem ipsum dolor sit amet
 
-        selected-button
+        button(selectable=true)
 
       li
         .icon
@@ -184,7 +187,7 @@ modal.full.choose-styles(show="true" background-click-close=true)
 
         p Lorem ipsum dolor sit amet
 
-        selected-button
+        button(selectable=true)
 
   footer
     button.wider back
@@ -193,58 +196,4 @@ modal.full.choose-styles(show="true" background-click-close=true)
 
     button.action.wider finish design
 
-form(ng-submit="vm.submitVisuals()")
-  h2 Tell us more about <strong>Visual Style</strong>
-
-  p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-
-  ul
-    li
-      h3 Fonts
-
-      p Choose font styles
-
-      .img
-
-      selected-button
-
-    li
-      h3 Colors
-
-      p Choose color styles
-
-      .img
-
-      selected-button
-
-    li
-      h3 Icons
-
-      p Choose icon styles
-
-      .img
-
-      selected-button
-
-  include parts/fonts
-
-  include parts/colors
-
-  include parts/icons
-
-  h2 Upload <strong>Documents</strong>
-
-  .upload-documents
-    button.clean(type="button")
-      .icon.biggest
-
-    p You can upload documents that can act as a strong visual brief to the visual designer. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-
-    ap-uploader(
-      config="vm.visualsUploaderConfig"
-      uploading="vm.visualsUploaderUploading"
-      has-errors="vm.visualsUploaderHasErrors"
-    )
-
-  button.save.wide(type="submit") Save
 

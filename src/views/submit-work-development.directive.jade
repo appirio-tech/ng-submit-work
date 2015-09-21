@@ -1,87 +1,146 @@
-h1 Development
+header
+  include nav
+
+header
+  .house
+    .icon.checkmark.biggest
+
+  h1 Development
+
+  p Help us understand the technical requirements of your app.
+
+modal.upload-documents(show="true" background-click-close=true)
+  .upload
+    .icon.upload
+
+    h2 Upload your <strong>Development specs</strong>
+
+    p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+    ap-uploader()
+
+    button.wider.continue.action kick off project
+
+ul.path-choices
+  li
+    .icon
+
+    h3 Define development specs
+
+    button.action.wide select
+
+  li
+    .icon
+
+    h3 Upload development specs
+
+    button.action.wide select
+
+button.wider.continue(type="button" scroll-element="") continue
 
 form(ng-submit="vm.submitDevelopment()")
-  h2 What is your application for?
-
-  ul.interactive
-    li
-      h3 Enterprise
-
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elite
-
-      .img
-
-      selected-button(ng-model="vm.work.development.appPurpose" value="vm.appPurposes.enterprise")
-
-    li
-      h3 App Store
-
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elite
-
-      .img
-
-      selected-button(ng-model="vm.work.development.appPurpose" value="vm.appPurposes.appStore")
-
-  h2 Offline access to data?
 
   .interactive
-    p Do you require your users to have offline access to data? Are your user's going to need and access data when you have little connectivity?
+    h2 Do you require users to have <strong>offline access to data</strong>?
 
-    selected-button(ng-model="vm.work.development.offlineAccess.required" label="yes" value="true")
+    p This will affect backps and scalability.
 
-    selected-button(ng-model="vm.work.development.offlineAccess.required" label="no" value="false")
+    ul.or-choices
+      li
+        button.big.widest(
+          ng-model="vm.work.development.offlineAccess.required"
+          label="yes"
+          value="true"
+          selectable=true
+          type="button"
+        )
 
-    textarea(placeholder="comments..." ng-model="vm.work.development.offlineAccess.comments")
+        p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
-  h2 Personal information
+      li.or
+        .house OR
+
+      li
+        button.big.widest(
+          ng-model="vm.work.development.offlineAccess.required"
+          label="no"
+          value="false"
+          selectable=true
+          type="button"
+        )
+
+        p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+  button.wider.continue(type="button" scroll-element="") continue
 
   .interactive
+    h2 Personal information
+
     p Is there any level of personal information? (stored or transmitted)
 
-    selected-button(ng-model="vm.work.development.hasPersonalInformation" label="yes" value="true")
+    ul.or-choices
+      li
+        button.big.widest(
+          ng-model="vm.work.development.hasPersonalInformation"
+          label="yes"
+          value="true"
+          selectable=true
+          type="button"
+        )
 
-    selected-button(ng-model="vm.work.development.hasPersonalInformation" label="no" value="false")
+        p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
-  h2 Level of security
+      li.or
+        .house OR
 
-  ul.interactive
-    li
-      h3 None
+      li
+        button.big.widest(
+          ng-model="vm.work.development.hasPersonalInformation"
+          label="no"
+          value="false"
+          selectable=true
+          type="button"
+        )
 
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elite
+        p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
-      .img
+  button.wider.continue(type="button" scroll-element="") continue
 
-      selected-button(ng-model="vm.work.development.securityLevel" value="vm.securityLevels.none")
+  .interactive
+    h2 What level of <strong>security do you need</strong>?
 
-    li
-      h3 Minimal
+    ul.path-choices
+      li
+        .img
 
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elite
+        h3 No security
 
-      .img
+        button(selectable=true type="button" ng-model="vm.work.development.securityLevel" value="vm.securityLevels.none")
 
-      selected-button(ng-model="vm.work.development.securityLevel" value="vm.securityLevels.minimal")
+      li
+        .img
 
-    li
-      h3 Complete
+        h3 Minimal security
 
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elite
+        button(selectable=true type="button" ng-model="vm.work.development.securityLevel" value="vm.securityLevels.minimal")
 
-      .img
+      li
+        .img
 
-      selected-button(ng-model="vm.work.development.securityLevel" value="vm.securityLevels.complete")
+        h3 Complete security
 
-  h2 Third party integrations
+        button(selectable=true type="button" ng-model="vm.work.development.securityLevel" value="vm.securityLevels.complete")
 
-  ul.interactive
-    li(ng-repeat="integration in vm.thirdPartyIntegrations")
-      h3 {{integration.name}}
+  button.wider.continue(type="button" scroll-element="") continue
 
-      p {{integration.description}}
+  .interactive
+    h2 How many 3rd party integrations</strong>?
 
-      .img
+    p Enter the number of 3rd party integrations so we can estimate effort involved.
 
-      selected-button(ng-model="vm.work.development.thirdPartyIntegrations" value="integration.id")
+    input(type="number")
 
-  button.save.wide(type="submit") Save
+  button.wider.continue(type="button" scroll-element="") save
+
+  button.wider.continue.action(type="submit") kick off project
+
