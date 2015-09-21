@@ -4,8 +4,41 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
   display: block;
   text-align: center;
 
-  > button.continue, > button.action {
+  button.continue, > button.action {
     margin: $margin auto;
+  }
+
+  button {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .app-name {
+    margin-top: 0;
+  }
+
+  .navs {
+    @include flex-center(space-between);
+
+    width: 400px;
+    margin: $margin-small auto;
+
+    a {
+      color: $neutral-color;
+      text-transform: uppercase;
+    }
+
+    .active {
+      a {
+        color: $white;
+      }
+    }
+  }
+
+  progress {
+    width: 400px;
+    margin: 0 auto;
+    margin-top: 0;
   }
 
   h2 {
@@ -13,8 +46,13 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
   }
 
   header {
-    background-color: $neutral-color-dark;
-    padding: $padding-biggest;
+    background-color: $neutral-color-darkest;
+    padding: $padding;
+    padding-bottom: $padding-big;
+
+    a {
+      color: $white;
+    }
 
     > * {
       max-width: 400px;

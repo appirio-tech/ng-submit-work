@@ -1,14 +1,20 @@
 @import "work-includes";
 
 submit-work-type {
-  position  : relative;
-
   .interactive-section {
     background-color: $neutral-color-lightest;
     padding: $padding-biggest 0;
 
     input {
       margin: 0 auto;
+    }
+  }
+
+  header {
+    padding: $padding-biggest;
+
+    p {
+      margin-top: $margin-small;
     }
   }
 

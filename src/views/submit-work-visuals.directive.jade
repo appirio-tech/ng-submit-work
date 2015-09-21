@@ -1,4 +1,7 @@
 header
+  include nav
+
+header
   .house
     .icon.checkmark.biggest
 
@@ -93,7 +96,7 @@ modal.full.choose-styles(show="true" background-click-close=true)
 
           li.courier Courier is a serif font.
 
-        selected-button
+        button(selectable=true)
 
       li.or
         .house OR
@@ -112,7 +115,7 @@ modal.full.choose-styles(show="true" background-click-close=true)
 
           li.museo Museo Sans is a sans-serif font.
 
-        selected-button
+        button(selectable=true)
 
   main.colors(ng-show="false")
     h2 Tell us <strong>the colors</strong> you like
@@ -166,7 +169,7 @@ modal.full.choose-styles(show="true" background-click-close=true)
 
         p Lorem ipsum dolor sit amet
 
-        selected-button
+        button(selectable=true)
 
       li
         .icon
@@ -175,7 +178,7 @@ modal.full.choose-styles(show="true" background-click-close=true)
 
         p Lorem ipsum dolor sit amet
 
-        selected-button
+        button(selectable=true)
 
       li
         .icon
@@ -184,7 +187,7 @@ modal.full.choose-styles(show="true" background-click-close=true)
 
         p Lorem ipsum dolor sit amet
 
-        selected-button
+        button(selectable=true)
 
   footer
     button.wider back
