@@ -106,16 +106,20 @@ submit-work-visuals {
 
     .icons {
       > ul {
-        @include justify-content(space-between);
+        @include flex-center(space-between);
 
         margin: $margin-biggest;
 
         li {
-          .icon {
+           > .icon {
             height: 100px;
             width: 75px;
             background-color: red;
             margin: 0 auto;
+          }
+
+          button {
+            margin-top: $margin-small;
           }
         }
       }

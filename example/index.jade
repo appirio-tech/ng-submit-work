@@ -33,12 +33,6 @@ html(ng-app='example')
       try{Typekit.load({ async: true });}catch(e){}
 
   body
-    layout-header(role="banner")
-
-    include nav
-
-    layout-main
-
-    layout-footer
+    ui-view
 
     include js-files

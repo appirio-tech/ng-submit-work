@@ -4,8 +4,13 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
   display: block;
   text-align: center;
 
-  > button.continue, > button.action {
+  button.continue, > button.action {
     margin: $margin auto;
+  }
+
+  button {
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .app-name {

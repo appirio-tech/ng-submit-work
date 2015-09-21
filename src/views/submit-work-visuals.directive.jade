@@ -1,6 +1,4 @@
 header
-  h2.app-name App Name
-
   include nav
 
 header
@@ -11,7 +9,7 @@ header
 
   p Help us define the visual style of your mobile app.
 
-ul.path-choices
+ul.path-choices(ng-class="{active: vm.showPaths}")
   li
     .icon
 
@@ -19,7 +17,7 @@ ul.path-choices
 
     p Pick few fonts style for your mobile app
 
-    button.action.wide select
+    button.action.wide(ng-click="vm.showChooseStyles()") select
 
   li
     .icon
@@ -28,7 +26,7 @@ ul.path-choices
 
     p Pick color palette for your mobile app
 
-    button.action.wide select
+    button.action.wide(ng-click="vm.showUploadStyles()") select
 
   li
     .icon
@@ -37,11 +35,11 @@ ul.path-choices
 
     p Pick graphic style for your mobile app.
 
-    button.action.wide select
+    button.action.wide(ng-click="vm.showUrlStyles()") select
 
-button.wider.action go to development
+button.wider.action(ng-click="vm.navigateDevelopment()") go to development
 
-modal.upload-documents(show="false" background-click-close=true)
+modal.upload-documents(show="vm.showUploadStylesModal" background-click-close=true)
   .upload
     .icon.upload
 
@@ -49,9 +47,13 @@ modal.upload-documents(show="false" background-click-close=true)
 
     p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
-    button.wider.action upload
+    ap-uploader(
+      config="vm.visualsUploaderConfig"
+      uploading="vm.visualsUploaderUploading"
+      has-errors="vm.visualsUploaderHasErrors"
+    )
 
-modal.enter-url(show="false" background-click-close=true)
+modal.enter-url(show="vm.showUrlStylesModal" background-click-close=true)
   .upload
     .icon.upload
 
@@ -59,67 +61,60 @@ modal.enter-url(show="false" background-click-close=true)
 
     p You can enter your website address and we'll grab your colors, fonts amd ocpms to use when designing your new app.
 
-    input.wide(type="text" placeholder="http://www.example.com")
+    form(ng-submit="vm.save()")
+      input.wide(type="url" placeholder="http://www.example.com" ng-model="vm.work.url" required=true)
 
-    button.wider.action enter
+      button.wider.action(type="submit") enter
 
-modal.full.choose-styles(show="true" background-click-close=true)
+modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=true)
   ul.nav
     li
-      button.clean &lt;
+      button.clean(ng-click="vm.viewPrevious()") &lt;
 
     li
-      button.clean fonts
+      button.clean(ng-click="vm.activateModal('fonts')") fonts
 
     li
-      button.clean colors
+      button.clean(ng-click="vm.activateModal('colors')") colors
 
     li
-      button.clean icons
+      button.clean(ng-click="vm.activateModal('icons')") icons
 
     li
-      button.clean &gt;
+      button.clean(ng-click="vm.viewNext()") &gt;
 
-  main.fonts(ng-show="false")
+  main.fonts(ng-show="vm.activeStyleModal == 'fonts' ")
     h2 Tell us your <strong>font preference</strong>
 
     ul.or-choices
-      li
-        h3 Serif
+      li(ng-repeat-start="font in vm.visualDesign.fonts")
+        h3 {{font.name}}
 
         hr
 
-        p Classic design, good legiblity for large and small text.
+        p {{font.description}}
 
-        ul.samples
+        ul.samples(ng-if="font.name == 'Serif' ")
           li.baskerville Baskerville is a serif font.
 
           li.times Times New Roman is a serif font
 
           li.courier Courier is a serif font.
 
-        selected-button
 
-      li.or
-        .house OR
-
-      li
-        h3 Sans Serif
-
-        hr
-
-        p Modern design, good for headers and body text.
-
-        ul.samples
+        ul.samples(ng-if="font.name == 'Sans Serif' ")
           li.sofia Sofia is a sans-serif font.
 
           li.arial Arial is a sans-serif font.
 
           li.museo Museo Sans is a sans-serif font.
 
-        selected-button
+        button(selectable=true type="button" ng-model="vm.work.font" value="font.id")
 
-  main.colors(ng-show="false")
+      li.or(ng-repeat-end ng-if="font.name == 'Serif' ")
+        .house OR
+
+  main.colors(ng-show="vm.activeStyleModal == 'colors' ")
     h2 Tell us <strong>the colors</strong> you like
 
     ul
@@ -148,54 +143,30 @@ modal.full.choose-styles(show="true" background-click-close=true)
 
       li.swatches
         ul.samples
-          li
-
-          li
-
-          li
-
-          li
+          li(ng-repeat="color in vm.visualDesign.colors") {{color.name}}
 
         h4 Select swatches and edit colors
 
         a View All Swatches
 
-  main.icons
+  main.icons(ng-show="vm.activeStyleModal == 'icons' ")
     h2 Tell us <strong>the icons</strong> you like
 
     ul
-      li
-        .icon
+      li(ng-repeat="icon in vm.visualDesign.icons")
+        .colorIcon
 
-        h4 Flat colors
+        h4 {{icon.name}}
 
-        p Lorem ipsum dolor sit amet
+        p {{icon.description}}
 
-        selected-button
-
-      li
-        .icon
-
-        h4 Thin line
-
-        p Lorem ipsum dolor sit amet
-
-        selected-button
-
-      li
-        .icon
-
-        h4 Solid line
-
-        p Lorem ipsum dolor sit amet
-
-        selected-button
+        button(type="button" selectable=true ng-model="vm.work.icons" value="icon.id")
 
   footer
-    button.wider back
+    button.wider(ng-hide="vm.backButtonDisabled" ng-click="vm.viewPrevious()") back
 
-    button.action.wider next
+    button.action.wider(ng-hide="vm.nextButtonDisabled" ng-click="vm.viewNext()") next
 
-    button.action.wider finish design
+    button.action.wider(ng-show="vm.showFinishDesignButton" ng-click="vm.save()") finish design
 
 

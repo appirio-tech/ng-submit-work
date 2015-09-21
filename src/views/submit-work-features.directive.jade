@@ -1,6 +1,4 @@
 header
-  h2.app-name App Name
-
   include nav
 
 header
@@ -39,9 +37,9 @@ modal.full.define-features(show="vm.showFeaturesModal" background-click-close=tr
     ul.features
       li
         ul
-          li(ng-repeat="feature in vm.defaultFeatures track by $index")
+          li(ng-repeat="feature in vm.features track by $index")
             button.widest.clean(ng-click="vm.activateFeature(feature)")
-              .icon(ng-class="{selected: vm.activeFeature.name == feature.name}")
+              .icon(ng-class="{selected: feature.selected}")
 
               span {{ feature.name }}
 
@@ -53,12 +51,12 @@ modal.full.define-features(show="vm.showFeaturesModal" background-click-close=tr
 
     ul.contents
       li
-        .default.active(ng-class="{active: !vm.activeFeature}")
+        .default.active(ng-hide="vm.showDefineFeaturesForm" ng-class="{active: !vm.activeFeature}")
           h4 Select and define features for your app
 
           p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
-        .description(ng-class="{active: vm.activeFeature}")
+        .description(ng-hide="vm.showDefineFeaturesForm" ng-class="{active: vm.activeFeature}")
           h4 Select and define features for your app
 
           h5 {{ vm.activeFeature.name }} description
@@ -67,7 +65,9 @@ modal.full.define-features(show="vm.showFeaturesModal" background-click-close=tr
 
           textarea.widest(placeholder="Notes..." ng-model="vm.activeFeature.notes")
 
-          button.wider.action(ng-click="vm.applyFeature()") apply feature
+          button.wider.action(ng-if="!vm.activeFeature.selected" ng-click="vm.applyFeature()") apply feature
+
+          button.wider.action(ng-if="vm.activeFeature.selected" ng-click="vm.removeFeature()") remove feature
 
         form.new-feature(ng-submit="vm.addCustomFeature()" ng-class="{active: vm.showDefineFeaturesForm}")
           h4 Define a new feature
@@ -88,9 +88,9 @@ modal.full.define-features(show="vm.showFeaturesModal" background-click-close=tr
           .phone
 
       li
-        .count {{vm.work.features.length}} features added
+        .count {{vm.selectedFeaturesCount}} features added
 
-        button.wider.action(ng-click="vm.submitFeatures()") next
+        button.wider.action(ng-click="vm.save()") next
 
 modal.upload-documents(show="vm.showUploadModal" background-click-close=true)
   .upload
