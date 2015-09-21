@@ -55,9 +55,9 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, SubmitWorkService, API_UR
     vm.loading = false
 
     # TODO: Remove mock data once development is in payload
-    SubmitWorkService.work.offlineAccessRequired = null
-    SubmitWorkService.work.hasPersonalInformation = null
-    SubmitWorkService.work.securityLevel = null
+    SubmitWorkService.work.offlineAccessRequired = false
+    SubmitWorkService.work.hasPersonalInformation = true
+    SubmitWorkService.work.securityLevel = 'minimal'
     SubmitWorkService.work.thirdPartyIntegrations = null
 
     vm.work = {}

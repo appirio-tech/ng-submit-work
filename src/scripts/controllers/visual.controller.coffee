@@ -171,12 +171,9 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Opt
     # TODO: Remove mock data once visualDesign is in payload
     SubmitWorkService.work.visualDesign        = {}
     SubmitWorkService.work.visualDesign.url    = null
-    SubmitWorkService.work.visualDesign.font  =
-      id: '123'
-    SubmitWorkService.work.visualDesign.colors =
-      id: '1236'
-    SubmitWorkService.work.visualDesign.icons  =
-      id: '1234'
+    SubmitWorkService.work.visualDesign.font   = '123'
+    SubmitWorkService.work.visualDesign.colors = '1236'
+    SubmitWorkService.work.visualDesign.icons  = '1234'
     # initialize vm
     unless vm.visualDesign
       vm.visualDesign        = config
