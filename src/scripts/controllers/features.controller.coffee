@@ -110,17 +110,34 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
     updates
 
   configureUploader = ->
+    domain = 'https://api.topcoder.com'
+    workId = vm.workId
+    category = 'work'
     assetType = 'specs'
-    queryUrl = API_URL + '/v3/work-files/assets?filter=workId%3D' + vm.workId + '%26assetType%3D' + assetType
+
     vm.featuresUploaderConfig =
       name: 'uploader' + vm.workId
       allowMultiple: true
-      queryUrl: queryUrl
-      urlPresigner: API_URL + '/v3/work-files/uploadurl'
-      fileEndpoint: API_URL + '/v3/work-files/:fileId'
-      saveParams:
-        workId: vm.workId
-        assetType: assetType
+      query:
+        url: domain + '/v3/work-files/assets'
+        params:
+          filter: 'id=' + workId + '&assetType=' + assetType + '&category=' + category
+      presign:
+        url: domain + '/v3/work-files/uploadurl'
+        params:
+          id: workId
+          assetType: assetType
+          category: category
+      createRecord:
+        url: domain + '/v3/work-files'
+        params:
+          id: workId
+          assetType: assetType
+          category: category
+      removeRecord:
+        url: domain + '/v3/work-files/:fileId'
+        params:
+          filter: 'category=' + category
 
   onChange = ->
     if SubmitWorkService.work.o.hasPending
