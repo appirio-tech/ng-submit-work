@@ -26,6 +26,22 @@ submit-work-visuals {
     font-family: Museo Sans;
   }
 
+  .uploaderWrapper {
+    margin-top: $margin-small;
+    .failed {
+      color: $danger-color;
+    }
+    .uploader {
+      .fileActions {
+        margin-top: $margin-smallest;
+      }
+      margin: $margin-smallest;
+      button {
+        margin: $margin-smallest;
+      }
+    }
+  }
+
   .choose-styles {
     .nav {
       @include flex-center(space-between);
