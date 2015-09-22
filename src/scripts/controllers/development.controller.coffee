@@ -36,7 +36,7 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, SubmitWorkService, API_UR
     isValid
 
   configureUploader = ->
-    domain = 'https://api.topcoder.com'
+    domain = API_URL
     workId = vm.workId
     category = 'work'
     assetType = 'specs'
