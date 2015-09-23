@@ -121,7 +121,7 @@ submit-work-features {
         }
 
         .default, .description, .new-feature {
-          width: 400px;
+          width  : 400px;
           padding: $padding-big;
           display: none;
 
@@ -145,14 +145,14 @@ submit-work-features {
 
           button {
             margin-top: $margin;
+
+            &.cancel {
+              margin-left: $margin-small;
+            }
           }
         }
 
         .description {
-          h5 {
-            margin-top: $margin;
-          }
-
           textarea {
             margin-top: $margin-big;
           }
@@ -171,17 +171,22 @@ submit-work-features {
       }
     }
   }
+
   modal.upload-documents {
     .uploaderWrapper {
       margin-top: $margin-small;
+
       .failed {
         color: $danger-color;
       }
+
       .uploader {
         .fileActions {
           margin-top: $margin-smallest;
         }
+
         margin: $margin-smallest;
+
         button {
           margin: $margin-smallest;
         }

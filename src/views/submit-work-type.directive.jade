@@ -74,11 +74,11 @@ modal(show="vm.showSuccessModal" background-click-close=true)
   .success
     h2 Awesome!
 
-    p Your {{ vm.work.name }} is set up now
+    h3 Your {{ vm.work.name }} project is set up now
 
     p Share your email to signup and we'll be sure to send a project link.
 
     form
-      input(type="email" required=true)
+      input.wider(type="email" required=true)
 
-      button(type="submit") Submit
+      button.wider(type="submit") Submit
