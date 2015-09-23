@@ -43,10 +43,6 @@ form(ng-submit="vm.save()")
       h2 What <strong>type of work</strong> are you looking for?
 
     li(ng-repeat="requestType in vm.type.requestTypes")
-      h4 {{requestType.name}}
-
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-
       img(ng-if="requestType.name == 'Design'" src="http://www.collegequest.com/wp-content/uploads/what-do-graphic-designers-do.jpg")
 
       img(ng-if="requestType.name == 'Design & Development'" src="http://pbwebdev.com/blog/wp-content/uploads/2014/06/developer.jpg")
@@ -58,6 +54,9 @@ form(ng-submit="vm.save()")
         value="requestType.name"
       )
 
+      h4 {{requestType.name}}
+
+      p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
   button.wider.continue.action(type="button" scroll-element="briefDetails") continue
 
