@@ -1,5 +1,4 @@
 @import "work-includes";
-@import "mixins";
 
 $card-max-width: 180px;
 
@@ -167,28 +166,6 @@ submit-work-features {
           text-align      : center;
           height          : 60px;
           border-top      : 1px solid $neutral-color-light;
-        }
-      }
-    }
-  }
-
-  modal.upload-documents {
-    .uploaderWrapper {
-      margin-top: $margin-small;
-
-      .failed {
-        color: $danger-color;
-      }
-
-      .uploader {
-        .fileActions {
-          margin-top: $margin-smallest;
-        }
-
-        margin: $margin-smallest;
-
-        button {
-          margin: $margin-smallest;
         }
       }
     }

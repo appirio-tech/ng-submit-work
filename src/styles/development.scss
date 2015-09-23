@@ -20,20 +20,7 @@ submit-work-development {
     margin-top: $margin-small;
   }
 
-  .uploaderWrapper {
-    margin-top: $margin-small;
-    .failed {
-      color: $danger-color;
-    }
-    .uploader {
-      .fileActions {
-        margin-top: $margin-smallest;
-      }
-      margin: $margin-smallest;
-      button {
-        margin: $margin-smallest;
-      }
-    }
+  .save, .kick-off {
+    margin: $margin $margin-small;
   }
-
 }

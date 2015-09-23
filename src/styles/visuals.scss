@@ -1,11 +1,8 @@
 @import "work-includes";
-@import "mixins";
 
 $card-max-width: 180px;
 
 submit-work-visuals {
-  @include submit-work-header;
-
   .baskerville {
     font-family: Baskerville;
   }
@@ -26,19 +23,17 @@ submit-work-visuals {
     font-family: Museo Sans;
   }
 
-  .uploaderWrapper {
-    margin-top: $margin-small;
-    .failed {
-      color: $danger-color;
-    }
-    .uploader {
-      .fileActions {
+  .fonts {
+    .samples {
+      margin-top: $margin-small;
+
+      > li {
         margin-top: $margin-smallest;
       }
-      margin: $margin-smallest;
-      button {
-        margin: $margin-smallest;
-      }
+    }
+
+    button {
+      margin-top: $margin-small;
     }
   }
 
@@ -52,7 +47,7 @@ submit-work-visuals {
 
     footer {
       button {
-        margin: $margin-small;
+        margin: $margin;
       }
     }
 

@@ -4,6 +4,26 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
   display: block;
   text-align: center;
 
+  .uploaderWrapper {
+    margin-top: $margin-small;
+
+    .failed {
+      color: $danger-color;
+    }
+
+    .uploader {
+      .fileActions {
+        margin-top: $margin-smallest;
+      }
+
+      margin: $margin-smallest;
+
+      button {
+        margin: $margin-smallest;
+      }
+    }
+  }
+
   button.continue, > button.action {
     margin: $margin auto;
   }
