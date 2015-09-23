@@ -58,11 +58,11 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, Optimist, SubmitWorkServ
 
   vm.saveEmail = ->
     email = vm.work.email
+    update =
+      email: email
     if email
-      update =
-        email:email
       SubmitWorkService.save(update).then ->
-        $state.go('submit-work-features')
+        $state.go 'submit-work-features'
 
   typeValid = ->
     updates = getUpdates()
