@@ -1,11 +1,8 @@
 @import "work-includes";
-@import "mixins";
 
 $card-max-width: 180px;
 
 submit-work-visuals {
-  @include submit-work-header;
-
   .baskerville {
     font-family: Baskerville;
   }
@@ -26,6 +23,20 @@ submit-work-visuals {
     font-family: Museo Sans;
   }
 
+  .fonts {
+    .samples {
+      margin-top: $margin-small;
+
+      > li {
+        margin-top: $margin-smallest;
+      }
+    }
+
+    button {
+      margin-top: $margin-small;
+    }
+  }
+
   .choose-styles {
     .nav {
       @include flex-center(space-between);
@@ -36,7 +47,7 @@ submit-work-visuals {
 
     footer {
       button {
-        margin: $margin-small;
+        margin: $margin;
       }
     }
 

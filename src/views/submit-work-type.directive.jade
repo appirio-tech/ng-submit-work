@@ -47,6 +47,9 @@ form(ng-submit="vm.create()")
         value="projectType.id"
       )
 
+      h4 {{requestType.name}}
+
+      p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
   button.wider.continue.action(type="button" scroll-element="briefDetails") continue
 
@@ -66,6 +69,6 @@ modal(show="vm.showSuccessModal" background-click-close=true)
     p Share your email to signup and we'll be sure to send a project link.
 
     form
-      input(type="email" required=true)
+      input.wider(type="email" required=true)
 
-      button(type="submit") Submit
+      button.wider(type="submit") Submit
