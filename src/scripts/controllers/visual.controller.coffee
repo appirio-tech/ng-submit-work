@@ -1,6 +1,6 @@
 'use strict'
 
-SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Optimist, API_URL) ->
+SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Optimist, API_URL, RequirementService) ->
   vm                          = this
   vm.workId                   = $scope.workId
   vm.loading                  = true
@@ -14,62 +14,6 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Opt
   vm.nextButtonDisabled       = false
   vm.backButtonDisabled       = false
   vm.styleModals              = ['fonts', 'colors', 'icons']
-
-  config = {}
-  config.fonts = [
-    name: 'Serif'
-    description: 'Classic design, good legiblity for large and small text.'
-    id: '123'
-    selected: false
-  ,
-    name: 'Sans Serif'
-    id: '456'
-    description: 'Modern design, good for headers and body text.'
-    selected: false
-  ]
-
-  config.colors = [
-    name: 'Palette 1'
-    description: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-    id: '1234'
-    selected: false
-  ,
-    name: 'Palette 2'
-    description: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-    id: '1235'
-    selected: false
-
-  ,
-    name: 'Palette 3'
-    description: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-    id: '1236'
-    selected: false
-
-  ,
-    name: 'Palette 4'
-    description: 'Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-    id: '1237'
-    selected: false
-  ]
-
-  config.icons = [
-    name: 'Flat Colors'
-    description: 'Lorem ipsum dolor sit amet'
-    id: '1234'
-    selected: false
-
-  ,
-    name: 'Thin Line'
-    description: 'Lorem ipsum dolor sit amet'
-    id: '1235'
-    selected: false
-
-  ,
-    name: 'Solid Line'
-    description: 'Lorem ipsum dolor sit amet'
-    id: '1236'
-    selected: false
-  ]
 
   vm.showChooseStyles = ->
     vm.showPaths = false
@@ -102,37 +46,28 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Opt
       vm.activateModal(previousModal)
 
   vm.save = ->
-    visualsValid = visualDesignValid()
     updates = getUpdates()
-    if visualsValid
-      SubmitWorkService.save(updates).then ->
-        $state.go("submit-work-development")
 
-  visualDesignValid = ->
-    updates = getUpdates()
-    uploaderValid = !vm.visualsUploaderUploading && !vm.visualsUploaderHasErrors
-    # TODO: add updates.colors check
-    hasVisualChoices = updates.font && updates.icons
-    # check if visuals are selected or entered via url
-    hasVisuals = hasVisualChoices || updates.url
-    hasVisuals
+    SubmitWorkService.save(updates).then ->
+      $state.go("submit-work-development")
 
   getUpdates = ->
-    updates =
-      font:  vm.work.font
-      colors: vm.work.colors
-      icons:  vm.work.icons
-      url:    null
+    isSelected = (item) ->
+      item.selected
 
-    if vm.work.url
-      updates.url = vm.visualDesign.url
+    getId = (item) ->
+      item.id
+
+    updates =
+      fontIds:  if vm.font then [ vm.font ] else null
+      colorSwatchIds: vm.colors.filter(isSelected).map(getId)
+      iconsetIds:  if vm.icon then [ vm.icon ] else null
+      designUrls: if vm.url then [ vm.url ] else null
 
     updates
 
   vm.navigateDevelopment = ->
-    visualsValid = visualsValid()
-    if visualsValid
-      $state.go("submit-work-development")
+    $state.go("submit-work-development")
 
   updateButtons = ->
     currentIndex = vm.styleModals.indexOf vm.activeStyleModal
@@ -148,7 +83,6 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Opt
       vm.backButtonDisabled = false
       vm.showFinishDesignButton = false
 
-
   configureUploader = ->
     assetType = 'specs'
     queryUrl = API_URL + '/v3/work-files/assets?filter=workId%3D' + vm.workId + '%26assetType%3D' + assetType
@@ -163,33 +97,24 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Opt
         assetType: assetType
 
   onChange = ->
-    if SubmitWorkService.work.o.hasPending
+    work = SubmitWorkService.get()
+
+    if work.o.pending
+      vm.loading = true
       return false
 
     vm.loading = false
+    vm.font    = vm.font || work.fontIds?[0]
+    vm.icon    = vm.icon || work.iconsetIds?[0]
+    vm.url     = vm.url || work.urlIds?[0]
 
-    # TODO: Remove mock data once visualDesign is in payload
-    SubmitWorkService.work.visualDesign        = {}
-    SubmitWorkService.work.visualDesign.url    = null
-    SubmitWorkService.work.visualDesign.font  =
-      id: '123'
-    SubmitWorkService.work.visualDesign.colors =
-      id: '1236'
-    SubmitWorkService.work.visualDesign.icons  =
-      id: '1234'
-    # initialize vm
-    unless vm.visualDesign
-      vm.visualDesign        = config
-      vm.visualDesign.fonts  = config.fonts
-      vm.visualDesign.colors = config.colors
-      vm.visualDesign.icons  = config.icons
+    vm.fonts   = angular.copy RequirementService.fonts
+    vm.colors  = angular.copy RequirementService.colors
+    vm.icons   = angular.copy RequirementService.icons
 
-    vm.work = {}
-    vm.work.icons = SubmitWorkService.work.visualDesign.icons
-    vm.work.colors = SubmitWorkService.work.visualDesign.colors
-    vm.work.font = SubmitWorkService.work.visualDesign.font
-    vm.work.url = null
-
+    vm.colors.forEach (color) ->
+      if work.colorSwatchIds?.indexOf(color.id) >= 0
+        color.selected = true
 
   activate = ->
     destroyWorkListener = $rootScope.$on "SubmitWorkService.work:changed", ->
@@ -200,13 +125,11 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Opt
 
     SubmitWorkService.fetch(vm.workId)
     configureUploader()
-    # TODO: remove once work gets fetched
-    onChange()
 
     vm
 
   activate()
 
-SubmitWorkVisualController.$inject = ['$scope', '$rootScope', '$state', 'SubmitWorkService', 'Optimist', 'API_URL']
+SubmitWorkVisualController.$inject = ['$scope', '$rootScope', '$state', 'SubmitWorkService', 'Optimist', 'API_URL', 'RequirementService']
 
 angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkVisualController', SubmitWorkVisualController

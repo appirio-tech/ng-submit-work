@@ -1,6 +1,6 @@
 'use strict'
 
-SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWorkAPIService, API_URL) ->
+SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWorkAPIService, API_URL, RequirementService) ->
   vm                           = this
   vm.workId                    = $scope.workId
   vm.loading                   = true
@@ -12,38 +12,16 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
   vm.featuresUploaderHasErrors = null
   vm.features                  = []
 
-  # TODO: replace palceholder features & descriptions
-  config = {}
+  unsaved = {}
 
-  config.defaultFeatures = [
-    id: '123',
-    name: 'Login',
-    description: 'Users can login / register for your app',
-    notes: null,
-    custom: null,
-    selected: false
-  ,
-    id: '124',
-    name: 'Onboarding',
-    description: 'Users can see data from social networks (FB, Twitter etc.) in your app',
-    notes: null,
-    custom: null,
-    selected: false
-  ,
-    id: '125',
-    name: 'Registration',
-    description: 'Users can create profiles with personal info',
-    notes: null,
-    custom: null,
-    selected: false
-  ,
-    id: '126',
-    name: 'Location',
-    description: 'A map with a user\'s GPS location that helps them get to places',
-    notes: null,
-    custom: null,
-    selected: false
-  ];
+  config =
+    customFeatureTemplate:
+      id: null
+      title: null
+      description: null
+      notes: null
+      custom: true
+      fileIds: []
 
   vm.showFeatures = ->
     vm.showFeaturesModal = true
@@ -62,51 +40,51 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
 
   vm.applyFeature = ->
     vm.features.forEach (feature) ->
-      if feature.name == vm.activeFeature.name
-        feature.selected = true
+      if feature.id == vm.activeFeature.id
+        unsaved.features.push feature
 
     vm.activeFeature = null
     onChange()
 
   vm.removeFeature = ->
-    vm.features.forEach (feature, index) ->
-      if feature.name == vm.activeFeature.name
-        vm.features.splice(index, 1)
+    unsaved.features.forEach (feature, index) ->
+      if feature.title == vm.activeFeature.title
+        unsaved.features.splice(index, 1)
 
     vm.activeFeature = null
     onChange()
 
   vm.addCustomFeature = ->
-    customFeatureValid = vm.customFeature.name && vm.customFeature.description
+    customFeatureValid = vm.customFeature.title && vm.customFeature.description
 
     if customFeatureValid
-      vm.customFeature.selected = true
-      vm.features.push vm.customFeature
+      unsaved.features.push vm.customFeature
       vm.hideCustomFeatures()
       onChange()
 
   vm.save = ->
     uploaderValid = !vm.featuresUploaderUploading && !vm.featuresUploaderHasErrors
-
-    updates = getUpdates()
-
-    hasFeatures = updates.selectedFeatures.length || updates.customFeatures.length
+    updates       = getUpdates()
+    hasFeatures   = updates.features.length
 
     if uploaderValid && hasFeatures
-      SubmitWorkService.save(updates)
+      console.log updates
+      SubmitWorkService.save(updates).then ->
+        vm.showFeaturesModal = false
 
   getUpdates = ->
     updates =
-      selectedFeatures: []
-      customFeatures: []
-    vm.features.forEach (feature) ->
-      if feature.id
-        if feature.selected
-          updates.selectedFeatures.push
-            id: feature.id
-      else
-        if feature.selected
-          updates.customFeatures.push feature
+      features: []
+
+    unsaved.features.forEach (feature) ->
+      updates.features.push
+        id: feature.id
+        title: feature.title
+        description: feature.description
+        notes: feature.notes
+        custom: feature.custom
+        fileIds: feature.fileIds
+
     updates
 
   configureUploader = ->
@@ -123,34 +101,30 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
         assetType: assetType
 
   onChange = ->
-    if SubmitWorkService.work.o.hasPending
+    work = SubmitWorkService.get()
+
+    if work.o.pending
+      vm.loading = true
       return false
 
     vm.loading = false
+    vm.customFeature         = angular.copy config.customFeatureTemplate
+    vm.selectedFeaturesCount = 0
+    vm.features              = angular.copy RequirementService.features
 
-    vm.customFeature =
-      name: null
-      description: null
-      custom: true
+    unless unsaved.features
+      unsaved.features = work.features
 
-    unless vm.features.length
-      config.defaultFeatures.forEach (feature) ->
+    unsaved.features.forEach (feature) ->
+      if feature.custom
+        feature.selected = true
         vm.features.push feature
-      # add any custom features to vm
-      SubmitWorkService.work.features.forEach (feature) ->
-        if !feature.id
-          feature.selected = true
-          vm.features.push feature
-      # set already selected features to selected on vm
-      SubmitWorkService.work.features.forEach (feature) ->
+        vm.selectedFeaturesCount++
+      else
         vm.features.forEach (vmFeature) ->
           if feature.id == vmFeature.id
             vmFeature.selected = true
-
-    updates = getUpdates()
-    vm.selectedFeaturesCount = updates.selectedFeatures.length + updates.customFeatures.length
-
-    vm.work = SubmitWorkService.work
+            vm.selectedFeaturesCount++
 
   activate = ->
     destroyWorkListener = $rootScope.$on "SubmitWorkService.work:changed", ->
@@ -162,10 +136,10 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
     SubmitWorkService.fetch(vm.workId)
     configureUploader()
 
-    vm
-
   activate()
 
-SubmitWorkFeaturesController.$inject = ['$scope', '$rootScope', 'SubmitWorkService', 'SubmitWorkAPIService', 'API_URL']
+  vm
+
+SubmitWorkFeaturesController.$inject = ['$scope', '$rootScope', 'SubmitWorkService', 'SubmitWorkAPIService', 'API_URL', 'RequirementService']
 
 angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkFeaturesController', SubmitWorkFeaturesController
