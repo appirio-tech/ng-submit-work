@@ -28,7 +28,7 @@ ul.path-choices
 
     button.action.wide(ng-click="vm.showUpload()") select
 
-button.wider.action(ng-click="vm.showFeatures()") go to design
+a.wider.action(ui-sref="submit-work-visuals({ id: vm.workId })") go to design
 
 modal.full.define-features(show="vm.showFeaturesModal" background-click-close=true)
   h2 Data booklet mobile app <strong>features</strong>
