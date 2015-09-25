@@ -1,11 +1,11 @@
 ul.navs
   li.active
-    a(ui-sref="submit-work-features") Features
+    a(ui-sref="submit-work-features({ id: vm.workId })") Features
 
   li
-    a(ui-sref="submit-work-visuals") Visual Design
+    a(ui-sref="submit-work-visuals({ id: vm.workId })") Visual Design
 
   li
-    a(ui-sref="submit-work-development") Development
+    a(ui-sref="submit-work-development({ id: vm.workId })") Development
 
 progress(value="2" max="3")

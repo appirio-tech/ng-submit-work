@@ -6,8 +6,8 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, SubmitWorkService, API_UR
   vm.workId                       = $scope.workId
   vm.showUploadModal              = false
   vm.showSpecsModal               = false
-  vm.developmentUploaderUploading = false
-  vm.developmentUploaderHasErrors = false
+  vm.uploaderUploading = false
+  vm.uploaderHasErrors = false
 
   vm.securityLevels =
     none: 'none'
@@ -21,52 +21,61 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, SubmitWorkService, API_UR
     vm.showSpecsModal = true
 
   vm.save = ->
-    developmentValid = workValid vm.work
-    uploaderValid = !vm.developmentUploaderUploading && !vm.developmentUploaderHasErrors
+    uploaderValid = !vm.uploaderUploading && !vm.uploaderHasErrors
     updates = vm.work
 
-    if developmentValid && uploaderValid
+    for name, prop of updates
+      unless prop
+        prop = null
+
+    if uploaderValid
       SubmitWorkService.save(updates)
 
-  workValid = (work) ->
-    isValid = true
-    for property, value of work
-      if value == null
-        isValid = false
-    isValid
-
   configureUploader = ->
+    domain = API_URL
+    workId = vm.workId
+    category = 'work'
     assetType = 'specs'
-    queryUrl = API_URL + '/v3/work-files/assets?filter=workId%3D' + vm.workId + '%26assetType%3D' + assetType
-    vm.developmentUploaderConfig =
+
+    vm.uploaderConfig =
       name: 'uploader' + vm.workId
       allowMultiple: true
-      queryUrl: queryUrl
-      urlPresigner: API_URL + '/v3/work-files/uploadurl'
-      fileEndpoint: API_URL + '/v3/work-files/:fileId'
-      saveParams:
-        workId: vm.workId
-        assetType: assetType
+      query:
+        url: domain + '/v3/work-files/assets'
+        params:
+          filter: 'id=' + workId + '&assetType=' + assetType + '&category=' + category
+      presign:
+        url: domain + '/v3/work-files/uploadurl'
+        params:
+          id: workId
+          assetType: assetType
+          category: category
+      createRecord:
+        url: domain + '/v3/work-files'
+        params:
+          id: workId
+          assetType: assetType
+          category: category
+      removeRecord:
+        url: domain + '/v3/work-files/:fileId'
+        params:
+          filter: 'category=' + category
+
 
   onChange = ->
-    if SubmitWorkService.work.o.hasPending
+    work = SubmitWorkService.get()
+
+    if work.o.pending
+      vm.loading = true
       return false
 
     vm.loading = false
 
-    # TODO: Remove mock data once development is in payload
-    SubmitWorkService.work.offlineAccessRequired = false
-    SubmitWorkService.work.hasPersonalInformation = true
-    SubmitWorkService.work.securityLevel = 'minimal'
-    SubmitWorkService.work.thirdPartyIntegrations = null
-
     vm.work = {}
-    vm.work.offlineAccessRequired = SubmitWorkService.work.offlineAccessRequired
-    vm.work.hasPersonalInformation = SubmitWorkService.work.hasPersonalInformation
-    vm.work.securityLevel = SubmitWorkService.work.securityLevel
-    vm.work.thirdPartyIntegrations = SubmitWorkService.work.thirdPartyIntegrations
-
-
+    vm.work.offlineAccess = work.offlineAccess
+    vm.work.usesPersonalInformation = work.usesPersonalInformation
+    vm.work.securityLevel = work.securityLevel
+    vm.work.numberOfApiIntegrations = work.numberOfApiIntegrations
 
   activate = ->
     destroyWorkListener = $rootScope.$on "SubmitWorkService.work:changed", ->
@@ -77,12 +86,10 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, SubmitWorkService, API_UR
 
     SubmitWorkService.fetch(vm.workId)
     configureUploader()
-    # TODO: remove once work is fetched
-    onChange()
-
-    vm
 
   activate()
+
+  vm
 
 SubmitWorkDevelopmentController.$inject = ['$scope', '$rootScope', 'SubmitWorkService', 'API_URL']
 

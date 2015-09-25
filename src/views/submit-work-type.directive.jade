@@ -1,13 +1,11 @@
-loader(ng-show="vm.loading")
-
 header
   h1 How to create a new project
 
   p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
-form(ng-submit="vm.save()")
+form(ng-submit="vm.create()")
   .interactive
-    input.wider(type="text" placeholder="Name your project..." required="true" ng-model="vm.work.name")
+    input.wider(type="text" placeholder="Name your project..." required="true" ng-model="vm.name")
 
   button.wider.continue.action(type="button" scroll-element="platformDetails") continue
 
@@ -19,22 +17,15 @@ form(ng-submit="vm.save()")
       h4 Devices
 
       ul
-        li(ng-repeat="device in vm.type.devices")
+        li(ng-repeat="device in vm.devices")
           checkbox(label="{{device.name}}" ng-model="device.selected")
 
     li
       h4 Orientation
 
       ul
-        li(ng-repeat="orientation in vm.type.orientations")
+        li(ng-repeat="orientation in vm.orientations")
           checkbox(label="{{orientation.name}}" ng-model="orientation.selected")
-
-    li
-      h4 OS
-
-      ul
-        li(ng-repeat="os in vm.type.operatingSystems")
-          checkbox(label="{{os.name}}" ng-model="os.selected")
 
   button.wider.continue.action(type="button" scroll-element="typeDetails") continue
 
@@ -42,43 +33,42 @@ form(ng-submit="vm.save()")
     li
       h2 What <strong>type of work</strong> are you looking for?
 
-    li(ng-repeat="requestType in vm.type.requestTypes")
-      h4 {{requestType.name}}
+    li(ng-repeat="projectType in vm.projectTypes")
+      h4 {{projectType.name}}
 
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      p {{ projectType.description }}
 
-      img(ng-if="requestType.name == 'Design'" src="http://www.collegequest.com/wp-content/uploads/what-do-graphic-designers-do.jpg")
-
-      img(ng-if="requestType.name == 'Design & Development'" src="http://pbwebdev.com/blog/wp-content/uploads/2014/06/developer.jpg")
+      img(src="{{ projectType.imgUrl }}")
 
       button(
         type="button"
         selectable="true"
-        ng-model="vm.work.requestType"
-        value="requestType.name"
+        ng-model="vm.projectType"
+        value="projectType.id"
       )
 
+      h4 {{requestType.name}}
+
+      p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
   button.wider.continue.action(type="button" scroll-element="briefDetails") continue
 
   .interactive(id="briefDetails")
     h2 Can you <strong>share a brief</strong> overview?
 
-    textarea.brief(placeholder="E.g. I need a mobile HR application with social features to support my growing organization" ng-model="vm.work.summary")
+    textarea.brief(placeholder="E.g. I need a mobile HR application with social features to support my growing organization" ng-model="vm.brief")
 
-    button.create.wider(type="submit" ng-if="!vm.workId") Create Project
-
-    button.save.wider(type="submit" ng-if="vm.workId") Save
+    button.create.wider(type="submit") Create Project
 
 modal(show="vm.showSuccessModal" background-click-close=true)
   .success
     h2 Awesome!
 
-    p Your {{ vm.work.name }} is set up now
+    p Your {{ vm.name }} is set up now
 
     p Share your email to signup and we'll be sure to send a project link.
 
-    form(ng-submit="vm.saveEmail()")
-      input(type="email" ng-model="vm.work.email" required=true)
+    form
+      input.wider(type="email" required=true)
 
-      button(type="submit") Submit
+      button.wider(type="submit") Submit

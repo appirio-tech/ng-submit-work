@@ -1,3 +1,5 @@
+loader(ng-if="vm.loading")
+
 header
   include nav
 
@@ -37,7 +39,7 @@ ul.path-choices(ng-class="{active: vm.showPaths}")
 
     button.action.wide(ng-click="vm.showUrlStyles()") select
 
-button.wider.action(ng-click="vm.navigateDevelopment()") go to development
+a.wider.action(ui-sref="submit-work-development({ id: vm.workId })") go to development
 
 modal.upload-documents(show="vm.showUploadStylesModal" background-click-close=true)
   .upload
@@ -62,7 +64,7 @@ modal.enter-url(show="vm.showUrlStylesModal" background-click-close=true)
     p You can enter your website address and we'll grab your colors, fonts amd ocpms to use when designing your new app.
 
     form(ng-submit="vm.save()")
-      input.wide(type="url" placeholder="http://www.example.com" ng-model="vm.work.url" required=true)
+      input.wide(type="url" placeholder="http://www.example.com" ng-model="vm.url" required=true)
 
       button.wider.action(type="submit") enter
 
@@ -87,7 +89,7 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
     h2 Tell us your <strong>font preference</strong>
 
     ul.or-choices
-      li(ng-repeat-start="font in vm.visualDesign.fonts")
+      li(ng-repeat-start="font in vm.fonts")
         h3 {{font.name}}
 
         hr
@@ -109,7 +111,7 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
 
           li.museo Museo Sans is a sans-serif font.
 
-        button(selectable=true type="button" ng-model="vm.work.font" value="font.id")
+        button(selectable=true type="button" ng-model="vm.font" value="font.id")
 
       li.or(ng-repeat-end ng-if="font.name == 'Serif' ")
         .house OR
@@ -118,49 +120,21 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
     h2 Tell us <strong>the colors</strong> you like
 
     ul
-      li.picker
-        ul.samples
-          li
-            button +
-
-            p #abc123
-
-          li
-            button +
-
-            p #abc123
-
-
-          li
-            button +
-
-            p #abc123
-
-        h4 Enter your custom color
-
-      li.or
-        .house OR
-
-      li.swatches
-        ul.samples
-          li(ng-repeat="color in vm.visualDesign.colors") {{color.name}}
-
-        h4 Select swatches and edit colors
-
-        a View All Swatches
+      li(ng-repeat="color in vm.colors") {{color.name}}
+        img(src="{{ color.imgUrl }}" width="150")
 
   main.icons(ng-show="vm.activeStyleModal == 'icons' ")
     h2 Tell us <strong>the icons</strong> you like
 
     ul
-      li(ng-repeat="icon in vm.visualDesign.icons")
+      li(ng-repeat="icon in vm.icons")
         .colorIcon
 
         h4 {{icon.name}}
 
         p {{icon.description}}
 
-        button(type="button" selectable=true ng-model="vm.work.icons" value="icon.id")
+        button(type="button" selectable=true ng-model="vm.icon" value="icon.id")
 
   footer
     button.wider(ng-hide="vm.backButtonDisabled" ng-click="vm.viewPrevious()") back

@@ -1,31 +1,71 @@
 'use strict'
-mockWork = {}
+
 srv = ($rootScope, Optimist, SubmitWorkAPIService) ->
+
+  service = {}
+  work = {}
   # Used for caching
   currentWorkId = null
 
-  submitWorkService =
-    work: {}
+  workTemplate =
+    modelType: 'app-project'
+    id: null
+    name: null
+    projectType: null
+    deviceIds: []
+    orientationIds: []
+    brief: null
+    features: []
+    fontIds: []
+    colorSwatchIds: []
+    iconsetIds: []
+    designUrls: []
+    offlineAccess: null
+    offlineAccessComment: null
+    usesPersonalInformation: null
+    securityLevel: null
+    numberOfApiIntegrations: null
 
   emitUpdates = ->
     $rootScope.$emit 'SubmitWorkService.work:changed'
 
-  submitWorkService.fetch = (workId) ->
+  service.get = ->
+    angular.copy work
+
+  service.create = (updates) ->
+    work = angular.copy workTemplate
+
+    apiCall = (model) ->
+      SubmitWorkAPIService.post({}, model).$promise
+
+    updateCallback = (model) ->
+      currentWorkId = model.id
+      emitUpdates()
+
+    Optimist.update
+      model: work
+      updates: updates
+      apiCall: apiCall
+      updateCallback: updateCallback
+      handleResponse: false
+
+  service.fetch = (workId) ->
     if workId != currentWorkId
-      submitWorkService.work = {}
+      work = angular.copy workTemplate
       currentWorkId = workId
 
     params =
       id: currentWorkId
+
     apiCall = () ->
       SubmitWorkAPIService.get(params).$promise
 
     Optimist.fetchOne
-      model: submitWorkService.work
+      model: work
       apiCall: apiCall
       updateCallback: emitUpdates
 
-  submitWorkService.save = (updates) ->
+  service.save = (updates) ->
     apiCall = (model) ->
       params =
         id: currentWorkId
@@ -33,12 +73,12 @@ srv = ($rootScope, Optimist, SubmitWorkAPIService) ->
       SubmitWorkAPIService.put(params, model).$promise
 
     Optimist.update
-      model: submitWorkService.work
+      model: work
       updates: updates
       apiCall: apiCall
       updateCallback: emitUpdates
 
-  submitWorkService
+  service
 
 srv.$inject = ['$rootScope', 'Optimist', 'SubmitWorkAPIService']
 
