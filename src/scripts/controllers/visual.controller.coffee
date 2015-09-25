@@ -1,6 +1,10 @@
 'use strict'
 
 SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Optimist, API_URL, RequirementService) ->
+  if $scope.workId
+    localStorageKey               = "recentSubmitWorkSection-#{$scope.workId}"
+    localStorage[localStorageKey] = 'visuals'
+
   vm                          = this
   vm.workId                   = $scope.workId
   vm.loading                  = true
@@ -132,6 +136,10 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Opt
     vm.colors.forEach (color) ->
       if work.colorSwatchIds?.indexOf(color.id) >= 0
         color.selected = true
+
+    vm.projectType = work.projectType
+    vm.section = 2
+    vm.numberOfSections = if work.projectType == 'DESIGN_AND_CODE' then 3 else 2
 
   activate = ->
     destroyWorkListener = $rootScope.$on "SubmitWorkService.work:changed", ->

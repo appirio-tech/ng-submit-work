@@ -1,9 +1,15 @@
 'use strict'
 
-SubmitWorkTypeController = ($scope, $rootScope, SubmitWorkService, RequirementService) ->
+SubmitWorkTypeController = ($scope, $rootScope, $state, SubmitWorkService, RequirementService) ->
   vm                  = this
   vm.loading          = false
   vm.showSuccessModal = false
+
+  if $scope.workId
+    localStorageKey = "recentSubmitWorkSection-#{$scope.workId}"
+    recent = localStorage[localStorageKey] || 'features'
+
+    $state.go "submit-work-#{recent}", { id: $scope.workId }
 
   vm.name         = ""
   vm.devices      = angular.copy RequirementService.devices
@@ -47,6 +53,6 @@ SubmitWorkTypeController = ($scope, $rootScope, SubmitWorkService, RequirementSe
 
   vm
 
-SubmitWorkTypeController.$inject = ['$scope', '$rootScope', 'SubmitWorkService', 'RequirementService']
+SubmitWorkTypeController.$inject = ['$scope', '$rootScope', '$state', 'SubmitWorkService', 'RequirementService']
 
 angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkTypeController', SubmitWorkTypeController

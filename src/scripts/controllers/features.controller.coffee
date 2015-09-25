@@ -1,6 +1,10 @@
 'use strict'
 
 SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWorkAPIService, API_URL, RequirementService) ->
+  if $scope.workId
+    localStorageKey               = "recentSubmitWorkSection-#{$scope.workId}"
+    localStorage[localStorageKey] = 'features'
+
   vm                           = this
   vm.workId                    = $scope.workId
   vm.loading                   = true
@@ -142,6 +146,10 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
           if feature.id == vmFeature.id
             vmFeature.selected = true
             vm.selectedFeaturesCount++
+
+    vm.projectType = work.projectType
+    vm.section = 1
+    vm.numberOfSections = if work.projectType == 'DESIGN_AND_CODE' then 3 else 2
 
   activate = ->
     destroyWorkListener = $rootScope.$on "SubmitWorkService.work:changed", ->
