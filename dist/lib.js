@@ -39702,7 +39702,7 @@ $templateCache.put("views/layout-project-nav.directive.html","<ul><li><a ui-sref
 
   srv = function($resource, API_URL) {
     var methods, params, url;
-    url = API_URL + '/v3/projects/:workId/timeline';
+    url = API_URL + '/v3/work/:workId/timeline';
     params = {
       workId: '@workId'
     };
