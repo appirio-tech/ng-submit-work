@@ -1,6 +1,7 @@
 'use strict'
 
-SubmitWorkTypeController = ($scope, $rootScope, SubmitWorkService, RequirementService) ->
+SubmitWorkTypeController = ($scope, $rootScope, $state, SubmitWorkService, RequirementService) ->
+
   vm                  = this
   vm.loading          = false
   vm.showSuccessModal = false
@@ -17,7 +18,8 @@ SubmitWorkTypeController = ($scope, $rootScope, SubmitWorkService, RequirementSe
     if isValid(updates)
       vm.loading = true
       SubmitWorkService.create(updates).then ->
-        vm.showSuccessModal = true
+        $state.go("submit-work-features")
+
 
   isValid = (updates) ->
     updates = getUpdates()
@@ -47,6 +49,6 @@ SubmitWorkTypeController = ($scope, $rootScope, SubmitWorkService, RequirementSe
 
   vm
 
-SubmitWorkTypeController.$inject = ['$scope', '$rootScope', 'SubmitWorkService', 'RequirementService']
+SubmitWorkTypeController.$inject = ['$scope', '$rootScope', '$state', 'SubmitWorkService', 'RequirementService']
 
 angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkTypeController', SubmitWorkTypeController
