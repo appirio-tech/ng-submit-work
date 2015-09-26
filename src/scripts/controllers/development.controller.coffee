@@ -29,6 +29,7 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, SubmitWorkService, API_UR
         prop = null
 
     if uploaderValid
+      updates.status = 'SUBMITTED'
       SubmitWorkService.save(updates).then ->
         $state.go('view-work-multiple')
 
