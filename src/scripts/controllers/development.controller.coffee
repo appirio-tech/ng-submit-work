@@ -1,6 +1,6 @@
 'use strict'
 
-SubmitWorkDevelopmentController = ($scope, $rootScope, SubmitWorkService, API_URL) ->
+SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService, API_URL) ->
   vm                              = this
   vm.loading                      = true
   vm.workId                       = $scope.workId
@@ -93,6 +93,6 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, SubmitWorkService, API_UR
 
   vm
 
-SubmitWorkDevelopmentController.$inject = ['$scope', '$rootScope', 'SubmitWorkService', 'API_URL']
+SubmitWorkDevelopmentController.$inject = ['$scope', '$rootScope', '$state', 'SubmitWorkService', 'API_URL']
 
 angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkDevelopmentController', SubmitWorkDevelopmentController
