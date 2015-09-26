@@ -676,7 +676,7 @@ $templateCache.put("views/submit-work-development.directive.html","<header><ul c
   'use strict';
   var SubmitWorkDevelopmentController;
 
-  SubmitWorkDevelopmentController = function($scope, $rootScope, SubmitWorkService, API_URL) {
+  SubmitWorkDevelopmentController = function($scope, $rootScope, $state, SubmitWorkService, API_URL) {
     var activate, configureUploader, onChange, vm;
     vm = this;
     vm.loading = true;
@@ -707,6 +707,7 @@ $templateCache.put("views/submit-work-development.directive.html","<header><ul c
         }
       }
       if (uploaderValid) {
+        updates.status = 'SUBMITTED';
         return SubmitWorkService.save(updates).then(function() {
           return $state.go('view-work-multiple');
         });
@@ -780,7 +781,7 @@ $templateCache.put("views/submit-work-development.directive.html","<header><ul c
     return vm;
   };
 
-  SubmitWorkDevelopmentController.$inject = ['$scope', '$rootScope', 'SubmitWorkService', 'API_URL'];
+  SubmitWorkDevelopmentController.$inject = ['$scope', '$rootScope', '$state', 'SubmitWorkService', 'API_URL'];
 
   angular.module('appirio-tech-ng-submit-work').controller('SubmitWorkDevelopmentController', SubmitWorkDevelopmentController);
 
