@@ -11,7 +11,8 @@ devData =
 
 describe 'SubmitWorkDevelopmentController', ->
   mockedService = null
-  vm      = null
+  vm            = null
+  calledWith    = null
 
   beforeEach ->
     bard.inject this, '$rootScope', '$q', '$controller', 'SubmitWorkService'
@@ -22,8 +23,16 @@ describe 'SubmitWorkDevelopmentController', ->
       get: devData
       fetch: ->
         $rootScope.$emit 'SubmitWorkService.work:changed'
+      save: (updates) ->
+        deferred = $q.defer()
+        calledWith = updates
+        deferred.resolve()
+        deferred.promise
 
     vm = $controller('SubmitWorkDevelopmentController', $scope: scope)
+
+  afterEach ->
+    calledWith = null
 
   it 'should be created successfully', ->
     expect(vm).to.be.defined
@@ -46,7 +55,7 @@ describe 'SubmitWorkDevelopmentController', ->
 
   it 'vm.save() should call mockedService to save project', ->
     vm.save()
-    expect(SubmitWorkService.save.called).to.be.true
+    expect(calledWith).to.exist
 
   it 'vm.showUpload() should update vm', ->
     vm.showUpload()
