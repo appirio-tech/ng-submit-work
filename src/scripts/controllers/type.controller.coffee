@@ -23,7 +23,8 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, SubmitWorkService, Requi
     if isValid(updates)
       vm.loading = true
       SubmitWorkService.create(updates).then ->
-        vm.showSuccessModal = true
+        $state.go("submit-work-features")
+
 
   isValid = (updates) ->
     valid = true

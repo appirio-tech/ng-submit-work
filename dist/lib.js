@@ -39265,10 +39265,11 @@ angular.module('ui.router.state')
   'use strict';
   var LayoutHeaderController;
 
-  LayoutHeaderController = function($scope, $state, UserV3Service, WorkAPIService, ThreadsAPIService, AuthService) {
-    var activate, getNotificationCount, onUserChange, vm;
+  LayoutHeaderController = function($scope, $state, UserV3Service, WorkAPIService, ThreadsAPIService, AuthService, SubmitWorkAPIService) {
+    var activate, getNotificationCount, onProjectChange, onUserChange, vm;
     vm = this;
     vm.homeHref = $state.href('home');
+    vm.workId = $scope.workId;
     getNotificationCount = function(id) {
       var queryParams, resource;
       queryParams = {
@@ -39303,14 +39304,28 @@ angular.module('ui.router.state')
         return vm.loggedIn = false;
       }
     };
+    onProjectChange = function(resource) {
+      return resource.$promise.then(function(response) {
+        if (response.name) {
+          return vm.appName = response.name;
+        } else {
+          return vm.appName = '';
+        }
+      });
+    };
     activate = function() {
+      var params;
+      params = {
+        id: vm.workId
+      };
       $scope.$watch(UserV3Service.getCurrentUser, onUserChange);
+      $scope.$watch(SubmitWorkAPIService.get(params, onProjectChange));
       return vm;
     };
     return activate();
   };
 
-  LayoutHeaderController.$inject = ['$scope', '$state', 'UserV3Service', 'WorkAPIService', 'ThreadsAPIService', 'AuthService'];
+  LayoutHeaderController.$inject = ['$scope', '$state', 'UserV3Service', 'WorkAPIService', 'ThreadsAPIService', 'AuthService', 'SubmitWorkAPIService'];
 
   angular.module('appirio-tech-ng-work-layout').controller('LayoutHeaderController', LayoutHeaderController);
 
@@ -39358,7 +39373,7 @@ angular.module('ui.router.state')
       templateUrl: 'views/layout-header.directive.html',
       controller: 'LayoutHeaderController as vm',
       scope: {
-        appName: '@appName'
+        workId: '@workId'
       }
     };
   };
@@ -39403,7 +39418,7 @@ angular.module('ui.router.state')
 
 }).call(this);
 
-angular.module("appirio-tech-ng-work-layout").run(["$templateCache", function($templateCache) {$templateCache.put("views/layout-header.directive.html","<ul><li><a ng-home-link=\"ng-home-link\" href=\"{{ vm.homeHref }}\" class=\"clean logo\">ASP</a></li><li><h1 class=\"app-name\">{{ appName }}</h1></li><li class=\"secondary\"><ul class=\"nav\"><li><a ui-sref=\"view-work-multiple\">Dashboard</a></li><li><a href=\"\">Projects</a><ul><li><a ui-sref=\"submit-work.flow\">Create New Project</a></li><li ng-repeat=\"project in vm.projects\"><a ui-sref=\"timeline({ workId: project.id })\">{{ project.name }}</a></li></ul></li></ul><a ui-sref=\"login\" ng-hide=\"vm.loggedIn\">Log in</a><a ui-sref=\"view-work-multiple\" ng-show=\"vm.loggedIn\" class=\"handle\">{{ vm.handle }} </a><button ng-click=\"vm.logout()\" ng-show=\"vm.loggedIn\" class=\"clean logout\">Log out</button><button type=\"button\" focus-on-click=\"focus-on-click\" ng-show=\"vm.loggedIn\" class=\"clean message-notifications\"><svg version=\"1.1\" id=\"Layer_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 19.6 13.6\" enable-background=\"new 0 0 19.6 13.6\" xml:space=\"preserve\"> <path fill=\"#676767\" d=\"M19.6,1.6V1.4c0-0.8-0.6-1.4-1.4-1.4H1.4C0.6,0,0,0.6,0,1.4v0.2l9.8,4.6L19.6,1.6z\"/><path fill=\"#676767\" d=\"M9.8,7.4L0,2.7v9.4c0,0.8,0.6,1.4,1.4,1.4h16.7c0.8,0,1.4-0.6,1.4-1.4V2.7L9.8,7.4z\"/></svg><div ng-show=\"vm.unreadCount &gt; 0\" class=\"notification\">{{ vm.unreadCount }}</div></button><div class=\"popup\"><threads subscriber-id=\"{{ vm.subscriberId }}\"></threads></div></li></ul>");
+angular.module("appirio-tech-ng-work-layout").run(["$templateCache", function($templateCache) {$templateCache.put("views/layout-header.directive.html","<ul><li><a ng-home-link=\"ng-home-link\" href=\"{{ vm.homeHref }}\" class=\"clean logo\">ASP</a></li><li><h1 class=\"app-name\">{{ vm.appName }}</h1></li><li class=\"secondary\"><ul class=\"nav\"><li><a ui-sref=\"view-work-multiple\">Dashboard</a></li><li><a href=\"\">Projects</a><ul><li><a ui-sref=\"submit-work\">Create New Project</a></li><li ng-repeat=\"project in vm.projects\"><a ui-sref=\"timeline({ workId: project.id })\">{{ project.name }}</a></li></ul></li></ul><a ui-sref=\"login\" ng-hide=\"vm.loggedIn\">Log in</a><a ui-sref=\"view-work-multiple\" ng-show=\"vm.loggedIn\" class=\"handle\">{{ vm.handle }} </a><button ng-click=\"vm.logout()\" ng-show=\"vm.loggedIn\" class=\"clean logout\">Log out</button><button type=\"button\" focus-on-click=\"focus-on-click\" ng-show=\"vm.loggedIn\" class=\"clean message-notifications\"><svg version=\"1.1\" id=\"Layer_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 19.6 13.6\" enable-background=\"new 0 0 19.6 13.6\" xml:space=\"preserve\"> <path fill=\"#676767\" d=\"M19.6,1.6V1.4c0-0.8-0.6-1.4-1.4-1.4H1.4C0.6,0,0,0.6,0,1.4v0.2l9.8,4.6L19.6,1.6z\"/><path fill=\"#676767\" d=\"M9.8,7.4L0,2.7v9.4c0,0.8,0.6,1.4,1.4,1.4h16.7c0.8,0,1.4-0.6,1.4-1.4V2.7L9.8,7.4z\"/></svg><div ng-show=\"vm.unreadCount &gt; 0\" class=\"notification\">{{ vm.unreadCount }}</div></button><div class=\"popup\"><threads subscriber-id=\"{{ vm.subscriberId }}\"></threads></div></li></ul>");
 $templateCache.put("views/layout-footer.directive.html","<footer class=\"layout-footer\"><ul><li><a ui-sref=\"register\">Sign up</a></li><li><a ui-sref=\"#\">Help</a></li><li><a ui-sref=\"#\">About</a></li></ul></footer>");
 $templateCache.put("views/layout-project-nav.directive.html","<ul><li><a ui-sref=\"timeline({ workId: workId })\">Timeline</a></li><li><a ui-sref=\"messaging({ id: workId })\">Messaging</a></li></ul>");}]);
 (function() {
@@ -40936,6 +40951,8 @@ $templateCache.put("views/selected-button.html","<selected-button ng-model=\"vm.
   /* @ngInject */
   function UploaderService($q, File, $resource) {
 
+    // This registry allows us to have multiple uploaders sharing this service
+    // Each uploader should have a unique name
     var uploaderRegistry = {};
 
     function getUploader(name) {
@@ -40950,8 +40967,8 @@ $templateCache.put("views/selected-button.html","<selected-button ng-model=\"vm.
 
     function Uploader() {
       this.files = [];
-      this.uploading = null;
-      this.hasErrors = null;
+      this.uploading = false;
+      this.hasErrors = false;
     }
 
     Uploader.prototype.config = function(options) {
@@ -40959,18 +40976,35 @@ $templateCache.put("views/selected-button.html","<selected-button ng-model=\"vm.
 
       this.allowMultiple = options.allowMultiple || false;
       this.allowDuplicates = options.allowDuplicates || false;
-      this.$fileResource = $resource(options.fileEndpoint);
-      this.$presignResource = $resource(options.urlPresigner);
-      this.saveParams = options.saveParams || {};
+
+      this.presign = options.presign || null;
+      this.query = options.query || null;
+      this.createRecord = options.createRecord || null;
+      this.removeRecord = options.removeRecord || null;
+
+      if (options.presign) {
+        this.presign.resource = $resource(options.presign.url);
+      }
+
+      if (options.query) {
+        this.query.resource = $resource(options.query.url);
+      }
+
+      if (options.createRecord) {
+        this.createRecord.resource = $resource(options.createRecord.url);
+      }
+
+      if (options.removeRecord) {
+        this.removeRecord.resource = $resource(options.removeRecord.url);
+      }
     };
 
-    Uploader.prototype.populate = function(queryUrl) {
-      this._populate(queryUrl);
+    Uploader.prototype.populate = function() {
+      this._populate();
     };
 
     Uploader.prototype.add = function(files, options) {
       var uploader = this;
-      options = options || {};
       files = filelistToArray(files);
 
       // Fail if we're trying to add multiple files to a single upload
@@ -41001,7 +41035,6 @@ $templateCache.put("views/selected-button.html","<selected-button ng-model=\"vm.
     };
 
     Uploader.prototype._add = function(file, options) {
-      options = options || {};
       var deferred = $q.defer();
       var uploader = this;
 
@@ -41010,32 +41043,32 @@ $templateCache.put("views/selected-button.html","<selected-button ng-model=\"vm.
       var dupePosition = uploader._indexOfFilename(file.name);
       var dupe = dupePosition >= 0;
 
-      var file = uploader._newFile(file, options);
+      var newFile = uploader._newFile(file, options);
 
       if (dupe) {
         if (replace) {
           uploader.files[dupePosition].remove().then(function() {
-            uploader.files[dupePosition] = file;
+            uploader.files[dupePosition] = newFile;
           });
         } else {
           deferred.reject('DUPE');
         }
       } else {
         if (uploader.allowMultiple) {
-          uploader.files.push(file);
+          uploader.files.push(newFile);
         } else {
           if (uploader.files[0]) {
             uploader.files[0].remove().then(function() {
-              uploader.files[0] = file;
+              uploader.files[0] = newFile;
             });
           } else {
-            uploader.files[0] = file;
+            uploader.files[0] = newFile;
           }
         }
       }
 
-      if (file.newFile) {
-        file.start();
+      if (newFile.newFile) {
+        newFile.start();
       }
 
       deferred.resolve();
@@ -41043,9 +41076,9 @@ $templateCache.put("views/selected-button.html","<selected-button ng-model=\"vm.
       return deferred.promise;
     };
 
-    Uploader.prototype._populate = function(queryUrl) {
+    Uploader.prototype._populate = function() {
       var uploader = this;
-      var $promise = $resource(queryUrl).get().$promise;
+      var $promise = uploader.query.resource.get(uploader.query.params).$promise;
 
       $promise.then(function(data) {
         var files = data.result.content || [];
@@ -41063,10 +41096,12 @@ $templateCache.put("views/selected-button.html","<selected-button ng-model=\"vm.
 
     Uploader.prototype._newFile = function(file, options) {
       var uploader = this;
+      options = options || {}
 
-      options.$presignResource = uploader.$presignResource;
-      options.$fileResource = uploader.$fileResource;
-      options.saveParams = uploader.saveParams;
+      options.presign = uploader.presign || null;
+      options.query = uploader.query || null;
+      options.createRecord = uploader.createRecord || null;
+      options.removeRecord = uploader.removeRecord || null;
 
       file = new File(file, options);
 
@@ -41139,19 +41174,17 @@ $templateCache.put("views/selected-button.html","<selected-button ng-model=\"vm.
 
     function File(data, options) {
       var file = this;
+      options = angular.copy(options);
 
       file.data = data;
       file.name = data.name;
       file.newFile = options.newFile !== false;
       file.locked = options.locked || false;
-      file.$fileResource = options.$fileResource;
-      file.$presignResource = options.$presignResource;
 
-      file.saveParams = {};
-      file.saveParams.param = angular.copy(options.saveParams);
-      file.saveParams.param.fileName = file.data.name;
-      file.saveParams.param.fileType = file.data.type;
-      file.saveParams.param.fileSize = file.data.size;
+      file.presign = options.presign || null;
+      file.query = options.query || null;
+      file.createRecord = options.createRecord || null;
+      file.removeRecord = options.removeRecord || null;
 
       if (!file.newFile) {
         file.fileId = options.fileId;
@@ -41177,27 +41210,18 @@ $templateCache.put("views/selected-button.html","<selected-button ng-model=\"vm.
     File.prototype.cancel = function() {
       if (this._xhr) {
         this._xhr.abort();
-      } else {
-        this.onRemove(this);
       }
+
+      this.onRemove(this);
     };
 
     File.prototype.remove = function() {
-      var deferred = $q.defer();
       var file = this;
-
       var $promise = file._deleteFileRecord();
 
-      $promise.then(function(){
+      return $promise.then(function(){
         file.onRemove(file);
-        deferred.resolve();
       });
-
-      $promise.catch(function(){
-        deferred.reject();
-      });
-
-      return deferred.promise;
     };
 
     File.prototype.onStart = function() { /* noop */ };
@@ -41219,101 +41243,149 @@ $templateCache.put("views/selected-button.html","<selected-button ng-model=\"vm.
 
       file.onStart();
 
-      var $promise = file._getPresignedUrl();
-
-      $promise.then(function(response) {
-        if (!response.result.content) {
-          return file._failed('Could not get presigned URL from server');
-        }
-        
-        file.preSignedUrlUpload = response.result.content.preSignedUrlUpload;
-
-        var xhr = file._xhr = new XMLHttpRequest();
-        var formData = new FormData();
-
-        formData.append(file.data.name, file.data);
-
-        xhr.upload.onprogress = file._onProgress.bind(file);
-        xhr.onload = file._onLoad.bind(file);
-        xhr.onerror = file._onError.bind(file);
-        xhr.onabort = file._onAbort.bind(file);
-
-        xhr.open('PUT', file.preSignedUrlUpload, true);
-        xhr.setRequestHeader('Content-Type', 'multipart/form-data');
-        xhr.send(formData);
-      });
-
-      $promise.catch(function(data) {
-        file._failed('Could not get presigned URL from server');
-      });
-      
-    };
-
-    File.prototype._createFileRecord = function() {
-      return this.$fileResource.save(this.saveParams).$promise;
+      file._getPresignedUrl()
+        .then(transformResponse)
+        .then(storeFilePath.bind(file))
+        .then(storePresignedUrl.bind(file))
+        .then(uploadToS3.bind(file))
+        .then(checkSuccessCode.bind(file))
+        .then(transformXhrResponse.bind(file))
+        .then(createFileRecord.bind(file))
+        .then(fileRecordSuccess.bind(file))
+        .catch(function(err) {
+          file._failed(err);
+        });
     };
 
     File.prototype._deleteFileRecord = function() {
-      return this.$fileResource.delete({
-        fileId: this.fileId
-      }).$promise;
+      var params = this.removeRecord.params || {};
+      params.fileId = this.fileId;
+
+      return this.removeRecord.resource.delete(params).$promise;
     };
 
     File.prototype._getPresignedUrl = function() {
-      return this.$presignResource.save(this.saveParams).$promise;
+      var params = {
+        param: this.presign.params || {}
+      };
+
+      params.param.fileName = this.data.name;
+      params.param.fileType = this.data.type;
+      params.param.fileSize = this.data.size;
+
+      return this.presign.resource.save(params).$promise;
     };
 
     File.prototype._onProgress = function(e) {
       this.progress = Math.round(e.lengthComputable ? e.loaded * 100 / e.total : 0);
     };
 
-    File.prototype._onLoad = function() {
+    File.prototype._failed = function(err) {
       var file = this;
-      var response = file._transformResponse(file._xhr);
-
-      if (file._isSuccessCode(file._xhr.status)) {
-
-        var $promise = file._createFileRecord();
-
-        $promise.then(function(data) {
-          file.fileId = data.result.content.fileId;
-          file.hasErrors = false;
-          file.uploading = false;
-          file.onSuccess(response);
-        });
-
-        $promise.catch(function() {
-          file._failed('Could not create file record in database');
-        });
-
-      } else {
-        file._failed('Could not upload file to S3');
-      }
-
-    };
-
-    File.prototype._onError = function() {
-      var response = this._transformResponse(this._xhr);
-      this._failed('Could not connect to S3');
-    };
-
-    File.prototype._onAbort = function() {
-      this.onRemove(this);
-    };
-
-    File.prototype._failed = function(msg) {
-      var file = this;
-      console.log(msg);
+      console.log(err);
       file.hasErrors = true;
       file.uploading = false;
-      file.onFailure(msg);
+      file.onFailure(err);
     };
 
     //
     // Helper methods
     //
 
-    File.prototype._parseHeaders = function(headers) {
+    function transformResponse(response) {
+      return response.result.content;
+    }
+
+    function storeFilePath(content) {
+      this.createRecord.params.filePath = content.filePath;
+      return content;
+    }
+
+    function storePresignedUrl(content) {
+      var deferred = $q.defer();
+      var preSignedURL = content.preSignedURL;
+
+      if (preSignedURL) {
+        this.preSignedURL = preSignedURL;
+        deferred.resolve()
+      } else {
+        deferred.reject('Response from presigned URL request had no presigned URL');
+      }
+
+      return deferred.promise;
+    }
+
+    function uploadToS3() {
+      var file = this;
+      var deferred = $q.defer();
+      var xhr = file._xhr = new XMLHttpRequest();
+
+      xhr.upload.onprogress = file._onProgress.bind(file);
+
+      xhr.onload = function() {
+        deferred.resolve();
+      };
+
+      xhr.onerror = function() {
+        deferred.reject();
+      };
+
+      xhr.open('PUT', file.preSignedURL, true);
+      xhr.setRequestHeader('Content-Type', file.data.type);
+      xhr.send(file.data);
+
+      return deferred.promise;
+    }
+
+    function checkSuccessCode() {
+      var deferred = $q.defer();
+      var status = this._xhr.status;
+
+      if ((status >= 200 && status < 300) || status === 304) {
+        this.preSignedURL = preSignedURL;
+        deferred.resolve()
+      } else {
+        deferred.reject('File upload to S3 failed: ' + status);
+      }
+
+      return deferred.promise;
+    }
+
+    function transformXhrResponse() {
+      var xhr = this._xhr;
+      var headers = parseHeaders(xhr.getAllResponseHeaders());
+      var response = xhr.response;
+      var headersGetter = makeHeadersGetter(headers);
+
+      angular.forEach($http.defaults.transformResponse, function(transformFn) {
+        response = transformFn(response, headersGetter);
+      });
+
+      return response;
+    }
+
+    function createFileRecord() {
+      var params = {
+        param: this.createRecord.params || {}
+      };
+
+      params.param.fileName = this.data.name;
+      params.param.fileType = this.data.type;
+      params.param.fileSize = this.data.size;
+
+      return this.createRecord.resource.save(params).$promise;
+    }
+
+    function fileRecordSuccess(response) {
+      var file = this;
+      
+      file.fileId = response.result.content.fileId;
+      file.hasErrors = false;
+      file.uploading = false;
+      file.onSuccess(response);
+    }
+
+    function parseHeaders(headers) {
       var parsed = {}, key, val, i;
 
       if (!headers) return parsed;
@@ -41329,30 +41401,16 @@ $templateCache.put("views/selected-button.html","<selected-button ng-model=\"vm.
       });
 
       return parsed;
-    };
+    }
 
-    File.prototype._transformResponse = function(xhr) {
-      var headers = this._parseHeaders(xhr.getAllResponseHeaders());
-      var response = xhr.response;
-      var headersGetter = this._headersGetter(headers);
-      angular.forEach($http.defaults.transformResponse, function(transformFn) {
-        response = transformFn(response, headersGetter);
-      });
-      return response;
-    };
-
-    File.prototype._headersGetter = function(parsedHeaders) {
+    function makeHeadersGetter(parsedHeaders) {
       return function(name) {
         if (name) {
           return parsedHeaders[name.toLowerCase()] || null;
         }
         return parsedHeaders;
       };
-    };
-
-    File.prototype._isSuccessCode = function(status) {
-      return (status >= 200 && status < 300) || status === 304;
-    };
+    }
 
     return File;
 
@@ -41420,17 +41478,8 @@ $templateCache.put("views/selected-button.html","<selected-button ng-model=\"vm.
     vm.allowMultiple = config.allowMultiple || false;
     vm.uploader = UploaderService.get(config.name);
 
-    if (config.queryUrl) {
-      vm.uploader.populate(config.queryUrl);
-    }
-
     function configUploader() {
-      vm.uploader.config({
-        allowMultiple: config.allowMultiple,
-        fileEndpoint: config.fileEndpoint,
-        urlPresigner: config.urlPresigner,
-        saveParams: config.saveParams
-      });
+      vm.uploader.config(config);
     }
 
     $scope.$watch('config', function(newValue) {
@@ -41445,6 +41494,12 @@ $templateCache.put("views/selected-button.html","<selected-button ng-model=\"vm.
     $scope.$watch('vm.uploader.hasErrors', function(newValue) {
       $scope.hasErrors = newValue;
     });
+
+    configUploader();
+
+    if (config.query) {
+      vm.uploader.populate();
+    }
 
   }
 

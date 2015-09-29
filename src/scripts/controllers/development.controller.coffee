@@ -1,6 +1,6 @@
 'use strict'
 
-SubmitWorkDevelopmentController = ($scope, $rootScope, SubmitWorkService, API_URL) ->
+SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService, API_URL) ->
   if $scope.workId
     localStorageKey               = "recentSubmitWorkSection-#{$scope.workId}"
     localStorage[localStorageKey] = 'development'
@@ -34,7 +34,9 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, SubmitWorkService, API_UR
         prop = null
 
     if uploaderValid
-      SubmitWorkService.save(updates)
+      updates.status = 'SUBMITTED'
+      SubmitWorkService.save(updates).then ->
+        $state.go('view-work-multiple')
 
   configureUploader = ->
     domain = API_URL
@@ -100,6 +102,6 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, SubmitWorkService, API_UR
 
   vm
 
-SubmitWorkDevelopmentController.$inject = ['$scope', '$rootScope', 'SubmitWorkService', 'API_URL']
+SubmitWorkDevelopmentController.$inject = ['$scope', '$rootScope', '$state', 'SubmitWorkService', 'API_URL']
 
 angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkDevelopmentController', SubmitWorkDevelopmentController
