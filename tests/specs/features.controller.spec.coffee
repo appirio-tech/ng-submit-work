@@ -1,76 +1,106 @@
 'use strict'
-describe 'SubmitWorkFeaturesController', ->
 
-  controller = null
+featuresData =
+  features: []
+  projectType: 'DESIGN_AND_CODE'
+  o:
+    pending: false
+
+describe 'SubmitWorkFeaturesController', ->
+  calledWith = null
+  mockedService    = null
+  vm         = null
 
   beforeEach ->
     bard.inject this, '$rootScope', '$q', '$controller', 'SubmitWorkService'
     scope = $rootScope.$new()
+    scope.workId = 'someIdString'
 
-    bard.mockService SubmitWorkService,
-      _default:
-        $promise:
-          $q.when
-            name       : null
-            requestType: null
-            summary    : null
-            features   : [id: '1235']
-            o:
-              hasPending: false
-      work:
-        o:
-          hasPending: false
-        features: [id: '1234']
+    mockedService = bard.mockService SubmitWorkService,
+      get: featuresData
+      save: (updates) ->
+        deferred = $q.defer()
+        calledWith = updates
+        deferred.resolve()
+        deferred.promise
+      fetch: ->
+        $rootScope.$emit 'SubmitWorkService.work:changed'
 
-    controller = $controller('SubmitWorkFeaturesController', $scope: scope)
-    scope.vm = controller
+    vm = $controller('SubmitWorkFeaturesController', $scope: scope)
 
-  describe 'Features Controller', ->
-    it 'should be created successfully', ->
-      expect(controller).to.be.defined
+  it 'should be created successfully', ->
+    expect(vm).to.be.defined
 
-    it 'should have a toggleDefineFeatures method', ->
-      expect(controller.toggleDefineFeatures).to.exist
+  it 'should initialize vm based on work request', ->
+    expect(vm.workId).to.equal 'someIdString'
+    expect(vm.loading).to.be.false
+    expect(vm.showFeaturesModal).to.be.false
+    expect(vm.showUploadModal).to.be.false
+    expect(vm.showDefineFeaturesForm).to.be.false
+    expect(vm.activeFeature).to.be.null
+    expect(vm.featuresUploaderUploading).to.be.null
+    expect(vm.featuresUploaderHasErrors).to.be.null
+    expect(vm.features).to.be.an 'array'
 
-    it 'should have a hideCustomFeatures method', ->
-      expect(controller.hideCustomFeatures).to.exist
+    expect(vm.customFeature).to.have.all.keys 'id', 'title', 'description', 'notes', 'custom', 'fileIds'
+    expect(vm.selectedFeaturesCount).to.be.a 'number'
+    expect(vm.projectType).to.be.a 'string'
+    expect(vm.section).to.be.a 'number'
+    expect(vm.numberOfSections).to.be.a 'number'
 
-    it 'should have a addCustomFeature method', ->
-      expect(controller.addCustomFeature).to.exist
+  it 'vm.showFeatures should update the vm', ->
+    expect(vm.showFeaturesModal).to.be.false
+    vm.showFeatures()
+    expect(vm.showFeaturesModal).to.be.true
 
-    it 'should have a save method', ->
-     expect(controller.save).to.exist
+  it 'vm.showUpload should update the vm', ->
+    expect(vm.showUploadModal).to.be.false
+    vm.showUpload()
+    expect(vm.showUploadModal).to.be.true
 
-    it 'should set add custom features to work features', ->
-      controller.features = []
-      controller.customFeature =
-        name: 'feature'
-        description: 'description'
-      controller.addCustomFeature()
-      expect(controller.features.length).to.equal(1)
+  it 'vm.toggleDefineFeatures() should update the vm', ->
+    expect(vm.showDefineFeaturesForm).to.be.false
+    vm.toggleDefineFeatures()
+    expect(vm.showDefineFeaturesForm).to.be.true
 
-    it 'should call submit work service with put to save project', ->
-      controller.workId = '123'
-      controller.features = [
-        id: '123'
-        name: 'Login'
-        description: 'Users can login / register for your app'
-        notes: null
-        custom: null
-        selected: true
-      ]
-      controller.save()
-      expect(SubmitWorkService.save.called).to.be.ok
+  it 'vm.hideCustomFeatures() should update the vm', ->
+    vm.showDefineFeaturesForm = true
+    vm.hideCustomFeatures()
+    expect(vm.showDefineFeaturesForm).to.be.false
 
-    it 'should apply default features', ->
-      controller.features = [id: '1234']
-      controller.activeFeature =
-        name: 'Login',
-        id: '123'
-        description: 'Users can login / register for your app',
+  it 'vm.activateFeature() should update the vm', ->
+    expect(vm.activeFeature).to.be.null
+    featureToActivate = {}
+    vm.activateFeature featureToActivate
+    expect(vm.activeFeature).to.equal featureToActivate
 
-      controller.applyFeature()
-      expect(controller.features.length).to.equal(1)
+  it 'vm.applyFeature() should update the updated features list', ->
+    expect(vm.updatedFeatures.length).to.equal 0
+    vm.activeFeature = { id: 'def' }
+    vm.features      = [ { id: 'abc' }, { id: 'def' } ]
+    vm.applyFeature()
+    expect(vm.updatedFeatures.length).to.equal 1
 
-    it 'should initialize work', ->
-      expect(controller.work).to.be.defined
+  it 'vm.removeFeature() should update the updated features list', ->
+    vm.updatedFeatures = [ { id: 'abc' }, { id: 'def' } ]
+    vm.activeFeature   = { id: 'def' }
+    vm.removeFeature()
+    expect(vm.updatedFeatures.length).to.equal 1
+
+  it 'vm.addCustomFeature() should update the updated features list', ->
+    vm.updatedFeatures = []
+    vm.customFeature =
+      id: null
+      title: 'Testing'
+      description: '1.. 2.. 3..'
+      notes: null
+      custom: true
+      fileIds: []
+
+    vm.addCustomFeature()
+    expect(vm.updatedFeatures.length).to.equal 1
+
+  it 'vm.save() should call the service\'s save method with the updated feature list', ->
+    vm.updatedFeatures = [ { id: 'abc' } ]
+    vm.save()
+    expect(calledWith.features[0].id).to.equal vm.updatedFeatures[0].id

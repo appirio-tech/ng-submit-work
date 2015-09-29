@@ -16,8 +16,6 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
   vm.featuresUploaderHasErrors = null
   vm.features                  = []
 
-  unsaved = {}
-
   config =
     customFeatureTemplate:
       id: null
@@ -36,7 +34,7 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
   vm.toggleDefineFeatures = ->
     vm.showDefineFeaturesForm = !vm.showDefineFeaturesForm
 
-  vm.hideCustomFeatures= ->
+  vm.hideCustomFeatures = ->
     vm.showDefineFeaturesForm = false
 
   vm.activateFeature = (feature) ->
@@ -45,15 +43,15 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
   vm.applyFeature = ->
     vm.features.forEach (feature) ->
       if feature.id == vm.activeFeature.id
-        unsaved.features.push feature
+        vm.updatedFeatures.push feature
 
     vm.activeFeature = null
     onChange()
 
   vm.removeFeature = ->
-    unsaved.features.forEach (feature, index) ->
+    vm.updatedFeatures.forEach (feature, index) ->
       if feature.title == vm.activeFeature.title
-        unsaved.features.splice(index, 1)
+        vm.updatedFeatures.splice(index, 1)
 
     vm.activeFeature = null
     onChange()
@@ -62,17 +60,15 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
     customFeatureValid = vm.customFeature.title && vm.customFeature.description
 
     if customFeatureValid
-      unsaved.features.push vm.customFeature
+      vm.updatedFeatures.push vm.customFeature
       vm.hideCustomFeatures()
       onChange()
 
   vm.save = ->
     uploaderValid = !vm.featuresUploaderUploading && !vm.featuresUploaderHasErrors
     updates       = getUpdates()
-    hasFeatures   = updates.features.length
 
-    if uploaderValid && hasFeatures
-      console.log updates
+    if uploaderValid
       SubmitWorkService.save(updates).then ->
         vm.showFeaturesModal = false
 
@@ -80,7 +76,7 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
     updates =
       features: []
 
-    unsaved.features.forEach (feature) ->
+    vm.updatedFeatures.forEach (feature) ->
       updates.features.push
         id: feature.id
         title: feature.title
@@ -133,10 +129,10 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
     vm.selectedFeaturesCount = 0
     vm.features              = angular.copy RequirementService.features
 
-    unless unsaved.features
-      unsaved.features = work.features
+    unless vm.updatedFeatures
+      vm.updatedFeatures = work.features
 
-    unsaved.features.forEach (feature) ->
+    vm.updatedFeatures.forEach (feature) ->
       if feature.custom
         feature.selected = true
         vm.features.push feature
