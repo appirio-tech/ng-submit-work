@@ -1,10 +1,15 @@
 'use strict'
 
 SubmitWorkTypeController = ($scope, $rootScope, $state, SubmitWorkService, RequirementService) ->
-
   vm                  = this
   vm.loading          = false
   vm.showSuccessModal = false
+
+  if $scope.workId
+    localStorageKey = "recentSubmitWorkSection-#{$scope.workId}"
+    recent = localStorage[localStorageKey] || 'features'
+
+    $state.go "submit-work-#{recent}", { id: $scope.workId }
 
   vm.name         = ""
   vm.devices      = angular.copy RequirementService.devices
@@ -22,14 +27,22 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, SubmitWorkService, Requi
 
 
   isValid = (updates) ->
-    updates = getUpdates()
-    valid   = true
+    valid = true
 
-    for type, value of updates
-      if Array.isArray value
-        valid = false unless value.length
-      else
-        valid = value
+    unless updates.projectType == 'DESIGN' || updates.projectType == 'DESIGN_AND_CODE'
+      valid = false
+
+    unless updates.name.length > 0
+      valid = false
+
+    unless updates.brief.length > 0
+      valid = false
+
+    unless updates.deviceIds.length > 0
+      valid = false
+
+    unless updates.orientationIds.length > 0
+      valid = false
 
     valid
 
@@ -41,9 +54,9 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, SubmitWorkService, Requi
       item.id
 
     updates =
-      projectType   : vm.projectType
-      name          : vm.name
-      brief         : vm.brief
+      projectType   : vm.projectType.trim()
+      name          : vm.name.trim()
+      brief         : vm.brief.trim()
       deviceIds     : vm.devices.filter(isSelected).map(getId)
       orientationIds: vm.orientations.filter(isSelected).map(getId)
 

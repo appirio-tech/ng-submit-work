@@ -1,73 +1,51 @@
 'use strict'
 
-controller = null
-saveSpy  = null
-
 describe 'SubmitWorkTypeController', ->
+  mockedService = null
+  vm            = null
+  calledWith    = null
+
   beforeEach ->
     bard.inject this, '$rootScope', '$q', '$controller', 'SubmitWorkService'
     scope = $rootScope.$new()
 
-    work =
-      name       : null
-      requestType: null
-      summary    : null
-      features   : []
+    mockedService = bard.mockService SubmitWorkService,
+      create: (updates) ->
+        deferred = $q.defer()
+        calledWith = updates
+        deferred.resolve()
+        deferred.promise
 
-    promise  = $q.when work
-    _default = $promise: promise
-
-    bard.mockService SubmitWorkService,
-      _default: _default
-      save: $q.when
-
-    controller = $controller 'SubmitWorkTypeController', $scope: scope
-    scope.vm   = controller
-    saveSpy    = sinon.spy SubmitWorkService, 'save'
+    vm = $controller 'SubmitWorkTypeController', $scope: scope
 
   afterEach ->
-    saveSpy.restore()
+    calledWith = null
 
-  describe 'Type Controller', ->
-    it 'should be created successfully', ->
-      expect(controller).to.be.defined
+  it 'should be created successfully', ->
+    expect(vm).to.be.defined
 
-    context 'when a new project', ->
-      it 'should call service for work data', ->
-        expect(SubmitWorkService.fetch.called).not.to.be.ok
-
-      it 'should initialize work', ->
-        expect(controller.work).to.be.ok
-
-    context 'when an existing project', ->
-      it 'should initialize work', ->
-        expect(controller.work).to.be.ok
-
-    it 'should have a save method', ->
-      expect(controller.save).to.exist
-
-    it 'should call service to save project', ->
-      controller.workId           = '123'
-      controller.work.name        = 'abc'
-      controller.work.summary     = 'abc'
-      controller.type.requestTypes = [
-        name: 'Design'
-        selected: true
-      ]
-      controller.type.devices = [
-        name: 'iphone'
-        selected: true
-      ]
-      controller.type.orientations = [
-        name: 'landscape'
-        selected: true
-      ]
-      controller.type.operatingSystems = [
-        name: 'ios'
-        selected: true
-      ]
-      controller.save()
-      expect(SubmitWorkService.save.called).to.be.ok
-
+  context 'when a new project', ->
     it 'should initialize work', ->
-      expect(controller.work).to.be.defined
+      expect(vm.name).to.be.a 'string'
+      expect(vm.devices).to.be.an 'array'
+      expect(vm.orientations).to.be.an 'array'
+      expect(vm.projectTypes).to.be.an 'array'
+      expect(vm.brief).to.be.a 'string'
+
+  it 'should call service to create project', ->
+    vm.projectType    = 'DESIGN_AND_CODE'
+    vm.name           = 'Test name'
+    vm.brief          = 'Test brief'
+
+    vm.devices = [
+      { id: 'abc', selected: true }
+      { id: 'def', selected: false }
+    ]
+
+    vm.orientations = [
+      { id: 'abc', selected: true }
+      { id: 'def', selected: false }
+    ]
+
+    vm.create()
+    expect(calledWith).to.have.all.keys 'projectType', 'name', 'brief', 'deviceIds', 'orientationIds'

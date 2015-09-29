@@ -1,11 +1,11 @@
 ul.navs
-  li.active
+  li(ng-class="{ active: vm.section == 1 }")
     a(ui-sref="submit-work-features({ id: vm.workId })") Features
 
-  li
+  li(ng-class="{ active: vm.section == 2 }")
     a(ui-sref="submit-work-visuals({ id: vm.workId })") Visual Design
 
-  li
+  li(ng-if="vm.projectType == 'DESIGN_AND_CODE'" ng-class="{ active: vm.section == 3 }")
     a(ui-sref="submit-work-development({ id: vm.workId })") Development
 
-progress(value="2" max="3")
+progress(value="{{ vm.section }}" max="{{ vm.numberOfSections }}")

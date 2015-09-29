@@ -1,13 +1,18 @@
 'use strict'
 
 SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService, API_URL) ->
-  vm                              = this
-  vm.loading                      = true
-  vm.workId                       = $scope.workId
-  vm.showUploadModal              = false
-  vm.showSpecsModal               = false
+  if $scope.workId
+    localStorageKey               = "recentSubmitWorkSection-#{$scope.workId}"
+    localStorage[localStorageKey] = 'development'
+
+  vm                   = this
+  vm.loading           = true
+  vm.workId            = $scope.workId
+  vm.showUploadModal   = false
+  vm.showSpecsModal    = false
   vm.uploaderUploading = false
   vm.uploaderHasErrors = false
+  vm.projectType       = null
 
   vm.securityLevels =
     none: 'none'
@@ -73,11 +78,15 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
 
     vm.loading = false
 
-    vm.work = {}
-    vm.work.offlineAccess = work.offlineAccess
-    vm.work.usesPersonalInformation = work.usesPersonalInformation
-    vm.work.securityLevel = work.securityLevel
-    vm.work.numberOfApiIntegrations = work.numberOfApiIntegrations
+    vm.work =
+      offlineAccess: work.offlineAccess
+      usesPersonalInformation: work.usesPersonalInformation
+      securityLevel: work.securityLevel
+      numberOfApiIntegrations: work.numberOfApiIntegrations
+
+    vm.projectType = work.projectType
+    vm.section = 3
+    vm.numberOfSections = 3
 
   activate = ->
     destroyWorkListener = $rootScope.$on "SubmitWorkService.work:changed", ->
