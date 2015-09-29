@@ -42,7 +42,7 @@ ul.path-choices
 
 button.wider.continue(type="button" scroll-element="offlineAccess") continue
 
-form(ng-submit="vm.save()")
+form
 
   #offlineAccess.interactive
     h2 Do you require users to have <strong>offline access to data</strong>?
@@ -144,7 +144,7 @@ form(ng-submit="vm.save()")
 
     input(type="number" min=1 max=6 ng-model="vm.work.numberOfApiIntegrations")
 
-  button.wider.save(type="button") save
+  button.wider.save(ng-click="vm.save(false)") save
 
-  button.wider.kick-off.action(type="submit") kick off project
+  button.wider.kick-off.action(ng-click="vm.save(true)") kick off project
 

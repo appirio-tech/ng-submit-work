@@ -25,7 +25,7 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
   vm.showSpecs = ->
     vm.showSpecsModal = true
 
-  vm.save = ->
+  vm.save = (kickoff) ->
     uploaderValid = !vm.uploaderUploading && !vm.uploaderHasErrors
     updates = vm.work
 
@@ -34,7 +34,8 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
         prop = null
 
     if uploaderValid
-      updates.status = 'SUBMITTED'
+      updates.status = if kickoff then 'Submitted' else 'Incomplete'
+
       SubmitWorkService.save(updates).then ->
         $state.go('view-work-multiple')
 
