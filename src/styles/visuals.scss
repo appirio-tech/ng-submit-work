@@ -115,11 +115,11 @@ submit-work-visuals {
       }
     }
 
-    .icons {
+    .icons, .colors {
       > ul {
         @include flex-center(space-between);
 
-        margin: $margin-biggest;
+        margin: $margin-big;
 
         li {
            > .icon {
@@ -129,7 +129,12 @@ submit-work-visuals {
             margin: 0 auto;
           }
 
-          button {
+          p {
+            font-size: $font-size;
+            text-transform: uppercase;
+          }
+
+          p, button {
             margin-top: $margin-small;
           }
         }

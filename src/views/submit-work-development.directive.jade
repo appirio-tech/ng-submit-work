@@ -25,7 +25,7 @@ modal.upload-documents(show="vm.showUploadModal" background-click-close=true)
 
     button.wider.continue.action kick off project
 
-ul.path-choices
+ul.interactive.selectable-choices
   li
     .icon
 
@@ -108,30 +108,30 @@ form
 
         p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
-  button.wider.continue(type="button" scroll-element="securityLevel") continue
+  button.wider.continue(type="button" scroll-element="security-level") continue
 
-  #securityLevel.interactive
+  #security-level.security.interactive
     h2 What level of <strong>security do you need</strong>?
 
-    ul.path-choices
+    ul.selectable-choices
       li
         .img
 
-        h3 No security
+        label No security
 
         button(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.none")
 
       li
         .img
 
-        h3 Minimal security
+        label Minimal security
 
         button(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.minimal")
 
       li
         .img
 
-        h3 Complete security
+        label Complete security
 
         button(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.complete")
 

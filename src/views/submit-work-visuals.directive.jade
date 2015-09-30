@@ -11,7 +11,7 @@ header
 
   p Help us define the visual style of your mobile app.
 
-ul.path-choices(ng-class="{active: vm.showPaths}")
+ul.interactive.selectable-choices(ng-class="{active: vm.showPaths}")
   li
     .icon
 
@@ -120,17 +120,21 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
     h2 Tell us <strong>the colors</strong> you like
 
     ul
-      li(ng-repeat="color in vm.colors") {{color.name}}
+      li(ng-repeat="color in vm.colors")
         img(src="{{ color.imgUrl }}" width="150")
+
+        p {{ color.name }}
+
+        button(type="button" selectable=true ng-model="" value="")
 
   main.icons(ng-show="vm.activeStyleModal == 'icons' ")
     h2 Tell us <strong>the icons</strong> you like
 
     ul
       li(ng-repeat="icon in vm.icons")
-        .colorIcon
+        .icon
 
-        h4 {{icon.name}}
+        p {{icon.name}}
 
         p {{icon.description}}
 

@@ -13,7 +13,6 @@ submit-work-development {
     background-color: pink;
     width           : 180px;
     height          : 200px;
-    margin-top      : $margin-small;
   }
 
   input[type="number"] {
@@ -22,5 +21,19 @@ submit-work-development {
 
   .save, .kick-off {
     margin: $margin $margin-small;
+  }
+
+  .security {
+    > ul {
+      margin-top: $margin;
+    }
+
+    label {
+      display: block;
+      margin-top: $margin-small;
+      font-weight: normal;
+      font-size: $font-size;
+    }
+
   }
 }

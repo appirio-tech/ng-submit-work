@@ -62,8 +62,7 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
 
   header {
     background-color: $neutral-color-darkest;
-    padding: $padding;
-    padding-bottom: $padding-big;
+    padding: 0 $padding $padding-big $padding;
 
     a {
       color: $white;
@@ -101,7 +100,7 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
     @include flex-center(center);
     @include flex-wrap(nowrap);
 
-    margin-top: $margin-big;
+    margin-top: $margin;
 
     li {
       hr {
@@ -112,7 +111,7 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
       &.or {
         margin          : 0 $margin;
         background-color: $neutral-color;
-        font-size       : $font-size-big;
+        font-size       : $font-size;
         color           : $white;
         min-width       : 40px;
         max-width       : 40px;
@@ -134,11 +133,8 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
     background-color: $white;
   }
 
-  ul.path-choices {
+  ul.selectable-choices {
     @include flex-center(center);
-
-    padding         : $padding-big;
-    background-color: $neutral-color-lightest;
 
     > li {
       margin: 0 $margin;
