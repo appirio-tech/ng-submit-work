@@ -9,47 +9,43 @@ form(ng-submit="vm.create()")
 
   button.wider.continue.action(type="button" scroll-element="platformDetails") continue
 
-  ul.target-platform.interactive(id="platformDetails")
-    li
-      h2 IOS <strong>platform details</strong>
+  .interactive
+    h2 IOS <strong>platform details</strong>
 
-    li
-      h4 Devices
+    ul.target-platforms(id="platformDetails")
+      li
+        h4 Devices
 
-      ul
-        li(ng-repeat="device in vm.devices")
-          checkbox(label="{{device.name}}" ng-model="device.selected")
+        ul
+          li(ng-repeat="device in vm.devices")
+            checkbox(label="{{device.name}}" ng-model="device.selected")
 
-    li
-      h4 Orientation
+      li
+        h4 Orientation
 
-      ul
-        li(ng-repeat="orientation in vm.orientations")
-          checkbox(label="{{orientation.name}}" ng-model="orientation.selected")
+        ul
+          li(ng-repeat="orientation in vm.orientations")
+            checkbox(label="{{orientation.name}}" ng-model="orientation.selected")
 
   button.wider.continue.action(type="button" scroll-element="typeDetails") continue
 
-  ul.type.interactive(id="typeDetails")
-    li
-      h2 What <strong>type of work</strong> are you looking for?
+  .interactive
+    h2 What <strong>type of work</strong> are you looking for?
 
-    li(ng-repeat="projectType in vm.projectTypes")
-      h4 {{projectType.name}}
+    ul.type(id="typeDetails")
+      li(ng-repeat="projectType in vm.projectTypes")
+        h4 {{projectType.name}}
 
-      p {{ projectType.description }}
+        img(src="{{ projectType.imgUrl }}")
 
-      img(src="{{ projectType.imgUrl }}")
+        p {{ projectType.description }}
 
-      button(
-        type="button"
-        selectable="true"
-        ng-model="vm.projectType"
-        value="projectType.id"
-      )
-
-      h4 {{requestType.name}}
-
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        button(
+          type="button"
+          selectable="true"
+          ng-model="vm.projectType"
+          value="projectType.id"
+        )
 
   button.wider.continue.action(type="button" scroll-element="briefDetails") continue
 

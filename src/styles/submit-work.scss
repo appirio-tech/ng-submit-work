@@ -24,7 +24,7 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
     }
   }
 
-  button.continue, > button.action {
+  > a.button, button.continue, > button.action {
     margin: $margin auto;
   }
 
@@ -95,7 +95,7 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
 
   .interactive {
     background-color: $neutral-color-lightest;
-    padding: $padding-biggest 0;
+    padding: $padding-big 0;
 
     input {
       margin: 0 auto;

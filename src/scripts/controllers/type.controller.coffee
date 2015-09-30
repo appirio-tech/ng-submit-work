@@ -5,6 +5,7 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, SubmitWorkService, Requi
   vm.loading          = false
   vm.showSuccessModal = false
 
+  # TODO: move route directing out of here
   if $scope.workId
     localStorageKey = "recentSubmitWorkSection-#{$scope.workId}"
     recent = localStorage[localStorageKey] || 'features'

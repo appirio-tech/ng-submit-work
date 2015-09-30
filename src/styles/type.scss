@@ -18,8 +18,8 @@ submit-work-type {
     }
   }
 
-  button.create, button.save {
-    margin-top: $margin-big;
+  button.create {
+    margin-top: $margin;
   }
 
   ul.type {
@@ -28,29 +28,27 @@ submit-work-type {
 
     padding-right: 0;
     padding-bottom: 0;
+    margin-top: $margin;
 
     img {
       display   : inline-block;
       width     : 250px;
       height    : 125px;
+      margin-top: $margin-small;
     }
 
     button {
-      margin-top: $margin;
+      margin-top: $margin-small;
     }
 
     > li {
-      margin: $margin-big $margin;
-      margin-top: 0;
-
-      &:first-child {
-        width: 100%;
-      }
+      margin: 0 $margin;
     }
   }
 
-  ul.target-platform {
+  ul.target-platforms {
     text-align: left;
+    margin-top: $margin;
 
     h4 {
       border-bottom: 1px solid $neutral-color-light;
@@ -64,7 +62,6 @@ submit-work-type {
 
       &:first-child {
         margin-top: 0;
-        text-align: center;
       }
 
       > ul {
@@ -107,6 +104,6 @@ submit-work-type {
     max-width : 700px;
     height    : 200px;
     margin    : 0 auto;
-    margin-top: $margin-big;
+    margin-top: $margin;
   }
 }
