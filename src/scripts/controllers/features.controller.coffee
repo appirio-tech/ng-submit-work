@@ -143,6 +143,7 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
             vmFeature.selected = true
             vm.selectedFeaturesCount++
 
+    $rootScope.submitWorkAppName = work.name
     vm.projectType = work.projectType
     vm.section = 1
     vm.numberOfSections = if work.projectType == 'DESIGN_AND_CODE' then 3 else 2
