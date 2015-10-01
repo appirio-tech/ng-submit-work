@@ -25,126 +25,131 @@ modal.upload-documents(show="vm.showUploadModal" background-click-close=true)
 
     button.wider.continue.action kick off project
 
-ul.interactive.selectable-choices
-  li
-    .icon
+.flush-height(flush-height=true)
+  ul.interactive.selectable-choices
+    li
+      .icon
 
-    h3 Define development specs
+      h3 Define development specs
 
-    button.action.wide(type="button" scroll-element="offlineAccess") select
+      button.action.wide(type="button" scroll-element="offline-access") select
 
-  li
-    .icon
+    li
+      .icon
 
-    h3 Upload development specs
+      h3 Upload development specs
 
-    button.action.wide(ng-click="vm.showUpload()") select
+      button.action.wide(ng-click="vm.showUpload()") select
 
-button.wider.continue(type="button" scroll-element="offlineAccess") continue
+  button.wider.continue(type="button" scroll-element="offline-access") continue
 
 form
+  .full-height(full-height=true)
+    #offline-access.interactive
+      h2 Do you require users to have <strong>offline access to data</strong>?
 
-  #offlineAccess.interactive
-    h2 Do you require users to have <strong>offline access to data</strong>?
+      p This will affect backps and scalability.
 
-    p This will affect backps and scalability.
+      ul.or-choices
+        li
+          button.big.widest(
+            ng-model="vm.work.offlineAccess"
+            label="yes"
+            value="true"
+            selectable=true
+            type="button"
+          )
 
-    ul.or-choices
-      li
-        button.big.widest(
-          ng-model="vm.work.offlineAccess"
-          label="yes"
-          value="true"
-          selectable=true
-          type="button"
-        )
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
-        p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        li.or
+          .house OR
 
-      li.or
-        .house OR
+        li
+          button.big.widest(
+            ng-model="vm.work.offlineAccess"
+            label="no"
+            value="false"
+            selectable=true
+            type="button"
+          )
 
-      li
-        button.big.widest(
-          ng-model="vm.work.offlineAccess"
-          label="no"
-          value="false"
-          selectable=true
-          type="button"
-        )
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
-        p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    button.wider.continue(type="button" scroll-element="personal-info") continue
 
-  button.wider.continue(type="button" scroll-element="personalInfo") continue
+  .full-height(full-height=true)
+    #personal-info.interactive
+      h2 Personal information
 
-  #personalInfo.interactive
-    h2 Personal information
+      p Is there any level of personal information? (stored or transmitted)
 
-    p Is there any level of personal information? (stored or transmitted)
+      ul.or-choices
+        li
+          button.big.widest(
+            ng-model="vm.work.usesPersonalInformation"
+            label="yes"
+            value="true"
+            selectable=true
+            type="button"
+          )
 
-    ul.or-choices
-      li
-        button.big.widest(
-          ng-model="vm.work.usesPersonalInformation"
-          label="yes"
-          value="true"
-          selectable=true
-          type="button"
-        )
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
-        p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        li.or
+          .house OR
 
-      li.or
-        .house OR
+        li
+          button.big.widest(
+            ng-model="vm.work.usesPersonalInformation"
+            label="no"
+            value="false"
+            selectable=true
+            type="button"
+          )
 
-      li
-        button.big.widest(
-          ng-model="vm.work.usesPersonalInformation"
-          label="no"
-          value="false"
-          selectable=true
-          type="button"
-        )
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
-        p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    button.wider.continue(type="button" scroll-element="security-level") continue
 
-  button.wider.continue(type="button" scroll-element="security-level") continue
+  .full-height(full-height=true)
+    #security-level.security.interactive
+      h2 What level of <strong>security do you need</strong>?
 
-  #security-level.security.interactive
-    h2 What level of <strong>security do you need</strong>?
+      ul.selectable-choices
+        li
+          .img
 
-    ul.selectable-choices
-      li
-        .img
+          label No security
 
-        label No security
+          button(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.none")
 
-        button(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.none")
+        li
+          .img
 
-      li
-        .img
+          label Minimal security
 
-        label Minimal security
+          button(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.minimal")
 
-        button(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.minimal")
+        li
+          .img
 
-      li
-        .img
+          label Complete security
 
-        label Complete security
+          button(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.complete")
 
-        button(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.complete")
+    button.wider.continue(type="button" scroll-element="third-party-integrations") continue
 
-  button.wider.continue(type="button" scroll-element="thirdPartyIntegrations") continue
+  .full-height(full-height=true)
+    #third-party-integrations.interactive
+      h2 How many 3rd party integrations</strong>?
 
-  #thirdPartyIntegrations.interactive
-    h2 How many 3rd party integrations</strong>?
+      p Enter the number of 3rd party integrations so we can estimate effort involved.
 
-    p Enter the number of 3rd party integrations so we can estimate effort involved.
+      input(type="number" min=1 max=6 ng-model="vm.work.numberOfApiIntegrations")
 
-    input(type="number" min=1 max=6 ng-model="vm.work.numberOfApiIntegrations")
+    .buttons
+      button.continue.wider.save(ng-click="vm.save(false)") save
 
-  button.wider.save(ng-click="vm.save(false)") save
-
-  button.wider.kick-off.action(ng-click="vm.save(true)") kick off project
+      button.contine.wider.kick-off.action(ng-click="vm.save(true)") kick off project
 

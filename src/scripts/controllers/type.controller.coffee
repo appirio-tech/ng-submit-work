@@ -10,7 +10,7 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, SubmitWorkService, Requi
     localStorageKey = "recentSubmitWorkSection-#{$scope.workId}"
     recent = localStorage[localStorageKey] || 'features'
 
-    $state.go "submit-work-#{recent}", { id: $scope.workId }
+    # $state.go "submit-work-#{recent}", { id: $scope.workId }
 
   vm.name         = ""
   vm.devices      = angular.copy RequirementService.devices

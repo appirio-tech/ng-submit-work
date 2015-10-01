@@ -4,57 +4,65 @@ header
   p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
 form(ng-submit="vm.create()")
-  .interactive
-    input.wider(type="text" placeholder="Name your project..." required="true" ng-model="vm.name")
+  .flush-height(flush-height=true)
+    .interactive
+      input.wider(type="text" placeholder="Name your project..." required="true" ng-model="vm.name")
 
-  button.wider.continue.action(type="button" scroll-element="platformDetails") continue
+    button.wider.continue.action(type="button" scroll-element="platform-details") continue
 
-  .interactive
-    h2 IOS <strong>platform details</strong>
+  .full-height(full-height=true)
+    .interactive(id="platform-details")
+      h2 IOS <strong>platform details</strong>
 
-    ul.target-platforms(id="platformDetails")
-      li
-        h4 Devices
+      ul.target-platforms
+        li
+          h4 Devices
 
-        ul
-          li(ng-repeat="device in vm.devices")
-            checkbox(label="{{device.name}}" ng-model="device.selected")
+          hr
 
-      li
-        h4 Orientation
+          ul
+            li(ng-repeat="device in vm.devices")
+              checkbox(label="{{device.name}}" ng-model="device.selected")
 
-        ul
-          li(ng-repeat="orientation in vm.orientations")
-            checkbox(label="{{orientation.name}}" ng-model="orientation.selected")
+        li
+          h4 Orientation
 
-  button.wider.continue.action(type="button" scroll-element="typeDetails") continue
+          hr
 
-  .interactive
-    h2 What <strong>type of work</strong> are you looking for?
+          ul
+            li(ng-repeat="orientation in vm.orientations")
+              checkbox(label="{{orientation.name}}" ng-model="orientation.selected")
 
-    ul.type(id="typeDetails")
-      li(ng-repeat="projectType in vm.projectTypes")
-        h4 {{projectType.name}}
+    button.wider.continue.action(type="button" scroll-element="type-details") continue
 
-        img(src="{{ projectType.imgUrl }}")
+  .full-height(full-height=true)
+    .interactive(id="type-details")
+      h2 What <strong>type of work</strong> are you looking for?
 
-        p {{ projectType.description }}
+      ul.type
+        li(ng-repeat="projectType in vm.projectTypes")
+          h4 {{projectType.name}}
 
-        button(
-          type="button"
-          selectable="true"
-          ng-model="vm.projectType"
-          value="projectType.id"
-        )
+          img(src="{{ projectType.imgUrl }}")
 
-  button.wider.continue.action(type="button" scroll-element="briefDetails") continue
+          p {{ projectType.description }}
 
-  .interactive(id="briefDetails")
-    h2 Can you <strong>share a brief</strong> overview?
+          button(
+            type="button"
+            selectable="true"
+            ng-model="vm.projectType"
+            value="projectType.id"
+          )
 
-    textarea.brief(placeholder="E.g. I need a mobile HR application with social features to support my growing organization" ng-model="vm.brief")
+    button.wider.continue.action(type="button" scroll-element="brief-details") continue
 
-    button.create.wider(type="submit") Create Project
+  .full-height(full-height=true)
+    .interactive(id="brief-details")
+      h2 Can you <strong>share a brief</strong> overview?
+
+      textarea.brief(placeholder="E.g. I need a mobile HR application with social features to support my growing organization" ng-model="vm.brief")
+
+      button.create.wider(type="submit") Create Project
 
 modal(show="vm.showSuccessModal" background-click-close=true)
   .success
