@@ -24,7 +24,7 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, SubmitWorkService, Requi
     if isValid(updates)
       vm.loading = true
       SubmitWorkService.create(updates).then ->
-        $rootScope.submitWorkAppName = updates.name
+        $rootScope.currentAppName = updates.name
         $state.go("submit-work-features")
 
 

@@ -85,7 +85,7 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
       securityLevel: work.securityLevel
       numberOfApiIntegrations: work.numberOfApiIntegrations
 
-    $rootScope.submitWorkAppName = work.name
+    $rootScope.currentAppName = work.name
     vm.projectType = work.projectType
     vm.section = 3
     vm.numberOfSections = 3
