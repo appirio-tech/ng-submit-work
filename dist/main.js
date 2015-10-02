@@ -389,7 +389,9 @@ $templateCache.put("views/submit-work-development.directive.html","<header><ul c
       var updates;
       updates = getUpdates();
       return SubmitWorkService.save(updates).then(function() {
-        return $state.go("submit-work-development");
+        return $state.go("submit-work-development", {
+          id: vm.workId
+        });
       });
     };
     getUpdates = function() {
@@ -409,7 +411,9 @@ $templateCache.put("views/submit-work-development.directive.html","<header><ul c
       return updates;
     };
     vm.navigateDevelopment = function() {
-      return $state.go("submit-work-development");
+      return $state.go("submit-work-development", {
+        id: vm.workId
+      });
     };
     updateButtons = function() {
       var currentIndex, isFirst, isLast;
