@@ -34,6 +34,11 @@ submit-work-development {
       font-weight: normal;
       font-size: $font-size;
     }
+  }
 
+  .third-party-integrations {
+    > p {
+      margin-top: $margin-small;
+    }
   }
 }

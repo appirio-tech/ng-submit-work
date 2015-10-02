@@ -9,26 +9,27 @@ header
 
   p Tell us what features we need to include in your new app.
 
-ul.interactive.selectable-choices
-  li
-    .icon
+.flush-height(flush-height=true)
+  ul.interactive.selectable-choices
+    li
+      .icon
 
-    h3 Define features
+      h3 Define features
 
-    p UX design greating the usability, accessibility, and costume journey.
+      p UX design greating the usability, accessibility, and costume journey.
 
-    button.action.wide(ng-click="vm.showFeatures()") select
+      button.action.wide(ng-click="vm.showFeatures()") select
 
-  li
-    .icon
+    li
+      .icon
 
-    h3 Upload document
+      h3 Upload document
 
-    p Upload your specs or any documents you have.
+      p Upload your specs or any documents you have.
 
-    button.action.wide(ng-click="vm.showUpload()") select
+      button.action.wide(ng-click="vm.showUpload()") select
 
-a.button.wider.action(ui-sref="submit-work-visuals({ id: vm.workId })") go to design
+  a.button.continue.wider.action(ui-sref="submit-work-visuals({ id: vm.workId })") go to design
 
 modal.full.define-features(show="vm.showFeaturesModal" background-click-close=true)
   h2 Data booklet mobile app <strong>features</strong>

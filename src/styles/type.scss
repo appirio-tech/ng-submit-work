@@ -1,15 +1,6 @@
 @import "work-includes";
 
 submit-work-type {
-  .interactive-section {
-    background-color: $neutral-color-lightest;
-    padding: $padding-biggest 0;
-
-    input {
-      margin: 0 auto;
-    }
-  }
-
   header {
     padding: $padding-biggest;
 
@@ -41,6 +32,10 @@ submit-work-type {
       margin-top: $margin-small;
     }
 
+    p {
+      margin-top: $margin-small;
+    }
+
     > li {
       margin: 0 $margin;
     }
@@ -49,11 +44,6 @@ submit-work-type {
   ul.target-platforms {
     text-align: left;
     margin-top: $margin;
-
-    h4 {
-      border-bottom: 1px solid $neutral-color-light;
-      padding-bottom: $padding-small;
-    }
 
     > li {
       margin    : 0 auto;
