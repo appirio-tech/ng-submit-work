@@ -33,13 +33,18 @@ srv = ($rootScope, Optimist, SubmitWorkAPIService) ->
     angular.copy work
 
   service.create = (updates) ->
+    id   = null
     work = angular.copy workTemplate
 
+    interceptResponse = (res) ->
+      id = res.id
+
     apiCall = (model) ->
-      SubmitWorkAPIService.post({}, model).$promise
+      SubmitWorkAPIService.post({}, model).$promise.then(interceptResponse)
 
     updateCallback = (model) ->
-      currentWorkId = model.id
+      currentWorkId = id
+      model.id = id
       emitUpdates()
 
     Optimist.update
