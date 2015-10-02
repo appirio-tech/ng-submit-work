@@ -56,7 +56,9 @@ form(ng-submit="vm.create()")
 
     button.wider.continue.action(type="button" scroll-element="brief-details") continue
 
-  .full-height(full-height=true)
+  .full-height.has-loader(full-height=true)
+    loader
+
     .interactive(id="brief-details")
       h2 Can you <strong>share a brief</strong> overview?
 

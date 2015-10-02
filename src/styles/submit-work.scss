@@ -28,6 +28,10 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
     @include display(flex);
     @include flex-direction(column);
 
+    &.has-loader {
+      position: relative;
+    }
+
     .interactive {
       @include flex-grow(1);
       @include flex-center(center);
