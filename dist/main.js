@@ -9,162 +9,165 @@
 }).call(this);
 
 angular.module("appirio-tech-ng-submit-work").run(["$templateCache", function($templateCache) {$templateCache.put("views/nav.html","<ul class=\"navs\"><li ng-class=\"{ active: vm.section == 1 }\"><a ui-sref=\"submit-work-features({ id: vm.workId })\">Features</a></li><li ng-class=\"{ active: vm.section == 2 }\"><a ui-sref=\"submit-work-visuals({ id: vm.workId })\">Visual Design</a></li><li ng-if=\"vm.projectType == \'DESIGN_AND_CODE\'\" ng-class=\"{ active: vm.section == 3 }\"><a ui-sref=\"submit-work-development({ id: vm.workId })\">Development</a></li></ul><progress value=\"{{ vm.section }}\" max=\"{{ vm.numberOfSections }}\"></progress>");
-$templateCache.put("views/submit-work-type.directive.html","<header><h1>How to create a new project</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></header><form ng-submit=\"vm.create()\"><div flush-height=\"flush-height\" class=\"flush-height\"><div class=\"interactive\"><input type=\"text\" placeholder=\"Name your project...\" required=\"true\" ng-model=\"vm.name\" class=\"wider\"/></div><button type=\"button\" scroll-element=\"platform-details\" class=\"wider continue action\">continue</button></div><div full-height=\"full-height\" class=\"full-height\"><div id=\"platform-details\" class=\"interactive\"><h2>IOS <strong>platform details</strong></h2><ul class=\"target-platforms\"><li><h4>Devices</h4><hr/><ul><li ng-repeat=\"device in vm.devices\"><checkbox label=\"{{device.name}}\" ng-model=\"device.selected\"></checkbox></li></ul></li><li><h4>Orientation</h4><hr/><ul><li ng-repeat=\"orientation in vm.orientations\"><checkbox label=\"{{orientation.name}}\" ng-model=\"orientation.selected\"></checkbox></li></ul></li></ul></div><button type=\"button\" scroll-element=\"type-details\" class=\"wider continue action\">continue</button></div><div full-height=\"full-height\" class=\"full-height\"><div id=\"type-details\" class=\"interactive\"><h2>What <strong>type of work</strong> are you looking for?</h2><ul class=\"type\"><li ng-repeat=\"projectType in vm.projectTypes\"><h4>{{projectType.name}}</h4><img src=\"{{ projectType.imgUrl }}\"/><p>{{ projectType.description }}</p><button type=\"button\" selectable=\"true\" ng-model=\"vm.projectType\" value=\"projectType.id\"></button></li></ul></div><button type=\"button\" scroll-element=\"brief-details\" class=\"wider continue action\">continue</button></div><div full-height=\"full-height\" class=\"full-height\"><div id=\"brief-details\" class=\"interactive\"><h2>Can you <strong>share a brief</strong> overview?</h2><textarea placeholder=\"E.g. I need a mobile HR application with social features to support my growing organization\" ng-model=\"vm.brief\" class=\"brief\"></textarea><button type=\"submit\" class=\"create wider\">Create Project</button></div></div></form><modal show=\"vm.showSuccessModal\" background-click-close=\"background-click-close\"><div class=\"success\"><h2>Awesome!</h2><p>Your {{ vm.name }} is set up now</p><p>Share your email to signup and we\'ll be sure to send a project link.</p><form><input type=\"email\" required=\"required\" class=\"wider\"/><button type=\"submit\" class=\"wider\">Submit</button></form></div></modal>");
+$templateCache.put("views/submit-work-type.directive.html","<header><h1>How to create a new project</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></header><form ng-submit=\"vm.create()\"><div flush-height=\"flush-height\" class=\"flush-height\"><div class=\"interactive\"><input type=\"text\" placeholder=\"Name your project...\" required=\"true\" ng-model=\"vm.name\" class=\"wider\"/></div><button type=\"button\" scroll-element=\"platform-details\" class=\"wider continue action\">continue</button></div><div full-height=\"full-height\" class=\"full-height\"><div id=\"platform-details\" class=\"interactive\"><h2>IOS <strong>platform details</strong></h2><ul class=\"target-platforms\"><li><h4>Devices</h4><hr/><ul><li ng-repeat=\"device in vm.devices\"><checkbox label=\"{{device.name}}\" ng-model=\"device.selected\"></checkbox></li></ul></li><li><h4>Orientation</h4><hr/><ul><li ng-repeat=\"orientation in vm.orientations\"><checkbox label=\"{{orientation.name}}\" ng-model=\"orientation.selected\"></checkbox></li></ul></li></ul></div><button type=\"button\" scroll-element=\"type-details\" class=\"wider continue action\">continue</button></div><div full-height=\"full-height\" class=\"full-height\"><div id=\"type-details\" class=\"interactive\"><h2>What <strong>type of work</strong> are you looking for?</h2><ul class=\"type\"><li ng-repeat=\"projectType in vm.projectTypes\"><h4>{{projectType.name}}</h4><img src=\"{{ projectType.imgUrl }}\"/><p>{{ projectType.description }}</p><button type=\"button\" selectable=\"true\" ng-model=\"vm.projectType\" value=\"projectType.id\"></button></li></ul></div><button type=\"button\" scroll-element=\"brief-details\" class=\"wider continue action\">continue</button></div><div full-height=\"full-height\" class=\"full-height has-loader\"><loader></loader><div id=\"brief-details\" class=\"interactive\"><h2>Can you <strong>share a brief</strong> overview?</h2><textarea placeholder=\"E.g. I need a mobile HR application with social features to support my growing organization\" ng-model=\"vm.brief\" class=\"brief\"></textarea><button type=\"submit\" class=\"create wider\">Create Project</button></div></div></form><modal show=\"vm.showSuccessModal\" background-click-close=\"background-click-close\"><div class=\"success\"><h2>Awesome!</h2><p>Your {{ vm.name }} is set up now</p><p>Share your email to signup and we\'ll be sure to send a project link.</p><form><input type=\"email\" required=\"required\" class=\"wider\"/><button type=\"submit\" class=\"wider\">Submit</button></form></div></modal>");
 $templateCache.put("views/submit-work-features.directive.html","<header><ul class=\"navs\"><li ng-class=\"{ active: vm.section == 1 }\"><a ui-sref=\"submit-work-features({ id: vm.workId })\">Features</a></li><li ng-class=\"{ active: vm.section == 2 }\"><a ui-sref=\"submit-work-visuals({ id: vm.workId })\">Visual Design</a></li><li ng-if=\"vm.projectType == \'DESIGN_AND_CODE\'\" ng-class=\"{ active: vm.section == 3 }\"><a ui-sref=\"submit-work-development({ id: vm.workId })\">Development</a></li></ul><progress value=\"{{ vm.section }}\" max=\"{{ vm.numberOfSections }}\"></progress></header><header><div class=\"house\"><div class=\"icon checkmark biggest\"></div></div><h1>Specify Features</h1><p>Tell us what features we need to include in your new app.</p></header><div flush-height=\"flush-height\" class=\"flush-height\"><ul class=\"interactive selectable-choices\"><li><div class=\"icon\"></div><h3>Define features</h3><p>UX design greating the usability, accessibility, and costume journey.</p><button ng-click=\"vm.showFeatures()\" class=\"action wide\">select</button></li><li><div class=\"icon\"></div><h3>Upload document</h3><p>Upload your specs or any documents you have.</p><button ng-click=\"vm.showUpload()\" class=\"action wide\">select</button></li></ul><a ui-sref=\"submit-work-visuals({ id: vm.workId })\" class=\"button continue wider action\">go to design</a></div><modal show=\"vm.showFeaturesModal\" background-click-close=\"background-click-close\" class=\"full define-features\"><h2>Data booklet mobile app <strong>features</strong></h2><main><ul class=\"features\"><li><ul><li ng-repeat=\"feature in vm.features\"><button ng-click=\"vm.activateFeature(feature)\" class=\"widest clean\"><div ng-class=\"{selected: feature.selected}\" class=\"icon\"></div><span>{{ feature.title }}</span></button></li></ul></li><li><button ng-click=\"vm.toggleDefineFeatures()\" class=\"widest clean\"><span>Define a new feature</span><div class=\"icon\">+</div></button></li></ul><ul class=\"contents\"><li><div ng-hide=\"vm.showDefineFeaturesForm\" ng-class=\"{active: !vm.activeFeature}\" class=\"default active\"><h4>Select and define features for your app</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div><div ng-hide=\"vm.showDefineFeaturesForm\" ng-class=\"{active: vm.activeFeature}\" class=\"description\"><h4>Select and define features for your app</h4><h5>{{ vm.activeFeature.title }} description</h5><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><textarea placeholder=\"Notes...\" ng-model=\"vm.activeFeature.notes\" class=\"widest\"></textarea><button ng-if=\"!vm.activeFeature.selected\" ng-click=\"vm.applyFeature()\" class=\"wider action\">apply feature</button><button ng-if=\"vm.activeFeature.selected\" ng-click=\"vm.removeFeature()\" class=\"wider action\">remove feature</button></div><form ng-submit=\"vm.addCustomFeature()\" ng-class=\"{active: vm.showDefineFeaturesForm}\" class=\"new-feature\"><h4>Define a new feature</h4><label>New feature title</label><input type=\"text\" ng-model=\"vm.customFeature.title\" required=\"required\" class=\"widest\"/><label>New feature description</label><textarea ng-model=\"vm.customFeature.description\" required=\"required\" class=\"widest\"></textarea><button type=\"submit\" class=\"wide action\">add new feature</button><button type=\"button\" ng-click=\"vm.hideCustomFeatures()\" class=\"wide cancel\">Cancel</button></form><div class=\"example\"><div class=\"phone\"></div></div></li><li><div class=\"count\">{{vm.selectedFeaturesCount}} features added</div><button ng-click=\"vm.save()\" class=\"wider action\">Save</button></li></ul></main></modal><modal show=\"vm.showUploadModal\" background-click-close=\"background-click-close\" class=\"upload-documents\"><div class=\"upload\"><div class=\"icon upload\"></div><h2>Upload <strong>documents</strong></h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><ap-uploader config=\"vm.featuresUploaderConfig\" uploading=\"vm.featuresUploaderUploading\" has-errors=\"vm.featuresUploaderHasErrors\"></ap-uploader></div></modal>");
 $templateCache.put("views/submit-work-visuals.directive.html","<loader ng-if=\"vm.loading\"></loader><header><ul class=\"navs\"><li ng-class=\"{ active: vm.section == 1 }\"><a ui-sref=\"submit-work-features({ id: vm.workId })\">Features</a></li><li ng-class=\"{ active: vm.section == 2 }\"><a ui-sref=\"submit-work-visuals({ id: vm.workId })\">Visual Design</a></li><li ng-if=\"vm.projectType == \'DESIGN_AND_CODE\'\" ng-class=\"{ active: vm.section == 3 }\"><a ui-sref=\"submit-work-development({ id: vm.workId })\">Development</a></li></ul><progress value=\"{{ vm.section }}\" max=\"{{ vm.numberOfSections }}\"></progress></header><header><div class=\"house\"><div class=\"icon checkmark biggest\"></div></div><h1>Visual Design</h1><p>Help us define the visual style of your mobile app.</p></header><div flush-height=\"flush-height\" class=\"flush-height\"><ul ng-class=\"{active: vm.showPaths}\" class=\"interactive selectable-choices\"><li><div class=\"icon\"></div><h3>Choose Styles</h3><p>Pick few fonts style for your mobile app</p><button ng-click=\"vm.showChooseStyles()\" class=\"action wide\">select</button></li><li><div class=\"icon\"></div><h3>Upload styles</h3><p>Pick color palette for your mobile app</p><button ng-click=\"vm.showUploadStyles()\" class=\"action wide\">select</button></li><li><div class=\"icon\"></div><h3>Get style from url</h3><p>Pick graphic style for your mobile app.</p><button ng-click=\"vm.showUrlStyles()\" class=\"action wide\">select</button></li></ul><a ui-sref=\"submit-work-development({ id: vm.workId })\" class=\"button wider action continue\">go to development</a></div><modal show=\"vm.showUploadStylesModal\" background-click-close=\"background-click-close\" class=\"upload-documents\"><div class=\"upload\"><div class=\"icon upload\"></div><h2>Upload <strong>documents</strong></h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><ap-uploader config=\"vm.visualsUploaderConfig\" uploading=\"vm.visualsUploaderUploading\" has-errors=\"vm.visualsUploaderHasErrors\"></ap-uploader></div></modal><modal show=\"vm.showUrlStylesModal\" background-click-close=\"background-click-close\" class=\"enter-url\"><div class=\"upload\"><div class=\"icon upload\"></div><h2>Enter your <strong>url</strong></h2><p>You can enter your website address and we\'ll grab your colors, fonts amd ocpms to use when designing your new app.</p><form ng-submit=\"vm.save()\"><input type=\"url\" placeholder=\"http://www.example.com\" ng-model=\"vm.url\" required=\"required\" class=\"wide\"/><button type=\"submit\" class=\"wider action\">enter</button></form></div></modal><modal show=\"vm.showChooseStylesModal\" background-click-close=\"background-click-close\" class=\"full choose-styles\"><ul class=\"nav\"><li><button ng-click=\"vm.viewPrevious()\" class=\"clean\">&lt;</button></li><li><button ng-click=\"vm.activateModal(\'fonts\')\" class=\"clean\">fonts</button></li><li><button ng-click=\"vm.activateModal(\'colors\')\" class=\"clean\">colors</button></li><li><button ng-click=\"vm.activateModal(\'icons\')\" class=\"clean\">icons</button></li><li><button ng-click=\"vm.viewNext()\" class=\"clean\">&gt;</button></li></ul><main ng-show=\"vm.activeStyleModal == \'fonts\' \" class=\"fonts\"><h2>Tell us your <strong>font preference</strong></h2><ul class=\"or-choices\"><li ng-repeat-start=\"font in vm.fonts\"><h3>{{font.name}}</h3><hr/><p>{{font.description}}</p><ul ng-if=\"font.name == \'Serif\' \" class=\"samples\"><li class=\"baskerville\">Baskerville is a serif font.</li><li class=\"times\">Times New Roman is a serif font</li><li class=\"courier\">Courier is a serif font.</li></ul><ul ng-if=\"font.name == \'Sans Serif\' \" class=\"samples\"><li class=\"sofia\">Sofia is a sans-serif font.</li><li class=\"arial\">Arial is a sans-serif font.</li><li class=\"museo\">Museo Sans is a sans-serif font.</li></ul><button selectable=\"selectable\" type=\"button\" ng-model=\"vm.font\" value=\"font.id\"></button></li><li ng-repeat-end=\"ng-repeat-end\" ng-if=\"font.name == \'Serif\' \" class=\"or\"><div class=\"house\">OR</div></li></ul></main><main ng-show=\"vm.activeStyleModal == \'colors\' \" class=\"colors\"><h2>Tell us <strong>the colors</strong> you like</h2><ul><li ng-repeat=\"color in vm.colors\"><img src=\"{{ color.imgUrl }}\" width=\"150\"/><p>{{ color.name }}</p><button type=\"button\" selectable=\"selectable\" ng-model=\"\" value=\"\"></button></li></ul></main><main ng-show=\"vm.activeStyleModal == \'icons\' \" class=\"icons\"><h2>Tell us <strong>the icons</strong> you like</h2><ul><li ng-repeat=\"icon in vm.icons\"><div class=\"icon\"></div><p>{{icon.name}}</p><p>{{icon.description}}</p><button type=\"button\" selectable=\"selectable\" ng-model=\"vm.icon\" value=\"icon.id\"></button></li></ul></main><footer><button ng-hide=\"vm.backButtonDisabled\" ng-click=\"vm.viewPrevious()\" class=\"wider\">back</button><button ng-hide=\"vm.nextButtonDisabled\" ng-click=\"vm.viewNext()\" class=\"action wider\">next</button><button ng-show=\"vm.showFinishDesignButton\" ng-click=\"vm.save()\" class=\"action wider\">finish design</button></footer></modal>");
 $templateCache.put("views/submit-work-development.directive.html","<header><ul class=\"navs\"><li ng-class=\"{ active: vm.section == 1 }\"><a ui-sref=\"submit-work-features({ id: vm.workId })\">Features</a></li><li ng-class=\"{ active: vm.section == 2 }\"><a ui-sref=\"submit-work-visuals({ id: vm.workId })\">Visual Design</a></li><li ng-if=\"vm.projectType == \'DESIGN_AND_CODE\'\" ng-class=\"{ active: vm.section == 3 }\"><a ui-sref=\"submit-work-development({ id: vm.workId })\">Development</a></li></ul><progress value=\"{{ vm.section }}\" max=\"{{ vm.numberOfSections }}\"></progress></header><header><div class=\"house\"><div class=\"icon checkmark biggest\"></div></div><h1>Development</h1><p>Help us understand the technical requirements of your app.</p></header><modal show=\"vm.showUploadModal\" background-click-close=\"background-click-close\" class=\"upload-documents\"><div class=\"upload\"><div class=\"icon upload\"></div><h2>Upload your <strong>Development specs</strong></h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><ap-uploader config=\"vm.uploaderConfig\" uploading=\"vm.uploaderUploading\" has-errors=\"vm.uploaderHasErrors\"></ap-uploader><button class=\"wider continue action\">kick off project</button></div></modal><div flush-height=\"flush-height\" class=\"flush-height\"><ul class=\"interactive selectable-choices\"><li><div class=\"icon\"></div><h3>Define development specs</h3><button type=\"button\" scroll-element=\"offline-access\" class=\"action wide\">select</button></li><li><div class=\"icon\"></div><h3>Upload development specs</h3><button ng-click=\"vm.showUpload()\" class=\"action wide\">select</button></li></ul><button type=\"button\" scroll-element=\"offline-access\" class=\"wider continue\">continue</button></div><form><div full-height=\"full-height\" class=\"full-height\"><div id=\"offline-access\" class=\"interactive\"><h2>Do you require users to have <strong>offline access to data</strong>?</h2><p>This will affect backps and scalability.</p><ul class=\"or-choices\"><li><button ng-model=\"vm.work.offlineAccess\" label=\"yes\" value=\"true\" selectable=\"selectable\" type=\"button\" class=\"big widest\"></button><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></li><li class=\"or\"><div class=\"house\">OR</div></li><li><button ng-model=\"vm.work.offlineAccess\" label=\"no\" value=\"false\" selectable=\"selectable\" type=\"button\" class=\"big widest\"></button><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></li></ul></div><button type=\"button\" scroll-element=\"personal-info\" class=\"wider continue\">continue</button></div><div full-height=\"full-height\" class=\"full-height\"><div id=\"personal-info\" class=\"interactive\"><h2>Personal information</h2><p>Is there any level of personal information? (stored or transmitted)</p><ul class=\"or-choices\"><li><button ng-model=\"vm.work.usesPersonalInformation\" label=\"yes\" value=\"true\" selectable=\"selectable\" type=\"button\" class=\"big widest\"></button><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></li><li class=\"or\"><div class=\"house\">OR</div></li><li><button ng-model=\"vm.work.usesPersonalInformation\" label=\"no\" value=\"false\" selectable=\"selectable\" type=\"button\" class=\"big widest\"></button><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></li></ul></div><button type=\"button\" scroll-element=\"security-level\" class=\"wider continue\">continue</button></div><div full-height=\"full-height\" class=\"full-height\"><div id=\"security-level\" class=\"security interactive\"><h2>What level of <strong>security do you need</strong>?</h2><ul class=\"selectable-choices\"><li><div class=\"img\"></div><label>No security</label><button selectable=\"selectable\" type=\"button\" ng-model=\"vm.work.securityLevel\" value=\"vm.securityLevels.none\"></button></li><li><div class=\"img\"></div><label>Minimal security</label><button selectable=\"selectable\" type=\"button\" ng-model=\"vm.work.securityLevel\" value=\"vm.securityLevels.minimal\"></button></li><li><div class=\"img\"></div><label>Complete security</label><button selectable=\"selectable\" type=\"button\" ng-model=\"vm.work.securityLevel\" value=\"vm.securityLevels.complete\"></button></li></ul></div><button type=\"button\" scroll-element=\"third-party-integrations\" class=\"wider continue\">continue</button></div><div full-height=\"full-height\" class=\"full-height\"><div id=\"third-party-integrations\" class=\"interactive\"><h2>How many 3rd party integrations</strong>?</h2><p>Enter the number of 3rd party integrations so we can estimate effort involved.</p><input type=\"number\" min=\"1\" max=\"6\" ng-model=\"vm.work.numberOfApiIntegrations\"/></div><div class=\"buttons\"><button ng-click=\"vm.save(false)\" class=\"continue wider save\">save</button><button ng-click=\"vm.save(true)\" class=\"contine wider kick-off action\">kick off project</button></div></div></form>");}]);
 (function() {
   'use strict';
-  var Service, noop, stripMeta, wrapWithMeta;
+  var Optimist;
 
-  Service = function() {};
-
-  noop = function() {};
-
-  wrapWithMeta = function(model, meta) {
-    var metaTemplate, metaToApply;
-    metaTemplate = {
-      pending: false,
-      error: null,
-      propsUpdated: {},
-      propsPending: {},
-      propsErrored: {}
+  Optimist = function() {
+    var fetchOne, noop, restore, save, stripMeta, update, updateLocal, wrapWithMeta;
+    noop = function() {};
+    wrapWithMeta = function(model, meta) {
+      var metaTemplate, metaToApply;
+      metaTemplate = {
+        pending: false,
+        error: null,
+        propsUpdated: {},
+        propsPending: {},
+        propsErrored: {}
+      };
+      metaToApply = meta || metaTemplate;
+      if (!model.o) {
+        return model.o = metaToApply;
+      }
     };
-    metaToApply = meta || metaTemplate;
-    if (!model.o) {
-      return model.o = metaToApply;
-    }
-  };
-
-  stripMeta = function(model) {
-    var meta;
-    meta = model.o;
-    if (model.o) {
-      delete model.o;
-    }
-    return meta;
-  };
-
-  Service.prototype.fetchOne = function(options) {
-    var apiCall, clearErrorsOnSuccess, handleResponse, model, request, updateCallback, updates;
-    model = options.model || {};
-    updates = options.updates || [];
-    apiCall = options.apiCall || noop;
-    updateCallback = options.updateCallback || noop;
-    handleResponse = options.handleResponse !== false;
-    clearErrorsOnSuccess = options.clearErrorsOnSuccess !== false;
-    wrapWithMeta(model);
-    model.o.pending = true;
-    updateCallback(model);
-    request = apiCall();
-    request.then(function(response) {
-      var name, now, prop;
-      now = new Date();
-      model.o.lastUpdated = now.toISOString();
-      if (clearErrorsOnSuccess) {
-        model.o.error = null;
+    stripMeta = function(model) {
+      var meta;
+      meta = model.o;
+      if (model.o) {
+        delete model.o;
       }
-      for (name in response) {
-        prop = response[name];
-        if (response.propertyIsEnumerable(name)) {
-          model[name] = prop;
+      return meta;
+    };
+    fetchOne = function(options) {
+      var apiCall, clearErrorsOnSuccess, handleResponse, model, request, updateCallback, updates;
+      model = options.model || {};
+      updates = options.updates || [];
+      apiCall = options.apiCall || noop;
+      updateCallback = options.updateCallback || noop;
+      handleResponse = options.handleResponse !== false;
+      clearErrorsOnSuccess = options.clearErrorsOnSuccess !== false;
+      wrapWithMeta(model);
+      model.o.pending = true;
+      updateCallback(model);
+      request = apiCall();
+      request.then(function(response) {
+        var name, now, prop;
+        now = new Date();
+        model.o.lastUpdated = now.toISOString();
+        if (clearErrorsOnSuccess) {
+          model.o.error = null;
         }
-      }
-      if (model.$promise) {
-        delete model.$promise;
-      }
-      if (model.$resolved) {
-        delete model.$resolved;
-      }
-      return response;
-    });
-    request["catch"](function(err) {
-      return model.o.error = err;
-    });
-    return request["finally"](function() {
-      model.o.pending = false;
-      return updateCallback(model);
-    });
-  };
-
-  Service.prototype.updateLocal = function(options) {
-    var model, name, prop, updateCallback, updates;
-    model = options.model || {};
-    updates = options.updates || [];
-    updateCallback = options.updateCallback || noop;
-    wrapWithMeta(model);
-    for (name in updates) {
-      prop = updates[name];
-      model[name] = prop;
-    }
-    return updateCallback(model);
-  };
-
-  Service.prototype.restore = function(options) {};
-
-  Service.prototype.update = function(options) {
-    Service.prototype.updateLocal(options);
-    return Service.prototype.save(options);
-  };
-
-  Service.prototype.save = function(options) {
-    var apiCall, clearErrorsOnSuccess, handleResponse, meta, model, name, prop, request, rollbackOnFailure, updateCallback, updates;
-    model = options.model || {};
-    updates = options.updates;
-    apiCall = options.apiCall || noop;
-    updateCallback = options.updateCallback || noop;
-    handleResponse = options.handleResponse !== false;
-    clearErrorsOnSuccess = options.clearErrorsOnSuccess !== false;
-    rollbackOnFailure = options.rollbackOnFailure || false;
-    meta = stripMeta(model);
-    request = apiCall(angular.copy(model));
-    wrapWithMeta(model, meta);
-    for (name in updates) {
-      prop = updates[name];
-      model.o.propsPending[name] = true;
-    }
-    updateCallback(model);
-    request.then(function(response) {
-      var now, results;
-      now = new Date();
-      model.o.lastUpdated = now.toISOString();
-      if (clearErrorsOnSuccess) {
-        model.o.propsErrored = {};
-      }
-      if (handleResponse) {
-        results = [];
-        for (name in updates) {
-          prop = updates[name];
-          results.push(model[name] = response[name]);
+        for (name in response) {
+          prop = response[name];
+          if (response.propertyIsEnumerable(name)) {
+            model[name] = prop;
+          }
         }
-        return results;
-      }
-    });
-    request["catch"](function(err) {
-      var results;
-      if (rollbackOnFailure) {
-        Service.prototype.restore(options);
-      }
-      results = [];
+        if (model.$promise) {
+          delete model.$promise;
+        }
+        if (model.$resolved) {
+          delete model.$resolved;
+        }
+        return response;
+      });
+      request["catch"](function(err) {
+        return model.o.error = err;
+      });
+      return request["finally"](function() {
+        model.o.pending = false;
+        return updateCallback(model);
+      });
+    };
+    updateLocal = function(options) {
+      var model, name, prop, updateCallback, updates;
+      model = options.model || {};
+      updates = options.updates || [];
+      updateCallback = options.updateCallback || noop;
+      wrapWithMeta(model);
       for (name in updates) {
         prop = updates[name];
         model[name] = prop;
-        results.push(model.o.errors[name] = err);
-      }
-      return results;
-    });
-    return request["finally"](function() {
-      for (name in updates) {
-        prop = updates[name];
-        delete model.o.pending[name];
       }
       return updateCallback(model);
-    });
+    };
+    restore = function(options) {};
+    update = function(options) {
+      updateLocal(options);
+      return save(options);
+    };
+    save = function(options) {
+      var apiCall, clearErrorsOnSuccess, handleResponse, meta, model, name, prop, request, rollbackOnFailure, updateCallback, updates;
+      model = options.model || {};
+      updates = options.updates;
+      apiCall = options.apiCall || noop;
+      updateCallback = options.updateCallback || noop;
+      handleResponse = options.handleResponse !== false;
+      clearErrorsOnSuccess = options.clearErrorsOnSuccess !== false;
+      rollbackOnFailure = options.rollbackOnFailure || false;
+      meta = stripMeta(model);
+      request = apiCall(angular.copy(model));
+      wrapWithMeta(model, meta);
+      for (name in updates) {
+        prop = updates[name];
+        model.o.propsPending[name] = true;
+      }
+      updateCallback(model);
+      request.then(function(response) {
+        var now, results;
+        now = new Date();
+        model.o.lastUpdated = now.toISOString();
+        if (clearErrorsOnSuccess) {
+          model.o.propsErrored = {};
+        }
+        if (handleResponse) {
+          results = [];
+          for (name in updates) {
+            prop = updates[name];
+            results.push(model[name] = response[name]);
+          }
+          return results;
+        }
+      });
+      request["catch"](function(err) {
+        var results;
+        if (rollbackOnFailure) {
+          restore(options);
+        }
+        results = [];
+        for (name in updates) {
+          prop = updates[name];
+          model[name] = prop;
+          results.push(model.o.errors[name] = err);
+        }
+        return results;
+      });
+      return request["finally"](function() {
+        for (name in updates) {
+          prop = updates[name];
+          delete model.o.pending[name];
+        }
+        return updateCallback(model);
+      });
+    };
+    return {
+      wrapWithMeta: wrapWithMeta,
+      stripMeta: stripMeta,
+      fetchOne: fetchOne,
+      updateLocal: updateLocal,
+      restore: restore,
+      update: update,
+      save: save
+    };
   };
 
-  Service.$inject = ['$rootScope'];
+  Optimist.$inject = ['$rootScope'];
 
-  angular.module('appirio-tech-ng-submit-work').service('Optimist', Service);
+  angular.module('appirio-tech-ng-submit-work').factory('Optimist', Optimist);
 
 }).call(this);
 
@@ -256,6 +259,9 @@ $templateCache.put("views/submit-work-development.directive.html","<header><ul c
     if ($scope.workId) {
       localStorageKey = "recentSubmitWorkSection-" + $scope.workId;
       recent = localStorage[localStorageKey] || 'features';
+      $state.go("submit-work-" + recent, {
+        id: $scope.workId
+      });
     }
     vm.name = "";
     vm.devices = angular.copy(RequirementService.devices);
@@ -268,8 +274,12 @@ $templateCache.put("views/submit-work-development.directive.html","<header><ul c
       if (isValid(updates)) {
         vm.loading = true;
         return SubmitWorkService.create(updates).then(function() {
-          $rootScope.submitWorkAppName = updates.name;
-          return $state.go("submit-work-features");
+          var work;
+          $rootScope.currentAppName = updates.name;
+          work = SubmitWorkService.get();
+          return $state.go('submit-work-features', {
+            id: work.id
+          });
         });
       }
     };
@@ -476,7 +486,7 @@ $templateCache.put("views/submit-work-development.directive.html","<header><ul c
           return color.selected = true;
         }
       });
-      $rootScope.submitWorkAppName = work.name;
+      $rootScope.currentAppName = work.name;
       vm.projectType = work.projectType;
       vm.section = 2;
       return vm.numberOfSections = work.projectType === 'DESIGN_AND_CODE' ? 3 : 2;
@@ -668,7 +678,7 @@ $templateCache.put("views/submit-work-development.directive.html","<header><ul c
           });
         }
       });
-      $rootScope.submitWorkAppName = work.name;
+      $rootScope.currentAppName = work.name;
       vm.projectType = work.projectType;
       vm.section = 1;
       return vm.numberOfSections = work.projectType === 'DESIGN_AND_CODE' ? 3 : 2;
@@ -793,7 +803,7 @@ $templateCache.put("views/submit-work-development.directive.html","<header><ul c
         securityLevel: work.securityLevel,
         numberOfApiIntegrations: work.numberOfApiIntegrations
       };
-      $rootScope.submitWorkAppName = work.name;
+      $rootScope.currentAppName = work.name;
       vm.projectType = work.projectType;
       vm.section = 3;
       return vm.numberOfSections = 3;
@@ -854,13 +864,18 @@ $templateCache.put("views/submit-work-development.directive.html","<header><ul c
       return angular.copy(work);
     };
     service.create = function(updates) {
-      var apiCall, updateCallback;
+      var apiCall, id, interceptResponse, updateCallback;
+      id = null;
       work = angular.copy(workTemplate);
+      interceptResponse = function(res) {
+        return id = res.id;
+      };
       apiCall = function(model) {
-        return SubmitWorkAPIService.post({}, model).$promise;
+        return SubmitWorkAPIService.post({}, model).$promise.then(interceptResponse);
       };
       updateCallback = function(model) {
-        currentWorkId = model.id;
+        currentWorkId = id;
+        model.id = id;
         return emitUpdates();
       };
       return Optimist.update({
