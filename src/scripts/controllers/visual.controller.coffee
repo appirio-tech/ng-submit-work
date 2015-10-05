@@ -53,7 +53,7 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Opt
     updates = getUpdates()
 
     SubmitWorkService.save(updates).then ->
-      $state.go("submit-work-development")
+      $state.go "submit-work-development", { id: vm.workId }
 
   getUpdates = ->
     isSelected = (item) ->
@@ -71,7 +71,7 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Opt
     updates
 
   vm.navigateDevelopment = ->
-    $state.go("submit-work-development")
+      $state.go "submit-work-development", { id: vm.workId }
 
   updateButtons = ->
     currentIndex = vm.styleModals.indexOf vm.activeStyleModal
