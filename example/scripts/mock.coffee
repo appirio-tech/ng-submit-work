@@ -7,8 +7,7 @@ AutoConfigFakeServer.fakeServer.autoRespond = true
 fixtures = []
 
 for key, fixture of window.FIXTURES
-  # apiary/messaging14.json needs to be updated on apiary
-  fixtures.push fixture unless key == 'bower_components/appirio-tech-api-schemas/apiary/messaging14.json'
+  fixtures.push fixture
 
 AutoConfigFakeServer.consume fixtures
 
