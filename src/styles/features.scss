@@ -20,17 +20,12 @@ submit-work-features {
     }
 
     > main {
-      @include display(flex);
       @include align-items(stretch);
-      @include flex-grow(2);
 
       width: 100%;
       border-top: 1px solid $neutral-color-light;
 
       ul.features {
-        @include display(flex);
-        @include flex-direction(column);
-
         min-width       : 220px;
         background-color: $neutral-color-light;
         border-right    : 1px solid $neutral-color;
@@ -66,8 +61,6 @@ submit-work-features {
           }
 
           &:last-child {
-            @include flex-grow(2);
-
             position: relative;
 
             button {
@@ -99,17 +92,8 @@ submit-work-features {
       }
 
       ul.contents {
-        @include display(flex);
-        @include flex-direction(column);
-        @include flex-grow(2);
-
         li:first-child {
-          @include flex-grow(2);
-          @include display(flex);
-
           .example {
-            @include flex-grow(2);
-
             background-color: $neutral-color-light;
 
             .phone {
@@ -160,10 +144,10 @@ submit-work-features {
         }
 
         li:last-child {
-          @include flex-center(space-between);
+          @include justify-content(space-between);
 
           background-color: $white;
-          padding: $padding;
+          padding         : $padding;
           color           : $neutral-color-darkest;
           text-align      : center;
           height          : 60px;

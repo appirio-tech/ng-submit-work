@@ -14,9 +14,6 @@ submit-work-type {
   }
 
   ul.type {
-    @include flex-center(center);
-    @include align-items(flex-start);
-
     padding-right: 0;
     padding-bottom: 0;
     margin-top: $margin;

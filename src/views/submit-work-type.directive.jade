@@ -4,14 +4,14 @@ header
   p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
 form(ng-submit="vm.create()")
-  .flush-height(flush-height=true)
-    .interactive
+  .flush-height.flex-column(flush-height=true)
+    .interactive.flex-center.flex-grow
       input.wider(type="text" placeholder="Name your project..." required="true" ng-model="vm.name")
 
     button.wider.continue.action(type="button" scroll-element="platform-details") continue
 
-  .full-height(full-height=true)
-    .interactive(id="platform-details")
+  .full-height.flex-column(full-height=true)
+    .interactive.flex-center-column.flex-grow(id="platform-details")
       h2 IOS <strong>platform details</strong>
 
       ul.target-platforms
@@ -35,11 +35,11 @@ form(ng-submit="vm.create()")
 
     button.wider.continue.action(type="button" scroll-element="type-details") continue
 
-  .full-height(full-height=true)
-    .interactive(id="type-details")
+  .full-height.flex-column(full-height=true)
+    .interactive.flex-center-column.flex-grow(id="type-details")
       h2 What <strong>type of work</strong> are you looking for?
 
-      ul.type
+      ul.type.flex-center
         li(ng-repeat="projectType in vm.projectTypes")
           h4 {{projectType.name}}
 
@@ -56,10 +56,10 @@ form(ng-submit="vm.create()")
 
     button.wider.continue.action(type="button" scroll-element="brief-details") continue
 
-  .full-height.has-loader(full-height=true)
+  .full-height.flex-column.has-loader(full-height=true)
     loader(ng-if="vm.loading")
 
-    .interactive(id="brief-details")
+    .interactive.flex-center-column.flex-grow(id="brief-details")
       h2 Can you <strong>share a brief</strong> overview?
 
       textarea.brief(placeholder="E.g. I need a mobile HR application with social features to support my growing organization" ng-model="vm.brief")

@@ -11,8 +11,8 @@ header
 
   p Help us define the visual style of your mobile app.
 
-.flush-height(flush-height=true)
-  ul.interactive.selectable-choices(ng-class="{active: vm.showPaths}")
+.flush-height.flex-column(flush-height=true)
+  ul.interactive.flex-center-column.flex-grow.selectable-choices(ng-class="{active: vm.showPaths}")
     li
       .icon
 
@@ -70,7 +70,7 @@ modal.enter-url(show="vm.showUrlStylesModal" background-click-close=true)
       button.wider.action(type="submit") enter
 
 modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=true)
-  ul.nav
+  ul.nav.flex-center
     li
       button.clean(ng-click="vm.viewPrevious()") &lt;
 
@@ -89,7 +89,7 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
   main.fonts(ng-show="vm.activeStyleModal == 'fonts' ")
     h2 Tell us your <strong>font preference</strong>
 
-    ul.or-choices
+    ul.or-choices.flex-center
       li(ng-repeat-start="font in vm.fonts")
         h3 {{font.name}}
 
@@ -97,7 +97,7 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
 
         p {{font.description}}
 
-        ul.samples(ng-if="font.name == 'Serif' ")
+        ul.samples.flex-center(ng-if="font.name == 'Serif' ")
           li.baskerville Baskerville is a serif font.
 
           li.times Times New Roman is a serif font
@@ -105,7 +105,7 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
           li.courier Courier is a serif font.
 
 
-        ul.samples(ng-if="font.name == 'Sans Serif' ")
+        ul.samples.flex-center(ng-if="font.name == 'Sans Serif' ")
           li.sofia Sofia is a sans-serif font.
 
           li.arial Arial is a sans-serif font.

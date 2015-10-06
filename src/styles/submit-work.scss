@@ -25,18 +25,8 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
   }
 
   .flush-height, .full-height {
-    @include display(flex);
-    @include flex-direction(column);
-
     &.has-loader {
       position: relative;
-    }
-
-    .interactive {
-      @include flex-grow(1);
-      @include flex-center(center);
-      @include flex-direction(column);
-      @include align-items(center);
     }
 
     .selectable-choices {
@@ -53,7 +43,7 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
   }
 
   .navs {
-    @include flex-center(space-between);
+    @include justify-content(space-between);
 
     width: 400px;
     margin: $margin-small auto;
@@ -121,7 +111,6 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
   }
 
   ul.or-choices {
-    @include flex-center(center);
     @include flex-wrap(nowrap);
 
     margin-top: $margin;
@@ -158,8 +147,6 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
   }
 
   ul.selectable-choices {
-    @include flex-center(center);
-
     > li {
       margin: 0 $margin;
 

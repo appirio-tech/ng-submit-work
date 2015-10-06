@@ -39,7 +39,7 @@ submit-work-visuals {
 
   .choose-styles {
     .nav {
-      @include flex-center(space-between);
+      @include justify-content(space-between);
 
       width: 300px;
       margin: $margin;
@@ -73,25 +73,6 @@ submit-work-visuals {
         }
       }
 
-      .picker .samples {
-        @include flex-center(center, 2px);
-
-        width: 396px;
-
-        button {
-          height     : 120px;
-          width      : 70px;
-          color      : $neutral-color-dark;
-          font-size  : 36px;
-          font-weight: bold;
-          border     : none;
-        }
-
-        p {
-          margin-top: $margin-smallest;
-        }
-      }
-
       .swatches {
         h4 {
           margin-top: 0;
@@ -99,8 +80,6 @@ submit-work-visuals {
         }
 
         .samples {
-          @include flex-center(center, $margin);
-
           width: 396px;
           padding-top: $margin;
           padding-left: $margin;
