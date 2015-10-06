@@ -5,6 +5,7 @@ dependencies = [
   'ngResource'
   'app.constants'
   'appirio-tech-ng-api-services'
+  'appirio-tech-ng-optimist'
   'duScroll'
 ]
 

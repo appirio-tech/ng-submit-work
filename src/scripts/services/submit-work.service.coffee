@@ -1,10 +1,6 @@
 'use strict'
 
-srv = ($rootScope, Optimist, SubmitWorkAPIService) ->
-
-  service = {}
-  work = {}
-  # Used for caching
+SubmitWorkService = ($rootScope, Optimist, SubmitWorkAPIService) ->
   currentWorkId = null
 
   workTemplate =
@@ -29,62 +25,58 @@ srv = ($rootScope, Optimist, SubmitWorkAPIService) ->
   emitUpdates = ->
     $rootScope.$emit 'SubmitWorkService.work:changed'
 
-  service.get = ->
-    angular.copy work
+  createWork = ->
+    work = new Optimist.Model
+      data: workTemplate
+      updateCallback: emitUpdates
+      propsToIgnore: ['$promise', '$resolved']
 
-  service.create = (updates) ->
-    id   = null
-    work = angular.copy workTemplate
+  work = createWork()
 
+  get = ->
+    work.get()
+
+  create = (updates) ->
     interceptResponse = (res) ->
-      id = res.id
+      currentWorkId = res.id
 
     apiCall = (model) ->
       SubmitWorkAPIService.post({}, model).$promise.then(interceptResponse)
 
-    updateCallback = (model) ->
-      currentWorkId = id
-      model.id = id
-      emitUpdates()
-
-    Optimist.update
-      model: work
+    work.update
       updates: updates
       apiCall: apiCall
-      updateCallback: updateCallback
-      handleResponse: false
 
-  service.fetch = (workId) ->
+  fetch = (workId) ->
     if workId != currentWorkId
-      work = angular.copy workTemplate
+      work = createWork()
       currentWorkId = workId
 
-    params =
-      id: currentWorkId
-
     apiCall = () ->
+      params =
+        id: currentWorkId
+
       SubmitWorkAPIService.get(params).$promise
 
-    Optimist.fetchOne
-      model: work
+    work.fetch
       apiCall: apiCall
-      updateCallback: emitUpdates
 
-  service.save = (updates) ->
+  save = (updates) ->
     apiCall = (model) ->
       params =
         id: currentWorkId
 
       SubmitWorkAPIService.put(params, model).$promise
 
-    Optimist.update
-      model: work
+    work.update
       updates: updates
       apiCall: apiCall
-      updateCallback: emitUpdates
 
-  service
+  get    : get
+  create : create
+  fetch  : fetch
+  save   : save
 
-srv.$inject = ['$rootScope', 'Optimist', 'SubmitWorkAPIService']
+SubmitWorkService.$inject = ['$rootScope', 'Optimist', 'SubmitWorkAPIService']
 
-angular.module('appirio-tech-ng-submit-work').factory 'SubmitWorkService', srv
+angular.module('appirio-tech-ng-submit-work').factory 'SubmitWorkService', SubmitWorkService

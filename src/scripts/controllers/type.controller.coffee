@@ -30,7 +30,6 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, SubmitWorkService, Requi
 
         $state.go 'submit-work-features', { id: work.id }
 
-
   isValid = (updates) ->
     valid = true
 
