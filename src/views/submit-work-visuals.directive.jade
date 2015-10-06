@@ -86,7 +86,7 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
     li
       button.clean(ng-click="vm.viewNext()") &gt;
 
-  main.fonts(ng-show="vm.activeStyleModal == 'fonts' ")
+  main.fonts.flex-center-column.flex-grow(ng-show="vm.activeStyleModal == 'fonts' ")
     h2 Tell us your <strong>font preference</strong>
 
     ul.or-choices.flex-center
@@ -117,10 +117,10 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
       li.or(ng-repeat-end ng-if="font.name == 'Serif' ")
         .house OR
 
-  main.colors(ng-show="vm.activeStyleModal == 'colors' ")
+  main.colors.flex-center-column.flex-grow(ng-show="vm.activeStyleModal == 'colors' ")
     h2 Tell us <strong>the colors</strong> you like
 
-    ul
+    ul.flex-center
       li(ng-repeat="color in vm.colors")
         img(src="{{ color.imgUrl }}" width="150")
 
@@ -128,16 +128,16 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
 
         button(type="button" selectable=true ng-model="" value="")
 
-  main.icons(ng-show="vm.activeStyleModal == 'icons' ")
+  main.icons.flex-center-column.flex-grow(ng-show="vm.activeStyleModal == 'icons' ")
     h2 Tell us <strong>the icons</strong> you like
 
-    ul
+    ul.flex-center
       li(ng-repeat="icon in vm.icons")
         .icon
 
         p {{icon.name}}
 
-        p {{icon.description}}
+        p.description {{icon.description}}
 
         button(type="button" selectable=true ng-model="vm.icon" value="icon.id")
 

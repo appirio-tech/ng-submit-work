@@ -52,14 +52,12 @@ submit-work-visuals {
     }
 
     > main {
-      @include flex-grow(2);
-
       background-color: $neutral-color-light;
       width           : 100%;
       border-top      : 1px solid $neutral-color;
 
       h2 {
-        margin-top: $margin-big;
+        margin-top: 0;
       }
     }
 
@@ -96,11 +94,11 @@ submit-work-visuals {
 
     .icons, .colors {
       > ul {
-        @include flex-center(space-between);
-
-        margin: $margin-big;
+        margin: $margin;
 
         li {
+          margin: $margin;
+
            > .icon {
             height: 100px;
             width: 75px;
@@ -111,6 +109,10 @@ submit-work-visuals {
           p {
             font-size: $font-size;
             text-transform: uppercase;
+
+            &.description {
+              font-size: $font-size-small;
+            }
           }
 
           p, button {
