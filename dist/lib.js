@@ -39344,10 +39344,11 @@ angular.module('ui.router.state')
   var LayoutHeaderController;
 
   LayoutHeaderController = function($scope, $state, UserV3Service, WorkAPIService, ThreadsAPIService, AuthService, $rootScope) {
-    var activate, getNotificationCount, onProjectChange, onUserChange, vm;
+    var activate, getNotificationCount, onProjectChange, onUserChange, setState, vm;
     vm = this;
     vm.homeHref = $state.href('home');
     vm.workId = $scope.workId;
+    vm.isSubmitWork = false;
     getNotificationCount = function(id) {
       var queryParams, resource;
       queryParams = {
@@ -39385,9 +39386,15 @@ angular.module('ui.router.state')
     onProjectChange = function(newVal) {
       return vm.appName = newVal || '';
     };
+    setState = function(stateName) {
+      if (stateName === 'submit-work' || stateName === 'submit-work-features' || stateName === 'submit-work-visuals' || stateName === 'submit-work-development') {
+        return vm.isSubmitWork = true;
+      }
+    };
     activate = function() {
-      $scope.$watch('UserV3Service.getCurrentUser()', onUserChange);
-      return $rootScope.$watch('submitWorkAppName', onProjectChange);
+      $scope.$watch(UserV3Service.getCurrentUser, onUserChange);
+      $rootScope.$watch('currentAppName', onProjectChange);
+      return setState($state.current.name);
     };
     activate();
     return vm;
@@ -39474,6 +39481,7 @@ angular.module('ui.router.state')
     return {
       restrict: 'E',
       templateUrl: 'views/layout-project-nav.directive.html',
+      controller: 'ProjectNavController as vm',
       scope: {
         workId: '@workId'
       }
@@ -39486,9 +39494,40 @@ angular.module('ui.router.state')
 
 }).call(this);
 
-angular.module("appirio-tech-ng-work-layout").run(["$templateCache", function($templateCache) {$templateCache.put("views/layout-header.directive.html","<a ng-home-link=\"ng-home-link\" href=\"{{ vm.homeHref }}\" class=\"clean logo\">ASP</a><ul class=\"links\"><li><a ui-sref=\"view-work-multiple\">Dashboard</a></li><li class=\"projects\"><button focus-on-click=\"focus-on-click\" class=\"clean\">Projects &dtrif;</button><ul class=\"sublinks elevated\"><li><a ui-sref=\"submit-work\">Create New Project</a></li><li ng-repeat=\"project in vm.projects\"><a ui-sref=\"timeline({ workId: project.id })\">{{ project.name }}</a></li></ul></li><li ng-hide=\"vm.loggedIn\"><a ui-sref=\"login\">Log in</a></li><li ng-show=\"vm.loggedIn\" class=\"profile\"><button focus-on-click=\"focus-on-click\" class=\"clean\"><avatar></avatar></button><ul class=\"sublinks elevated\"><li><a ng-click=\"vm.logout()\">Logout</a></li><li><a ui-sref=\"submit-work\">Settings</a></li></ul></li><li ng-show=\"vm.loggedIn\" class=\"notifications\"><button type=\"button\" focus-on-click=\"focus-on-click\" class=\"clean\"><div ng-show=\"vm.unreadCount &gt; 0\" class=\"notification\">{{ vm.unreadCount }}</div></button><div class=\"popup elevated\"><threads subscriber-id=\"{{ vm.subscriberId }}\"></threads></div></li></ul><h1 class=\"app-name\">{{ vm.appName }}</h1>");
+(function() {
+  'use strict';
+  var ProjectNavController;
+
+  ProjectNavController = function($scope, $state, StepsAPIService) {
+    var activate, activateLink, vm;
+    vm = this;
+    vm.workId = $scope.workId;
+    activateLink = function() {
+      var isSubmission, stateName;
+      stateName = $state.current.name;
+      isSubmission = stateName === 'submissions' || stateName === 'final-designs' || stateName === 'final-designs' || stateName === 'final-fixes';
+      if (isSubmission) {
+        return vm.activeLink = 'submissions';
+      } else {
+        return vm.activeLink = stateName;
+      }
+    };
+    activate = function() {
+      activateLink();
+      return vm;
+    };
+    return activate();
+  };
+
+  ProjectNavController.$inject = ['$scope', '$state', 'StepsAPIService'];
+
+  angular.module('appirio-tech-ng-work-layout').controller('ProjectNavController', ProjectNavController);
+
+}).call(this);
+
+angular.module("appirio-tech-ng-work-layout").run(["$templateCache", function($templateCache) {$templateCache.put("views/layout-header.directive.html","<a ng-home-link=\"ng-home-link\" href=\"{{ vm.homeHref }}\" class=\"clean logo\">ASP</a><ul class=\"links\"><li ng-show=\"vm.loggedIn\"><a ui-sref=\"view-work-multiple\">Dashboard</a></li><li ng-show=\"vm.loggedIn\" class=\"projects\"><button focus-on-click=\"focus-on-click\" class=\"clean\">Projects &dtrif;</button><ul class=\"sublinks elevated\"><li><a ui-sref=\"submit-work\">Create New Project</a></li><li ng-repeat=\"project in vm.projects\"><a ui-sref=\"timeline({ workId: project.id })\">{{ project.name }}</a></li></ul></li><li ng-hide=\"vm.loggedIn\" class=\"login\"><a ui-sref=\"login\">Log in</a></li><li ng-show=\"vm.loggedIn\" class=\"profile\"><button focus-on-click=\"focus-on-click\" class=\"clean\"><avatar></avatar></button><ul class=\"sublinks elevated\"><li><a ng-click=\"vm.logout()\">Logout</a></li><li><a ui-sref=\"submit-work\">Settings</a></li></ul></li><li ng-show=\"vm.loggedIn\" class=\"notifications\"><button type=\"button\" focus-on-click=\"focus-on-click\" class=\"clean\"><div ng-show=\"vm.unreadCount &gt; 0\" class=\"notification\">{{ vm.unreadCount }}</div></button><div class=\"popup elevated\"><threads subscriber-id=\"{{ vm.subscriberId }}\"></threads></div></li></ul><h1 ng-if=\"vm.isSubmitWork\" class=\"app-name\">{{ vm.appName }}</h1>");
 $templateCache.put("views/layout-footer.directive.html","<footer class=\"layout-footer\"><ul><li><a ui-sref=\"register\">Sign up</a></li><li><a ui-sref=\"#\">Help</a></li><li><a ui-sref=\"#\">About</a></li></ul></footer>");
-$templateCache.put("views/layout-project-nav.directive.html","<ul><li class=\"active\"><a ui-sref=\"timeline({ workId: workId })\">Timeline</a></li><li><a ui-sref=\"submissions({ id: workId })\">Submissions</a></li><li><a ui-sref=\"messaging({ id: workId })\">Messaging</a></li><li><a ui-sref=\"project-requirements({ id: workId })\">Project reqs</a></li><li><a ui-sref=\"project-settings({ id: workId })\">Project settings</a></li></ul>");}]);
+$templateCache.put("views/layout-project-nav.directive.html","<ul><li ng-class=\"{active: vm.activeLink == \'timeline\'}\"><a ui-sref=\"timeline({ workId: vm.workId })\">Timeline</a></li><li ng-class=\"{active: vm.activeLink == \'submissions\'}\"><a ui-sref=\"submissions({ projectId: vm.workId })\">Submissions</a></li><li ng-class=\"{active: vm.activeLink == \'messaging\'}\"><a ui-sref=\"messaging({ id: vm.workId })\">Messaging</a></li><li ng-class=\"{active: vm.activeLink == \'project-requirements\'}\"><a ui-sref=\"project-requirements({ id: vm.workId })\">Project reqs</a></li><li ng-class=\"{active: vm.activeLink == \'project-settings\'}\"><a ui-sref=\"project-settings({ id: workId })\">Project settings</a></li></ul>");}]);
 (function() {
   'use strict';
   var dependencies;
@@ -39607,7 +39646,11 @@ $templateCache.put("views/layout-project-nav.directive.html","<ul><li class=\"ac
       rankedSubmissions = data;
     }
     transformedData = {
-      rankedSubmissions: rankedSubmissions
+      param: {
+        details: {
+          rankedSubmissions: rankedSubmissions
+        }
+      }
     };
     return JSON.stringify(transformedData);
   };
@@ -39620,7 +39663,11 @@ $templateCache.put("views/layout-project-nav.directive.html","<ul><li class=\"ac
       customerConfirmedRanks = data;
     }
     transformedData = {
-      customerConfirmedRanks: customerConfirmedRanks
+      param: {
+        details: {
+          customerConfirmedRanks: customerConfirmedRanks
+        }
+      }
     };
     return JSON.stringify(transformedData);
   };
@@ -39633,7 +39680,11 @@ $templateCache.put("views/layout-project-nav.directive.html","<ul><li class=\"ac
       customerAcceptedFixes = data;
     }
     transformedData = {
-      customerAcceptedFixes: customerAcceptedFixes
+      param: {
+        details: {
+          customerAcceptedFixes: customerAcceptedFixes
+        }
+      }
     };
     return JSON.stringify(transformedData);
   };
@@ -39834,12 +39885,20 @@ $templateCache.put("views/layout-project-nav.directive.html","<ul><li class=\"ac
 
 (function() {
   'use strict';
-  var srv, transformResponse;
+  var srv, transformIdOnlyResponse, transformResponse;
 
   transformResponse = function(response) {
     var parsed, ref;
     parsed = JSON.parse(response);
-    return (parsed != null ? (ref = parsed.result) != null ? ref.content : void 0 : void 0) || [];
+    return parsed != null ? (ref = parsed.result) != null ? ref.content : void 0 : void 0;
+  };
+
+  transformIdOnlyResponse = function(response) {
+    var parsed, ref;
+    parsed = JSON.parse(response);
+    return {
+      id: parsed != null ? (ref = parsed.result) != null ? ref.content : void 0 : void 0
+    };
   };
 
   srv = function($resource, API_URL) {
@@ -39851,17 +39910,16 @@ $templateCache.put("views/layout-project-nav.directive.html","<ul><li class=\"ac
     methods = {
       put: {
         method: 'PUT',
-        isArray: false,
-        transformResponse: transformResponse
+        transformResponse: transformIdOnlyResponse
       },
       post: {
         method: 'POST',
-        isArray: false,
-        transformResponse: transformResponse
+        transformResponse: transformIdOnlyResponse
       },
       get: {
-        method: 'GET',
-        isArray: true,
+        transformResponse: transformResponse
+      },
+      query: {
         transformResponse: transformResponse
       }
     };
@@ -40766,11 +40824,37 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
   dependencies = ['ngResource', 'app.constants', 'ui.router', 'angular-storage', 'angular-jwt', 'auth0', 'appirio-tech-ng-api-services'];
 
   config = function($httpProvider, jwtInterceptorProvider, authProvider, AUTH0_DOMAIN, AUTH0_CLIENT_ID) {
-    var jwtInterceptor, logout;
-    jwtInterceptor = function(TokenService) {
-      return TokenService.getToken();
+    var jwtInterceptor, logout, refreshingToken;
+    refreshingToken = null;
+    jwtInterceptor = function(TokenService, $http, API_URL) {
+      var currentToken, handleRefreshResponse, refreshingTokenComplete;
+      currentToken = TokenService.getToken();
+      handleRefreshResponse = function(res) {
+        var newToken, ref, ref1, ref2;
+        newToken = (ref = res.data) != null ? (ref1 = ref.result) != null ? (ref2 = ref1.content) != null ? ref2.token : void 0 : void 0 : void 0;
+        TokenService.setToken(newToken);
+        return newToken;
+      };
+      refreshingTokenComplete = function() {
+        return refreshingToken = null;
+      };
+      if (TokenService.tokenIsValid() && TokenService.tokenIsExpired()) {
+        if (refreshingToken === null) {
+          config = {
+            method: 'GET',
+            url: API_URL + "/v3/authorizations/1",
+            headers: {
+              'Authorization': "Bearer " + currentToken
+            }
+          };
+          refreshingToken = $http(config).then(handleRefreshResponse)["finally"](refreshingTokenComplete);
+        }
+        return refreshingToken;
+      } else {
+        return currentToken;
+      }
     };
-    jwtInterceptor.$inject = ['TokenService'];
+    jwtInterceptor.$inject = ['TokenService', '$http', 'API_URL'];
     jwtInterceptorProvider.tokenGetter = jwtInterceptor;
     $httpProvider.interceptors.push('jwtInterceptor');
     authProvider.init({
@@ -40785,36 +40869,13 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
     return authProvider.on('logout', logout);
   };
 
-  run = function($rootScope, $injector, $state, auth, TokenService, AuthService) {
-    var checkAuth, checkRedirect;
-    auth.hookEvents();
-    checkRedirect = function() {
-      var isProtected, notLoggedIn;
-      isProtected = !toState.data || (toState.data && !toState.data.noAuthRequired);
-      notLoggedIn = !AuthService.isAuthenticated();
-      if (isProtected && notLoggedIn) {
-        $rootScope.preAuthState = toState.name;
-        event.preventDefault();
-        return $state.go('login');
-      }
-    };
-    return checkAuth = function(event, toState) {
-      var isInvalidToken;
-      isInvalidToken = TokenService.getToken() && !TokenService.tokenIsValid();
-      if (isInvalidToken) {
-        AuthService.refreshToken().then(function() {
-          return checkRedirect();
-        });
-      } else {
-        checkRedirect();
-      }
-      return $rootScope.$on('$stateChangeStart', checkAuth);
-    };
+  run = function(auth) {
+    return auth.hookEvents();
   };
 
   config.$inject = ['$httpProvider', 'jwtInterceptorProvider', 'authProvider', 'AUTH0_DOMAIN', 'AUTH0_CLIENT_ID'];
 
-  run.$inject = ['$rootScope', '$injector', '$state', 'auth', 'TokenService', 'AuthService'];
+  run.$inject = ['auth'];
 
   angular.module('appirio-tech-ng-auth', dependencies).config(config).run(run);
 
@@ -40824,7 +40885,7 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
   'use strict';
   var AuthService;
 
-  AuthService = function($rootScope, AuthorizationsAPIService, auth, store, TokenService) {
+  AuthService = function(AuthorizationsAPIService, auth, store, TokenService) {
     var exchangeToken, isAuthenticated, isLoggedIn, loggedIn, login, logout, refreshToken;
     loggedIn = null;
     isLoggedIn = function() {
@@ -40939,7 +41000,7 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
     };
   };
 
-  AuthService.$inject = ['$rootScope', 'AuthorizationsAPIService', 'auth', 'store', 'TokenService'];
+  AuthService.$inject = ['AuthorizationsAPIService', 'auth', 'store', 'TokenService'];
 
   angular.module('appirio-tech-ng-auth').factory('AuthService', AuthService);
 
@@ -40949,7 +41010,7 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
   'use strict';
   var TokenService;
 
-  TokenService = function($rootScope, $http, store, AUTH0_TOKEN_NAME, AUTH0_REFRESH_TOKEN_NAME, jwtHelper) {
+  TokenService = function(store, AUTH0_TOKEN_NAME, AUTH0_REFRESH_TOKEN_NAME, jwtHelper) {
     var decodeToken, deleteRefreshToken, deleteToken, getRefreshToken, getToken, setToken, storeRefreshToken, tokenIsExpired, tokenIsValid;
     getToken = function() {
       return store.get(AUTH0_TOKEN_NAME);
@@ -41007,7 +41068,7 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
     };
   };
 
-  TokenService.$inject = ['$rootScope', '$http', 'store', 'AUTH0_TOKEN_NAME', 'AUTH0_REFRESH_TOKEN_NAME', 'jwtHelper'];
+  TokenService.$inject = ['store', 'AUTH0_TOKEN_NAME', 'AUTH0_REFRESH_TOKEN_NAME', 'jwtHelper'];
 
   angular.module('appirio-tech-ng-auth').factory('TokenService', TokenService);
 
@@ -41703,6 +41764,200 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
 
 angular.module("ap-file-upload").run(["$templateCache", function($templateCache) {$templateCache.put("file.html","<div ng-class=\"{\'failed\': vm.file.hasErrors}\" class=\"uploader\"><div class=\"fileName\"><span>{{vm.file.name}}</span></div><div class=\"fileActions\"><button ng-show=\"vm.file.uploading\" ng-click=\"vm.file.cancel()\" type=\"button\">Cancel</button><button ng-show=\"!vm.file.uploading\" ng-click=\"vm.file.remove()\" type=\"button\">Remove</button><button ng-show=\"vm.file.hasErrors\" ng-click=\"vm.file.retry()\" type=\"button\">Retry</button><p ng-show=\"vm.file.hasErrors\">Upload Failed</p><progress ng-show=\"vm.file.uploading\" value=\"{{vm.file.progress}}\" max=\"100\">{{vm.file.progress}}%</progress></div></div>");
 $templateCache.put("uploader.html","<div class=\"uploaderWrapper\"><input ng-if=\"vm.allowMultiple\" multiple=\"\" type=\"file\" on-file-change=\"vm.uploader.add(fileList)\"/><input ng-if=\"!vm.allowMultiple\" type=\"file\" on-file-change=\"vm.uploader.add(fileList)\"/><ul class=\"uploaderFiles\"><li ng-repeat=\"file in vm.uploader.files\"><ap-file file=\"file\"></ap-file></li></ul></div>");}]);
+(function() {
+  'use strict';
+  var dependencies;
+
+  dependencies = [];
+
+  angular.module('appirio-tech-ng-optimist', dependencies);
+
+}).call(this);
+
+(function() {
+  'use strict';
+  var Optimist;
+
+  Optimist = function() {
+    var Model, metaTemplate;
+    metaTemplate = {
+      pending: false,
+      error: null,
+      propsUpdated: {},
+      propsPending: {},
+      propsErrored: {}
+    };
+    Model = function(options) {
+      var applyProps, clearErrors, data, defaults, meta, timestamp;
+      if (options == null) {
+        options = {};
+      }
+      data = options.data || {};
+      data = angular.copy(data);
+      meta = angular.copy(metaTemplate);
+      defaults = {
+        updateCallback: options.updateCallback || angular.noop,
+        propsToIgnore: options.propsToIgnore || []
+      };
+      clearErrors = function() {
+        meta.error = null;
+        return meta.propsErrored = {};
+      };
+      applyProps = function(options) {
+        var enumerable, ignore, ignored, include, includeAll, included, name, prop, results, source;
+        if (options == null) {
+          options = {};
+        }
+        source = options.source || [];
+        include = options.include || [];
+        ignore = options.ignore || [];
+        if (include.length === 0) {
+          includeAll = true;
+        }
+        results = [];
+        for (name in source) {
+          prop = source[name];
+          enumerable = source.propertyIsEnumerable(name);
+          included = include.indexOf(name) >= 0;
+          ignored = ignore.indexOf(name) >= 0;
+          if ((includeAll || included) && enumerable && !ignored) {
+            results.push(data[name] = prop);
+          } else {
+            results.push(void 0);
+          }
+        }
+        return results;
+      };
+      timestamp = function() {
+        var now;
+        now = new Date();
+        return meta.lastUpdated = now.toISOString();
+      };
+      this.hasPending = function() {
+        return meta.pending || meta.propsPending.keys;
+      };
+      this.get = function() {
+        var snapshot;
+        snapshot = angular.copy(data);
+        snapshot.o = angular.copy(meta);
+        return snapshot;
+      };
+      this.fetch = function(options) {
+        var apiCall, clearErrorsOnSuccess, handleResponse, propsToIgnore, request, updateCallback;
+        if (options == null) {
+          options = {};
+        }
+        apiCall = options.apiCall || angular.noop;
+        updateCallback = options.updateCallback || defaults.updateCallback;
+        handleResponse = options.handleResponse !== false;
+        clearErrorsOnSuccess = options.clearErrorsOnSuccess !== false;
+        propsToIgnore = options.propsToIgnore || defaults.propsToIgnore;
+        meta.pending = true;
+        updateCallback(data);
+        request = apiCall();
+        request.then(function(response) {
+          timestamp();
+          if (clearErrorsOnSuccess) {
+            clearErrors();
+          }
+          if (handleResponse) {
+            applyProps({
+              source: response,
+              ignore: propsToIgnore
+            });
+          }
+          return response;
+        });
+        request["catch"](function(err) {
+          return meta.error = err;
+        });
+        return request["finally"](function() {
+          meta.pending = false;
+          return updateCallback(data);
+        });
+      };
+      this.updateLocal = function(options) {
+        var updateCallback, updates;
+        if (options == null) {
+          options = {};
+        }
+        updates = options.updates || [];
+        updateCallback = options.updateCallback || defaults.updateCallback;
+        applyProps({
+          source: updates
+        });
+        return updateCallback(data);
+      };
+      this.restore = function() {};
+      this.update = function(options) {
+        if (options == null) {
+          options = {};
+        }
+        this.updateLocal(options);
+        return this.save(options);
+      };
+      this.save = function(options) {
+        var apiCall, clearErrorsOnSuccess, handleResponse, name, prop, request, rollbackOnFailure, updateCallback, updates;
+        if (options == null) {
+          options = {};
+        }
+        updates = options.updates;
+        apiCall = options.apiCall || angular.noop;
+        updateCallback = options.updateCallback || defaults.updateCallback;
+        handleResponse = options.handleResponse !== false;
+        clearErrorsOnSuccess = options.clearErrorsOnSuccess !== false;
+        rollbackOnFailure = options.rollbackOnFailure || false;
+        request = apiCall(data);
+        for (name in updates) {
+          prop = updates[name];
+          meta.propsPending[name] = true;
+        }
+        updateCallback(data);
+        request.then(function(response) {
+          timestamp();
+          if (clearErrorsOnSuccess) {
+            clearErrors();
+          }
+          if (handleResponse) {
+            return applyProps({
+              source: response,
+              include: Object.keys(updates)
+            });
+          }
+        });
+        request["catch"](function(err) {
+          var results;
+          if (rollbackOnFailure) {
+            this.restore(options);
+          }
+          results = [];
+          for (name in updates) {
+            prop = updates[name];
+            results.push(meta.propsErrored[name] = err);
+          }
+          return results;
+        });
+        return request["finally"](function() {
+          for (name in updates) {
+            prop = updates[name];
+            delete meta.propsPending[name];
+          }
+          return updateCallback(data);
+        });
+      };
+      return this;
+    };
+    return {
+      Model: Model
+    };
+  };
+
+  Optimist.$inject = ['$rootScope'];
+
+  angular.module('appirio-tech-ng-optimist').factory('Optimist', Optimist);
+
+}).call(this);
+
 (function() {
 
 
