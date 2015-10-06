@@ -56,7 +56,6 @@ submit-work-features {
                 .icon {
                   display         : inline-block;
                   margin-right    : $margin-smallest;
-                  background-color: $neutral-color;
 
                   &.selected {
                     background-color: $primary-color;
@@ -117,7 +116,7 @@ submit-work-features {
               width           : 250px;
               height          : 500px;
               margin          : $margin auto;
-              background-color: pink;
+              background-color: green;
             }
           }
         }
