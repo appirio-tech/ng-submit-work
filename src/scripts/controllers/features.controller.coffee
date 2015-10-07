@@ -1,20 +1,20 @@
 'use strict'
 
-SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWorkAPIService, API_URL, RequirementService) ->
+SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWorkAPIService, SubmitWorkUploaderService, RequirementService) ->
   if $scope.workId
     localStorageKey               = "recentSubmitWorkSection-#{$scope.workId}"
     localStorage[localStorageKey] = 'features'
 
-  vm                           = this
-  vm.workId                    = $scope.workId
-  vm.loading                   = true
-  vm.showFeaturesModal         = false
-  vm.showUploadModal           = false
-  vm.showDefineFeaturesForm    = false
-  vm.activeFeature             = null
-  vm.featuresUploaderUploading = null
-  vm.featuresUploaderHasErrors = null
-  vm.features                  = []
+  vm                         = this
+  vm.workId                  = $scope.workId
+  vm.loading                 = true
+  vm.showFeaturesModal       = false
+  vm.showUploadModal         = false
+  vm.showDefineFeaturesForm  = false
+  vm.activeFeature           = null
+  vm.uploaderUploading       = null
+  vm.uploaderHasErrors       = null
+  vm.features                = []
 
   config =
     customFeatureTemplate:
@@ -65,7 +65,7 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
       onChange()
 
   vm.save = ->
-    uploaderValid = !vm.featuresUploaderUploading && !vm.featuresUploaderHasErrors
+    uploaderValid = !vm.uploaderUploading && !vm.uploaderHasErrors
     updates       = getUpdates()
 
     if uploaderValid
@@ -88,34 +88,7 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
     updates
 
   configureUploader = ->
-    domain = API_URL
-    workId = vm.workId
-    category = 'work'
-    assetType = 'specs'
-
-    vm.featuresUploaderConfig =
-      name: 'uploader' + vm.workId
-      allowMultiple: true
-      query:
-        url: domain + '/v3/work-files/assets'
-        params:
-          filter: 'id=' + workId + '&assetType=' + assetType + '&category=' + category
-      presign:
-        url: domain + '/v3/work-files/uploadurl'
-        params:
-          id: workId
-          assetType: assetType
-          category: category
-      createRecord:
-        url: domain + '/v3/work-files'
-        params:
-          id: workId
-          assetType: assetType
-          category: category
-      removeRecord:
-        url: domain + '/v3/work-files/:fileId'
-        params:
-          filter: 'category=' + category
+    vm.uploaderConfig = SubmitWorkUploaderService.generateConfig vm.workId, 'features'
 
   onChange = ->
     work = SubmitWorkService.get()
@@ -162,6 +135,6 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
 
   vm
 
-SubmitWorkFeaturesController.$inject = ['$scope', '$rootScope', 'SubmitWorkService', 'SubmitWorkAPIService', 'API_URL', 'RequirementService']
+SubmitWorkFeaturesController.$inject = ['$scope', '$rootScope', 'SubmitWorkService', 'SubmitWorkAPIService', 'SubmitWorkUploaderService', 'RequirementService']
 
 angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkFeaturesController', SubmitWorkFeaturesController

@@ -1,23 +1,23 @@
 'use strict'
 
-SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Optimist, API_URL, RequirementService) ->
+SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Optimist, SubmitWorkUploaderService, RequirementService) ->
   if $scope.workId
     localStorageKey               = "recentSubmitWorkSection-#{$scope.workId}"
     localStorage[localStorageKey] = 'visuals'
 
-  vm                          = this
-  vm.workId                   = $scope.workId
-  vm.loading                  = true
-  vm.visualsUploaderUploading = null
-  vm.visualsUploaderHasErrors = null
-  vm.showPaths                = true
-  vm.showChooseStylesModal    = false
-  vm.showUploadStylesModal    = false
-  vm.showUrlStylesModal       = false
-  vm.activeStyleModal         = null
-  vm.nextButtonDisabled       = false
-  vm.backButtonDisabled       = false
-  vm.styleModals              = ['fonts', 'colors', 'icons']
+  vm                       = this
+  vm.workId                = $scope.workId
+  vm.loading               = true
+  vm.uploaderUploading     = null
+  vm.uploaderHasErrors     = null
+  vm.showPaths             = true
+  vm.showChooseStylesModal = false
+  vm.showUploadStylesModal = false
+  vm.showUrlStylesModal    = false
+  vm.activeStyleModal      = null
+  vm.nextButtonDisabled    = false
+  vm.backButtonDisabled    = false
+  vm.styleModals           = ['fonts', 'colors', 'icons']
 
   vm.showChooseStyles = ->
     vm.showPaths = false
@@ -88,34 +88,7 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Opt
       vm.showFinishDesignButton = false
 
   configureUploader = ->
-    domain = API_URL
-    workId = vm.workId
-    category = 'work'
-    assetType = 'specs'
-
-    vm.visualsUploaderConfig =
-      name: 'uploader' + vm.workId
-      allowMultiple: true
-      query:
-        url: domain + '/v3/work-files/assets'
-        params:
-          filter: 'id=' + workId + '&assetType=' + assetType + '&category=' + category
-      presign:
-        url: domain + '/v3/work-files/uploadurl'
-        params:
-          id: workId
-          assetType: assetType
-          category: category
-      createRecord:
-        url: domain + '/v3/work-files'
-        params:
-          id: workId
-          assetType: assetType
-          category: category
-      removeRecord:
-        url: domain + '/v3/work-files/:fileId'
-        params:
-          filter: 'category=' + category
+    vm.uploaderConfig = SubmitWorkUploaderService.generateConfig vm.workId, 'visuals'
 
   onChange = ->
     work = SubmitWorkService.get()
@@ -156,6 +129,6 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Opt
 
   activate()
 
-SubmitWorkVisualController.$inject = ['$scope', '$rootScope', '$state', 'SubmitWorkService', 'Optimist', 'API_URL', 'RequirementService']
+SubmitWorkVisualController.$inject = ['$scope', '$rootScope', '$state', 'SubmitWorkService', 'Optimist', 'SubmitWorkUploaderService', 'RequirementService']
 
 angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkVisualController', SubmitWorkVisualController

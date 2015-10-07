@@ -1,6 +1,6 @@
 'use strict'
 
-SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService, API_URL) ->
+SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService, SubmitWorkUploaderService) ->
   if $scope.workId
     localStorageKey               = "recentSubmitWorkSection-#{$scope.workId}"
     localStorage[localStorageKey] = 'development'
@@ -40,35 +40,7 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
         $state.go('view-work-multiple')
 
   configureUploader = ->
-    domain = API_URL
-    workId = vm.workId
-    category = 'work'
-    assetType = 'specs'
-
-    vm.uploaderConfig =
-      name: 'uploader' + vm.workId
-      allowMultiple: true
-      query:
-        url: domain + '/v3/work-files/assets'
-        params:
-          filter: 'id=' + workId + '&assetType=' + assetType + '&category=' + category
-      presign:
-        url: domain + '/v3/work-files/uploadurl'
-        params:
-          id: workId
-          assetType: assetType
-          category: category
-      createRecord:
-        url: domain + '/v3/work-files'
-        params:
-          id: workId
-          assetType: assetType
-          category: category
-      removeRecord:
-        url: domain + '/v3/work-files/:fileId'
-        params:
-          filter: 'category=' + category
-
+    vm.uploaderConfig = SubmitWorkUploaderService.generateConfig vm.workId, 'development'
 
   onChange = ->
     work = SubmitWorkService.get()
@@ -104,6 +76,6 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
 
   vm
 
-SubmitWorkDevelopmentController.$inject = ['$scope', '$rootScope', '$state', 'SubmitWorkService', 'API_URL']
+SubmitWorkDevelopmentController.$inject = ['$scope', '$rootScope', '$state', 'SubmitWorkService', 'SubmitWorkUploaderService']
 
 angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkDevelopmentController', SubmitWorkDevelopmentController
