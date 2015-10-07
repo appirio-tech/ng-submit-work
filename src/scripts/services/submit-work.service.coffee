@@ -40,6 +40,12 @@ SubmitWorkService = ($rootScope, Optimist, SubmitWorkAPIService) ->
     interceptResponse = (res) ->
       currentWorkId = res.id
 
+      work.updateLocal
+        updates:
+          id: res.id
+
+      res
+
     apiCall = (model) ->
       SubmitWorkAPIService.post({}, model).$promise.then(interceptResponse)
 
