@@ -38,8 +38,8 @@ describe 'SubmitWorkFeaturesController', ->
     expect(vm.showUploadModal).to.be.false
     expect(vm.showDefineFeaturesForm).to.be.false
     expect(vm.activeFeature).to.be.null
-    expect(vm.featuresUploaderUploading).to.be.null
-    expect(vm.featuresUploaderHasErrors).to.be.null
+    expect(vm.uploaderUploading).to.be.null
+    expect(vm.uploaderHasErrors).to.be.null
     expect(vm.features).to.be.an 'array'
 
     expect(vm.customFeature).to.have.all.keys 'id', 'title', 'description', 'notes', 'custom', 'fileIds'

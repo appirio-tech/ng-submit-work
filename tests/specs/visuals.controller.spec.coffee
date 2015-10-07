@@ -39,8 +39,8 @@ describe 'SubmitWorkVisualController', ->
     it 'should initialize work', ->
       expect(vm.workId).to.equal 'someIdString'
       expect(vm.loading).to.be.true
-      expect(vm.visualsUploaderUploading).to.be.null
-      expect(vm.visualsUploaderHasErrors).to.be.null
+      expect(vm.uploaderUploading).to.be.null
+      expect(vm.uploaderHasErrors).to.be.null
       expect(vm.showPaths).to.be.true
       expect(vm.showChooseStylesModal).to.be.false
       expect(vm.showUploadStylesModal).to.be.false
