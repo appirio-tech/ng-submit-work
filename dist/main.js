@@ -719,7 +719,13 @@ $templateCache.put("views/submit-work-development.directive.html","<header><ul c
     create = function(updates) {
       var apiCall, interceptResponse;
       interceptResponse = function(res) {
-        return currentWorkId = res.id;
+        currentWorkId = res.id;
+        work.updateLocal({
+          updates: {
+            id: res.id
+          }
+        });
+        return res;
       };
       apiCall = function(model) {
         return SubmitWorkAPIService.post({}, model).$promise.then(interceptResponse);
