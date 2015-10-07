@@ -39333,7 +39333,7 @@ angular.module('ui.router.state')
   'use strict';
   var dependencies;
 
-  dependencies = ['appirio-tech-ng-auth', 'appirio-tech-ng-api-services', 'appirio-tech-messaging', 'appirio-tech-ng-ui-components', 'duScroll'];
+  dependencies = ['appirio-tech-ng-auth', 'appirio-tech-ng-api-services', 'appirio-tech-ng-messaging', 'appirio-tech-ng-ui-components', 'duScroll'];
 
   angular.module('appirio-tech-ng-work-layout', dependencies);
 
@@ -39525,7 +39525,7 @@ angular.module('ui.router.state')
 
 }).call(this);
 
-angular.module("appirio-tech-ng-work-layout").run(["$templateCache", function($templateCache) {$templateCache.put("views/layout-header.directive.html","<a ng-home-link=\"ng-home-link\" href=\"{{ vm.homeHref }}\" class=\"clean logo\">ASP</a><ul class=\"links\"><li ng-show=\"vm.loggedIn\"><a ui-sref=\"view-work-multiple\">Dashboard</a></li><li ng-show=\"vm.loggedIn\" class=\"projects\"><button focus-on-click=\"focus-on-click\" class=\"clean\">Projects &dtrif;</button><ul class=\"sublinks elevated\"><li><a ui-sref=\"submit-work\">Create New Project</a></li><li ng-repeat=\"project in vm.projects\"><a ui-sref=\"timeline({ workId: project.id })\">{{ project.name }}</a></li></ul></li><li ng-hide=\"vm.loggedIn\" class=\"login\"><a ui-sref=\"login\">Log in</a></li><li ng-show=\"vm.loggedIn\" class=\"profile\"><button focus-on-click=\"focus-on-click\" class=\"clean\"><avatar></avatar></button><ul class=\"sublinks elevated\"><li><a ng-click=\"vm.logout()\">Logout</a></li><li><a ui-sref=\"submit-work\">Settings</a></li></ul></li><li ng-show=\"vm.loggedIn\" class=\"notifications\"><button type=\"button\" focus-on-click=\"focus-on-click\" class=\"clean\"><div ng-show=\"vm.unreadCount &gt; 0\" class=\"notification\">{{ vm.unreadCount }}</div></button><div class=\"popup elevated\"><threads subscriber-id=\"{{ vm.subscriberId }}\"></threads></div></li></ul><h1 ng-if=\"vm.isSubmitWork\" class=\"app-name\">{{ vm.appName }}</h1>");
+angular.module("appirio-tech-ng-work-layout").run(["$templateCache", function($templateCache) {$templateCache.put("views/layout-header.directive.html","<ul class=\"flex-center\"><li><a ng-home-link=\"ng-home-link\" href=\"{{ vm.homeHref }}\" class=\"clean logo\">ASP</a></li><li class=\"app-name\"><h4 ng-if=\"vm.isSubmitWork\">{{ vm.appName }}</h4></li><li><ul class=\"links\"><li ng-show=\"vm.loggedIn\"><a ui-sref=\"view-work-multiple\">Dashboard</a></li><li ng-show=\"vm.loggedIn\" class=\"projects\"><button focus-on-click=\"focus-on-click\" class=\"clean\">Projects &dtrif;</button><ul class=\"sublinks elevated\"><li><a ui-sref=\"submit-work\">Create New Project</a></li><li ng-repeat=\"project in vm.projects\"><a ui-sref=\"timeline({ workId: project.id })\"><div class=\"name\">{{ project.name }} a really long name</div><div class=\"notification\">123</div></a></li></ul></li><li ng-hide=\"vm.loggedIn\" class=\"login\"><a ui-sref=\"login\">Log in</a></li><li ng-show=\"vm.loggedIn\" class=\"profile\"><button focus-on-click=\"focus-on-click\" class=\"clean\"><avatar></avatar></button><ul class=\"sublinks elevated\"><li><a href=\"#\">View Profile</a></li><li><a ng-click=\"vm.logout()\">Logout</a></li><li><a ui-sref=\"submit-work\">Settings</a></li></ul></li><li ng-show=\"vm.loggedIn\" class=\"notifications\"><button type=\"button\" focus-on-click=\"focus-on-click\" class=\"clean\"><div ng-show=\"vm.unreadCount &gt; 0\" class=\"notification\">{{ vm.unreadCount }}</div></button><div class=\"popup elevated\"><threads subscriber-id=\"{{ vm.subscriberId }}\"></threads></div></li></ul></li></ul>");
 $templateCache.put("views/layout-footer.directive.html","<footer class=\"layout-footer\"><ul><li><a ui-sref=\"register\">Sign up</a></li><li><a ui-sref=\"#\">Help</a></li><li><a ui-sref=\"#\">About</a></li></ul></footer>");
 $templateCache.put("views/layout-project-nav.directive.html","<ul><li ng-class=\"{active: vm.activeLink == \'timeline\'}\"><a ui-sref=\"timeline({ workId: vm.workId })\">Timeline</a></li><li ng-class=\"{active: vm.activeLink == \'submissions\'}\"><a ui-sref=\"submissions({ projectId: vm.workId })\">Submissions</a></li><li ng-class=\"{active: vm.activeLink == \'messaging\'}\"><a ui-sref=\"messaging({ id: vm.workId })\">Messaging</a></li><li ng-class=\"{active: vm.activeLink == \'project-requirements\'}\"><a ui-sref=\"project-requirements({ id: vm.workId })\">Project reqs</a></li><li ng-class=\"{active: vm.activeLink == \'project-settings\'}\"><a ui-sref=\"project-settings({ id: workId })\">Project settings</a></li></ul>");}]);
 (function() {
@@ -39609,6 +39609,12 @@ $templateCache.put("views/layout-project-nav.directive.html","<ul><li ng-class=\
       id: '@id'
     };
     methods = {
+      post: {
+        method: 'POST'
+      },
+      patch: {
+        method: 'PATCH'
+      },
       put: {
         method: 'PUT'
       }
@@ -40018,7 +40024,7 @@ $templateCache.put("views/layout-project-nav.directive.html","<ul><li ng-class=\
 
   dependencies = ['ui.router', 'ngResource', 'app.constants', 'duScroll', 'appirio-tech-ng-ui-components', 'appirio-tech-ng-api-services'];
 
-  angular.module('appirio-tech-messaging', dependencies);
+  angular.module('appirio-tech-ng-messaging', dependencies);
 
 }).call(this);
 
@@ -40027,50 +40033,66 @@ $templateCache.put("views/layout-project-nav.directive.html","<ul><li ng-class=\
   var MessagingController;
 
   MessagingController = function($scope, MessagingService) {
-    var activate, getUserMessages, onChange, sendMessage, vm;
+    var activate, getUserThreads, onMessageChange, onThreadsChange, sendMessage, vm;
     vm = this;
     vm.currentUser = null;
-    onChange = function(messages) {
-      return vm.messaging = messages;
+    vm.activeThread = null;
+    vm.activateThread = function(thread) {
+      var i, len, message, params, ref, results;
+      vm.activeThread = thread;
+      if (thread.unreadCount > 0) {
+        params = {
+          id: thread.id,
+          subscriberId: $scope.subscriberId
+        };
+        ref = thread.messages;
+        results = [];
+        for (i = 0, len = ref.length; i < len; i++) {
+          message = ref[i];
+          results.push(MessagingService.markMessageRead(message, params));
+        }
+        return results;
+      }
+    };
+    onThreadsChange = function(threads) {
+      return vm.threads = threads.threads;
+    };
+    onMessageChange = function(message) {
+      vm.activeThread.messages.push(message);
+      vm.newMessage = '';
+      return $scope.showLast = 'scroll';
     };
     activate = function() {
-      vm.messaging = {
-        messages: []
-      };
       vm.newMessage = '';
-      $scope.$watch('threadId', function() {
-        return getUserMessages();
-      });
       $scope.$watch('subscriberId', function() {
-        return getUserMessages();
+        return getUserThreads();
       });
       vm.sendMessage = sendMessage;
       return vm;
     };
-    getUserMessages = function() {
+    getUserThreads = function() {
       var params;
       if ($scope.threadId && $scope.subscriberId) {
         params = {
-          id: $scope.threadId,
           subscriberId: $scope.subscriberId
         };
-        return MessagingService.getMessages(params, onChange);
+        return MessagingService.getThreads(params, onThreadsChange);
       }
     };
     sendMessage = function() {
-      var message;
-      if (vm.newMessage.length) {
+      var message, params;
+      if (vm.newMessage.length && vm.activeThread) {
         message = {
-          threadId: $scope.threadId,
+          threadId: vm.activeThread.id,
           body: vm.newMessage,
           publisherId: $scope.subscriberId,
           createdAt: moment(),
           attachments: []
         };
-        vm.messaging.messages.push(message);
-        MessagingService.postMessage(message, onChange);
-        vm.newMessage = '';
-        return $scope.showLast = 'scroll';
+        params = {
+          threadId: vm.activeThread.id
+        };
+        return MessagingService.postMessage(params, message, onMessageChange);
       }
     };
     return activate();
@@ -40078,7 +40100,7 @@ $templateCache.put("views/layout-project-nav.directive.html","<ul><li ng-class=\
 
   MessagingController.$inject = ['$scope', 'MessagingService'];
 
-  angular.module('appirio-tech-messaging').controller('MessagingController', MessagingController);
+  angular.module('appirio-tech-ng-messaging').controller('MessagingController', MessagingController);
 
 }).call(this);
 
@@ -40087,23 +40109,12 @@ $templateCache.put("views/layout-project-nav.directive.html","<ul><li ng-class=\
   var srv;
 
   srv = function(MessagesAPIService, ThreadsAPIService) {
-    var getMessages, markMessageRead, postMessage;
-    getMessages = function(params, onChange) {
-      var messaging, resource;
-      messaging = {
-        messages: [],
-        avatars: {}
-      };
+    var getThreads, markMessageRead, postMessage;
+    getThreads = function(params, onChange) {
+      var resource;
       resource = ThreadsAPIService.get(params);
       resource.$promise.then(function(response) {
-        var i, len, message, ref;
-        messaging.messages = response != null ? response.messages : void 0;
-        ref = messaging.messages;
-        for (i = 0, len = ref.length; i < len; i++) {
-          message = ref[i];
-          markMessageRead(message, params);
-        }
-        return typeof onChange === "function" ? onChange(messaging) : void 0;
+        return typeof onChange === "function" ? onChange(response) : void 0;
       });
       resource.$promise["catch"](function() {});
       return resource.$promise["finally"](function() {});
@@ -40115,27 +40126,29 @@ $templateCache.put("views/layout-project-nav.directive.html","<ul><li ng-class=\
       };
       putParams = {
         read: true,
-        subscriberId: params.subscriberId,
-        threadId: params.id
+        subscriberId: params.subscriberId
       };
       return MessagesAPIService.put(queryParams, putParams);
     };
-    postMessage = function(message, onChange) {
+    postMessage = function(params, message, onChange) {
       var resource;
-      resource = MessagesAPIService.save(message);
-      resource.$promise.then(function(response) {});
+      resource = MessagesAPIService.post(message);
+      resource.$promise.then(function(response) {
+        return typeof onChange === "function" ? onChange(message) : void 0;
+      });
       resource.$promise["catch"](function(response) {});
       return resource.$promise["finally"](function() {});
     };
     return {
-      getMessages: getMessages,
-      postMessage: postMessage
+      getThreads: getThreads,
+      postMessage: postMessage,
+      markMessageRead: markMessageRead
     };
   };
 
   srv.$inject = ['MessagesAPIService', 'ThreadsAPIService'];
 
-  angular.module('appirio-tech-messaging').factory('MessagingService', srv);
+  angular.module('appirio-tech-ng-messaging').factory('MessagingService', srv);
 
 }).call(this);
 
@@ -40180,7 +40193,7 @@ $templateCache.put("views/layout-project-nav.directive.html","<ul><li ng-class=\
 
   directive.$inject = ['MessagingService'];
 
-  angular.module('appirio-tech-messaging').directive('messaging', directive);
+  angular.module('appirio-tech-ng-messaging').directive('messaging', directive);
 
 }).call(this);
 
@@ -40202,7 +40215,7 @@ $templateCache.put("views/layout-project-nav.directive.html","<ul><li ng-class=\
 
   directive.$inject = ['MessagingService'];
 
-  angular.module('appirio-tech-messaging').directive('threads', directive);
+  angular.module('appirio-tech-ng-messaging').directive('threads', directive);
 
 }).call(this);
 
@@ -40237,7 +40250,7 @@ $templateCache.put("views/layout-project-nav.directive.html","<ul><li ng-class=\
 
   srv.$inject = ['ThreadsAPIService'];
 
-  angular.module('appirio-tech-messaging').factory('ThreadsService', srv);
+  angular.module('appirio-tech-ng-messaging').factory('ThreadsService', srv);
 
 }).call(this);
 
@@ -40277,7 +40290,7 @@ $templateCache.put("views/layout-project-nav.directive.html","<ul><li ng-class=\
 
   ThreadsController.$inject = ['$scope', 'ThreadsService'];
 
-  angular.module('appirio-tech-messaging').controller('ThreadsController', ThreadsController);
+  angular.module('appirio-tech-ng-messaging').controller('ThreadsController', ThreadsController);
 
 }).call(this);
 
@@ -40291,12 +40304,12 @@ $templateCache.put("views/layout-project-nav.directive.html","<ul><li ng-class=\
     };
   };
 
-  angular.module('appirio-tech-messaging').filter('timeLapse', filter);
+  angular.module('appirio-tech-ng-messaging').filter('timeLapse', filter);
 
 }).call(this);
 
-angular.module("appirio-tech-messaging").run(["$templateCache", function($templateCache) {$templateCache.put("views/messaging.directive.html","<ul class=\"messages\"><li ng-repeat=\"message in vm.messaging.messages track by $index\"><avatar avatar-url=\"{{ vm.messaging.avatars[message.publisherId] }}\"></avatar><div class=\"message\"><p>{{ message.body }}</p><ul class=\"attachments\"><li ng-repeat=\"attachment in message.attachments track by $index\"><a href=\"#\">{{ message.attachments.originalUrl }}</a></li></ul><time>{{ message.createdAt | timeLapse }}</time></div></li><a id=\"messaging-bottom-{{ vm.threadId }}\"></a></ul><form ng-submit=\"vm.sendMessage()\"><textarea placeholder=\"Send a message&hellip;\" ng-model=\"vm.newMessage\"></textarea><button type=\"submit\" class=\"enter\">Enter</button><button type=\"button\" class=\"attach\"><div class=\"icon\"></div><span>Add Attachment</span></button></form>");
-$templateCache.put("views/threads.directive.html","<ul><li ng-repeat=\"thread in vm.threads track by $index\"><a ui-sref=\"messaging({ id: thread.id })\"><header><h4>{{ thread.subject }}</h4><time>{{ thread.messages[0].createdAt | timeLapse }}</time></header><main><avatar avatar-url=\"{{ vm.avatars[thread.messages[0].publisherId]  }}\"></avatar><div ng-show=\"thread.unreadCount &gt; 0\" class=\"notification\">{{ thread.unreadCount }}</div><div class=\"message\"><div class=\"co-pilot\">{{ thread.messages[0].publisherId }}:</div><p>{{ thread.messages[0].body }}</p></div></main></a></li></ul><div ng-show=\"vm.threads.length == 0\" class=\"none\">None</div>");}]);
+angular.module("appirio-tech-ng-messaging").run(["$templateCache", function($templateCache) {$templateCache.put("views/messaging.directive.html","<aside><h6>Project contributors</h6><ul><li ng-repeat=\"thread in vm.threads\"><a href=\"#\" ng-click=\"vm.activateThread(thread)\" ng-class=\"{active: vm.activeThread.id == thread.id}\"><avatar></avatar><div class=\"name-title\"><div class=\"name\">{{thread.publishers[0]}}</div><div class=\"title\">Development Co-Pilot</div></div><div class=\"notification\">{{thread.unreadCount}}</div></a></li></ul></aside><main class=\"flex-center-column flex-grow\"><h1>Messaging</h1><p>You have {{vm.activeThread.messages.length}} messages with {{vm.activeThread.publishers[0]}}</p><ul class=\"messages flex-grow\"><li ng-repeat=\"message in vm.activeThread.messages track by $index\"><avatar avatar-url=\"{{ vm.activeThread[publisherId] }}\"></avatar><div class=\"message elevated-bottom\"><a href=\"#\" class=\"name\">{{vm.activeThread.publishers[0]}}</a><time>{{ message.createdAt | timeLapse }}</time><p class=\"title\">Co-Pilot</p><p>{{ message.body }}</p><ul class=\"attachments\"><li ng-repeat=\"attachment in message.attachments track by $index\"><a href=\"#\">{{ message.attachments.originalUrl }}</a></li></ul><a class=\"download\"><div class=\"icon download smallest\"></div><p>Download all images</p></a></div></li><a id=\"messaging-bottom-{{ vm.threadId }}\"></a></ul><div class=\"respond\"><div class=\"icon warning\"></div><form ng-submit=\"vm.sendMessage()\"><textarea placeholder=\"Send a message&hellip;\" ng-model=\"vm.newMessage\"></textarea><button type=\"submit\" class=\"wider action\">reply</button></form></div></main>");
+$templateCache.put("views/threads.directive.html","<ul><li ng-repeat=\"thread in vm.threads track by $index\"><a ui-sref=\"messaging({ id: thread.id })\" class=\"unread\"><div class=\"app-name\">App name goes here</div><div class=\"sender\"><avatar avatar-url=\"{{ vm.avatars[thread.messages[0].publisherId]  }}\"></avatar><div class=\"name\">this is a very very very long name</div><time>{{ thread.messages[0].createdAt | timeLapse }}</time></div><p class=\"message\">{{ thread.messages[0].body }}</p></a></li></ul><div ng-show=\"vm.threads.length == 0\" class=\"none\">None</div>");}]);
 (function() {
   'use strict';
   var dependencies;
@@ -41565,7 +41578,6 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
       var status = this._xhr.status;
 
       if ((status >= 200 && status < 300) || status === 304) {
-        this.preSignedURL = preSignedURL;
         deferred.resolve()
       } else {
         deferred.reject('File upload to S3 failed: ' + status);
@@ -41779,7 +41791,7 @@ $templateCache.put("uploader.html","<div class=\"uploaderWrapper\"><input ng-if=
   var Optimist;
 
   Optimist = function() {
-    var Model, metaTemplate;
+    var Collection, Model, metaTemplate;
     metaTemplate = {
       pending: false,
       error: null,
@@ -41821,7 +41833,7 @@ $templateCache.put("uploader.html","<div class=\"uploaderWrapper\"><input ng-if=
           included = include.indexOf(name) >= 0;
           ignored = ignore.indexOf(name) >= 0;
           if ((includeAll || included) && enumerable && !ignored) {
-            results.push(data[name] = prop);
+            results.push(data[name] = angular.copy(prop));
           } else {
             results.push(void 0);
           }
@@ -41947,8 +41959,80 @@ $templateCache.put("uploader.html","<div class=\"uploaderWrapper\"><input ng-if=
       };
       return this;
     };
+    Collection = function(options) {
+      var clearErrors, collection, defaults, meta, timestamp;
+      if (options == null) {
+        options = {};
+      }
+      collection = [];
+      meta = angular.copy(metaTemplate);
+      defaults = {
+        updateCallback: options.updateCallback || angular.noop,
+        matchByProp: options.matchByProp || 'id'
+      };
+      timestamp = function() {
+        var now;
+        now = new Date();
+        return meta.lastUpdated = now.toISOString();
+      };
+      clearErrors = function() {
+        meta.error = null;
+        return meta.propsErrored = {};
+      };
+      this.get = function() {
+        return collection.map(function(item) {
+          return item.get();
+        });
+      };
+      this.fetch = function(options) {
+        var apiCall, clearErrorsOnSuccess, request, updateCallback;
+        if (options == null) {
+          options = {};
+        }
+        apiCall = options.apiCall || angular.noop;
+        updateCallback = options.updateCallback || defaults.updateCallback;
+        clearErrorsOnSuccess = options.clearErrorsOnSuccess !== false;
+        meta.pending = true;
+        updateCallback(collection);
+        request = apiCall();
+        request.then(function(response) {
+          timestamp();
+          if (clearErrorsOnSuccess) {
+            clearErrors();
+          }
+          collection = response.map(function(item) {
+            return new Model({
+              data: item
+            });
+          });
+          return response;
+        });
+        request["catch"](function(err) {
+          return meta.error = err;
+        });
+        return request["finally"](function() {
+          meta.pending = false;
+          return updateCallback(collection);
+        });
+      };
+      this.findWhere = function(filters) {
+        return collection.filter(function(ref) {
+          var item, name, value;
+          item = ref.get();
+          for (name in filters) {
+            value = filters[name];
+            if (item[name] !== value) {
+              return false;
+            }
+          }
+          return true;
+        });
+      };
+      return this;
+    };
     return {
-      Model: Model
+      Model: Model,
+      Collection: Collection
     };
   };
 
