@@ -1,6 +1,6 @@
 @import "work-includes";
 
-submit-work-type, submit-work-features, submit-work-visuals, submit-work-development {
+submit-work-type, submit-work-features, submit-work-visuals, submit-work-development, submit-work-complete {
   display: block;
   text-align: center;
 
@@ -70,7 +70,7 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
     margin-top: $margin-big
   }
 
-  header {
+  > header {
     background-color: $neutral-color-darkest;
     padding: 0 $padding $padding-big $padding;
 

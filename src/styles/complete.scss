@@ -1,0 +1,75 @@
+@import "work-includes";
+
+submit-work-complete {
+  header {
+    > * {
+      margin-top: $margin-small;
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    p {
+      @include font-line($font-size);
+
+      width: 50%;
+    }
+
+    .app-name {
+      color: $primary-color;
+    }
+
+    .icon-house {
+      background-color: $primary-color;
+      padding: $padding;
+      border-radius: 50%;
+    }
+  }
+
+  footer {
+    @include align-items(stretch);
+
+    background-color: $primary-color;
+    color           : $white;
+    width           : 100%;
+    padding         : $padding-biggest;
+    text-transform  : uppercase;
+
+    .estimate, .cost {
+      width: 49%;
+      float: left;
+    }
+
+    table {
+      margin: $margin-small auto;
+
+      td {
+        padding    : $padding-small $padding;
+        border-left: 1px solid $neutral-color;
+
+        &:first-child {
+          border-left: 0;
+        }
+      }
+
+      thead {
+        border-bottom: 1px solid $neutral-color;
+        font-weight: bold;
+      }
+    }
+
+    .divider {
+      width: 2%;
+      float: left;
+
+      .border {
+        @include align-items(stretch);
+
+        width: 1px;
+        margin: 0 auto;
+        background-color: $neutral-color;
+      }
+    }
+  }
+}

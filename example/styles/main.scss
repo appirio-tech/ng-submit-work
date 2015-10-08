@@ -4,7 +4,7 @@ h1 {
   text-align: center;
 }
 
-body > .nav {
+body .nav {
   @include flex-center(flex-start, $spacing);
 
   a {
