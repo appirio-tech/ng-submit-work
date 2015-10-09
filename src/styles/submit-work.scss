@@ -1,8 +1,9 @@
 @import "work-includes";
 
 submit-work-type, submit-work-features, submit-work-visuals, submit-work-development, submit-work-complete {
-  display: block;
-  text-align: center;
+  display         : block;
+  text-align      : center;
+  background-color: $white;
 
   .uploaderWrapper {
     margin-top: $margin-small;
@@ -167,7 +168,7 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
     background-color: $neutral-color-light;
 
     .close {
-      background-color: initial;
+      background-color: transparent;
     }
 
     h2 {
