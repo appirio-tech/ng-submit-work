@@ -4,11 +4,12 @@ h1 {
   text-align: center;
 }
 
-body .nav {
-  @include flex-center(flex-start, $spacing);
+body #example-nav {
+  position: absolute;
+  background-color: $white;
+  opacity: 0.6;
 
   a {
-    color: white;
     margin: 10px;
     display: inline-block;
   }

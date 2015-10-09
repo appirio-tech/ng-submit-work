@@ -7,22 +7,22 @@ config = ($stateProvider) ->
     url         : '/'
     title       : 'submit work type'
     controller  : 'TypeController as vm'
-    templateUrl : 'views/submit-work-type.html'
+    templateUrl : 'views/submit-work-type.example.html'
 
   states['submit-work-features'] =
     url         : '/submit-work/features'
     title       : 'submit work features'
-    templateUrl : 'views/submit-work-features.html'
+    templateUrl : 'views/submit-work-features.example.html'
 
   states['submit-work-visuals'] =
     url         : '/submit-work/visuals'
     title       : 'submit work visuals'
-    templateUrl : 'views/submit-work-visuals.html'
+    templateUrl : 'views/submit-work-visuals.example.html'
 
   states['submit-work-development'] =
     url         : '/submit-work/development'
     title       : 'submit work development'
-    templateUrl : 'views/submit-work-development.html'
+    templateUrl : 'views/submit-work-development.example.html'
 
   states['submit-work-complete'] =
     url         : '/submit-work/complete'

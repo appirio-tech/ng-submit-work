@@ -28,10 +28,6 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
     &.has-loader {
       position: relative;
     }
-
-    .selectable-choices {
-      @include flex-direction(row);
-    }
   }
 
   a.button.continue, button.continue, > button.action {
@@ -46,7 +42,7 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
     @include justify-content(space-between);
 
     width: 400px;
-    margin: $margin-small auto;
+    margin: 0 auto;
 
     a {
       color: $neutral-color;
@@ -61,8 +57,9 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
   }
 
   progress {
-    width: 400px;
-    margin: 0 auto;
+    display   : block;
+    width     : 400px;
+    margin    : 0 auto;
     margin-top: 0;
   }
 
@@ -72,7 +69,7 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
 
   > header {
     background-color: $neutral-color-darkest;
-    padding: 0 $padding $padding-big $padding;
+    padding: $padding-big;
 
     a {
       color: $white;
@@ -89,6 +86,7 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
       border-radius: 50%;
       display      : inline-block;
       padding      : $padding;
+      margin-top: $margin;
       margin-bottom: $margin-small;
     }
 

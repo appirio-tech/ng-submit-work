@@ -1,7 +1,6 @@
 header
   include nav
 
-header
   .house
     .icon.warning.biggest
 
@@ -25,8 +24,8 @@ modal.upload-documents(show="vm.showUploadModal" background-click-close=true)
 
     button.wider.continue.action kick off project
 
-.flush-height.flex-column(flush-height=true)
-  ul.interactive.flex-center-column.flex-grow.selectable-choices
+.flush-height.flex.column(flush-height=true)
+  ul.interactive.flex.center.flex-grow.selectable-choices
     li
       .icon
 
@@ -44,13 +43,13 @@ modal.upload-documents(show="vm.showUploadModal" background-click-close=true)
   button.wider.continue(type="button" scroll-element="offline-access") continue
 
 form
-  .full-height.flex-column(full-height=true)
-    #offline-access.interactive.flex-center-column.flex-grow
+  .full-height.flex.column(full-height=true)
+    #offline-access.interactive.flex.column.center.flex-grow
       h2 Do you require users to have <strong>offline access to data</strong>?
 
       p This will affect backps and scalability.
 
-      ul.or-choices.flex-center
+      ul.or-choices.flex.center.middle
         li
           button.big.widest(
             ng-model="vm.work.offlineAccess"
@@ -78,13 +77,13 @@ form
 
     button.wider.continue(type="button" scroll-element="personal-info") continue
 
-  .full-height.flex-column(full-height=true)
-    #personal-info.interactive.flex-center-column.flex-grow
+  .full-height.flex.column(full-height=true)
+    #personal-info.interactive.flex.column.center.flex-grow
       h2 Personal information
 
       p Is there any level of personal information? (stored or transmitted)
 
-      ul.or-choices.flex-center
+      ul.or-choices.flex.center.middle
         li
           button.big.widest(
             ng-model="vm.work.usesPersonalInformation"
@@ -112,11 +111,11 @@ form
 
     button.wider.continue(type="button" scroll-element="security-level") continue
 
-  .full-height.flex-column(full-height=true)
-    #security-level.security.interactive.flex-center-column.flex-grow
+  .full-height.flex.column(full-height=true)
+    #security-level.security.interactive.flex.column.center.flex-grow
       h2 What level of <strong>security do you need</strong>?
 
-      ul.selectable-choices.flex-center
+      ul.selectable-choices.flex.center
         li
           .img
 
@@ -140,8 +139,8 @@ form
 
     button.wider.continue(type="button" scroll-element="third-party-integrations") continue
 
-  .full-height.flex-column(full-height=true)
-    #third-party-integrations.interactive.flex-center-column.flex-grow
+  .full-height.flex.column(full-height=true)
+    #third-party-integrations.interactive.flex.column.center.flex-grow
       h2 How many 3rd party integrations</strong>?
 
       p Enter the number of 3rd party integrations so we can estimate effort involved.

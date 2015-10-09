@@ -39,10 +39,15 @@ submit-work-visuals {
 
   .choose-styles {
     .nav {
-      @include justify-content(space-between);
+      @include vertical-align-middle;
 
-      width: 300px;
-      margin: $margin;
+      text-align: center;
+      width     : 100%;
+      padding   : $padding-big;
+
+      > li {
+        margin: 0 $margin-small;
+      }
     }
 
     footer {
