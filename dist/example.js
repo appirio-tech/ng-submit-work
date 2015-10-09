@@ -1,14 +1,14 @@
 angular.module("app.constants", [])
 
-.constant("API_URL", "https://api.topcoder-dev.com")
+.constant("API_URL", "https://api.topcoder.com")
 
 .constant("AVATAR_URL", "https://www.topcoder.com")
 
 .constant("SUBMISSION_URL", "https://studio.topcoder.com")
 
-.constant("AUTH0_CLIENT_ID", "JFDo7HMkf0q2CkVFHojy3zHWafziprhT")
+.constant("AUTH0_CLIENT_ID", "abc123")
 
-.constant("AUTH0_DOMAIN", "topcoder-dev.auth0.com")
+.constant("AUTH0_DOMAIN", "topcoder.auth0.com")
 
 .constant("AUTH0_TOKEN_NAME", "userJWTToken")
 
@@ -36,22 +36,27 @@ angular.module("app.constants", [])
       url: '/',
       title: 'submit work type',
       controller: 'TypeController as vm',
-      templateUrl: 'views/submit-work-type.html'
+      templateUrl: 'views/submit-work-type.example.html'
     };
     states['submit-work-features'] = {
       url: '/submit-work/features',
       title: 'submit work features',
-      templateUrl: 'views/submit-work-features.html'
+      templateUrl: 'views/submit-work-features.example.html'
     };
     states['submit-work-visuals'] = {
       url: '/submit-work/visuals',
       title: 'submit work visuals',
-      templateUrl: 'views/submit-work-visuals.html'
+      templateUrl: 'views/submit-work-visuals.example.html'
     };
     states['submit-work-development'] = {
       url: '/submit-work/development',
       title: 'submit work development',
-      templateUrl: 'views/submit-work-development.html'
+      templateUrl: 'views/submit-work-development.example.html'
+    };
+    states['submit-work-complete'] = {
+      url: '/submit-work/complete',
+      title: 'submit work complete',
+      templateUrl: 'views/submit-work-complete.example.html'
     };
     results = [];
     for (key in states) {
