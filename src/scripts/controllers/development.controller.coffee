@@ -37,7 +37,7 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
       updates.status = if kickoff then 'Submitted' else 'Incomplete'
 
       SubmitWorkService.save(updates).then ->
-        $state.go('view-work-multiple')
+        $state.go('submit-work-complete')
 
   configureUploader = ->
     vm.uploaderConfig = SubmitWorkUploaderService.generateConfig vm.workId, 'development'

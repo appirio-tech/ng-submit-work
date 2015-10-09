@@ -2,6 +2,7 @@
 
 SubmitWorkCompleteController = ($scope) ->
   vm = this
+
   activate = ->
     vm
 
