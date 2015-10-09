@@ -4,6 +4,8 @@ $card-max-width: 180px;
 
 submit-work-features {
   modal.define-features {
+    $footer-height: 66px;
+
     text-align: left;
 
     .close {
@@ -20,8 +22,6 @@ submit-work-features {
     }
 
     > main {
-      @include align-items(stretch);
-
       width: 100%;
       border-top: 1px solid $neutral-color-light;
 
@@ -37,14 +37,11 @@ submit-work-features {
               overflow: auto;
 
               li {
-                margin-top: $margin-small;
-                margin-left: $margin-smallest;
-
                 button {
                   @include vertical-align-middle();
 
                   text-align : left;
-                  padding    : $padding-small;
+                  padding    : $padding;
                   color      : $black;
                 }
 
@@ -72,7 +69,7 @@ submit-work-features {
               background-color: $white;
               color           : $neutral-color-darkest;
               text-align      : center;
-              height          : 60px;
+              height          : $footer-height;
 
               .icon {
                 color           : $white;
@@ -144,13 +141,11 @@ submit-work-features {
         }
 
         li:last-child {
-          @include justify-content(space-between);
-
           background-color: $white;
           padding         : $padding;
           color           : $neutral-color-darkest;
           text-align      : center;
-          height          : 60px;
+          height          : $footer-height;
           border-top      : 1px solid $neutral-color-light;
         }
       }

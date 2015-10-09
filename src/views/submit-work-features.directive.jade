@@ -1,7 +1,6 @@
 header
   include nav
 
-header
   .house
     .icon.warning.biggest
 
@@ -9,10 +8,10 @@ header
 
   p Tell us what features we need to include in your new app.
 
-.flush-height.flex-column(flush-height=true)
-  ul.interactive.flex-center-column.flex-grow.selectable-choices
+.flush-height.flex.column(flush-height=true)
+  ul.interactive.flex.center.flex-grow.selectable-choices
     li
-      .icon.warning.biggest
+      .icon.warning.big
 
       h3 Define features
 
@@ -21,7 +20,7 @@ header
       button.action.wide(ng-click="vm.showFeatures()") select
 
     li
-      .icon.warning.biggest
+      .icon.warning.big
 
       h3 Upload document
 
@@ -34,8 +33,8 @@ header
 modal.full.define-features(show="vm.showFeaturesModal" background-click-close=true)
   h2 Data booklet mobile app <strong>features</strong>
 
-  main.flex.flex-grow
-    ul.features.flex-column
+  main.flex.flex-grow.stretch
+    ul.features.flex.column
       li
         ul
           li(ng-repeat="feature in vm.features")
@@ -50,7 +49,7 @@ modal.full.define-features(show="vm.showFeaturesModal" background-click-close=tr
 
           .icon +
 
-    ul.contents.flex-column.flex-grow
+    ul.contents.flex.column.flex-grow
       li.flex.flex-grow
         .default.active(ng-hide="vm.showDefineFeaturesForm" ng-class="{active: !vm.activeFeature}")
           h4 Select and define features for your app
@@ -81,14 +80,14 @@ modal.full.define-features(show="vm.showFeaturesModal" background-click-close=tr
 
           textarea.widest(ng-model="vm.customFeature.description" required=true)
 
-          button.wide.action(type="submit") add new feature
+          button.wide.action(type="submit") add
 
           button.wide.cancel(type="button" ng-click="vm.hideCustomFeatures()") Cancel
 
         .example.flex-grow
           .phone
 
-      li.flex-center
+      li.flex.center.space-between
         .count {{vm.selectedFeaturesCount}} features added
 
         button.wider.action(ng-click="vm.save()") Save
