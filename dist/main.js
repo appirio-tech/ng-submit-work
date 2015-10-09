@@ -540,7 +540,9 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"tr
       if (uploaderValid) {
         updates.status = kickoff ? 'Submitted' : 'Incomplete';
         return SubmitWorkService.save(updates).then(function() {
-          return $state.go('submit-work-complete');
+          return $state.go('submit-work-complete', {
+            id: vm.workId
+          });
         });
       }
     };
