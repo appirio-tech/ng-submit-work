@@ -1,9 +1,11 @@
 @import "work-styles";
 
 body #example-nav {
-  position: absolute;
+  position        : fixed;
+  bottom          : 0;
   background-color: $white;
-  opacity: 0.6;
+  opacity         : 0.6;
+  z-index         : 1001;
 
   a {
     margin: 10px;
