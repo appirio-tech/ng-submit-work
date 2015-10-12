@@ -110,7 +110,6 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Opt
       if work.colorSwatchIds?.indexOf(color.id) >= 0
         color.selected = true
 
-    $rootScope.currentAppName = work.name
     vm.projectType = work.projectType
     vm.section = 2
     vm.numberOfSections = if work.projectType == 'DESIGN_AND_CODE' then 3 else 2
