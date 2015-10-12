@@ -1,7 +1,7 @@
 @import "work-includes";
 
 submit-work-complete {
-  header {
+  main {
     > * {
       margin-top: $margin-small;
 
@@ -11,9 +11,7 @@ submit-work-complete {
     }
 
     p {
-      @include font-line($font-size);
-
-      width: 50%;
+      font-size: $font-size;
     }
 
     .app-name {
@@ -22,50 +20,8 @@ submit-work-complete {
 
     .icon-house {
       background-color: $primary-color;
-      padding: $padding;
-      border-radius: 50%;
-    }
-  }
-
-  footer {
-    background-color: $primary-color;
-    color           : $white;
-    width           : 100%;
-    padding         : $padding-biggest;
-    text-transform  : uppercase;
-
-    .estimate, .cost {
-      width: 49%;
-      float: left;
-    }
-
-    table {
-      margin: $margin-small auto;
-
-      td {
-        padding    : $padding-small $padding;
-        border-left: 1px solid $neutral-color;
-
-        &:first-child {
-          border-left: 0;
-        }
-      }
-
-      thead {
-        border-bottom: 1px solid $neutral-color;
-        font-weight: bold;
-      }
-    }
-
-    .divider {
-      width: 2%;
-      float: left;
-
-      .border {
-        width: 1px;
-        margin: 0 auto;
-        background-color: $neutral-color;
-      }
+      padding         : $padding;
+      border-radius   : 50%;
     }
   }
 }
