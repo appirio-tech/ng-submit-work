@@ -47,7 +47,8 @@ form
     #offline-access.interactive.flex.column.center.flex-grow
       h2 Do you require users to have <strong>offline access to data</strong>?
 
-      p This will affect backps and scalability.
+      p Do your users need to be able to interact with the application when they are unable to connect to the internet (over the air or via wifi)?
+
 
       ul.or-choices.flex.center.middle
         li
@@ -59,7 +60,7 @@ form
             type="button"
           )
 
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          p Users will need to interact with the app even when offline.  This feature increases complexity and costs.
 
         li.or
           .house OR
@@ -73,7 +74,7 @@ form
             type="button"
           )
 
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          p The application will gracefully present a message to the user to please connect to the internet.
 
     button.wider.continue(type="button" scroll-element="personal-info") continue
 
@@ -93,7 +94,7 @@ form
             type="button"
           )
 
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          p Storing and/or transmitting personal information increases security and encryption needs which adds complexity and cost.
 
         li.or
           .house OR
@@ -107,7 +108,7 @@ form
             type="button"
           )
 
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          p The app is not transferring or storing personal information.
 
     button.wider.continue(type="button" scroll-element="security-level") continue
 
