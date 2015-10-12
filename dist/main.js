@@ -137,7 +137,6 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
         vm.loading = true;
         return SubmitWorkService.create(updates).then(function() {
           var work;
-          $rootScope.currentAppName = updates.name;
           work = SubmitWorkService.get();
           return $state.go('submit-work-features', {
             id: work.id
@@ -316,7 +315,6 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
           return color.selected = true;
         }
       });
-      $rootScope.currentAppName = work.name;
       vm.projectType = work.projectType;
       vm.section = 2;
       return vm.numberOfSections = work.projectType === 'DESIGN_AND_CODE' ? 3 : 2;
@@ -472,7 +470,6 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
           });
         }
       });
-      $rootScope.currentAppName = work.name;
       vm.projectType = work.projectType;
       vm.section = 1;
       return vm.numberOfSections = work.projectType === 'DESIGN_AND_CODE' ? 3 : 2;
@@ -563,7 +560,6 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
         securityLevel: work.securityLevel,
         numberOfApiIntegrations: work.numberOfApiIntegrations
       };
-      $rootScope.currentAppName = work.name;
       vm.projectType = work.projectType;
       vm.section = 3;
       return vm.numberOfSections = 3;
