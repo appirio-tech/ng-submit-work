@@ -29,7 +29,9 @@ SubmitWorkService = ($rootScope, OptimistModel, SubmitWorkAPIService) ->
     work = new OptimistModel
       data: workTemplate
       updateCallback: emitUpdates
-      propsToIgnore: ['$promise', '$resolved']
+      propsToIgnore:
+        $promise: true
+        $resolved: true
 
   work = createWork()
 
