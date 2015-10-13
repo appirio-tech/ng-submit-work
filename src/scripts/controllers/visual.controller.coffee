@@ -1,6 +1,6 @@
 'use strict'
 
-SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Optimist, SubmitWorkUploaderService, RequirementService) ->
+SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, SubmitWorkUploaderService, RequirementService) ->
   if $scope.workId
     localStorageKey               = "recentSubmitWorkSection-#{$scope.workId}"
     localStorage[localStorageKey] = 'visuals'
@@ -128,6 +128,6 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Opt
 
   activate()
 
-SubmitWorkVisualController.$inject = ['$scope', '$rootScope', '$state', 'SubmitWorkService', 'Optimist', 'SubmitWorkUploaderService', 'RequirementService']
+SubmitWorkVisualController.$inject = ['$scope', '$rootScope', '$state', 'SubmitWorkService', 'SubmitWorkUploaderService', 'RequirementService']
 
 angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkVisualController', SubmitWorkVisualController
