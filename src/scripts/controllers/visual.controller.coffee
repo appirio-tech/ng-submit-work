@@ -93,7 +93,7 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Opt
   onChange = ->
     work = SubmitWorkService.get()
 
-    if work.o.pending
+    if work._pending
       vm.loading = true
       return false
 

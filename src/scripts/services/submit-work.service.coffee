@@ -1,6 +1,6 @@
 'use strict'
 
-SubmitWorkService = ($rootScope, Optimist, SubmitWorkAPIService) ->
+SubmitWorkService = ($rootScope, OptimistModel, SubmitWorkAPIService) ->
   currentWorkId = null
 
   workTemplate =
@@ -26,7 +26,7 @@ SubmitWorkService = ($rootScope, Optimist, SubmitWorkAPIService) ->
     $rootScope.$emit 'SubmitWorkService.work:changed'
 
   createWork = ->
-    work = new Optimist.Model
+    work = new OptimistModel
       data: workTemplate
       updateCallback: emitUpdates
       propsToIgnore: ['$promise', '$resolved']
@@ -40,9 +40,10 @@ SubmitWorkService = ($rootScope, Optimist, SubmitWorkAPIService) ->
     interceptResponse = (res) ->
       currentWorkId = res.id
 
-      work.updateLocal
+      work.set
         updates:
           id: res.id
+        updateValues: true
 
       res
 
@@ -83,6 +84,6 @@ SubmitWorkService = ($rootScope, Optimist, SubmitWorkAPIService) ->
   fetch  : fetch
   save   : save
 
-SubmitWorkService.$inject = ['$rootScope', 'Optimist', 'SubmitWorkAPIService']
+SubmitWorkService.$inject = ['$rootScope', 'OptimistModel', 'SubmitWorkAPIService']
 
 angular.module('appirio-tech-ng-submit-work').factory 'SubmitWorkService', SubmitWorkService

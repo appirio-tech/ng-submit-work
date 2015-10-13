@@ -93,7 +93,7 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
   onChange = ->
     work = SubmitWorkService.get()
 
-    if work.o.pending
+    if work._pending
       vm.loading = true
       return false
 

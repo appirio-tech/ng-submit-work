@@ -1,6 +1,6 @@
 'use strict'
 
-srv = ($rootScope, Optimist, SubmitWorkAPIService) ->
+srv = () ->
   service = {}
 
   service.projectTypes = [
@@ -122,6 +122,6 @@ srv = ($rootScope, Optimist, SubmitWorkAPIService) ->
 
   service
 
-srv.$inject = ['$rootScope', 'Optimist', 'SubmitWorkAPIService']
+srv.$inject = []
 
 angular.module('appirio-tech-ng-submit-work').factory 'RequirementService', srv

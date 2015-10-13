@@ -45,7 +45,7 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
   onChange = ->
     work = SubmitWorkService.get()
 
-    if work.o.pending
+    if work._pending
       vm.loading = true
       return false
 
