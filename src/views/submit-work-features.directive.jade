@@ -76,6 +76,8 @@ modal.full.define-features(show="vm.showFeaturesModal" background-click-close=tr
 
           input.widest(type="text" ng-model="vm.customFeature.title" required=true)
 
+          p.error This feature name already exists, please try another.
+
           label New feature description
 
           textarea.widest(ng-model="vm.customFeature.description" required=true)

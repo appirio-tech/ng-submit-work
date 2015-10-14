@@ -1,8 +1,8 @@
 @import "work-styles";
 
 body #example-nav {
-  position        : fixed;
-  bottom          : 0;
+  position        : fixed !important;
+  bottom          : 0px;
   background-color: $white;
   opacity         : 0.6;
   z-index         : 1001;
