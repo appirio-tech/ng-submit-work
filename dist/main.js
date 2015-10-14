@@ -131,11 +131,12 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
     vm.projectTypes = angular.copy(RequirementService.projectTypes);
     vm.brief = "";
     vm.create = function() {
-      var updates;
+      var promise, updates;
       updates = getUpdates();
       if (isValid(updates)) {
         vm.loading = true;
-        return SubmitWorkService.create(updates).then(function() {
+        promise = SubmitWorkService.create(updates);
+        return promise.then(function() {
           var work;
           work = SubmitWorkService.get();
           return $state.go('submit-work-features', {
@@ -193,7 +194,7 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
   'use strict';
   var SubmitWorkVisualController;
 
-  SubmitWorkVisualController = function($scope, $rootScope, $state, SubmitWorkService, Optimist, SubmitWorkUploaderService, RequirementService) {
+  SubmitWorkVisualController = function($scope, $rootScope, $state, SubmitWorkService, SubmitWorkUploaderService, RequirementService) {
     var activate, configureUploader, getUpdates, localStorageKey, onChange, updateButtons, vm;
     if ($scope.workId) {
       localStorageKey = "recentSubmitWorkSection-" + $scope.workId;
@@ -298,7 +299,7 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
     onChange = function() {
       var ref, ref1, ref2, work;
       work = SubmitWorkService.get();
-      if (work.o.pending) {
+      if (work._pending) {
         vm.loading = true;
         return false;
       }
@@ -334,7 +335,7 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
     return activate();
   };
 
-  SubmitWorkVisualController.$inject = ['$scope', '$rootScope', '$state', 'SubmitWorkService', 'Optimist', 'SubmitWorkUploaderService', 'RequirementService'];
+  SubmitWorkVisualController.$inject = ['$scope', '$rootScope', '$state', 'SubmitWorkService', 'SubmitWorkUploaderService', 'RequirementService'];
 
   angular.module('appirio-tech-ng-submit-work').controller('SubmitWorkVisualController', SubmitWorkVisualController);
 
@@ -445,7 +446,7 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
     onChange = function() {
       var work;
       work = SubmitWorkService.get();
-      if (work.o.pending) {
+      if (work._pending) {
         vm.loading = true;
         return false;
       }
@@ -549,7 +550,7 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
     onChange = function() {
       var work;
       work = SubmitWorkService.get();
-      if (work.o.pending) {
+      if (work._pending) {
         vm.loading = true;
         return false;
       }
@@ -615,7 +616,7 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
   'use strict';
   var SubmitWorkService;
 
-  SubmitWorkService = function($rootScope, Optimist, SubmitWorkAPIService) {
+  SubmitWorkService = function($rootScope, OptimistModel, SubmitWorkAPIService) {
     var create, createWork, currentWorkId, emitUpdates, fetch, get, save, work, workTemplate;
     currentWorkId = null;
     workTemplate = {
@@ -642,10 +643,13 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
     };
     createWork = function() {
       var work;
-      return work = new Optimist.Model({
+      return work = new OptimistModel({
         data: workTemplate,
         updateCallback: emitUpdates,
-        propsToIgnore: ['$promise', '$resolved']
+        propsToIgnore: {
+          $promise: true,
+          $resolved: true
+        }
       });
     };
     work = createWork();
@@ -656,10 +660,11 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
       var apiCall, interceptResponse;
       interceptResponse = function(res) {
         currentWorkId = res.id;
-        work.updateLocal({
+        work.set({
           updates: {
             id: res.id
-          }
+          },
+          updateValues: true
         });
         return res;
       };
@@ -710,7 +715,7 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
     };
   };
 
-  SubmitWorkService.$inject = ['$rootScope', 'Optimist', 'SubmitWorkAPIService'];
+  SubmitWorkService.$inject = ['$rootScope', 'OptimistModel', 'SubmitWorkAPIService'];
 
   angular.module('appirio-tech-ng-submit-work').factory('SubmitWorkService', SubmitWorkService);
 
@@ -720,7 +725,7 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
   'use strict';
   var srv;
 
-  srv = function($rootScope, Optimist, SubmitWorkAPIService) {
+  srv = function() {
     var service;
     service = {};
     service.projectTypes = [
@@ -848,7 +853,7 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
     return service;
   };
 
-  srv.$inject = ['$rootScope', 'Optimist', 'SubmitWorkAPIService'];
+  srv.$inject = [];
 
   angular.module('appirio-tech-ng-submit-work').factory('RequirementService', srv);
 
