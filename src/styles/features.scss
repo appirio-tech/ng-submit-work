@@ -43,6 +43,11 @@ submit-work-features {
                   text-align : left;
                   padding    : $padding;
                   color      : $black;
+
+                  &:hover {
+                    background-color: $accent-color;
+                    color: $white;
+                  }
                 }
 
                 .icon {
