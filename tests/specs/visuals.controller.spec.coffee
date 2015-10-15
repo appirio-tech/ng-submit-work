@@ -92,4 +92,4 @@ describe 'SubmitWorkVisualController', ->
         vm.url = 'http://someurl.com'
 
         vm.save()
-        expect(calledWith).to.have.all.keys 'fontIds', 'colorSwatchIds', 'iconsetIds', 'designUrls'
+        expect(calledWith).to.contain.all.keys 'fontIds', 'colorSwatchIds', 'iconsetIds', 'designUrls'
