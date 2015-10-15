@@ -39,7 +39,11 @@ header
 
       button.action.wide(ng-click="vm.showUrlStyles()") select
 
-  a.button.wider.action.continue(ui-sref="submit-work-development({ id: vm.workId })") go to development
+  a.button.wider.action.continue(ng-if="vm.projectType == 'DESIGN_AND_CODE'", ui-sref="submit-work-development({ id: vm.workId })") go to development
+
+  button.continue.wider.save(ng-if="vm.projectType == 'DESIGN'", ng-click="vm.save(true, false)") save
+
+  button.contine.wider.kick-off.action(ng-if="vm.projectType == 'DESIGN'", ng-click="vm.save(true, true)") kick off project
 
 modal.upload-documents(show="vm.showUploadStylesModal" background-click-close=true)
   .upload

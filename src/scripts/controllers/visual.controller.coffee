@@ -25,6 +25,10 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Sub
     vm.backButtonDisabled = true
     vm.activateModal('fonts')
 
+  vm.hideChooseStyles = ->
+    vm.showPaths = true
+    vm.showChooseStylesModal = false
+
   vm.showUploadStyles = ->
     vm.showUploadStylesModal = true
 
@@ -49,11 +53,15 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Sub
       previousModal = vm.styleModals[currentIndex - 1]
       vm.activateModal(previousModal)
 
-  vm.save = ->
-    updates = getUpdates()
+  vm.save = (done = false, kickoff = false) ->
+    updates        = getUpdates()
+    updates.status = if kickoff then 'Submitted' else 'Incomplete'
 
     SubmitWorkService.save(updates).then ->
-      $state.go "submit-work-development", { id: vm.workId }
+      if done
+        $state.go 'submit-work-complete', { id: vm.workId }
+      else
+        vm.hideChooseStyles()
 
   getUpdates = ->
     isSelected = (item) ->
