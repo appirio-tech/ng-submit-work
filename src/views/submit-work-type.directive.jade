@@ -3,14 +3,23 @@ header
 
   p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
-form(ng-submit="vm.create()")
+form(ng-submit="vm.validateAllSections()")
   .flush-height.flex.column(flush-height=true)
-    .interactive.flex.column.center.flex-grow
-      input.wider.error(type="text" placeholder="Name your project..." required="true" ng-model="vm.name")
+    .interactive.flex.column.center.flex-grow(id="app-name")
+      input.wider(
+        type="text"
+        placeholder="Name your project..."
+        ng-blur="vm.validateSection('app-name', 'platform-details', 'name')"
+        ng-model="vm.name"
+        ng-class="{error: vm.nameError}"
+      )
 
-      p.error The app name has been taken, please try another.
+      p.error(ng-if="vm.nameError && !vm.name.length") Please enter an app name.
 
-    button.wider.continue.action(type="button" scroll-element="platform-details") continue
+    button.wider.continue.action(
+      type="button"
+      ng-click="vm.validateSection('platform-details', 'name', true)"
+    ) continue
 
   .full-height.flex.column(full-height=true)
     .interactive.flex.column.center.flex-grow(id="platform-details")
@@ -35,11 +44,14 @@ form(ng-submit="vm.create()")
             li(ng-repeat="orientation in vm.orientations")
               checkbox(label="{{orientation.name}}" ng-model="orientation.selected")
 
-      p.error Please choose a device.
+      p.error(ng-if="vm.devicesError") Please choose a device.
 
-      p.error Please choose an orientation.
+      p.error(ng-if="vm.orientationsError") Please choose an orientation.
 
-    button.wider.continue.action(type="button" scroll-element="type-details") continue
+    button.wider.continue.action(
+      type="button"
+      ng-click="vm.validateSection('type-details', ['devices', 'orientations'], true)"
+    ) continue
 
   .full-height.flex.column(full-height=true)
     .interactive.flex.column.center.flex-grow(id="type-details")
@@ -60,9 +72,9 @@ form(ng-submit="vm.create()")
             value="projectType.id"
           )
 
-      p.error Please choose a type of work.
+      p.error(ng-if="vm.projectTypeError") Please choose a type of work.
 
-    button.wider.continue.action(type="button" scroll-element="brief-details") continue
+    button.wider.continue.action(type="button" ng-click="vm.validateSection('brief-details', 'projectType', true)") continue
 
   .full-height.flex.column.has-loader(full-height=true)
     loader(ng-if="vm.loading")
