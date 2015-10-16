@@ -4,7 +4,10 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
   vm                  = this
   vm.loading          = false
   vm.showSuccessModal = false
-  vm.nameError = false
+  vm.nameError        = false
+  vm.devicesError     = false
+  vm.orientationError = false
+  vm.projectTypeError = false
 
   # TODO: move route directing out of here
   if $scope.workId
@@ -19,15 +22,66 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
   vm.projectTypes = angular.copy RequirementService.projectTypes
   vm.brief        = ""
 
-  vm.validateSection = (previousId, nextId, model) ->
+  vm.validateSection = (previousId, nextId, models, scrollActivated) ->
     previousSection = angular.element document.getElementById previousId
     nextSection = angular.element document.getElementById nextId
-    if vm.model
-      vm.#{model}Error = false
-      $document.scrollToElementAnimated nextSection
+    foundErrors = false
+
+    if Array.isArray models
+      foundModelErrors = false
+
+      models.forEach (model) ->
+        modelError = "#{model}Error"
+        selected = vm[model].filter (individualModel) ->
+          individualModel.selected
+
+        if selected.length == 0
+          vm[modelError] = true
+          foundModelErrors = true
+        else
+          vm[modelError] = false
+
+      if foundModelErrors
+        foundErrors = true
+      else
+        foundErrors = false
+
     else
-      vm.#{model}Error = true
-      $document.scrollToElementAnimated previousSection
+      model = models
+      modelError = "#{model}Error"
+      if vm[model]?.length
+        vm[modelError] = false
+        foundErrors = false
+      else
+        vm[modelError] = true
+        foundErrors = true
+
+    if scrollActivated
+      unless foundErrors
+        $document.scrollToElementAnimated nextSection
+
+  vm.validateAllSections = ->
+   vm.errors = []
+   foundErrors = false
+   errorElement = null
+
+   unless vm.nameError
+    foundErrors = true
+    errorElement = angular.element document.getElementById 'app-name'
+    $document.scrollToElementAnimated errorElement
+
+   if vm.devicesError || orientationError
+    foundErrors = true
+    errorElement = angular.element document.getElementById 'platform-details'
+    $document.scrollToElementAnimated errorElement
+
+    unless vm.projectTypeError
+     foundErrors = true
+     errorElement = angular.element document.getElementById 'app-name'
+     $document.scrollToElementAnimated errorElement
+
+    unless foundErrors
+      vm.create()
 
   vm.create = ->
     updates = getUpdates()
