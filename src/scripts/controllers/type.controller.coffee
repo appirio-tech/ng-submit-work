@@ -22,8 +22,7 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
   vm.projectTypes = angular.copy RequirementService.projectTypes
   vm.brief        = ""
 
-  vm.validateSection = (previousId, nextId, models, scrollActivated) ->
-    previousSection = angular.element document.getElementById previousId
+  vm.validateSection = (nextId, models, scrollActivated) ->
     nextSection = angular.element document.getElementById nextId
     foundErrors = false
 
@@ -61,27 +60,27 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
         $document.scrollToElementAnimated nextSection
 
   vm.validateAllSections = ->
-    vm.validateSection('app-name', 'platform-details', 'name')
-    vm.validateSection('platform-details', 'type-details', ['devices', 'orientations'])
-    vm.validateSection('type-details', 'brief-details', 'projectType')
+    vm.validateSection('platform-details', 'name')
+    vm.validateSection('type-details', ['devices', 'orientations'])
+    vm.validateSection('brief-details', 'projectType')
 
     foundErrors = false
     errorElement = null
-
-    if vm.nameError
+    if vm.projectTypeError
       foundErrors = true
-      errorElement = angular.element document.getElementById 'app-name'
-      $document.scrollTopAnimated(0)
+      errorElement = angular.element document.getElementById 'type-details'
+      $document.scrollToElementAnimated errorElement
 
     if vm.devicesError || vm.orientationError
       foundErrors = true
       errorElement = angular.element document.getElementById 'platform-details'
       $document.scrollToElementAnimated errorElement
 
-    if vm.projectTypeError
+    if vm.nameError
       foundErrors = true
-      errorElement = angular.element document.getElementById 'type-details'
-      $document.scrollToElementAnimated errorElement
+      errorElement = angular.element document.getElementById 'app-name'
+      $document.scrollTopAnimated(0)
+
 
     unless foundErrors
       vm.create()

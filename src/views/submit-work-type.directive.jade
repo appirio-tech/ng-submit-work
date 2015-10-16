@@ -3,11 +3,10 @@ header
 
   p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
-form(ng-submit="vm.validateAllSections()" name="typeForm")
+form(ng-submit="vm.validateAllSections()")
   .flush-height.flex.column(flush-height=true)
     .interactive.flex.column.center.flex-grow(id="app-name")
       input.wider(
-        name="nameInput"
         type="text"
         placeholder="Name your project..."
         ng-blur="vm.validateSection('app-name', 'platform-details', 'name')"
@@ -19,7 +18,7 @@ form(ng-submit="vm.validateAllSections()" name="typeForm")
 
     button.wider.continue.action(
       type="button"
-      ng-click="vm.validateSection('app-name', 'platform-details', 'name', true)"
+      ng-click="vm.validateSection('platform-details', 'name', true)"
     ) continue
 
   .full-height.flex.column(full-height=true)
@@ -51,7 +50,7 @@ form(ng-submit="vm.validateAllSections()" name="typeForm")
 
     button.wider.continue.action(
       type="button"
-      ng-click="vm.validateSection('platform-details', 'type-details', ['devices', 'orientations'], true)"
+      ng-click="vm.validateSection('type-details', ['devices', 'orientations'], true)"
     ) continue
 
   .full-height.flex.column(full-height=true)
@@ -75,7 +74,7 @@ form(ng-submit="vm.validateAllSections()" name="typeForm")
 
       p.error(ng-if="vm.projectTypeError") Please choose a type of work.
 
-    button.wider.continue.action(type="button" ng-click="vm.validateSection('type-details', 'brief-details', 'projectType', true)") continue
+    button.wider.continue.action(type="button" ng-click="vm.validateSection('brief-details', 'projectType', true)") continue
 
   .full-height.flex.column.has-loader(full-height=true)
     loader(ng-if="vm.loading")
