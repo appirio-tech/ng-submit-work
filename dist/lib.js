@@ -39433,7 +39433,7 @@ angular.module('ui.router.state')
       setPageClass = function(e, data) {
         var classes;
         if ($location.$$url === '/') {
-          return $(element[0]).addClass('home');
+          return $(element[0]).addClass('getting-started');
         } else {
           classes = $location.$$path.replace(/\//g, ' ');
           return $(element[0]).addClass(classes);
@@ -40137,6 +40137,55 @@ $templateCache.put("views/layout-project-nav.directive.html","<ul><li ng-class=\
   srv.$inject = ['$resource', 'API_URL'];
 
   angular.module('appirio-tech-ng-api-services').factory('MessageUpdateAPIService', srv);
+
+}).call(this);
+
+(function() {
+  'use strict';
+  var srv, transformIdOnlyResponse, transformResponse;
+
+  transformResponse = function(response) {
+    var parsed, ref;
+    parsed = JSON.parse(response);
+    return parsed != null ? (ref = parsed.result) != null ? ref.content : void 0 : void 0;
+  };
+
+  transformIdOnlyResponse = function(response) {
+    var parsed, ref;
+    parsed = JSON.parse(response);
+    return {
+      id: parsed != null ? (ref = parsed.result) != null ? ref.content : void 0 : void 0
+    };
+  };
+
+  srv = function($resource, API_URL) {
+    var methods, params, url;
+    url = API_URL + '/v3/projects/:id';
+    params = {
+      id: '@id'
+    };
+    methods = {
+      put: {
+        method: 'PUT',
+        transformResponse: transformIdOnlyResponse
+      },
+      post: {
+        method: 'POST',
+        transformResponse: transformIdOnlyResponse
+      },
+      get: {
+        transformResponse: transformResponse
+      },
+      query: {
+        transformResponse: transformResponse
+      }
+    };
+    return $resource(url, params, methods);
+  };
+
+  srv.$inject = ['$resource', 'API_URL'];
+
+  angular.module('appirio-tech-ng-api-services').factory('SubmitWorkCreationAPIService', srv);
 
 }).call(this);
 
