@@ -1,9 +1,13 @@
 'use strict'
 
-SubmitWorkTypeController = ($scope, $rootScope, $state, SubmitWorkService, RequirementService) ->
+SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkService, RequirementService) ->
   vm                  = this
   vm.loading          = false
   vm.showSuccessModal = false
+  vm.nameError        = false
+  vm.devicesError     = false
+  vm.orientationError = false
+  vm.projectTypeError = false
 
   # TODO: move route directing out of here
   if $scope.workId
@@ -17,6 +21,69 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, SubmitWorkService, Requi
   vm.orientations = angular.copy RequirementService.orientations
   vm.projectTypes = angular.copy RequirementService.projectTypes
   vm.brief        = ""
+
+  vm.validateSection = (nextId, models, scrollActivated) ->
+    nextSection = angular.element document.getElementById nextId
+    foundErrors = false
+
+    if Array.isArray models
+      foundModelErrors = false
+
+      models.forEach (model) ->
+        modelError = "#{model}Error"
+        selected = vm[model].filter (individualModel) ->
+          individualModel.selected
+
+        if selected.length == 0
+          vm[modelError] = true
+          foundModelErrors = true
+        else
+          vm[modelError] = false
+
+      if foundModelErrors
+        foundErrors = true
+      else
+        foundErrors = false
+
+    else
+      model = models
+      modelError = "#{model}Error"
+      if vm[model]?.length
+        vm[modelError] = false
+        foundErrors = false
+      else
+        vm[modelError] = true
+        foundErrors = true
+
+    if scrollActivated
+      unless foundErrors
+        $document.scrollToElementAnimated nextSection
+
+  vm.validateAllSections = ->
+    vm.validateSection('platform-details', 'name')
+    vm.validateSection('type-details', ['devices', 'orientations'])
+    vm.validateSection('brief-details', 'projectType')
+
+    foundErrors = false
+    errorElement = null
+    if vm.projectTypeError
+      foundErrors = true
+      errorElement = angular.element document.getElementById 'type-details'
+      $document.scrollToElementAnimated errorElement
+
+    if vm.devicesError || vm.orientationError
+      foundErrors = true
+      errorElement = angular.element document.getElementById 'platform-details'
+      $document.scrollToElementAnimated errorElement
+
+    if vm.nameError
+      foundErrors = true
+      errorElement = angular.element document.getElementById 'app-name'
+      $document.scrollTopAnimated(0)
+
+
+    unless foundErrors
+      vm.create()
 
   vm.create = ->
     updates = getUpdates()
@@ -67,6 +134,6 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, SubmitWorkService, Requi
 
   vm
 
-SubmitWorkTypeController.$inject = ['$scope', '$rootScope', '$state', 'SubmitWorkService', 'RequirementService']
+SubmitWorkTypeController.$inject = ['$scope', '$rootScope', '$state', '$document', 'SubmitWorkService', 'RequirementService']
 
 angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkTypeController', SubmitWorkTypeController
