@@ -114,7 +114,7 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
 
         img(src="/images/serif.png" ng-if="font.name == 'Serif' ")
 
-        button(selectable=true type="button" ng-model="vm.font" value="font.id")
+        button.wider(selectable=true type="button" ng-model="vm.font" value="font.id")
 
       li.or(ng-repeat-end ng-if="font.name == 'Serif' ")
         .house OR
@@ -141,8 +141,7 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
 
         p {{icon.description}}
 
-        //- .action.action is needed because .action dosnt work, dont know why
-        button.action.action(type="button" selectable=true ng-model="vm.icon" value="icon.id")
+        button.wider(type="button" selectable=true ng-model="vm.icon" value="icon.id")
 
   footer
     button.wider(ng-hide="vm.backButtonDisabled" ng-click="vm.viewPrevious()") back
