@@ -39,11 +39,23 @@ submit-work-visuals {
 
       > li {
         margin-top: $margin-smallest;
+
+        &:first-child {
+          margin-top: 0;
+        }
       }
     }
 
     button {
-      margin-top: $margin-small;
+      margin-top: $margin;
+    }
+
+    > ul {
+      > li {
+        &:first-child, &:last-child {
+          margin: $margin;
+        }
+      }
     }
   }
 
