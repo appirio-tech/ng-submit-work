@@ -61,24 +61,27 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
         $document.scrollToElementAnimated nextSection
 
   vm.validateAllSections = ->
-   vm.errors = []
-   foundErrors = false
-   errorElement = null
+    vm.validateSection('app-name', 'platform-details', 'name')
+    vm.validateSection('platform-details', 'type-details', ['devices', 'orientations'])
+    vm.validateSection('type-details', 'brief-details', 'projectType')
 
-   unless vm.nameError
-    foundErrors = true
-    errorElement = angular.element document.getElementById 'app-name'
-    $document.scrollToElementAnimated errorElement
+    foundErrors = false
+    errorElement = null
 
-   if vm.devicesError || orientationError
-    foundErrors = true
-    errorElement = angular.element document.getElementById 'platform-details'
-    $document.scrollToElementAnimated errorElement
+    if vm.nameError
+      foundErrors = true
+      errorElement = angular.element document.getElementById 'app-name'
+      $document.scrollTopAnimated(0)
 
-    unless vm.projectTypeError
-     foundErrors = true
-     errorElement = angular.element document.getElementById 'app-name'
-     $document.scrollToElementAnimated errorElement
+    if vm.devicesError || vm.orientationError
+      foundErrors = true
+      errorElement = angular.element document.getElementById 'platform-details'
+      $document.scrollToElementAnimated errorElement
+
+    if vm.projectTypeError
+      foundErrors = true
+      errorElement = angular.element document.getElementById 'type-details'
+      $document.scrollToElementAnimated errorElement
 
     unless foundErrors
       vm.create()
