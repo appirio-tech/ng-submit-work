@@ -110,20 +110,9 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
 
         p {{font.description}}
 
-        ul.samples(ng-if="font.name == 'Serif' ")
-          li.baskerville Baskerville is a serif font.
+        img(src="/images/sans.png" ng-if="font.name != 'Serif' ")
 
-          li.times Times New Roman is a serif font
-
-          li.courier Courier is a serif font.
-
-
-        ul.samples(ng-if="font.name == 'Sans Serif' ")
-          li.sofia Sofia is a sans-serif font.
-
-          li.arial Arial is a sans-serif font.
-
-          li.museo Museo Sans is a sans-serif font.
+        img(src="/images/serif.png" ng-if="font.name == 'Serif' ")
 
         button(selectable=true type="button" ng-model="vm.font" value="font.id")
 

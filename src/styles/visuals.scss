@@ -13,39 +13,7 @@ submit-work-visuals {
     }
   }
 
-  .baskerville {
-    font-family: Baskerville;
-  }
-
-  .times {
-    font-family: Times New Roman;
-  }
-
-  .courier {
-    font-family: Courier;
-  }
-
-  .arial {
-    font-family: Arial;
-  }
-
-  .museo {
-    font-family: Museo Sans;
-  }
-
   .fonts {
-    .samples {
-      margin-top: $margin-small;
-
-      > li {
-        margin-top: $margin-smallest;
-
-        &:first-child {
-          margin-top: 0;
-        }
-      }
-    }
-
     button {
       margin-top: $margin;
     }
@@ -56,6 +24,10 @@ submit-work-visuals {
           margin: $margin;
         }
       }
+    }
+
+    img {
+      width: 300px;
     }
   }
 
