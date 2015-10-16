@@ -98,23 +98,7 @@ submit-work-visuals {
         li {
           margin: $margin;
 
-           > .icon {
-            height: 100px;
-            width: 75px;
-            background-color: red;
-            margin: 0 auto;
-          }
-
-          p {
-            font-size: $font-size;
-            text-transform: uppercase;
-
-            &.description {
-              font-size: $font-size-small;
-            }
-          }
-
-          p, button {
+          button {
             margin-top: $margin-small;
           }
         }

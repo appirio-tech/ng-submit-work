@@ -106,18 +106,19 @@ srv = () ->
     description: 'Lorem ipsum dolor sit amet'
     id: 'FLAT_COLORS'
     selected: false
-
+    img: 'flat-colors'
   ,
     name: 'Thin Line'
     description: 'Lorem ipsum dolor sit amet'
     id: 'THIN_LINE'
     selected: false
-
+    img: 'thin-line'
   ,
     name: 'Solid Line'
     description: 'Lorem ipsum dolor sit amet'
     id: 'SOLID_LINE'
     selected: false
+    img: 'solid-line'
   ]
 
   service

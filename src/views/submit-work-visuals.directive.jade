@@ -135,17 +135,18 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
 
     ul.flex.center
       li(ng-repeat="icon in vm.icons")
-        .icon
+        img(src="/images/{{icon.img}}.svg")
 
-        p {{icon.name}}
+        h4 {{icon.name}}
 
-        p.description {{icon.description}}
+        p {{icon.description}}
 
-        button(type="button" selectable=true ng-model="vm.icon" value="icon.id")
+        //- .action.action is needed because .action dosnt work, dont know why
+        button.action.action(type="button" selectable=true ng-model="vm.icon" value="icon.id")
 
   footer
     button.wider(ng-hide="vm.backButtonDisabled" ng-click="vm.viewPrevious()") back
 
-    button.action.wider(ng-hide="vm.nextButtonDisabled" ng-click="vm.viewNext()") next
+    button.action.action.wider(ng-hide="vm.nextButtonDisabled" ng-click="vm.viewNext()") next
 
     button.action.wider(ng-show="vm.showFinishDesignButton" ng-click="vm.save()") Save
