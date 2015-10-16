@@ -1,9 +1,10 @@
 'use strict'
 
-SubmitWorkTypeController = ($scope, $rootScope, $state, SubmitWorkService, RequirementService) ->
+SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkService, RequirementService) ->
   vm                  = this
   vm.loading          = false
   vm.showSuccessModal = false
+  vm.nameError = false
 
   # TODO: move route directing out of here
   if $scope.workId
@@ -17,6 +18,16 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, SubmitWorkService, Requi
   vm.orientations = angular.copy RequirementService.orientations
   vm.projectTypes = angular.copy RequirementService.projectTypes
   vm.brief        = ""
+
+  vm.validateSection = (previousId, nextId, model) ->
+    previousSection = angular.element document.getElementById previousId
+    nextSection = angular.element document.getElementById nextId
+    if vm.model
+      vm.#{model}Error = false
+      $document.scrollToElementAnimated nextSection
+    else
+      vm.#{model}Error = true
+      $document.scrollToElementAnimated previousSection
 
   vm.create = ->
     updates = getUpdates()
@@ -67,6 +78,6 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, SubmitWorkService, Requi
 
   vm
 
-SubmitWorkTypeController.$inject = ['$scope', '$rootScope', '$state', 'SubmitWorkService', 'RequirementService']
+SubmitWorkTypeController.$inject = ['$scope', '$rootScope', '$state', '$document', 'SubmitWorkService', 'RequirementService']
 
 angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkTypeController', SubmitWorkTypeController

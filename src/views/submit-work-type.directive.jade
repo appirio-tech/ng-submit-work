@@ -3,14 +3,21 @@ header
 
   p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
-form(ng-submit="vm.create()")
+form(ng-submit="vm.create()" name="typeForm")
   .flush-height.flex.column(flush-height=true)
-    .interactive.flex.column.center.flex-grow
-      input.wider.error(type="text" placeholder="Name your project..." required="true" ng-model="vm.name")
+    .interactive.flex.column.center.flex-grow(id="app-name")
+      input.wider(
+        name="nameInput"
+        type="text"
+        placeholder="Name your project..."
+        ng-blur="vm.validateSection('app-name', 'platform-details', 'name')"
+        ng-model="vm.name"
+        ng-class="{error: vm.nameError}"
+      )
 
-      p.error The app name has been taken, please try another.
+      p.error(ng-if="vm.nameError") Please enter an app name.
 
-    button.wider.continue.action(type="button" scroll-element="platform-details") continue
+    button.wider.continue.action(type="button" ng-click="vm.validateSection('app-name', 'platform-details')") continue
 
   .full-height.flex.column(full-height=true)
     .interactive.flex.column.center.flex-grow(id="platform-details")
