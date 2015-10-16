@@ -702,7 +702,7 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
   'use strict';
   var SubmitWorkService;
 
-  SubmitWorkService = function($rootScope, OptimistModel, SubmitWorkAPIService, SubmitWorkCreationAPIService) {
+  SubmitWorkService = function($rootScope, OptimistModel, SubmitWorkAPIService, ProjectsAPIService) {
     var create, createWork, currentWorkId, emitUpdates, fetch, get, save, work, workTemplate;
     currentWorkId = null;
     workTemplate = {
@@ -755,7 +755,7 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
         return res;
       };
       apiCall = function(model) {
-        return SubmitWorkCreationAPIService.post({}, model).$promise.then(interceptResponse);
+        return ProjectsAPIService.post({}, model).$promise.then(interceptResponse);
       };
       return work.update({
         updates: updates,
@@ -801,7 +801,7 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
     };
   };
 
-  SubmitWorkService.$inject = ['$rootScope', 'OptimistModel', 'SubmitWorkAPIService', 'SubmitWorkCreationAPIService'];
+  SubmitWorkService.$inject = ['$rootScope', 'OptimistModel', 'SubmitWorkAPIService', 'ProjectsAPIService'];
 
   angular.module('appirio-tech-ng-submit-work').factory('SubmitWorkService', SubmitWorkService);
 
