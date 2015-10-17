@@ -5,16 +5,17 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
     localStorageKey               = "recentSubmitWorkSection-#{$scope.workId}"
     localStorage[localStorageKey] = 'features'
 
-  vm                         = this
-  vm.workId                  = $scope.workId
-  vm.loading                 = true
-  vm.showFeaturesModal       = false
-  vm.showUploadModal         = false
-  vm.showDefineFeaturesForm  = false
-  vm.activeFeature           = null
-  vm.uploaderUploading       = null
-  vm.uploaderHasErrors       = null
-  vm.features                = []
+  vm                        = this
+  vm.workId                 = $scope.workId
+  vm.loading                = true
+  vm.featureNameError       = false
+  vm.showFeaturesModal      = false
+  vm.showUploadModal        = false
+  vm.showDefineFeaturesForm = false
+  vm.activeFeature          = null
+  vm.uploaderUploading      = null
+  vm.uploaderHasErrors      = null
+  vm.features               = []
 
   config =
     customFeatureTemplate:
@@ -58,6 +59,12 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
 
   vm.addCustomFeature = ->
     customFeatureValid = vm.customFeature.title && vm.customFeature.description
+    vm.featureTitleError = false
+
+    vm.features.forEach (feature) ->
+      if vm.customFeature.title.toLowerCase() == feature.title.toLowerCase()
+        customFeatureValid = false
+        vm.featureTitleError = true
 
     if customFeatureValid
       vm.updatedFeatures.push vm.customFeature
