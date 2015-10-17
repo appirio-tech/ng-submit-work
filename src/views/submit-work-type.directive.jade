@@ -9,7 +9,7 @@ form(ng-submit="vm.validateAllSections()")
       input.wider(
         type="text"
         placeholder="Name your project..."
-        ng-blur="vm.validateSection('app-name', 'platform-details', 'name')"
+        ng-blur="vm.validateSection('platform-details', 'name')"
         ng-model="vm.name"
         ng-class="{error: vm.nameError}"
       )
