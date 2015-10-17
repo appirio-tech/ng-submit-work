@@ -84,6 +84,8 @@ form(ng-submit="vm.validateAllSections()")
 
       textarea.brief(placeholder="E.g. I need a mobile HR application with social features to support my growing organization" ng-model="vm.brief")
 
+      p.error(ng-if="vm.briefError") Please enter project details.
+
       button.action.continue.wider(type="submit") Create Project
 
 modal(show="vm.showSuccessModal" background-click-close=true)

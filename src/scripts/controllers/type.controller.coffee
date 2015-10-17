@@ -8,6 +8,7 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
   vm.devicesError     = false
   vm.orientationError = false
   vm.projectTypeError = false
+  vm.briefError       = false
 
   # TODO: move route directing out of here
   if $scope.workId
@@ -63,9 +64,16 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
     vm.validateSection('platform-details', 'name')
     vm.validateSection('type-details', ['devices', 'orientations'])
     vm.validateSection('brief-details', 'projectType')
+    vm.validateSection('brief-details', 'brief')
 
     foundErrors = false
     errorElement = null
+
+    if vm.briefError
+      foundErrors = true
+      errorElement = angular.element document.getElementById 'brief-details'
+      $document.scrollTopAnimated(0)
+
     if vm.projectTypeError
       foundErrors = true
       errorElement = angular.element document.getElementById 'type-details'
@@ -80,6 +88,7 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
       foundErrors = true
       errorElement = angular.element document.getElementById 'app-name'
       $document.scrollTopAnimated(0)
+
 
 
     unless foundErrors
