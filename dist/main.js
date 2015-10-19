@@ -578,6 +578,11 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
     };
     activate = function() {
       var destroyWorkListener;
+      $scope.$watch('vm.showFeaturesModal', function(newValue) {
+        if (newValue === false) {
+          return vm.save();
+        }
+      });
       destroyWorkListener = $rootScope.$on("SubmitWorkService.work:changed", function() {
         return onChange();
       });
@@ -718,8 +723,9 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
   var SubmitWorkService;
 
   SubmitWorkService = function($rootScope, OptimistModel, SubmitWorkAPIService) {
-    var create, createWork, currentWorkId, emitUpdates, fetch, get, save, work, workTemplate;
+    var create, currentWorkId, emitUpdates, fetch, get, resetWork, save, work, workTemplate;
     currentWorkId = null;
+    work = null;
     workTemplate = {
       modelType: 'app-project',
       id: null,
@@ -742,8 +748,7 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
     emitUpdates = function() {
       return $rootScope.$emit('SubmitWorkService.work:changed');
     };
-    createWork = function() {
-      var work;
+    resetWork = function() {
       return work = new OptimistModel({
         data: workTemplate,
         updateCallback: emitUpdates,
@@ -753,12 +758,12 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
         }
       });
     };
-    work = createWork();
     get = function() {
       return work.get();
     };
     create = function(updates) {
       var apiCall, interceptResponse;
+      resetWork();
       interceptResponse = function(res) {
         currentWorkId = res.id;
         work.set({
@@ -780,7 +785,7 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
     fetch = function(workId) {
       var apiCall;
       if (workId !== currentWorkId) {
-        work = createWork();
+        resetWork();
         currentWorkId = workId;
       }
       apiCall = function() {
