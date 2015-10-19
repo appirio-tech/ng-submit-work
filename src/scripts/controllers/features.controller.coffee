@@ -128,6 +128,10 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
     vm.numberOfSections = if work.projectType == 'DESIGN_AND_CODE' then 3 else 2
 
   activate = ->
+    $scope.$watch 'vm.showFeaturesModal', (newValue) ->
+      if newValue == false
+        vm.save()
+
     destroyWorkListener = $rootScope.$on "SubmitWorkService.work:changed", ->
       onChange()
 
