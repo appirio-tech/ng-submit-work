@@ -34,7 +34,6 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
     if selected.length == 0 || (selected.length == 1 && selectedName == 'iWatch')
       showOrientation = false
 
-
     showOrientation
 
   vm.validateSection = (nextId, models, scrollActivated) ->
