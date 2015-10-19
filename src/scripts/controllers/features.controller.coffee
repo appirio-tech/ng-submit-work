@@ -42,11 +42,11 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
     vm.activeFeature = feature
 
   vm.applyFeature = ->
+    vm.activeFeature.selected = true
     vm.features.forEach (feature) ->
       if feature.id == vm.activeFeature.id
         vm.updatedFeatures.push feature
 
-    vm.activeFeature = null
     onChange()
 
   vm.removeFeature = ->
@@ -68,7 +68,7 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
 
     if customFeatureValid
       vm.updatedFeatures.push vm.customFeature
-      vm.hideCustomFeatures()
+      # vm.hideCustomFeatures()
       onChange()
 
   vm.save = ->
@@ -121,6 +121,7 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
         vm.features.forEach (vmFeature) ->
           if feature.id == vmFeature.id
             vmFeature.selected = true
+            vmFeature.notes = feature.notes
             vm.selectedFeaturesCount++
 
     vm.projectType = work.projectType
