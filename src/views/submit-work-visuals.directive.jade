@@ -88,13 +88,13 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
       button.clean(ng-click="vm.viewPrevious()") &lt;
 
     li
-      button.clean(ng-click="vm.activateModal('fonts')") fonts
+      button.clean(ng-click="vm.activateModal('fonts')" ng-class="{active: vm.activeStyleModal == 'fonts'}") fonts
 
     li
-      button.clean(ng-click="vm.activateModal('colors')") colors
+      button.clean(ng-click="vm.activateModal('colors')" ng-class="{active: vm.activeStyleModal == 'colors'}") colors
 
     li
-      button.clean(ng-click="vm.activateModal('icons')") icons
+      button.clean(ng-click="vm.activateModal('icons')" ng-class="{active: vm.activeStyleModal == 'icons'}") icons
 
     li
       button.clean(ng-click="vm.viewNext()") &gt;
