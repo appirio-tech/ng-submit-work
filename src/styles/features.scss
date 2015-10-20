@@ -53,10 +53,6 @@ submit-work-features {
                 .icon {
                   display         : inline-block;
                   margin-right    : $margin-smallest;
-
-                  &.selected {
-                    background-color: $primary-color;
-                  }
                 }
               }
             }
