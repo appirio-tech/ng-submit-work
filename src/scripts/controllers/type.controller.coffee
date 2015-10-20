@@ -23,6 +23,19 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
   vm.projectTypes = angular.copy RequirementService.projectTypes
   vm.brief        = ''
 
+  vm.showOrientation = ->
+    showOrientation = true
+
+    selected = vm.devices.filter (device) ->
+      device.selected
+
+    selectedName = selected[0]?.name
+
+    if selected.length == 0 || (selected.length == 1 && selectedName == 'iWatch')
+      showOrientation = false
+
+    showOrientation
+
   vm.validateSection = (nextId, models, scrollActivated) ->
     nextSection = angular.element document.getElementById nextId
     foundErrors = false
@@ -72,7 +85,7 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
     if vm.briefError
       foundErrors = true
       errorElement = angular.element document.getElementById 'brief-details'
-      $document.scrollTopAnimated(0)
+      $document.scrollToElementAnimated errorElement
 
     if vm.projectTypeError
       foundErrors = true
@@ -88,8 +101,6 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
       foundErrors = true
       errorElement = angular.element document.getElementById 'app-name'
       $document.scrollTopAnimated(0)
-
-
 
     unless foundErrors
       vm.create()
