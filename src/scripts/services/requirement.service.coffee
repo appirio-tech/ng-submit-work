@@ -38,7 +38,7 @@ srv = () ->
   ,
     name: 'Portrait'
     id: 'PORTRAIT'
-    selected: false
+    selected: true
   ]
 
   service.features = [

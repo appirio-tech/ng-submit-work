@@ -35,7 +35,7 @@ form(ng-submit="vm.validateAllSections()")
             li(ng-repeat="device in vm.devices")
               checkbox(label="{{device.name}}" ng-model="device.selected")
 
-        li
+        li(ng-class="{invisible: !vm.showOrientation()}")
           h4 Orientation
 
           hr
