@@ -2,6 +2,7 @@
 
 SubmitWorkService = ($rootScope, OptimistModel, SubmitWorkAPIService) ->
   currentWorkId = null
+  work          = null
 
   workTemplate =
     modelType: 'app-project'
@@ -25,7 +26,7 @@ SubmitWorkService = ($rootScope, OptimistModel, SubmitWorkAPIService) ->
   emitUpdates = ->
     $rootScope.$emit 'SubmitWorkService.work:changed'
 
-  createWork = ->
+  resetWork = ->
     work = new OptimistModel
       data: workTemplate
       updateCallback: emitUpdates
@@ -33,12 +34,12 @@ SubmitWorkService = ($rootScope, OptimistModel, SubmitWorkAPIService) ->
         $promise: true
         $resolved: true
 
-  work = createWork()
-
   get = ->
     work.get()
 
   create = (updates) ->
+    resetWork()
+
     interceptResponse = (res) ->
       currentWorkId = res.id
 
@@ -58,7 +59,7 @@ SubmitWorkService = ($rootScope, OptimistModel, SubmitWorkAPIService) ->
 
   fetch = (workId) ->
     if workId != currentWorkId
-      work = createWork()
+      resetWork()
       currentWorkId = workId
 
     apiCall = () ->
