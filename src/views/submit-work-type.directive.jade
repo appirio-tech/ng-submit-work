@@ -61,7 +61,8 @@ form(ng-submit="vm.validateAllSections()")
         li(ng-repeat="projectType in vm.projectTypes")
           h4 {{projectType.name}}
 
-          img(src="{{ projectType.imgUrl }}")
+          .house(ng-class="{ selected: vm.projectType == projectType.id }")
+            img(src="{{ projectType.imgUrl }}")
 
           p {{ projectType.description }}
 

@@ -16,11 +16,11 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
 
     $state.go "submit-work-#{recent}", { id: $scope.workId }
 
-  vm.name         = ""
+  vm.name         = ''
   vm.devices      = angular.copy RequirementService.devices
   vm.orientations = angular.copy RequirementService.orientations
   vm.projectTypes = angular.copy RequirementService.projectTypes
-  vm.brief        = ""
+  vm.brief        = ''
 
   vm.validateSection = (nextId, models, scrollActivated) ->
     nextSection = angular.element document.getElementById nextId

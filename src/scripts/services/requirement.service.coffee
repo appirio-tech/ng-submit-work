@@ -8,7 +8,7 @@ srv = () ->
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
     id: 'DESIGN'
     selected: false
-    imgUrl: 'http://www.collegequest.com/wp-content/uploads/what-do-graphic-designers-do.jpg'
+    imgUrl: '/images/design.svg'
   ,
     name: 'Design & Development'
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'

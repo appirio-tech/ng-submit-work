@@ -13,11 +13,20 @@ submit-work-type {
     padding-bottom: 0;
     margin-top: $margin;
 
-    img {
-      display   : inline-block;
-      width     : 250px;
-      height    : 125px;
-      margin-top: $margin-small;
+    .house {
+      width           : 300px;
+      display         : inline-block;
+      margin-top      : $margin-small;
+      background-color: $neutral-color-light;
+      padding         : $padding;
+
+      &.selected {
+        background-color: $primary-color;
+      }
+
+      img {
+        height: 125px;
+      }
     }
 
     button {
