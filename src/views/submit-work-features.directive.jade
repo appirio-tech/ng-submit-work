@@ -63,7 +63,7 @@ modal.full.define-features(show="vm.showFeaturesModal" background-click-close=tr
 
           p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
-          textarea.widest(placeholder="Notes..." ng-model="vm.activeFeature.notes" ng-keydown="vm.checkAddedNotes()")
+          textarea.widest(placeholder="Notes..." ng-model="vm.activeFeature.notes")
 
           button.wider.action(ng-if="!vm.activeFeature.selected" ng-click="vm.applyFeature()") apply feature
 
