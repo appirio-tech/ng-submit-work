@@ -8,22 +8,16 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
   vm                   = this
   vm.loading           = true
   vm.workId            = $scope.workId
-  vm.showUploadModal   = false
-  vm.showSpecsModal    = false
+  vm.uploadSpecs       = false
+  vm.defineSpecs       = false
   vm.uploaderUploading = false
   vm.uploaderHasErrors = false
   vm.projectType       = null
 
   vm.securityLevels =
-    none: 'none'
-    minimal: 'minimal'
+    none    : 'none'
+    minimal : 'minimal'
     complete: 'complete'
-
-  vm.showUpload = ->
-    vm.showUploadModal = true
-
-  vm.showSpecs = ->
-    vm.showSpecsModal = true
 
   vm.save = (kickoff) ->
     uploaderValid = !vm.uploaderUploading && !vm.uploaderHasErrors

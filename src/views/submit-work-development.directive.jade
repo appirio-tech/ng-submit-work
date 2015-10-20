@@ -8,7 +8,7 @@ header
 
   p Help us understand the technical requirements of your app.
 
-modal.upload-documents(show="vm.showUploadModal" background-click-close=true)
+modal.upload-documents(show="vm.uploadSpecs" background-click-close=true)
   .upload
     .icon.upload
 
@@ -31,125 +31,131 @@ modal.upload-documents(show="vm.showUploadModal" background-click-close=true)
 
       h3 Define development specs
 
-      button.action.wide(type="button" scroll-element="offline-access") select
+      button.action.wide(type="button" ng-click="vm.defineSpecs = !vn.defineSpecs") select
 
     li
       .icon
 
       h3 Upload development specs
 
-      button.action.wide(ng-click="vm.showUpload()") select
+      button.action.wide(ng-click="vm.uploadSpecs = !vm.uploadSpecs") select
 
-  button.wider.continue(type="button" scroll-element="offline-access") continue
+  button.continue.wider.action(ng-click="vm.save(true)") kick off project
 
-form
-  .full-height.flex.column(full-height=true)
-    #offline-access.interactive.flex.column.center.flex-grow
-      h2 Do you require users to have <strong>offline access to data</strong>?
+modal.full.define-development(show="vm.defineSpecs" background-click-close=true)
+  ul.nav
+    li
+      button.clean(ng-click="vm.viewPrevious()") &lt;
 
-      p Do your users need to be able to interact with the application when they are unable to connect to the internet (over the air or via wifi)?
+    li
+      button.clean(ng-click="vm.activateModal('fonts')" ng-class="{active: vm.activeStyleModal == 'fonts'}") fonts
 
+    li
+      button.clean(ng-click="vm.activateModal('colors')" ng-class="{active: vm.activeStyleModal == 'colors'}") colors
 
-      ul.or-choices.flex.center.middle
-        li
-          button.big.widest(
-            ng-model="vm.work.offlineAccess"
-            label="yes"
-            value="true"
-            selectable=true
-            type="button"
-          )
+    li
+      button.clean(ng-click="vm.activateModal('icons')" ng-class="{active: vm.activeStyleModal == 'icons'}") icons
 
-          p Users will need to interact with the app even when offline.  This feature increases complexity and costs.
+    li
+      button.clean(ng-click="vm.viewNext()") &gt;
 
-        li.or
-          .house OR
+  main.flex.column.center.flex-grow(ng-show="false")
+    h2 Do you require users to have <strong>offline access to data</strong>?
 
-        li
-          button.big.widest(
-            ng-model="vm.work.offlineAccess"
-            label="no"
-            value="false"
-            selectable=true
-            type="button"
-          )
+    p Do your users need to be able to interact with the application when they are unable to connect to the internet (over the air or via wifi)?
 
-          p The application will gracefully present a message to the user to please connect to the internet.
+    ul.or-choices.flex.center.middle
+      li
+        button.big.widest(
+          ng-model="vm.work.offlineAccess"
+          label="yes"
+          value="true"
+          selectable=true
+          type="button"
+        )
 
-    button.wider.continue(type="button" scroll-element="personal-info") continue
+        p Users will need to interact with the app even when offline.  This feature increases complexity and costs.
 
-  .full-height.flex.column(full-height=true)
-    #personal-info.interactive.flex.column.center.flex-grow
-      h2 Personal information
+      li.or
+        .house OR
 
-      p Is there any level of personal information? (stored or transmitted)
+      li
+        button.big.widest(
+          ng-model="vm.work.offlineAccess"
+          label="no"
+          value="false"
+          selectable=true
+          type="button"
+        )
 
-      ul.or-choices.flex.center.middle
-        li
-          button.big.widest(
-            ng-model="vm.work.usesPersonalInformation"
-            label="yes"
-            value="true"
-            selectable=true
-            type="button"
-          )
+        p The application will gracefully present a message to the user to please connect to the internet.
 
-          p Storing and/or transmitting personal information increases security and encryption needs which adds complexity and cost.
+  main.flex.column.center.flex-grow(ng-show="false")
+    h2 Personal information
 
-        li.or
-          .house OR
+    p Is there any level of personal information? (stored or transmitted)
 
-        li
-          button.big.widest(
-            ng-model="vm.work.usesPersonalInformation"
-            label="no"
-            value="false"
-            selectable=true
-            type="button"
-          )
+    ul.or-choices.flex.center.middle
+      li
+        button.big.widest(
+          ng-model="vm.work.usesPersonalInformation"
+          label="yes"
+          value="true"
+          selectable=true
+          type="button"
+        )
 
-          p The app is not transferring or storing personal information.
+        p Storing and/or transmitting personal information increases security and encryption needs which adds complexity and cost.
 
-    button.wider.continue(type="button" scroll-element="security-level") continue
+      li.or
+        .house OR
 
-  .full-height.flex.column(full-height=true)
-    #security-level.security.interactive.flex.column.center.flex-grow
-      h2 What level of <strong>security do you need</strong>?
+      li
+        button.big.widest(
+          ng-model="vm.work.usesPersonalInformation"
+          label="no"
+          value="false"
+          selectable=true
+          type="button"
+        )
 
-      ul.selectable-choices.flex.center
-        li
-          .img
+        p The app is not transferring or storing personal information.
 
-          label No security
+  main.security.flex.column.center.flex-grow(ng-show="false")
+    h2 What level of <strong>security do you need</strong>?
 
-          button(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.none")
+    ul.selectable-choices.flex.center
+      li
+        .img
 
-        li
-          .img
+        label No security
 
-          label Minimal security
+        button(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.none")
 
-          button(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.minimal")
+      li
+        .img
 
-        li
-          .img
+        label Minimal security
 
-          label Complete security
+        button(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.minimal")
 
-          button(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.complete")
+      li
+        .img
 
-    button.wider.continue(type="button" scroll-element="third-party-integrations") continue
+        label Complete security
 
-  .full-height.flex.column(full-height=true)
-    #third-party-integrations.interactive.flex.column.center.flex-grow
-      h2 How many 3rd party integrations</strong>?
+        button(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.complete")
 
-      p Enter the number of 3rd party integrations so we can estimate effort involved.
+  main.third-party-integrations.flex.column.center.flex-grow(ng-show="true")
+    h2 How many 3rd party integrations</strong>?
 
-      input(type="number" min=1 max=6 ng-model="vm.work.numberOfApiIntegrations")
+    p Enter the number of 3rd party integrations so we can estimate effort involved.
 
-    .buttons
-      button.continue.wider.save(ng-click="vm.save(false)") save
+    input(type="number" min=1 max=6 ng-model="vm.work.numberOfApiIntegrations")
 
-      button.contine.wider.kick-off.action(ng-click="vm.save(true)") kick off project
+  footer
+    button.wider(ng-hide="vm.backButtonDisabled" ng-click="vm.viewPrevious()") back
 
+    button.action.action.wider(ng-hide="vm.nextButtonDisabled" ng-click="vm.viewNext()") next
+
+    button.action.wider(ng-show="vm.showFinishDesignButton" ng-click="vm.save()") Save

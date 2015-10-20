@@ -16,11 +16,8 @@ submit-work-development {
   }
 
   input[type="number"] {
+    margin: 0 auto;
     margin-top: $margin-small;
-  }
-
-  .save, .kick-off {
-    margin: $margin $margin-small;
   }
 
   .security {
@@ -39,6 +36,42 @@ submit-work-development {
   .third-party-integrations {
     > p {
       margin-top: $margin-small;
+    }
+  }
+
+  .define-development {
+    .nav {
+      @include vertical-align-middle;
+
+      text-align: center;
+      width     : 100%;
+      padding   : $padding-big;
+
+      > li {
+        margin: 0 $margin-small;
+      }
+    }
+
+    button {
+      &.active {
+        color: $neutral-color-darkest;
+      }
+    }
+
+    footer {
+      button {
+        margin: $margin;
+      }
+    }
+
+    > main {
+      background-color: $neutral-color-light;
+      width           : 100%;
+      border-top      : 1px solid $neutral-color;
+
+      h2 {
+        margin-top: 0;
+      }
     }
   }
 }
