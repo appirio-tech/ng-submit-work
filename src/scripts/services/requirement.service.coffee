@@ -42,18 +42,20 @@ srv = () ->
   ]
 
   service.features = [
-    id: 'LOGIN',
-    title: 'Login',
-    description: 'Users can login / register for your app',
-    notes: null,
-    custom: null,
+    id: 'ONBOARDING'
+    title: 'Onboarding'
+    description: 'Users can see data from social networks (FB, Twitter etc.) in your app',
+    notes: null
+    custom: null
+    icon: '/images/help-me.svg'
     selected: false
   ,
-    id: 'ONBOARDING',
-    title: 'Onboarding',
-    description: 'Users can see data from social networks (FB, Twitter etc.) in your app',
-    notes: null,
-    custom: null,
+    id: 'LOGIN'
+    title: 'Login'
+    description: 'Users can login / register for your app'
+    notes: null
+    custom: null
+    icon: '/images/security-minimal.svg'
     selected: false
   ,
     id: 'REGISTRATION',
@@ -61,6 +63,7 @@ srv = () ->
     description: 'Users can create profiles with personal info',
     notes: null,
     custom: null,
+    icon: '/images/login-reg.svg'
     selected: false
   ,
     id: 'LOCATION',
@@ -68,6 +71,22 @@ srv = () ->
     description: 'A map with a user\'s GPS location that helps them get to places',
     notes: null,
     custom: null,
+    selected: false
+  ,
+    id: 'Social'
+    title: 'Social'
+    description: 'A map with a user\'s GPS location that helps them get to places'
+    notes: null
+    custom: null
+    icon: '/images/social.svg'
+    selected: false
+  ,
+    id: 'Ecommerce'
+    title: 'Ecommerce'
+    description: 'A map with a user\'s GPS location that helps them get to places'
+    notes: null
+    custom: null
+    icon: '/images/ecommerce.svg'
     selected: false
   ]
 
