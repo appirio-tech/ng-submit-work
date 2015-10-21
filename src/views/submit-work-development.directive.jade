@@ -8,7 +8,7 @@ header
 
   p Help us understand the technical requirements of your app.
 
-modal.upload-documents(show="vm.uploadSpecs" background-click-close=true)
+modal.upload-documents(show="vm.showUploadSpecs" background-click-close=true)
   .upload
     .icon.upload
 
@@ -38,7 +38,7 @@ modal.upload-documents(show="vm.uploadSpecs" background-click-close=true)
 
       h3 Upload development specs
 
-      button.action.wide(ng-click="vm.uploadSpecs = !vm.uploadSpecs") select
+      button.action.wide(ng-click="vm.uploadSpecs()") select
 
   button.continue.wider.action(ng-click="vm.save(true)") kick off project
 

@@ -8,8 +8,8 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
   vm                   = this
   vm.loading           = true
   vm.workId            = $scope.workId
-  vm.uploadSpecs       = false
-  vm.defineSpecs       = false
+  vm.showUploadSpecs       = false
+  vm.showDefineSpecsModal  = false
   vm.uploaderUploading = false
   vm.uploaderHasErrors = false
   vm.activeDevelopmentModal = null
@@ -20,6 +20,9 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
     none    : 'none'
     minimal : 'minimal'
     complete: 'complete'
+
+  vm.uploadSpecs = ->
+    vm.showUploadSpecs = true
 
   vm.showDefineSpecs = ->
     vm.showDefineSpecsModal = true

@@ -40,8 +40,8 @@ describe 'SubmitWorkDevelopmentController', ->
   it 'should initialize vm based on work request', ->
     expect(vm.loading).to.be.false
     expect(vm.workId).to.equal 'someIdString'
-    expect(vm.showUploadModal).to.be.false
-    expect(vm.showSpecsModal).to.be.false
+    expect(vm.showUploadSpecs).to.be.false
+    expect(vm.showDefineSpecsModal).to.be.false
     expect(vm.uploaderUploading).to.be.false
     expect(vm.uploaderHasErrors).to.be.false
     expect(vm.securityLevels).to.have.keys 'none', 'minimal', 'complete'
@@ -58,9 +58,9 @@ describe 'SubmitWorkDevelopmentController', ->
     expect(calledWith).to.exist
 
   it 'vm.showUpload() should update vm', ->
-    vm.showUpload()
-    expect(vm.showUploadModal).to.be.true
+    vm.uploadSpecs()
+    expect(vm.showUploadSpecs).to.be.true
 
-  it 'vm.showSpecs() should update vm', ->
-    vm.showSpecs()
-    expect(vm.showSpecsModal).to.be.true
+  it 'vm.showDefineSpecs() should update vm', ->
+    vm.showDefineSpecs()
+    expect(vm.showDefineSpecsModal).to.be.true
