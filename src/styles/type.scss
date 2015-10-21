@@ -20,8 +20,25 @@ submit-work-type {
       background-color: $neutral-color-light;
       padding         : $padding;
 
+
+      .active {
+        display: none;
+      }
+
+      .inactive {
+        display: inline-block;
+      }
+
       &.selected {
         background-color: $primary-color;
+
+        .active {
+          display: inline-block;
+        }
+
+        .inactive {
+          display: none;
+        }
       }
 
       img {

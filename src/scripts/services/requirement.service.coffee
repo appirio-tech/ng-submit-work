@@ -8,13 +8,11 @@ srv = () ->
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
     id: 'DESIGN'
     selected: false
-    imgUrl: '/images/design.svg'
   ,
     name: 'Design & Development'
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
     id: 'DESIGN_AND_CODE'
     selected: false
-    imgUrl: 'http://pbwebdev.com/blog/wp-content/uploads/2014/06/developer.jpg'
   ]
 
   service.devices = [

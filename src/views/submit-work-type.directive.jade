@@ -61,8 +61,21 @@ form(ng-submit="vm.validateAllSections()")
         li(ng-repeat="projectType in vm.projectTypes")
           h4 {{projectType.name}}
 
-          .house(ng-class="{ selected: vm.projectType == projectType.id }")
-            img(src="{{ projectType.imgUrl }}")
+          .house(
+            ng-class="{ selected: vm.projectType == projectType.id }"
+            ng-if="projectType.id == 'DESIGN'"
+          )
+            img.inactive(src="/images/design.svg")
+
+            img.active(src="/images/design-active.svg")
+
+          .house(
+            ng-class="{ selected: vm.projectType == projectType.id }"
+            ng-if="projectType.id == 'DESIGN_AND_CODE'"
+          )
+            img.inactive(src="/images/development.svg")
+
+            img.active(src="/images/development-active.svg")
 
           p {{ projectType.description }}
 
