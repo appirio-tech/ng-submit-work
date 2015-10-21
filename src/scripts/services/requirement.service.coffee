@@ -106,7 +106,7 @@ srv = () ->
     imgUrl: 'http://s3.amazonaws.com/colorcombos-images/users/1/color-schemes/color-scheme-375-main.png?v=20120505082910'
   ,
     name: 'Red'
-    id: 'Red'
+    id: 'RED'
     imgUrl: 'http://s3.amazonaws.com/colorcombos-images/users/1/color-schemes/color-scheme-375-main.png?v=20120505082910'
   ,
     name: 'Green'
@@ -114,7 +114,7 @@ srv = () ->
     imgUrl: 'http://s3.amazonaws.com/colorcombos-images/users/1/color-schemes/color-scheme-375-main.png?v=20120505082910'
   ,
     name: 'Orange'
-    id: 'Orange'
+    id: 'ORANGE'
     imgUrl: 'http://s3.amazonaws.com/colorcombos-images/users/1/color-schemes/color-scheme-375-main.png?v=20120505082910'
   ]
 
