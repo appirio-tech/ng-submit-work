@@ -91,8 +91,8 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Sub
       vm.backButtonDisabled = true
     else if isLast
       vm.nextButtonDisabled = true
-      vm.showFinishDesignButton = true
       vm.backButtonDisabled = false
+      vm.showFinishDesignButton = true
     else
       vm.nextButtonDisabled = false
       vm.backButtonDisabled = false

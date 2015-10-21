@@ -67,11 +67,12 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
     isFirst = currentIndex == 0
     isLast = currentIndex == vm.developmentModals.length - 1
     if isFirst
-      vm.backButtonDisabled = true
       vm.nextButtonDisabled = false
+      vm.backButtonDisabled = true
       vm.showFinishDevelopmentButton = false
     else if isLast
       vm.nextButtonDisabled = true
+      vm.backButtonDisabled = false
       vm.showFinishDevelopmentButton = true
     else
       vm.backButtonDisabled = false

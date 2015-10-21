@@ -128,7 +128,7 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
 
         p {{ color.name }}
 
-        button(type="button" selectable=true value="")
+        button(type="button" selectable=true ng-model="color.selected")
 
   main.icons.flex.column.center.flex-grow(ng-show="vm.activeStyleModal == 'icons' ")
     h2 Tell us <strong>the icons</strong> you like
