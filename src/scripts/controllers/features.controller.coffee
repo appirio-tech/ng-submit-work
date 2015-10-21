@@ -8,7 +8,6 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
   vm                        = this
   vm.workId                 = $scope.workId
   vm.loading                = true
-  vm.showSaveNotes          = false
   vm.featureNameError       = false
   vm.showFeaturesModal      = false
   vm.showUploadModal        = false
@@ -27,9 +26,14 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
       custom: true
       fileIds: []
 
-  vm.checkAddedNotes = ->
-    if vm.activeFeature.selected
-      vm.showSaveNotes = true
+  vm.activeFeatureChangedNotes = (activeFeature) ->
+    changedNotes = false
+
+    vm.updatedFeatures?.forEach (feature) ->
+      if feature.id == activeFeature?.id && feature.notes != activeFeature?.notes
+        changedNotes = true
+
+    changedNotes
 
   vm.showFeatures = ->
     vm.showFeaturesModal = true
@@ -51,10 +55,7 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
       if updatedFeature.id == vm.activeFeature.id
         updatedFeature.notes = vm.activeFeature.notes
 
-    vm.showSaveNotes = false
-
   vm.applyFeature = ->
-    vm.activeFeature.selected = true
     vm.features.forEach (feature) ->
       if feature.id == vm.activeFeature.id
         vm.updatedFeatures.push feature
