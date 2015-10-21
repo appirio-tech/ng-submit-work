@@ -23,7 +23,6 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
 
   vm.showDefineSpecs = ->
     vm.showDefineSpecsModal = true
-    # vm.showFinishDevelopmentButton = false
     vm.activateModal('offlineAccess')
 
   vm.hideDefineSpecs = ->
