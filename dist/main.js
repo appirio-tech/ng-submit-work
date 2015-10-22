@@ -223,6 +223,7 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
     vm.create = function() {
       var promise, updates;
       updates = getUpdates();
+      updates.status = 'Incomplete';
       if (isValid(updates)) {
         vm.loading = true;
         promise = SubmitWorkService.create(updates);
