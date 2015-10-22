@@ -29,6 +29,9 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Sub
     vm.showPaths = true
     vm.showChooseStylesModal = false
 
+  vm.hideUrlStyles = ->
+    vm.showUrlStylesModal = false
+
   vm.showUploadStyles = ->
     vm.showUploadStylesModal = true
 
@@ -60,8 +63,10 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Sub
     SubmitWorkService.save(updates).then ->
       if done
         $state.go 'submit-work-complete', { id: vm.workId }
-      else
+      else if vm.showChooseStylesModal
         vm.hideChooseStyles()
+      else if vm.showUrlStylesModal
+        vm.hideUrlStyles()
 
   getUpdates = ->
     isSelected = (item) ->
