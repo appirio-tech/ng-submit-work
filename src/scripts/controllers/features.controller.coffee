@@ -16,7 +16,6 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
   vm.uploaderUploading      = null
   vm.uploaderHasErrors      = null
   vm.features               = []
-  vm.activePreview          = 'activity-feed'
 
   config =
     customFeatureTemplate:
@@ -49,6 +48,7 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
     vm.showDefineFeaturesForm = false
 
   vm.activateFeature = (feature) ->
+    vm.activePreview = feature.title
     vm.activeFeature = feature
 
   vm.saveNotes = ->

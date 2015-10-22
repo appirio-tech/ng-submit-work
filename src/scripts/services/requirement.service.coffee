@@ -42,7 +42,7 @@ srv = () ->
   service.features = [
     id: 'ONBOARDING'
     title: 'Onboarding'
-    description: 'Users can see data from social networks (FB, Twitter etc.) in your app',
+    description: 'Virtually walk your users through your application. This functionality is especially useful if you need new users to set up an account or express preferences.',
     notes: null
     custom: null
     icon: '/images/help-me.svg'
@@ -50,7 +50,7 @@ srv = () ->
   ,
     id: 'LOGIN'
     title: 'Login'
-    description: 'Users can login / register for your app'
+    description: 'Allow users to register and log in using their email address and a password. Users can also change their password or recover a forgotten one.'
     notes: null
     custom: null
     icon: '/images/security-minimal.svg'
@@ -58,7 +58,7 @@ srv = () ->
   ,
     id: 'REGISTRATION',
     title: 'Registration',
-    description: 'Users can create profiles with personal info',
+    description: ' Allow users to register and log in using third-party services such as Facebook, Twitter, and Google. Please specify below the ones that you would like to use.',
     notes: null,
     custom: null,
     icon: '/images/login-reg.svg'
@@ -66,14 +66,15 @@ srv = () ->
   ,
     id: 'LOCATION',
     title: 'Location',
-    description: 'A map with a user\'s GPS location that helps them get to places',
+    description: 'Add this feature if your app has any geographic location-based functionality, such as showing store locations on a map or illustrating the progress of a delivery. Please specify your desired functionality below.',
     notes: null,
     custom: null,
+    icon: '/images/location.svg'
     selected: false
   ,
     id: 'Social'
     title: 'Social'
-    description: 'A map with a user\'s GPS location that helps them get to places'
+    description: 'Show your users an activity feed of some kind, as they’re used to seeing on Facebook and Twitter, for example. Please specify below your desired usage and the information that a user should see in the activity feed.'
     notes: null
     custom: null
     icon: '/images/social.svg'
@@ -81,11 +82,36 @@ srv = () ->
   ,
     id: 'Ecommerce'
     title: 'Ecommerce'
-    description: 'A map with a user\'s GPS location that helps them get to places'
+    description: 'Allow users to buy, sell, or rent products or services. Please provide details below regarding how your marketplace should work.'
     notes: null
     custom: null
     icon: '/images/ecommerce.svg'
     selected: false
+  ,
+    id: 'Payments & Billing'
+    title: 'Payments & Billing'
+    description: 'Allow users to pay in some way; for example, using credit cards, PayPal, or Bitcoin. Please specify your desired functionality below.'
+    notes: null
+    custom: null
+    icon: '/images/payments.svg'
+    selected: false
+  ,
+    id: 'Notifications'
+    title: 'Notifications'
+    description: 'Take advantage of mobile notifications; for example, remind users to do certain tasks or update them on new content. Please specify your desired functionality below.'
+    notes: null
+    custom: null
+    icon: '/images/notifications.svg'
+    selected: false
+  ,
+    id: 'Audio'
+    title: 'Audio'
+    description: 'Add this feature if your app will require using the camera to capture audio or video. Please specify your desired usage below.'
+    notes: null
+    custom: null
+    icon: '/images/audio.svg'
+    selected: false
+
   ]
 
   service.fonts = [

@@ -55,14 +55,14 @@ modal.full.define-features(show="vm.showFeaturesModal" background-click-close=tr
         .default.active(ng-hide="vm.showDefineFeaturesForm" ng-class="{active: !vm.activeFeature}")
           h4 Select and define features for your app
 
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          p Please list the functionality that your app needs to have by selecting from the list of popular features on the left or by defining your own custom features
 
         .description(ng-hide="vm.showDefineFeaturesForm" ng-class="{active: vm.activeFeature}")
           h4 Select and define features for your app
 
           h5 {{ vm.activeFeature.title }} description
 
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          p {{vm.activeFeature.description}}
 
           textarea.widest(placeholder="Notes..." ng-model="vm.activeFeature.notes")
 
@@ -90,7 +90,11 @@ modal.full.define-features(show="vm.showFeaturesModal" background-click-close=tr
           button.wide.cancel(type="button" ng-click="vm.hideCustomFeatures()") Cancel
 
         .example.flex-grow
-          img(src="/images/previews/{{ vm.activePreview }}.png")
+          img(ng-if="vm.activeFeature && !vm.activeFeature.custom" src="/images/previews/{{ vm.activePreview }}.png")
+
+          img(ng-if="vm.activeFeature && vm.activeFeature.custom" src="/images/previews/Custom-feature.png")
+
+          img(ng-if="!vm.activeFeature" src="/images/previews/Default-preview.png")
 
       li.flex.center.space-between
         .count {{vm.selectedFeaturesCount}} features added
