@@ -171,6 +171,10 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
   .upload-documents, .enter-url {
     background-color: $neutral-color-light;
 
+    img {
+      height: 100px;
+    }
+
     .close {
       background-color: transparent;
     }
@@ -186,14 +190,6 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
 
     p, button {
       margin-top: $margin-small;
-    }
-
-    .icon.upload {
-      width: 200px;
-      height: 100px;
-      margin: 0 auto;
-
-      background-color: pink;
     }
   }
 }
