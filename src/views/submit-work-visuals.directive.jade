@@ -3,8 +3,7 @@ loader(ng-if="vm.loading")
 header
   include nav
 
-  .house
-    .icon.warning.biggest
+  img(src="/images/design-active.svg")
 
   h1 Visual Design
 
@@ -13,7 +12,7 @@ header
 .flush-height.flex.column(flush-height=true)
   ul.interactive.flex.center.flex-grow.middle.selectable-choices(ng-class="{active: vm.showPaths}")
     li
-      .icon.warning.big
+      img.icon.big.biggest(src="/images/brand-reqs.svg")
 
       h3 Choose Styles
 
@@ -22,7 +21,7 @@ header
       button.action.wide(ng-click="vm.showChooseStyles()") select
 
     li
-      .icon.warning.big
+      img.icon.big.biggest(src="/images/upload.svg")
 
       h3 Upload styles
 
@@ -31,7 +30,7 @@ header
       button.action.wide(ng-click="vm.showUploadStyles()") select
 
     li
-      .icon.warning.big
+      img.icon.big.biggest(src="/images/url-styles.svg")
 
       h3 Get style from url
 
@@ -57,7 +56,7 @@ header
 
 modal.upload-documents(show="vm.showUploadStylesModal" background-click-close=true)
   .upload
-    .icon.upload
+    img(src="/images/upload.svg")
 
     h2 Upload <strong>documents</strong>
 
@@ -71,7 +70,7 @@ modal.upload-documents(show="vm.showUploadStylesModal" background-click-close=tr
 
 modal.enter-url(show="vm.showUrlStylesModal" background-click-close=true)
   .upload
-    .icon.upload
+    img(src="/images/url-styles.svg")
 
     h2 Enter your <strong>url</strong>
 
@@ -85,7 +84,8 @@ modal.enter-url(show="vm.showUrlStylesModal" background-click-close=true)
 modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=true)
   ul.nav
     li
-      button.clean(ng-click="vm.viewPrevious()") &lt;
+      button.clean(ng-click="vm.viewPrevious()")
+        .icon.arrow.smallest
 
     li
       button.clean(ng-click="vm.activateModal('fonts')" ng-class="{active: vm.activeStyleModal == 'fonts'}") fonts
@@ -97,7 +97,8 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
       button.clean(ng-click="vm.activateModal('icons')" ng-class="{active: vm.activeStyleModal == 'icons'}") icons
 
     li
-      button.clean(ng-click="vm.viewNext()") &gt;
+      button.clean(ng-click="vm.viewNext()")
+        .icon.arrow.smallest.right
 
   main.fonts.flex.column.center.flex-grow(ng-show="vm.activeStyleModal == 'fonts' ")
     h2 Tell us your <strong>font preference</strong>
@@ -124,9 +125,9 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
 
     ul.flex.center
       li(ng-repeat="color in vm.colors")
-        img(src="{{ color.imgUrl }}" width="150")
+        img(src="/images/colors-{{ color.name }}.png")
 
-        p {{ color.name }}
+        h4 {{ color.name }}
 
         button(type="button" selectable=true ng-model="color.selected")
 

@@ -67,33 +67,8 @@ submit-work-visuals {
     }
 
     .colors {
-      .fonts .samples {
-        margin-top: $margin;
-
-        li {
-          font-size: $font-size-big;
-          margin-top: $margin-small;
-        }
-      }
-
-      .swatches {
-        h4 {
-          margin-top: 0;
-          margin-bottom: $margin-smallest;
-        }
-
-        .samples {
-          width: 396px;
-          padding-top: $margin;
-          padding-left: $margin;
-
-          li {
-            background-color: purple;
-            width: 150px;
-
-            height: 90px;
-          }
-        }
+      img {
+        width: 150px;
       }
     }
 

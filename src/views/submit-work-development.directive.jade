@@ -1,8 +1,7 @@
 header
   include nav
 
-  .house
-    .icon.warning.biggest
+  img(src="/images/development-active.svg")
 
   h1 Development
 
@@ -10,7 +9,7 @@ header
 
 modal.upload-documents(show="vm.showUploadSpecs" background-click-close=true)
   .upload
-    .icon.upload
+    img(src="/images/upload.svg")
 
     h2 Upload your <strong>Development specs</strong>
 
@@ -27,14 +26,14 @@ modal.upload-documents(show="vm.showUploadSpecs" background-click-close=true)
 .flush-height.flex.column(flush-height=true)
   ul.interactive.flex.center.middle.flex-grow.selectable-choices
     li
-      .icon
+      img.icon.biggest(src="/images/define-dev-specs.svg")
 
       h3 Define development specs
 
       button.action.wide(type="button" ng-click="vm.showDefineSpecs()") select
 
     li
-      .icon
+      img.icon.biggest(src="/images/upload.svg")
 
       h3 Upload development specs
 
@@ -45,7 +44,8 @@ modal.upload-documents(show="vm.showUploadSpecs" background-click-close=true)
 modal.full.define-development(show="vm.showDefineSpecsModal" background-click-close=true)
   ul.nav
     li
-      button.clean(ng-click="vm.viewPrevious()") &lt;
+      button.clean(ng-click="vm.viewPrevious()")
+        .icon.arrow.smallest
 
     li
       button.clean(ng-click="vm.activateModal('offlineAccess')" ng-class="{active: vm.activeDevelopmentModal == 'offlineAccess'}") offline access
@@ -60,7 +60,8 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
       button.clean(ng-click="vm.activateModal('thirdPartyIntegrations')" ng-class="{active: vm.activeDevelopmentModal == 'thirdPartyIntegrations'}") third party integrations
 
     li
-      button.clean(ng-click="vm.viewNext()") &gt;
+      button.clean(ng-click="vm.viewNext()")
+        .icon.arrow.smallest.right
 
   main.flex.column.center.flex-grow(ng-show= "vm.activeDevelopmentModal == 'offlineAccess'")
     h2 Do you require users to have <strong>offline access to data</strong>?
@@ -129,25 +130,25 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
 
     ul.selectable-choices.flex.center
       li
-        .img
+        img(src="/images/security-none.svg")
 
         label No security
 
-        button(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.none")
+        button.wide(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.none")
 
       li
-        .img
+        img(src="/images/security-minimal.svg")
 
         label Minimal security
 
-        button(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.minimal")
+        button.wide(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.minimal")
 
       li
-        .img
+        img(src="/images/security-complete.svg")
 
         label Complete security
 
-        button(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.complete")
+        button.wide(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.complete")
 
   main.third-party-integrations.flex.column.center.flex-grow(ng-show= "vm.activeDevelopmentModal == 'thirdPartyIntegrations'")
     h2 How many 3rd party integrations</strong>?
