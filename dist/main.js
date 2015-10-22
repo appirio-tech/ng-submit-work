@@ -501,7 +501,6 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
           return vm.updatedFeatures.push(feature);
         }
       });
-      vm.activeFeature = null;
       return onChange();
     };
     vm.removeFeature = function() {
