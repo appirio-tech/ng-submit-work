@@ -93,12 +93,10 @@ submit-work-features {
         li:first-child {
           .example {
             background-color: $neutral-color-light;
+            text-align: center;
 
-            .phone {
-              width           : 250px;
-              height          : 500px;
-              margin          : $margin auto;
-              background-color: green;
+            img {
+              margin-top: $margin;
             }
           }
         }

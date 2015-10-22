@@ -1,8 +1,7 @@
 header
   include nav
 
-  .house
-    .icon.warning.biggest
+  img(src="/images/features-white.svg")
 
   h1 Specify Features
 
@@ -11,7 +10,7 @@ header
 .flush-height.flex.column(flush-height=true)
   ul.interactive.flex.center.middle.flex-grow.selectable-choices
     li
-      .icon.warning.big
+      img.icon.biggest(src="/images/define-feature.svg")
 
       h3 Define features
 
@@ -20,7 +19,7 @@ header
       button.action.wide(ng-click="vm.showFeatures()") select
 
     li
-      .icon.warning.big
+      img.icon.biggest(src="/images/upload.svg")
 
       h3 Upload document
 
@@ -39,9 +38,9 @@ modal.full.define-features(show="vm.showFeaturesModal" background-click-close=tr
         ul
           li(ng-repeat="feature in vm.features")
             button.widest.clean(ng-click="vm.activateFeature(feature)")
-              img.icon(src="{{ feature.icon }}" ng-hide="feature.selected")
+              img.icon.small(src="{{ feature.icon }}" ng-hide="feature.selected")
 
-              img.icon(src="/images/icon-check-solid.svg" ng-show="feature.selected")
+              img.icon.small(src="/images/icon-check-solid.svg" ng-show="feature.selected")
 
               span {{ feature.title }}
 
@@ -91,7 +90,7 @@ modal.full.define-features(show="vm.showFeaturesModal" background-click-close=tr
           button.wide.cancel(type="button" ng-click="vm.hideCustomFeatures()") Cancel
 
         .example.flex-grow
-          .phone
+          img(src="/images/previews/{{ vm.activePreview }}.png")
 
       li.flex.center.space-between
         .count {{vm.selectedFeaturesCount}} features added

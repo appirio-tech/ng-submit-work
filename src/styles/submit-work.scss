@@ -61,7 +61,7 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
     display   : block;
     width     : 400px;
     margin    : 0 auto;
-    margin-top: 0;
+    margin-top: $margin-smallest;
   }
 
   h2 {
@@ -79,20 +79,21 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
     > * {
       max-width: 400px;
       color: $white;
-      margin: 0 auto;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    .house {
-      border       : 5px solid $white;
-      border-radius: 50%;
-      display      : inline-block;
-      padding      : $padding;
-      margin-top: $margin;
-      margin-bottom: $margin-small;
+    img {
+      height: 100px;
+      margin-top: $margin-small;
     }
 
     p {
       margin-top: $margin-smallest;
+    }
+
+    h1 {
+      margin-top: $margin-small;
     }
   }
 

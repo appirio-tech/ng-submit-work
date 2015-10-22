@@ -73,9 +73,9 @@ form(ng-submit="vm.validateAllSections()")
             ng-class="{ selected: vm.projectType == projectType.id }"
             ng-if="projectType.id == 'DESIGN_AND_CODE'"
           )
-            img.inactive(src="/images/development.svg")
+            img.inactive(src="/images/design-development.svg")
 
-            img.active(src="/images/development-active.svg")
+            img.active(src="/images/design-development-active.svg")
 
           p {{ projectType.description }}
 
