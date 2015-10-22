@@ -12,6 +12,8 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
   vm.showFeaturesModal      = false
   vm.showUploadModal        = false
   vm.showDefineFeaturesForm = false
+  vm.featuresDefined        = false
+  vm.urlAdded               = false
   vm.activeFeature          = null
   vm.uploaderUploading      = null
   vm.uploaderHasErrors      = null
@@ -138,6 +140,7 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
             vmFeature.notes = feature.notes
             vm.selectedFeaturesCount++
 
+    vm.featuresDefined = vm.selectedFeaturesCount > 0
     vm.projectType = work.projectType
     vm.section = 1
     vm.numberOfSections = if work.projectType == 'DESIGN_AND_CODE' then 3 else 2

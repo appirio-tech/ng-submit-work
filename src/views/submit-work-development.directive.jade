@@ -26,7 +26,9 @@ modal.upload-documents(show="vm.showUploadSpecs" background-click-close=true)
 .flush-height.flex.column(flush-height=true)
   ul.interactive.flex.center.middle.flex-grow.selectable-choices
     li
-      img.icon.biggest(src="/images/define-dev-specs.svg")
+      img.icon.biggest(ng-if="!vm.specsDefined" src="/images/define-dev-specs.svg")
+
+      img.icon.biggest(ng-if="vm.specsDefined" src="/images/icon-check-solid.svg")
 
       h3 Define development specs
 

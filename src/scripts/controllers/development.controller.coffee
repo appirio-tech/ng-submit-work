@@ -5,16 +5,17 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
     localStorageKey               = "recentSubmitWorkSection-#{$scope.workId}"
     localStorage[localStorageKey] = 'development'
 
-  vm                   = this
-  vm.loading           = true
-  vm.workId            = $scope.workId
-  vm.showUploadSpecs       = false
-  vm.showDefineSpecsModal  = false
-  vm.uploaderUploading = false
-  vm.uploaderHasErrors = false
+  vm                        = this
+  vm.loading                = true
+  vm.workId                 = $scope.workId
+  vm.showUploadSpecs        = false
+  vm.showDefineSpecsModal   = false
+  vm.uploaderUploading      = false
+  vm.uploaderHasErrors      = false
+  vm.specsDefined           = false
   vm.activeDevelopmentModal = null
-  vm.projectType       = null
-  vm.developmentModals = ['offlineAccess', 'personalInformation', 'security', 'thirdPartyIntegrations']
+  vm.projectType            = null
+  vm.developmentModals      = ['offlineAccess', 'personalInformation', 'security', 'thirdPartyIntegrations']
 
   vm.securityLevels =
     none    : 'none'
@@ -81,6 +82,21 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
       vm.nextButtonDisabled = false
       vm.showFinishDevelopmentButton = false
 
+  someSpecsSelected = (updates) ->
+    someCompleted = false
+
+    specKeys =
+      offlineAccess:           true
+      usesPersonalInformation: true
+      securityLevel:           true
+      numberOfApiIntegrations: true
+
+    for key, value of updates
+      if specKeys[key] && value?
+        someCompleted = true
+
+    someCompleted
+
   configureUploader = ->
     vm.uploaderConfig = SubmitWorkUploaderService.generateConfig vm.workId, 'development'
 
@@ -99,6 +115,7 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
       securityLevel: work.securityLevel
       numberOfApiIntegrations: work.numberOfApiIntegrations
 
+    vm.specsDefined = someSpecsSelected(vm.work)
     vm.projectType = work.projectType
     vm.section = 3
     vm.numberOfSections = 3
