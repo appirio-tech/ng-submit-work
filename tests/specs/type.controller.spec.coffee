@@ -48,4 +48,4 @@ describe 'SubmitWorkTypeController', ->
     ]
 
     vm.create()
-    expect(calledWith).to.have.all.keys 'projectType', 'name', 'brief', 'deviceIds', 'orientationIds'
+    expect(calledWith).to.have.all.keys 'projectType', 'name', 'brief', 'deviceIds', 'orientationIds', 'status'
