@@ -132,7 +132,7 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
 
     ul.flex.center
       li(ng-repeat="color in vm.colors")
-        img(src="/images/colors-{{ color.name }}.png")
+        img(src="/images/{{color.name}}.png")
 
         h4 {{ color.name }}
 
