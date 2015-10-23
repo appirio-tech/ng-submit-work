@@ -582,20 +582,22 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
       }
     };
     getUpdates = function() {
-      var updates;
+      var ref, updates;
       updates = {
         features: []
       };
-      vm.updatedFeatures.forEach(function(feature) {
-        return updates.features.push({
-          id: feature.id,
-          title: feature.title,
-          description: feature.description,
-          notes: feature.notes,
-          custom: feature.custom,
-          fileIds: feature.fileIds
+      if ((ref = vm.updatedFeatures) != null) {
+        ref.forEach(function(feature) {
+          return updates.features.push({
+            id: feature.id,
+            title: feature.title,
+            description: feature.description,
+            notes: feature.notes,
+            custom: feature.custom,
+            fileIds: feature.fileIds
+          });
         });
-      });
+      }
       return updates;
     };
     configureUploader = function() {
