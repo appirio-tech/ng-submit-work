@@ -10,6 +10,7 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Sub
   vm.loading               = true
   vm.uploaderUploading     = null
   vm.uploaderHasErrors     = null
+  vm.uploaderHasFiles      = null
   vm.showPaths             = true
   vm.showChooseStylesModal = false
   vm.showUploadStylesModal = false
@@ -17,6 +18,8 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Sub
   vm.activeStyleModal      = null
   vm.nextButtonDisabled    = false
   vm.backButtonDisabled    = false
+  vm.specsDefined          = false
+  vm.urlAdded              = false
   vm.styleModals           = ['fonts', 'colors', 'icons']
 
   vm.showChooseStyles = ->
@@ -69,9 +72,6 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Sub
         vm.hideUrlStyles()
 
   getUpdates = ->
-    isSelected = (item) ->
-      item.selected
-
     getId = (item) ->
       item.id
 
@@ -85,6 +85,9 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Sub
 
   vm.navigateDevelopment = ->
       $state.go "submit-work-development", { id: vm.workId }
+
+  isSelected = (item) ->
+    item.selected
 
   updateButtons = ->
     currentIndex = vm.styleModals.indexOf vm.activeStyleModal
@@ -125,6 +128,16 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Sub
     vm.colors.forEach (color) ->
       if work.colorSwatchIds?.indexOf(color.id) >= 0
         color.selected = true
+
+    if vm.font? || vm.icon? || vm.colors.filter(isSelected).length > 0
+      vm.specsDefined = true
+    else
+      vm.specsDefined = false
+
+    if vm.url?
+      vm.urlAdded = true
+    else
+      vm.urlAdded = false
 
     vm.projectType = work.projectType
     vm.section = 2
