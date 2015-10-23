@@ -102,7 +102,7 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
     updates =
       features: []
 
-    vm.updatedFeatures.forEach (feature) ->
+    vm.updatedFeatures?.forEach (feature) ->
       updates.features.push
         id: feature.id
         title: feature.title
