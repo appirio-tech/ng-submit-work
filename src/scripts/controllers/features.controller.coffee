@@ -60,6 +60,8 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
         updatedFeature.notes = vm.activeFeature.notes
 
   vm.applyFeature = ->
+    vm.activeFeature.selected = true
+
     vm.features.forEach (feature) ->
       if feature.id == vm.activeFeature.id
         vm.updatedFeatures.push feature
