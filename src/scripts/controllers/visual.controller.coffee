@@ -10,6 +10,7 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Sub
   vm.loading               = true
   vm.uploaderUploading     = null
   vm.uploaderHasErrors     = null
+  vm.uploaderHasFiles      = null
   vm.showPaths             = true
   vm.showChooseStylesModal = false
   vm.showUploadStylesModal = false

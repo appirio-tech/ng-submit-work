@@ -17,6 +17,7 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
   vm.activeFeature          = null
   vm.uploaderUploading      = null
   vm.uploaderHasErrors      = null
+  vm.uploaderHasFiles       = null
   vm.features               = []
 
   config =

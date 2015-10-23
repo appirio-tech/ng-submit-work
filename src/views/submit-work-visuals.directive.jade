@@ -23,7 +23,9 @@ header
       button.action.wide(ng-click="vm.showChooseStyles()") select
 
     li
-      img.icon.big.biggest(src="/images/upload.svg")
+      img.icon.big.biggest(ng-if="!vm.uploaderHasFiles || vm.uploaderHasErrors || vm.uploaderUploading" src="/images/upload.svg")
+
+      img.icon.big.biggest(ng-if="vm.uploaderHasFiles && !vm.uploaderHasErrors && !vm.uploaderUploading" src="/images/icon-check-solid.svg")
 
       h3 Upload styles
 
@@ -70,6 +72,7 @@ modal.upload-documents(show="vm.showUploadStylesModal" background-click-close=tr
       config="vm.uploaderConfig"
       uploading="vm.uploaderUploading"
       has-errors="vm.uploaderHasErrors"
+      has-files="vm.uploaderHasFiles"
     )
 
 modal.enter-url(show="vm.showUrlStylesModal" background-click-close=true)

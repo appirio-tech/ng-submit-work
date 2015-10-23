@@ -19,6 +19,7 @@ modal.upload-documents(show="vm.showUploadSpecs" background-click-close=true)
       config="vm.uploaderConfig"
       uploading="vm.uploaderUploading"
       has-errors="vm.uploaderHasErrors"
+      has-files="vm.uploaderHasFiles"
     )
 
     button.wider.continue.action kick off project
@@ -35,7 +36,9 @@ modal.upload-documents(show="vm.showUploadSpecs" background-click-close=true)
       button.action.wide(type="button" ng-click="vm.showDefineSpecs()") select
 
     li
-      img.icon.biggest(src="/images/upload.svg")
+      img.icon.biggest(ng-if="!vm.uploaderHasFiles || vm.uploaderHasErrors || vm.uploaderUploading" src="/images/upload.svg")
+
+      img.icon.biggest(ng-if="vm.uploaderHasFiles && !vm.uploaderHasErrors && !vm.uploaderUploading" src="/images/icon-check-solid.svg")
 
       h3 Upload development specs
 

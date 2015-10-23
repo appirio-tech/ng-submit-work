@@ -12,6 +12,7 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
   vm.showDefineSpecsModal   = false
   vm.uploaderUploading      = false
   vm.uploaderHasErrors      = false
+  vm.uploaderHasFiles       = false
   vm.specsDefined           = false
   vm.activeDevelopmentModal = null
   vm.projectType            = null
