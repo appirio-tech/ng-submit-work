@@ -64,7 +64,7 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Sub
     updates.status = if kickoff then 'Submitted' else 'Incomplete'
 
     SubmitWorkService.save(updates).then ->
-      if done
+      if done && kickoff
         $state.go 'submit-work-complete', { id: vm.workId }
       else if vm.showChooseStylesModal
         vm.hideChooseStyles()
