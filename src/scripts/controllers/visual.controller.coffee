@@ -71,19 +71,6 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Sub
       else if vm.showUrlStylesModal
         vm.hideUrlStyles()
 
-  someSpecsSelected = (updates) ->
-    someCompleted = false
-    specKeys =
-      fontIds: true
-      colorSwatchIds: true
-      iconsetIds: true
-
-    for key, value of updates
-      if value != null && specKeys[key]
-        someCompleted = true
-
-    someCompleted
-
   getUpdates = ->
     getId = (item) ->
       item.id
