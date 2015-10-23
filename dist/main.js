@@ -538,6 +538,7 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
       });
     };
     vm.applyFeature = function() {
+      vm.activeFeature.selected = true;
       vm.features.forEach(function(feature) {
         if (feature.id === vm.activeFeature.id) {
           return vm.updatedFeatures.push(feature);
