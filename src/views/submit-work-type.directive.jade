@@ -27,7 +27,7 @@ form(ng-submit="vm.validateAllSections()")
 
       ul.target-platforms
         li
-          h4 Devices
+          h5 Devices
 
           hr
 
@@ -36,7 +36,7 @@ form(ng-submit="vm.validateAllSections()")
               checkbox(label="{{device.name}}" ng-model="device.selected")
 
         li(ng-class="{invisible: !vm.showOrientation()}")
-          h4 Orientation
+          h5 Orientation
 
           hr
 
@@ -59,8 +59,6 @@ form(ng-submit="vm.validateAllSections()")
 
       ul.type.flex-center
         li(ng-repeat="projectType in vm.projectTypes")
-          h4 {{projectType.name}}
-
           .house(
             ng-class="{ selected: vm.projectType == projectType.id }"
             ng-if="projectType.id == 'DESIGN'"
@@ -76,6 +74,8 @@ form(ng-submit="vm.validateAllSections()")
             img.inactive(src="/images/design-development.svg")
 
             img.active(src="/images/design-development-active.svg")
+
+          h4 {{projectType.name}}
 
           p {{ projectType.description }}
 

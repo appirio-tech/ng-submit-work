@@ -51,10 +51,6 @@ submit-work-type {
       margin-top: $margin-small;
     }
 
-    p {
-      margin-top: $margin-small;
-    }
-
     > li {
       margin: 0 $margin;
     }
@@ -63,6 +59,10 @@ submit-work-type {
   ul.target-platforms {
     text-align: left;
     margin-top: $margin;
+
+    label {
+      font-weight: $font-weight-light;
+    }
 
     > li {
       margin    : 0 auto;

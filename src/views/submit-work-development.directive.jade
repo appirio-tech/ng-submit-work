@@ -31,7 +31,7 @@ modal.upload-documents(show="vm.showUploadSpecs" background-click-close=true)
 
       img.icon.biggest(ng-if="vm.specsDefined" src="/images/icon-check-solid.svg")
 
-      h3 Define development specs
+      h2 Define development specs
 
       button.action.wide(type="button" ng-click="vm.showDefineSpecs()") select
 
@@ -40,7 +40,7 @@ modal.upload-documents(show="vm.showUploadSpecs" background-click-close=true)
 
       img.icon.biggest(ng-if="vm.uploaderHasFiles && !vm.uploaderHasErrors && !vm.uploaderUploading" src="/images/icon-check-solid.svg")
 
-      h3 Upload development specs
+      h2 Upload development specs
 
       button.action.wide(ng-click="vm.uploadSpecs()") select
 
@@ -137,21 +137,21 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
       li
         img(src="/images/security-none.svg")
 
-        label No security
+        h4 No security
 
         button.wide(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.none")
 
       li
         img(src="/images/security-minimal.svg")
 
-        label Minimal security
+        h4 Minimal security
 
         button.wide(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.minimal")
 
       li
         img(src="/images/security-complete.svg")
 
-        label Complete security
+        h4 Complete security
 
         button.wide(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.complete")
 

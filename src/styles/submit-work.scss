@@ -64,10 +64,6 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
     margin-top: $margin-smallest;
   }
 
-  h2 {
-    margin-top: $margin-big
-  }
-
   > header {
     background-color: $neutral-color-darkest;
     padding: $padding-big;
@@ -85,11 +81,12 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
 
     img {
       height: 100px;
-      margin-top: $margin-small;
+      margin-top: $margin;
     }
 
     p {
       margin-top: $margin-smallest;
+      font-weight: $font-weight-lightest;
     }
 
     h1 {

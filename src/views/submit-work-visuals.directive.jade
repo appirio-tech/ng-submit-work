@@ -16,7 +16,7 @@ header
 
       img.icon.big.biggest(ng-if="vm.specsDefined" src="/images/icon-check-solid.svg")
 
-      h3 Choose Styles
+      h2 Choose Styles
 
       p Pick few fonts style for your mobile app
 
@@ -27,7 +27,7 @@ header
 
       img.icon.big.biggest(ng-if="vm.uploaderHasFiles && !vm.uploaderHasErrors && !vm.uploaderUploading" src="/images/icon-check-solid.svg")
 
-      h3 Upload styles
+      h2 Upload styles
 
       p Pick color palette for your mobile app
 
@@ -38,7 +38,7 @@ header
 
       img.icon.big.biggest(ng-if="vm.urlAdded" src="/images/icon-check-solid.svg")
 
-      h3 Get style from url
+      h2 Get style from url
 
       p Pick graphic style for your mobile app.
 
@@ -112,7 +112,7 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
 
     ul.or-choices.flex.middle.center
       li(ng-repeat-start="font in vm.fonts")
-        h3 {{font.name}}
+        h2 {{font.name}}
 
         hr
 
