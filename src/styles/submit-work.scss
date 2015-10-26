@@ -45,6 +45,20 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
     width: 400px;
     margin: 0 auto;
 
+    li {
+      width: 133.33px;
+      text-align: center;
+
+
+      &:first-child {
+        text-align: left;
+      }
+
+      &:last-child {
+        text-align: right;
+      }
+    }
+
     a {
       color: $neutral-color;
       text-transform: uppercase;
