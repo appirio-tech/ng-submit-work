@@ -66,8 +66,8 @@ submit-work-development {
       width           : 100%;
       border-top      : 1px solid $neutral-color;
 
-      h2 {
-        margin-top: 0;
+      h4 {
+        margin-top: $margin-small;
       }
     }
   }
