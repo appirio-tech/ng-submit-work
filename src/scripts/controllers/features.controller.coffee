@@ -14,6 +14,7 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
   vm.showDefineFeaturesForm = false
   vm.featuresDefined        = false
   vm.urlAdded               = false
+  vm.addingCustomFeature    = false
   vm.activeFeature          = null
   vm.uploaderUploading      = null
   vm.uploaderHasErrors      = null
@@ -45,12 +46,15 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
     vm.showUploadModal = true
 
   vm.toggleDefineFeatures = ->
+    vm.activeFeature = null
+    vm.addingCustomFeature = true
     vm.showDefineFeaturesForm = !vm.showDefineFeaturesForm
 
   vm.hideCustomFeatures = ->
     vm.showDefineFeaturesForm = false
 
   vm.activateFeature = (feature) ->
+    vm.addingCustomFeature = false
     vm.activePreview = feature.title
     vm.activeFeature = feature
 

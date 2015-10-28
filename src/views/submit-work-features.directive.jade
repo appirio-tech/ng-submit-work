@@ -99,7 +99,9 @@ modal.full.define-features(show="vm.showFeaturesModal" background-click-close=tr
 
           img(ng-if="vm.activeFeature && vm.activeFeature.custom" src="/images/Custom-feature.png")
 
-          img(ng-if="!vm.activeFeature" src="/images/Default-preview.png")
+          img(ng-if="!vm.activeFeature && vm.addingCustomFeature" src="/images/Custom-feature.png")
+
+          img(ng-if="!vm.activeFeature && !vm.addingCustomFeature" src="/images/Default-preview.png")
 
       li.flex.center.space-between
         .count {{vm.selectedFeaturesCount}} features added
