@@ -223,7 +223,7 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
     vm.create = function() {
       var promise, updates;
       updates = getUpdates();
-      updates.status = 'Incomplete';
+      updates.status = 'INCOMPLETE';
       if (isValid(updates)) {
         vm.loading = true;
         promise = SubmitWorkService.create(updates);
@@ -357,7 +357,7 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
         kickoff = false;
       }
       updates = getUpdates();
-      updates.status = kickoff ? 'Submitted' : 'Incomplete';
+      updates.status = kickoff ? 'SUBMITTED' : 'INCOMPLETE';
       return SubmitWorkService.save(updates).then(function() {
         if (done && kickoff) {
           return $state.go('submit-work-complete', {
@@ -736,7 +736,7 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
       }
       uploaderValid = !vm.uploaderUploading && !vm.uploaderHasErrors;
       updates = vm.work;
-      updates.status = kickoff ? 'Submitted' : 'Incomplete';
+      updates.status = kickoff ? 'SUBMITTED' : 'INCOMPLETE';
       for (name in updates) {
         prop = updates[name];
         if (!prop) {
