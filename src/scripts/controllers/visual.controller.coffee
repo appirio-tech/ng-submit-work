@@ -61,7 +61,7 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Sub
 
   vm.save = (done = false, kickoff = false) ->
     updates        = getUpdates()
-    updates.status = if kickoff then 'Submitted' else 'Incomplete'
+    updates.status = if kickoff then 'SUBMITTED' else 'INCOMPLETE'
 
     SubmitWorkService.save(updates).then ->
       if done && kickoff

@@ -54,7 +54,7 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
   vm.save = (done = false, kickoff = false) ->
     uploaderValid = !vm.uploaderUploading && !vm.uploaderHasErrors
     updates = vm.work
-    updates.status = if kickoff then 'Submitted' else 'Incomplete'
+    updates.status = if kickoff then 'SUBMITTED' else 'INCOMPLETE'
 
     for name, prop of updates
       unless prop

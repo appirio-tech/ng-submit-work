@@ -107,7 +107,7 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
 
   vm.create = ->
     updates = getUpdates()
-    updates.status = 'Incomplete'
+    updates.status = 'INCOMPLETE'
 
     if isValid(updates)
       vm.loading = true
