@@ -62,11 +62,10 @@ submit-work-development {
     }
 
     > main {
-      background-color: $neutral-color-light;
-      width           : 100%;
-      border-top      : 1px solid $neutral-color;
+      width     : 100%;
+      border-top: 1px solid $neutral-color;
 
-      h4 {
+      h5 {
         margin-top: $margin-small;
       }
     }

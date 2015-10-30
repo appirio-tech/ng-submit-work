@@ -21,7 +21,6 @@ submit-work-type {
       background-color: $neutral-color-light;
       padding         : $padding;
 
-
       .active {
         display: none;
       }
@@ -48,7 +47,7 @@ submit-work-type {
     }
 
     button, h4 {
-      margin-top: $margin-small;
+      margin-top: $margin;
     }
 
     > li {

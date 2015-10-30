@@ -79,7 +79,7 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
   }
 
   > header {
-    background-color: $neutral-color-darkest;
+    background-color: $black;
     padding: $padding-big;
 
     a {
@@ -106,19 +106,6 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
     h1 {
       font-weight: $font-weight-bold;
       margin-top: $margin-small;
-    }
-  }
-
-  .interactive {
-    background-color: $neutral-color-lightest;
-    padding: $padding-big 0;
-
-    hr {
-      background-color: $neutral-color-light;
-    }
-
-    input {
-      margin: 0 auto;
     }
   }
 
@@ -178,14 +165,14 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
         margin-right: auto;
       }
 
-      h2 {
+      h4 {
         margin-top: $margin-small;
       }
     }
   }
 
   .upload-documents, .enter-url {
-    background-color: $neutral-color-light;
+    background-color: $white;
 
     img {
       height: 100px;

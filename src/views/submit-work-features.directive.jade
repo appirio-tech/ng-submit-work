@@ -8,13 +8,13 @@ header
   p Tell us what features we need to include in your new app.
 
 .flush-height.flex.column(flush-height=true)
-  ul.interactive.flex.center.middle.flex-grow.selectable-choices
+  ul.dark-bg.flex.center.middle.flex-grow.selectable-choices
     li
       img.icon.biggest(ng-if="!vm.featuresDefined" src="/images/define-feature.svg")
 
       img.icon.biggest(ng-if="vm.featuresDefined" src="/images/icon-check-solid.svg")
 
-      h2 Define features
+      h4 Define features
 
       p UX design greating the usability, accessibility, and costume journey.
 
@@ -26,7 +26,7 @@ header
       img.icon.biggest(ng-if="vm.uploaderHasFiles && !vm.uploaderHasErrors && !vm.uploaderUploading" src="/images/icon-check-solid.svg")
 
 
-      h2 Upload document
+      h4 Upload document
 
       p Upload your specs or any documents you have.
 
@@ -103,7 +103,7 @@ modal.full.define-features(show="vm.showFeaturesModal" background-click-close=tr
 
           img(ng-if="!vm.activeFeature && !vm.addingCustomFeature" src="/images/Default-preview.png")
 
-      li.flex.center.space-between
+      li.flex.middle.space-between
         .count {{vm.selectedFeaturesCount}} features added
 
         button.wider.action(ng-click="vm.save()") Save

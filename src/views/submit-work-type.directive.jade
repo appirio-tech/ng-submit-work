@@ -5,7 +5,7 @@ header
 
 form(ng-submit="vm.validateAllSections()")
   .flush-height.flex.column(flush-height=true)
-    .interactive.flex.column.center.flex-grow(id="app-name")
+    .dark-bg.flex.column.center.middle.flex-grow(id="app-name")
       input.wider(
         type="text"
         placeholder="Name your project..."
@@ -22,7 +22,7 @@ form(ng-submit="vm.validateAllSections()")
     ) continue
 
   .full-height.flex.column(full-height=true)
-    .interactive.flex.column.center.flex-grow(id="platform-details")
+    .dark-bg.flex.column.center.flex-grow(id="platform-details")
       h2 IOS <strong>platform details</strong>
 
       ul.target-platforms
@@ -54,16 +54,16 @@ form(ng-submit="vm.validateAllSections()")
     ) continue
 
   .full-height.flex.column(full-height=true)
-    .interactive.flex.column.center.flex-grow(id="type-details")
+    .dark-bg.flex.column.center.flex-grow(id="type-details")
       h2 What <strong>type of work</strong> are you looking for?
 
-      ul.type.flex-center
+      ul.type.flex.center
         li(ng-repeat="projectType in vm.projectTypes")
           .house(
             ng-class="{ selected: vm.projectType == projectType.id }"
             ng-if="projectType.id == 'DESIGN'"
           )
-            img.inactive(src="/images/design.svg")
+            img.inactive(src="/images/design-thin.svg")
 
             img.active(src="/images/design-active.svg")
 
@@ -93,7 +93,7 @@ form(ng-submit="vm.validateAllSections()")
   .full-height.flex.column.has-loader(full-height=true)
     loader(ng-if="vm.loading")
 
-    .interactive.flex.column.center.flex-grow(id="brief-details")
+    .dark-bg.flex.column.center.flex-grow(id="brief-details")
       h2 Can you <strong>share a brief</strong> overview?
 
       textarea.brief(placeholder="E.g. I need a mobile HR application with social features to support my growing organization" ng-model="vm.brief")
