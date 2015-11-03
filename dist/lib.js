@@ -39555,9 +39555,9 @@ angular.module('ui.router.state')
 
 }).call(this);
 
-angular.module("appirio-tech-ng-work-layout").run(["$templateCache", function($templateCache) {$templateCache.put("views/layout-header.directive.html","<ul class=\"flex center middle\"><li><a ng-home-link=\"ng-home-link\" href=\"{{ vm.homeHref }}\" class=\"clean logo\"><img src=\"/images/asp-logo.svg\"/></a></li><li class=\"app-name\"><h4 ng-if=\"vm.showAppName\">{{ vm.appName }}</h4></li><li><ul class=\"links\"><li ng-show=\"vm.loggedIn\"><a ng-if=\"vm.userType == \'customer\' \" ui-sref=\"view-work-multiple\">Dashboard</a><a ng-if=\"vm.userType != \'customer\' \" ui-sref=\"copilot-projects\">Dashboard</a></li><li ng-show=\"vm.loggedIn\" class=\"projects\"><button focus-on-click=\"focus-on-click\" class=\"clean\">Projects <span class=\"caret\">&dtrif;</span></button><ul class=\"sublinks elevated\"><li><a ng-if=\"vm.userType == \'customer\' \" ui-sref=\"submit-work\">Create New Project</a></li><li ng-if=\"vm.userType == \'customer\' \" ng-repeat=\"project in vm.projects\"><a ui-sref=\"timeline({ workId: project.id })\"><div class=\"name\">{{ project.name }}</div></a></li><li ng-if=\"vm.userType != \'customer\' \" ng-repeat=\"project in vm.copilotProjects\"><a ui-sref=\"copilot-project-details({ id: project.id })\"><div class=\"name\">{{ project.name }}</div></a></li></ul></li><li ng-hide=\"vm.loggedIn\" class=\"login\"><a ui-sref=\"login\" class=\"button hollow\">Log in</a></li><li ng-show=\"vm.loggedIn\" class=\"profile\"><button focus-on-click=\"focus-on-click\" class=\"clean\"><avatar avatar-url=\"{{vm.userAvatar}}\"></avatar></button><ul class=\"sublinks elevated\"><li><a href=\"#\">View Profile</a></li><li><a ui-sref=\"submit-work\">Settings</a></li><li><a ng-click=\"vm.logout()\">LOGOUT</a></li></ul></li><li ng-show=\"vm.loggedIn\" class=\"notifications\"><button type=\"button\" focus-on-click=\"focus-on-click\" class=\"clean\"><div ng-class=\"{ danger: vm.unreadCount &gt; 0 }\" class=\"notification\">{{ vm.unreadCount || 0 }}</div></button><div class=\"popup elevated\"><threads ng-if=\"vm.userType == \'customer\'\" subscriber-id=\"{{ vm.subscriberId }}\"></threads><threads ng-if=\"vm.userType != \'customer\'\" subscriber-id=\"{{ vm.subscriberId }}\" user-type=\"copilot\"></threads></div></li></ul></li></ul>");
+angular.module("appirio-tech-ng-work-layout").run(["$templateCache", function($templateCache) {$templateCache.put("views/layout-header.directive.html","<ul class=\"flex center middle\"><li><a ng-home-link=\"ng-home-link\" href=\"{{ vm.homeHref }}\" class=\"clean logo\"><img src=\"/images/asp-logo.svg\"/></a></li><li class=\"app-name\"><h4 ng-if=\"vm.showAppName\">{{ vm.appName }}</h4></li><li><ul class=\"links\"><li ng-show=\"vm.loggedIn\" class=\"dashboard\"><a ng-if=\"vm.userType == \'customer\' \" ui-sref=\"view-work-multiple\">Dashboard</a><a ng-if=\"vm.userType != \'customer\' \" ui-sref=\"copilot-projects\">Dashboard</a></li><li ng-show=\"vm.loggedIn\" class=\"projects\"><button focus-on-click=\"focus-on-click\" class=\"clean\">Projects <span class=\"caret\">&dtrif;</span></button><ul class=\"sublinks elevated\"><li><a ng-if=\"vm.userType == \'customer\' \" ui-sref=\"submit-work\">Create New Project</a></li><li ng-if=\"vm.userType == \'customer\' \" ng-repeat=\"project in vm.projects\"><a ui-sref=\"timeline({ workId: project.id })\"><div class=\"name\">{{ project.name }}</div></a></li><li ng-if=\"vm.userType != \'customer\' \" ng-repeat=\"project in vm.copilotProjects\"><a ui-sref=\"copilot-project-details({ id: project.id })\"><div class=\"name\">{{ project.name }}</div></a></li></ul></li><li ng-hide=\"vm.loggedIn\" class=\"login\"><a ui-sref=\"login\" class=\"button hollow\">Log in</a></li><li ng-show=\"vm.loggedIn\" class=\"profile\"><button focus-on-click=\"focus-on-click\" class=\"clean\"><avatar avatar-url=\"{{vm.userAvatar}}\"></avatar></button><ul class=\"sublinks elevated\"><li><a href=\"#\">View Profile</a></li><li><a ui-sref=\"submit-work\">Settings</a></li><li><a ng-click=\"vm.logout()\">LOGOUT</a></li></ul></li><li ng-show=\"vm.loggedIn\" class=\"notifications\"><button type=\"button\" focus-on-click=\"focus-on-click\" class=\"clean\"><div ng-class=\"{ danger: vm.unreadCount &gt; 0 }\" class=\"notification\">{{ vm.unreadCount || 0 }}</div></button><div class=\"popup elevated\"><threads ng-if=\"vm.userType == \'customer\'\" subscriber-id=\"{{ vm.subscriberId }}\"></threads><threads ng-if=\"vm.userType != \'customer\'\" subscriber-id=\"{{ vm.subscriberId }}\" user-type=\"copilot\"></threads></div></li></ul></li></ul>");
 $templateCache.put("views/layout-footer.directive.html","<footer class=\"layout-footer\"><ul><li><a ui-sref=\"register\">Sign up</a></li><li><a ui-sref=\"#\">Help</a></li><li><a ui-sref=\"#\">About</a></li><li><a ui-sref=\"copilot-projects\">Copilot Dashboard</a></li></ul></footer>");
-$templateCache.put("views/layout-project-nav.directive.html","<ul><li ng-class=\"{active: vm.activeLink == \'timeline\'}\" ng-if=\"vm.userType == \'customer\'\"><a ui-sref=\"timeline({ workId: vm.workId })\">Timeline</a></li><li ng-class=\"{active: vm.activeLink == \'submissions\'}\" ng-if=\"vm.userType == \'customer\'\"><a ui-sref=\"step({ projectId: vm.workId, stepId: vm.currentStepId })\">Submissions</a></li><li ng-class=\"{active: vm.activeLink == \'messaging\'}\" ng-if=\"vm.userType == \'customer\'\"><a ui-sref=\"messaging({ id: vm.workId, threadId: vm.threadId })\">Messaging</a></li><li ng-class=\"{active: vm.activeLink == \'project-details\'}\" ng-if=\"vm.userType == \'customer\'\"><a ui-sref=\"project-details({ id: vm.workId })\">Project details</a></li><li ng-class=\"{active: vm.activeLink == \'copilot-submissions\'}\" ng-if=\"vm.userType != \'customer\'\"><a ui-sref=\"step({ projectId: vm.workId, stepId: vm.currentStepId })\">Submissions</a></li><li ng-class=\"{active: vm.activeLink == \'copilot-messaging\'}\" ng-if=\"vm.userType != \'customer\'\"><a ui-sref=\"copilot-messaging({ id: vm.workId, threadId: vm.threadId })\">Messaging</a></li><li ng-class=\"{active: vm.activeLink == \'copilot-project-details\'}\" ng-if=\"vm.userType != \'customer\'\"><a ui-sref=\"copilot-project-details({ id: vm.workId })\">Project details</a></li></ul>");}]);
+$templateCache.put("views/layout-project-nav.directive.html","<ul><li ng-class=\"{active: vm.activeLink == \'timeline\'}\" ng-if=\"vm.userType == \'customer\'\"><a ui-sref=\"timeline({ workId: vm.workId })\">Timeline</a></li><li ng-class=\"{active: vm.activeLink == \'submissions\'}\" ng-if=\"vm.userType == \'customer\'\"><a ui-sref=\"step({ projectId: vm.workId, stepId: vm.currentStepId })\">Submissions</a></li><li ng-class=\"{active: vm.activeLink == \'messaging\'}\" ng-if=\"vm.userType == \'customer\'\"><a ui-sref=\"messaging({ id: vm.workId, threadId: vm.threadId })\">Messaging</a></li><li ng-class=\"{active: vm.activeLink == \'project-details\'}\" ng-if=\"vm.userType == \'customer\'\"><a ui-sref=\"project-details({ id: vm.workId })\">Project details</a></li><li ng-class=\"{active: vm.activeLink == \'copilot-project-details\'}\" ng-if=\"vm.userType != \'customer\'\"><a ui-sref=\"copilot-project-details({ id: vm.workId })\">Project details</a></li><li ng-class=\"{active: vm.activeLink == \'copilot-messaging\'}\" ng-if=\"vm.userType != \'customer\'\"><a ui-sref=\"copilot-messaging({ id: vm.workId, threadId: vm.threadId })\">Messaging</a></li><li ng-class=\"{active: vm.activeLink == \'copilot-submissions\'}\" ng-if=\"vm.userType != \'customer\'\"><a ui-sref=\"step({ projectId: vm.workId, stepId: vm.currentStepId })\">Submissions</a></li><li ng-class=\"{active: vm.activeLink == \'copilot-status-reports\'}\" ng-if=\"vm.userType != \'customer\'\"><a ui-sref=\"copilot-status-reports({ id: vm.workId})\">Status Reports</a></li></ul>");}]);
 (function() {
   'use strict';
   var dependencies;
@@ -40386,6 +40386,54 @@ $templateCache.put("views/layout-project-nav.directive.html","<ul><li ng-class=\
 
 (function() {
   'use strict';
+  var srv, transformIdOnlyResponse, transformResponse;
+
+  transformResponse = function(response) {
+    var parsed, ref;
+    parsed = JSON.parse(response);
+    return (parsed != null ? (ref = parsed.result) != null ? ref.content : void 0 : void 0) || [];
+  };
+
+  transformIdOnlyResponse = function(response) {
+    var parsed, ref;
+    parsed = JSON.parse(response);
+    return {
+      id: parsed != null ? (ref = parsed.result) != null ? ref.content : void 0 : void 0
+    };
+  };
+
+  srv = function($resource, API_URL) {
+    var methods, params, url;
+    url = API_URL + '/v3/projects/copilot/unclaimed';
+    params = {};
+    methods = {
+      put: {
+        method: 'PUT',
+        transformResponse: transformIdOnlyResponse
+      },
+      post: {
+        method: 'POST',
+        transformResponse: transformIdOnlyResponse
+      },
+      get: {
+        transformResponse: transformResponse
+      },
+      query: {
+        isArray: true,
+        transformResponse: transformResponse
+      }
+    };
+    return $resource(url, params, methods);
+  };
+
+  srv.$inject = ['$resource', 'API_URL'];
+
+  angular.module('appirio-tech-ng-api-services').factory('CopilotUnclaimedProjectsAPIService', srv);
+
+}).call(this);
+
+(function() {
+  'use strict';
   var dependencies;
 
   dependencies = ['ui.router', 'ngResource', 'app.constants', 'duScroll', 'appirio-tech-ng-ui-components', 'appirio-tech-ng-api-services'];
@@ -40867,10 +40915,14 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
       $element.addClass('selected-button');
       $scope.$watch($scope.vm.isSelected, function() {
         $element.removeClass('checked');
-        $element.removeClass('action');
+        if (typeof attrs.selectable === 'string') {
+          $element.removeClass(attrs.selectable);
+        }
         if ($scope.vm.isSelected()) {
           $element.addClass('checked');
-          return $element.addClass('action');
+          if (typeof attrs.selectable === 'string') {
+            return $element.addClass(attrs.selectable);
+          }
         }
       });
       return $element.bind('click', function() {
@@ -41661,7 +41713,7 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
           hasErrors = true;
         }
       });
-
+      uploader.fileArray = filelistToArray(uploader.files);
       uploader.uploading = uploading;
       uploader.hasErrors = hasErrors;
       uploader.hasFiles = uploader.files.length > 0
@@ -42088,6 +42140,7 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
         uploading: '=',
         hasErrors: '=',
         hasFiles: '=',
+        fileArray: '=',
         config: '='
       },
       controller: 'UploaderController as vm',
@@ -42131,6 +42184,10 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
 
     $scope.$watch('vm.uploader.hasFiles', function(newValue) {
       $scope.hasFiles = newValue;
+    });
+
+    $scope.$watch('vm.uploader.fileArray', function(newValue) {
+      $scope.fileArray = newValue;
     });
 
     configUploader();
