@@ -81,13 +81,14 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
   > header {
     background-color: $black;
     padding: $padding-big;
+    min-height: 400px;
 
     a {
       color: $white;
     }
 
     > * {
-      max-width: 400px;
+      max-width: 550px;
       color: $white;
       margin-left: auto;
       margin-right: auto;

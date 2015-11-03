@@ -9,6 +9,10 @@ submit-work-type {
     }
   }
 
+  .error {
+    @include block-center();
+  }
+
   ul.type {
     padding-right: 0;
     padding-bottom: 0;
