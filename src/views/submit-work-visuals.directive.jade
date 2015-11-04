@@ -10,13 +10,13 @@ header
   p Help us define the visual style of your mobile app.
 
 .flush-height.flex.column(flush-height=true)
-  ul.interactive.flex.center.flex-grow.middle.selectable-choices(ng-class="{active: vm.showPaths}")
+  ul.dark-bg.flex.center.flex-grow.middle.selectable-choices(ng-class="{active: vm.showPaths}")
     li
       img.icon.big.biggest(ng-if="!vm.specsDefined" src="/images/brand-reqs.svg")
 
       img.icon.big.biggest(ng-if="vm.specsDefined" src="/images/icon-check-solid.svg")
 
-      h2 Choose Styles
+      h4 Choose Styles
 
       p Pick few fonts style for your mobile app
 
@@ -27,7 +27,7 @@ header
 
       img.icon.big.biggest(ng-if="vm.uploaderHasFiles && !vm.uploaderHasErrors && !vm.uploaderUploading" src="/images/icon-check-solid.svg")
 
-      h2 Upload styles
+      h4 Upload styles
 
       p Pick color palette for your mobile app
 
@@ -38,7 +38,7 @@ header
 
       img.icon.big.biggest(ng-if="vm.urlAdded" src="/images/icon-check-solid.svg")
 
-      h2 Get style from url
+      h4 Get style from url
 
       p Pick graphic style for your mobile app.
 
@@ -107,7 +107,7 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
       button.clean(ng-click="vm.viewNext()")
         .icon.arrow.smallest.right
 
-  main.fonts.flex.column.center.flex-grow(ng-show="vm.activeStyleModal == 'fonts' ")
+  main.dark-bg.fonts.flex.column.center.flex-grow(ng-show="vm.activeStyleModal == 'fonts' ")
     h2 Tell us your <strong>font preference</strong>
 
     ul.or-choices.flex.middle.center
@@ -127,25 +127,25 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
       li.or(ng-repeat-end ng-if="font.name == 'Serif' ")
         .house OR
 
-  main.colors.flex.column.center.flex-grow(ng-show="vm.activeStyleModal == 'colors' ")
+  main.dark-bg.colors.flex.column.center.flex-grow(ng-show="vm.activeStyleModal == 'colors' ")
     h2 Tell us <strong>the colors</strong> you like
 
     ul.flex.center
       li(ng-repeat="color in vm.colors")
         img(src="/images/{{color.name}}.png")
 
-        h4 {{ color.name }}
+        h6 {{ color.name }}
 
         button(type="button" selectable=true ng-model="color.selected")
 
-  main.icons.flex.column.center.flex-grow(ng-show="vm.activeStyleModal == 'icons' ")
+  main.dark-bg.icons.flex.column.center.flex-grow(ng-show="vm.activeStyleModal == 'icons' ")
     h2 Tell us <strong>the icons</strong> you like
 
     ul.flex.center
       li(ng-repeat="icon in vm.icons")
         img(src="/images/{{icon.img}}.svg")
 
-        h4 {{icon.name}}
+        h6 {{icon.name}}
 
         p {{icon.description}}
 

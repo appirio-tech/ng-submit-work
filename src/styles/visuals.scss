@@ -57,11 +57,10 @@ submit-work-visuals {
     }
 
     > main {
-      background-color: $neutral-color-light;
       width           : 100%;
       border-top      : 1px solid $neutral-color;
 
-      h4 {
+      h6 {
         margin-top: $margin-small;
       }
     }

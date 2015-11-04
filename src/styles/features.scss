@@ -21,6 +21,10 @@ submit-work-features {
       color: $primary-color;
     }
 
+    h6 {
+      margin-top: $margin-small;
+    }
+
     > main {
       width: 100%;
       border-top: 1px solid $neutral-color-light;
@@ -45,14 +49,14 @@ submit-work-features {
                   color      : $black;
 
                   &:hover {
-                    background-color: $accent-color;
+                    background-color: $primary-color-dark;
                     color: $white;
                   }
                 }
 
                 .icon {
-                  display         : inline-block;
-                  margin-right    : $margin-smallest;
+                  display     : inline-block;
+                  margin-right: $margin-smallest;
                 }
               }
             }

@@ -1,6 +1,6 @@
 'use strict'
 
-SubmitWorkService = ($rootScope, OptimistModel, SubmitWorkAPIService) ->
+SubmitWorkService = ($rootScope, OptimistModel, SubmitWorkAPIService, $q) ->
   currentWorkId = null
   work          = null
 
@@ -36,6 +36,22 @@ SubmitWorkService = ($rootScope, OptimistModel, SubmitWorkAPIService) ->
 
   get = ->
     work.get()
+
+  getPromise = (workId) ->
+    if work && workId == work.id
+      $q.when work.get()
+    else
+      fetch(workId).then ->
+        work.get()
+
+  subscribe = (scope, onChange) ->
+    destroyWorkListener = $rootScope.$on 'StepsService:changed', ->
+      onChange()
+
+    scope.$on '$destroy', ->
+      destroyWorkListener()
+
+    onChange()
 
   create = (updates) ->
     resetWork()
@@ -82,11 +98,13 @@ SubmitWorkService = ($rootScope, OptimistModel, SubmitWorkAPIService) ->
       updates: updates
       apiCall: apiCall
 
-  get    : get
-  create : create
-  fetch  : fetch
-  save   : save
+  get        : get
+  getPromise : getPromise
+  subscribe  : subscribe
+  create     : create
+  fetch      : fetch
+  save       : save
 
-SubmitWorkService.$inject = ['$rootScope', 'OptimistModel', 'SubmitWorkAPIService']
+SubmitWorkService.$inject = ['$rootScope', 'OptimistModel', 'SubmitWorkAPIService', '$q']
 
 angular.module('appirio-tech-ng-submit-work').factory 'SubmitWorkService', SubmitWorkService
