@@ -44,6 +44,15 @@ SubmitWorkService = ($rootScope, OptimistModel, SubmitWorkAPIService, $q) ->
       fetch(workId).then ->
         work.get()
 
+  subscribe = (scope, onChange) ->
+    destroyWorkListener = $rootScope.$on 'StepsService:changed', ->
+      onChange()
+
+    scope.$on '$destroy', ->
+      destroyWorkListener()
+
+    onChange()
+
   create = (updates) ->
     resetWork()
 
@@ -91,6 +100,7 @@ SubmitWorkService = ($rootScope, OptimistModel, SubmitWorkAPIService, $q) ->
 
   get        : get
   getPromise : getPromise
+  subscribe  : subscribe
   create     : create
   fetch      : fetch
   save       : save
