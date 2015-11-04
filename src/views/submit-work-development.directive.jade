@@ -25,24 +25,20 @@ modal.upload-documents(show="vm.showUploadSpecs" background-click-close=true)
 .flush-height.flex.column(flush-height=true)
   ul.dark-bg.flex.center.middle.flex-grow.selectable-choices
     li
-      img.icon.biggest(ng-if="!vm.specsDefined" src="/images/define-dev-specs.svg")
-
-      img.icon.biggest(ng-if="vm.specsDefined" src="/images/icon-check-solid.svg")
+      img.icon.biggest(src="/images/define-dev-specs.svg")
 
       h4 Define development specs
 
       button.action.wide(type="button" ng-click="vm.showDefineSpecs()") select
 
     li
-      img.icon.biggest(ng-if="!vm.uploaderHasFiles || vm.uploaderHasErrors || vm.uploaderUploading" src="/images/upload.svg")
-
-      img.icon.biggest(ng-if="vm.uploaderHasFiles && !vm.uploaderHasErrors && !vm.uploaderUploading" src="/images/icon-check-solid.svg")
+      img.icon.biggest(src="/images/upload.svg")
 
       h4 Upload development specs
 
       button.action.wide(ng-click="vm.uploadSpecs()") select
 
-  button.continue.wider.action(ng-click="vm.save(true, true)") kick off project
+  button.continue.wider(ng-click="vm.save(true, true)") kick off project
 
 modal.full.define-development(show="vm.showDefineSpecsModal" background-click-close=true)
   ul.nav
@@ -71,13 +67,13 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
 
     p Do your users need to be able to interact with the application when they are unable to connect to the internet (over the air or via wifi)?
 
-    ul.or-choices.flex.center.middle
+    ul.or-choices.flex.center
       li
         button.big.widest(
           ng-model="vm.work.offlineAccess"
           label="yes"
           value="true"
-          selectable=true
+          selectable="action"
           type="button"
         )
 
@@ -91,7 +87,7 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
           ng-model="vm.work.offlineAccess"
           label="no"
           value="false"
-          selectable=true
+          selectable="action"
           type="button"
         )
 
@@ -102,13 +98,13 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
 
     p Is there any level of personal information? (stored or transmitted)
 
-    ul.or-choices.flex.center.middle
+    ul.or-choices.flex.center
       li
         button.big.widest(
           ng-model="vm.work.usesPersonalInformation"
           label="yes"
           value="true"
-          selectable=true
+          selectable="action"
           type="button"
         )
 
@@ -122,7 +118,7 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
           ng-model="vm.work.usesPersonalInformation"
           label="no"
           value="false"
-          selectable=true
+          selectable="action"
           type="button"
         )
 
@@ -137,21 +133,21 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
 
         h6 No security
 
-        button.wide(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.none")
+        button.wide.action(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.none")
 
       li
         img(src="/images/security-minimal.svg")
 
         h6 Minimal security
 
-        button.wide(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.minimal")
+        button.wide.action(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.minimal")
 
       li
         img(src="/images/security-complete.svg")
 
         h6 Complete security
 
-        button.wide(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.complete")
+        button.wide.action(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.complete")
 
   main.dark-bg.third-party-integrations.flex.column.center.flex-grow(ng-show= "vm.activeDevelopmentModal == 'thirdPartyIntegrations'")
     h2 How many 3rd party integrations</strong>?

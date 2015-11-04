@@ -16,7 +16,7 @@ form(ng-submit="vm.validateAllSections()")
 
       p.error.wider(ng-if="vm.nameError && !vm.name.length") Please enter an app name.
 
-    button.wider.continue.action(
+    button.wider.continue(
       type="button"
       ng-click="vm.validateSection('platform-details', 'name', true)"
     ) continue
@@ -48,26 +48,26 @@ form(ng-submit="vm.validateAllSections()")
 
       p.error.wider(ng-if="vm.orientationsError") Please choose an orientation.
 
-    button.wider.continue.action(
+    button.wider.continue(
       type="button"
       ng-click="vm.validateSection('type-details', ['devices', 'orientations'], true)"
     ) continue
 
   .full-height.flex.column(full-height=true)
-    .dark-bg.flex.column.center.flex-grow(id="type-details")
+    .type.dark-bg.flex.column.center.flex-grow(id="type-details")
       h2 What <strong>type of work</strong> are you looking for?
 
       ul.type.flex.center
         li(ng-repeat="projectType in vm.projectTypes")
-          .house(
+          .house.flex.column.center(
             ng-class="{ selected: vm.projectType == projectType.id }"
             ng-if="projectType.id == 'DESIGN'"
           )
             img.inactive(src="/images/design-thin.svg")
 
-            img.active(src="/images/design-active.svg")
+            img.active(src="/images/design-white-thin.svg")
 
-          .house(
+          .house.flex.column.center(
             ng-class="{ selected: vm.projectType == projectType.id }"
             ng-if="projectType.id == 'DESIGN_AND_CODE'"
           )
@@ -88,7 +88,7 @@ form(ng-submit="vm.validateAllSections()")
 
       p.error.wider(ng-if="vm.projectTypeError") Please choose a type of work.
 
-    button.wider.continue.action(type="button" ng-click="vm.validateSection('brief-details', 'projectType', true)") continue
+    button.wider.continue(type="button" ng-click="vm.validateSection('brief-details', 'projectType', true)") continue
 
   .full-height.flex.column.has-loader(full-height=true)
     loader(ng-if="vm.loading")

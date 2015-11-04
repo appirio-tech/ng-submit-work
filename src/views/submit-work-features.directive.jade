@@ -10,9 +10,7 @@ header
 .flush-height.flex.column(flush-height=true)
   ul.dark-bg.flex.center.middle.flex-grow.selectable-choices
     li
-      img.icon.biggest(ng-if="!vm.featuresDefined" src="/images/define-feature.svg")
-
-      img.icon.biggest(ng-if="vm.featuresDefined" src="/images/icon-check-solid.svg")
+      img.icon.biggest(src="/images/define-feature.svg")
 
       h4 Define features
 
@@ -21,10 +19,7 @@ header
       button.action.wide(ng-click="vm.showFeatures()") select
 
     li
-      img.icon.biggest(ng-if="!vm.uploaderHasFiles || vm.uploaderHasErrors || vm.uploaderUploading" src="/images/upload.svg")
-
-      img.icon.biggest(ng-if="vm.uploaderHasFiles && !vm.uploaderHasErrors && !vm.uploaderUploading" src="/images/icon-check-solid.svg")
-
+      img.icon.biggest(src="/images/upload.svg")
 
       h4 Upload document
 
@@ -32,7 +27,7 @@ header
 
       button.action.wide(ng-click="vm.showUpload()") select
 
-  a.button.continue.wider.action(ui-sref="submit-work-visuals({ id: vm.workId })") go to design
+  a.button.continue.wider(ui-sref="submit-work-visuals({ id: vm.workId })") go to design
 
 modal.full.define-features(show="vm.showFeaturesModal" background-click-close=true)
   h2 Data booklet mobile app <strong>features</strong>

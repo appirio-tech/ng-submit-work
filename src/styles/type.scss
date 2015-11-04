@@ -13,40 +13,52 @@ submit-work-type {
     @include block-center();
   }
 
-  ul.type {
-    padding-right: 0;
-    padding-bottom: 0;
-    margin-top: $margin;
+  #app-name {
+    .error {
+      text-align: left;
+    }
+  }
 
-    .house {
-      width           : 300px;
-      display         : inline-block;
-      margin-top      : $margin-small;
-      background-color: $neutral-color-light;
-      padding         : $padding;
+  .type  {
+    .error {
+      margin-top: $margin-small;
+    }
 
-      .active {
-        display: none;
-      }
+    > ul {
+      padding-right: 0;
+      padding-bottom: 0;
+      margin-top: $margin;
 
-      .inactive {
-        display: inline-block;
-      }
-
-      &.selected {
-        background-color: $primary-color;
+      .house {
+        width           : 433px;
+        height          : 195px;
+        margin-top      : $margin-small;
+        background-color: $neutral-color-light;
+        padding         : $padding;
 
         .active {
-          display: inline-block;
+          display: none;
         }
 
         .inactive {
-          display: none;
+          display: inline-block;
         }
-      }
 
-      img {
-        height: 100px;
+        &.selected {
+          background-color: $primary-color;
+
+          .active {
+            display: inline-block;
+          }
+
+          .inactive {
+            display: none;
+          }
+        }
+
+        img {
+          height: 80px;
+        }
       }
     }
 

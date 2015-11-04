@@ -1,6 +1,10 @@
 @import "work-includes";
 
-submit-work-type, submit-work-features, submit-work-visuals, submit-work-development, submit-work-complete {
+submit-work-type,
+submit-work-features,
+submit-work-visuals,
+submit-work-development,
+submit-work-complete {
   display         : block;
   text-align      : center;
   background-color: $white;
@@ -80,8 +84,8 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
 
   > header {
     background-color: $black;
-    padding: $padding-big;
-    min-height: 400px;
+    padding         : $padding-big;
+    min-height      : 350px;
 
     a {
       color: $white;
@@ -110,8 +114,6 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
   }
 
   ul.or-choices {
-    @include flex-wrap(nowrap);
-
     margin-top: $margin;
 
     li {
@@ -124,7 +126,7 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
       }
 
       &.or {
-        margin          : 0 $margin;
+        margin          : $margin;
         background-color: $neutral-color;
         font-size       : $font-size;
         color           : $white;
@@ -133,10 +135,6 @@ submit-work-type, submit-work-features, submit-work-visuals, submit-work-develop
         height          : 40px;
         line-height     : 40px;
         border-radius   : 50%;
-      }
-
-      .selected-button {
-        margin-top: $margin;
       }
     }
   }
