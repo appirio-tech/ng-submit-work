@@ -39555,9 +39555,9 @@ angular.module('ui.router.state')
 
 }).call(this);
 
-angular.module("appirio-tech-ng-work-layout").run(["$templateCache", function($templateCache) {$templateCache.put("views/layout-header.directive.html","<ul class=\"flex center middle\"><li><a ng-home-link=\"ng-home-link\" href=\"{{ vm.homeHref }}\" class=\"clean logo\"><img src=\"/images/asp-logo.svg\"/></a></li><li class=\"app-name\"><h4 ng-if=\"vm.showAppName\">{{ vm.appName }}</h4></li><li><ul class=\"links\"><li ng-show=\"vm.loggedIn\"><a ng-if=\"vm.userType == \'customer\' \" ui-sref=\"view-work-multiple\">Dashboard</a><a ng-if=\"vm.userType != \'customer\' \" ui-sref=\"copilot-projects\">Dashboard</a></li><li ng-show=\"vm.loggedIn\" class=\"projects\"><button focus-on-click=\"focus-on-click\" class=\"clean\">Projects <span class=\"caret\">&dtrif;</span></button><ul class=\"sublinks elevated\"><li><a ng-if=\"vm.userType == \'customer\' \" ui-sref=\"submit-work\">Create New Project</a></li><li ng-if=\"vm.userType == \'customer\' \" ng-repeat=\"project in vm.projects\"><a ui-sref=\"timeline({ workId: project.id })\"><div class=\"name\">{{ project.name }}</div></a></li><li ng-if=\"vm.userType != \'customer\' \" ng-repeat=\"project in vm.copilotProjects\"><a ui-sref=\"copilot-project-details({ id: project.id })\"><div class=\"name\">{{ project.name }}</div></a></li></ul></li><li ng-hide=\"vm.loggedIn\" class=\"login\"><a ui-sref=\"login\" class=\"button hollow\">Log in</a></li><li ng-show=\"vm.loggedIn\" class=\"profile\"><button focus-on-click=\"focus-on-click\" class=\"clean\"><avatar avatar-url=\"{{vm.userAvatar}}\"></avatar></button><ul class=\"sublinks elevated\"><li><a href=\"#\">View Profile</a></li><li><a ui-sref=\"submit-work\">Settings</a></li><li><a ng-click=\"vm.logout()\">LOGOUT</a></li></ul></li><li ng-show=\"vm.loggedIn\" class=\"notifications\"><button type=\"button\" focus-on-click=\"focus-on-click\" class=\"clean\"><div ng-class=\"{ danger: vm.unreadCount &gt; 0 }\" class=\"notification\">{{ vm.unreadCount || 0 }}</div></button><div class=\"popup elevated\"><threads ng-if=\"vm.userType == \'customer\'\" subscriber-id=\"{{ vm.subscriberId }}\"></threads><threads ng-if=\"vm.userType != \'customer\'\" subscriber-id=\"{{ vm.subscriberId }}\" user-type=\"copilot\"></threads></div></li></ul></li></ul>");
+angular.module("appirio-tech-ng-work-layout").run(["$templateCache", function($templateCache) {$templateCache.put("views/layout-header.directive.html","<ul class=\"flex center middle\"><li><a ng-home-link=\"ng-home-link\" href=\"{{ vm.homeHref }}\" class=\"clean logo\"><img src=\"/images/asp-logo.svg\"/></a></li><li class=\"app-name\"><h4 ng-if=\"vm.showAppName\">{{ vm.appName }}</h4></li><li><ul class=\"links\"><li ng-show=\"vm.loggedIn\" class=\"dashboard\"><a ng-if=\"vm.userType == \'customer\' \" ui-sref=\"view-work-multiple\">Dashboard</a><a ng-if=\"vm.userType != \'customer\' \" ui-sref=\"copilot-projects\">Dashboard</a></li><li ng-show=\"vm.loggedIn\" class=\"projects\"><button focus-on-click=\"focus-on-click\" class=\"clean\">Projects <span class=\"caret\">&dtrif;</span></button><ul class=\"sublinks elevated\"><li><a ng-if=\"vm.userType == \'customer\' \" ui-sref=\"submit-work\">Create New Project</a></li><li ng-if=\"vm.userType == \'customer\' \" ng-repeat=\"project in vm.projects\"><a ui-sref=\"timeline({ workId: project.id })\"><div class=\"name\">{{ project.name }}</div></a></li><li ng-if=\"vm.userType != \'customer\' \" ng-repeat=\"project in vm.copilotProjects\"><a ui-sref=\"copilot-project-details({ id: project.id })\"><div class=\"name\">{{ project.name }}</div></a></li></ul></li><li ng-hide=\"vm.loggedIn\" class=\"login\"><a ui-sref=\"login\" class=\"button hollow\">Log in</a></li><li ng-show=\"vm.loggedIn\" class=\"profile\"><button focus-on-click=\"focus-on-click\" class=\"clean\"><avatar avatar-url=\"{{vm.userAvatar}}\"></avatar></button><ul class=\"sublinks elevated\"><li><a href=\"#\">View Profile</a></li><li><a ui-sref=\"submit-work\">Settings</a></li><li><a ng-click=\"vm.logout()\">LOGOUT</a></li></ul></li><li ng-show=\"vm.loggedIn\" class=\"notifications\"><button type=\"button\" focus-on-click=\"focus-on-click\" class=\"clean\"><div ng-class=\"{ danger: vm.unreadCount &gt; 0 }\" class=\"notification\">{{ vm.unreadCount || 0 }}</div></button><div class=\"popup elevated\"><threads ng-if=\"vm.userType == \'customer\'\" subscriber-id=\"{{ vm.subscriberId }}\"></threads><threads ng-if=\"vm.userType != \'customer\'\" subscriber-id=\"{{ vm.subscriberId }}\" user-type=\"copilot\"></threads></div></li></ul></li></ul>");
 $templateCache.put("views/layout-footer.directive.html","<footer class=\"layout-footer\"><ul><li><a ui-sref=\"register\">Sign up</a></li><li><a ui-sref=\"#\">Help</a></li><li><a ui-sref=\"#\">About</a></li><li><a ui-sref=\"copilot-projects\">Copilot Dashboard</a></li></ul></footer>");
-$templateCache.put("views/layout-project-nav.directive.html","<ul><li ng-class=\"{active: vm.activeLink == \'timeline\'}\" ng-if=\"vm.userType == \'customer\'\"><a ui-sref=\"timeline({ workId: vm.workId })\">Timeline</a></li><li ng-class=\"{active: vm.activeLink == \'submissions\'}\" ng-if=\"vm.userType == \'customer\'\"><a ui-sref=\"step({ projectId: vm.workId, stepId: vm.currentStepId })\">Submissions</a></li><li ng-class=\"{active: vm.activeLink == \'messaging\'}\" ng-if=\"vm.userType == \'customer\'\"><a ui-sref=\"messaging({ id: vm.workId, threadId: vm.threadId })\">Messaging</a></li><li ng-class=\"{active: vm.activeLink == \'project-details\'}\" ng-if=\"vm.userType == \'customer\'\"><a ui-sref=\"project-details({ id: vm.workId })\">Project details</a></li><li ng-class=\"{active: vm.activeLink == \'copilot-submissions\'}\" ng-if=\"vm.userType != \'customer\'\"><a ui-sref=\"step({ projectId: vm.workId, stepId: vm.currentStepId })\">Submissions</a></li><li ng-class=\"{active: vm.activeLink == \'copilot-messaging\'}\" ng-if=\"vm.userType != \'customer\'\"><a ui-sref=\"copilot-messaging({ id: vm.workId, threadId: vm.threadId })\">Messaging</a></li><li ng-class=\"{active: vm.activeLink == \'copilot-project-details\'}\" ng-if=\"vm.userType != \'customer\'\"><a ui-sref=\"copilot-project-details({ id: vm.workId })\">Project details</a></li></ul>");}]);
+$templateCache.put("views/layout-project-nav.directive.html","<ul><li ng-class=\"{active: vm.activeLink == \'timeline\'}\" ng-if=\"vm.userType == \'customer\'\"><a ui-sref=\"timeline({ workId: vm.workId })\">Timeline</a></li><li ng-class=\"{active: vm.activeLink == \'submissions\'}\" ng-if=\"vm.userType == \'customer\'\"><a ui-sref=\"step({ projectId: vm.workId, stepId: vm.currentStepId })\">Submissions</a></li><li ng-class=\"{active: vm.activeLink == \'messaging\'}\" ng-if=\"vm.userType == \'customer\'\"><a ui-sref=\"messaging({ id: vm.workId, threadId: vm.threadId })\">Messaging</a></li><li ng-class=\"{active: vm.activeLink == \'project-details\'}\" ng-if=\"vm.userType == \'customer\'\"><a ui-sref=\"project-details({ id: vm.workId })\">Project details</a></li><li ng-class=\"{active: vm.activeLink == \'copilot-project-details\'}\" ng-if=\"vm.userType != \'customer\'\"><a ui-sref=\"copilot-project-details({ id: vm.workId })\">Project details</a></li><li ng-class=\"{active: vm.activeLink == \'copilot-messaging\'}\" ng-if=\"vm.userType != \'customer\'\"><a ui-sref=\"copilot-messaging({ id: vm.workId, threadId: vm.threadId })\">Messaging</a></li><li ng-class=\"{active: vm.activeLink == \'copilot-submissions\'}\" ng-if=\"vm.userType != \'customer\'\"><a ui-sref=\"step({ projectId: vm.workId, stepId: vm.currentStepId })\">Submissions</a></li><li ng-class=\"{active: vm.activeLink == \'copilot-status-reports\'}\" ng-if=\"vm.userType != \'customer\'\"><a ui-sref=\"copilot-status-reports({ id: vm.workId})\">Status Reports</a></li></ul>");}]);
 (function() {
   'use strict';
   var dependencies;
@@ -40386,6 +40386,54 @@ $templateCache.put("views/layout-project-nav.directive.html","<ul><li ng-class=\
 
 (function() {
   'use strict';
+  var srv, transformIdOnlyResponse, transformResponse;
+
+  transformResponse = function(response) {
+    var parsed, ref;
+    parsed = JSON.parse(response);
+    return (parsed != null ? (ref = parsed.result) != null ? ref.content : void 0 : void 0) || [];
+  };
+
+  transformIdOnlyResponse = function(response) {
+    var parsed, ref;
+    parsed = JSON.parse(response);
+    return {
+      id: parsed != null ? (ref = parsed.result) != null ? ref.content : void 0 : void 0
+    };
+  };
+
+  srv = function($resource, API_URL) {
+    var methods, params, url;
+    url = API_URL + '/v3/projects/copilot/unclaimed';
+    params = {};
+    methods = {
+      put: {
+        method: 'PUT',
+        transformResponse: transformIdOnlyResponse
+      },
+      post: {
+        method: 'POST',
+        transformResponse: transformIdOnlyResponse
+      },
+      get: {
+        transformResponse: transformResponse
+      },
+      query: {
+        isArray: true,
+        transformResponse: transformResponse
+      }
+    };
+    return $resource(url, params, methods);
+  };
+
+  srv.$inject = ['$resource', 'API_URL'];
+
+  angular.module('appirio-tech-ng-api-services').factory('CopilotUnclaimedProjectsAPIService', srv);
+
+}).call(this);
+
+(function() {
+  'use strict';
   var dependencies;
 
   dependencies = ['ui.router', 'ngResource', 'app.constants', 'duScroll', 'appirio-tech-ng-ui-components', 'appirio-tech-ng-api-services'];
@@ -40672,7 +40720,7 @@ $templateCache.put("views/threads.directive.html","<ul><li ng-repeat=\"thread in
 }).call(this);
 
 angular.module("appirio-tech-ng-ui-components").run(["$templateCache", function($templateCache) {$templateCache.put("views/avatar.directive.html","<img ng-src=\"{{ vm.avatarUrl }}\" ng-show=\"vm.avatarUrl\" class=\"avatar\"/><svg class=\"avatar\" ng-hide=\"vm.avatarUrl\" version=\"1.1\" id=\"Layer_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 512 512\" enable-background=\"new 0 0 512 512\" xml:space=\"preserve\"><path fill=\"#020201\" d=\"M454.426,392.582c-5.439-16.32-15.298-32.782-29.839-42.362c-27.979-18.572-60.578-28.479-92.099-39.085 c-7.604-2.664-15.33-5.568-22.279-9.7c-6.204-3.686-8.533-11.246-9.974-17.886c-0.636-3.512-1.026-7.116-1.228-10.661 c22.857-31.267,38.019-82.295,38.019-124.136c0-65.298-36.896-83.495-82.402-83.495c-45.515,0-82.403,18.17-82.403,83.468 c0,43.338,16.255,96.5,40.489,127.383c-0.221,2.438-0.511,4.876-0.95,7.303c-1.444,6.639-3.77,14.058-9.97,17.743 c-6.957,4.133-14.682,6.756-22.287,9.42c-31.521,10.605-64.119,19.957-92.091,38.529c-14.549,9.58-24.403,27.159-29.838,43.479 c-5.597,16.938-7.886,37.917-7.541,54.917h205.958h205.974C462.313,430.5,460.019,409.521,454.426,392.582z\"/></svg>");
-$templateCache.put("views/checkbox.directive.html","<div class=\"flex middle\"><button ng-class=\"{\'checked\': ngModel}\" ng-click=\"vm.toggle()\" type=\"button\" class=\"clean\"><div src=\"/images/icon-plus.svg\" ng-hide=\"ngModel\" class=\"icon plus hollow\"></div><img src=\"/images/icon-check-solid.svg\" ng-show=\"ngModel\" class=\"icon check-solid\"/></button><label ng-if=\"label\" ng-click=\"vm.toggle()\">{{ label }}</label></div>");
+$templateCache.put("views/checkbox.directive.html","<div class=\"flex middle\"><button ng-class=\"{\'checked\': ngModel}\" ng-click=\"vm.toggle()\" type=\"button\" class=\"clean\"><div ng-hide=\"ngModel\" class=\"icon plus hollow\"></div><img src=\"/images/icon-check-solid.svg\" ng-show=\"ngModel\" class=\"icon check-solid\"/></button><label ng-if=\"label\" ng-click=\"vm.toggle()\">{{ label }}</label></div>");
 $templateCache.put("views/countdown.directive.html","<ul class=\"countdown\"><li ng-if=\"vm.days &gt; 0\"><span class=\"value\">{{ vm.days }}</span><span class=\"unit\">day<span ng-if=\"vm.days &gt; 1\">s</span></span></li><li ng-if=\"vm.hours &gt; 0 || vm.days &gt; 0\"><span class=\"value\">{{ vm.hours }}</span><span class=\"unit\">hr<span ng-if=\"vm.hours &gt; 1\">s</span></span></li><li ng-if=\"vm.minutes &gt; 0 || vm.hours &gt; 0 || vm.days &gt; 0\"><span class=\"value\">{{ vm.minutes }}</span><span class=\"unit\">min<span ng-if=\"vm.minutes &gt; 1\">s</span></span></li><li><span class=\"value\">{{ vm.seconds }}</span><span class=\"unit\">sec<span ng-if=\"vm.seconds &gt; 1\">s</span></span></li></ul>");
 $templateCache.put("views/loader.directive.html","<div class=\"container\"><div class=\"loader\"></div></div>");
 $templateCache.put("views/modal.directive.html","");
@@ -40867,10 +40915,14 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
       $element.addClass('selected-button');
       $scope.$watch($scope.vm.isSelected, function() {
         $element.removeClass('checked');
-        $element.removeClass('action');
+        if (typeof attrs.selectable === 'string') {
+          $element.removeClass(attrs.selectable);
+        }
         if ($scope.vm.isSelected()) {
           $element.addClass('checked');
-          return $element.addClass('action');
+          if (typeof attrs.selectable === 'string') {
+            return $element.addClass(attrs.selectable);
+          }
         }
       });
       return $element.bind('click', function() {
@@ -41603,16 +41655,23 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
       this.hasFiles = false;
     }
 
+    Uploader.prototype.onCaptionChange = function() { /* noop */ };
+
     Uploader.prototype.config = function(options) {
       options = options || {};
 
       this.allowMultiple = options.allowMultiple || false;
       this.allowDuplicates = options.allowDuplicates || false;
+      this.allowCaptions = options.allowCaptions || false;
 
       this.presign = options.presign || null;
       this.query = options.query || null;
       this.createRecord = options.createRecord || null;
       this.removeRecord = options.removeRecord || null;
+
+      if (options.onCaptionChange) {
+        this.onCaptionChange = options.onCaptionChange;
+      }
 
       if (options.presign) {
         this.presign.resource = $resource(options.presign.url);
@@ -41661,22 +41720,22 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
           hasErrors = true;
         }
       });
-
+      uploader.fileArray = filelistToArray(uploader.files);
       uploader.uploading = uploading;
       uploader.hasErrors = hasErrors;
       uploader.hasFiles = uploader.files.length > 0
     };
 
-    Uploader.prototype._add = function(file, options) {
+    Uploader.prototype._add = function(fileData, options) {
       var deferred = $q.defer();
       var uploader = this;
 
       // TODO: Prompt user to confirm replacing file
       var replace = true;
-      var dupePosition = uploader._indexOfFilename(file.name);
+      var dupePosition = uploader._indexOfFilename(fileData.name);
       var dupe = dupePosition >= 0;
 
-      var newFile = uploader._newFile(file, options);
+      var newFile = uploader._newFile(fileData, options);
 
       if (dupe) {
         if (replace) {
@@ -41720,10 +41779,13 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
 
         files.forEach(function(file) {
           uploader._add({
-            name: file.fileName
+            id: file.fileId,
+            name: file.fileName,
+            path: file.filePath,
+            size: file.fileSize,
+            type: file.fileType
           }, {
             newFile: false,
-            fileId: file.fileId
           });
         });
       });
@@ -41737,6 +41799,7 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
       options.query = uploader.query || null;
       options.createRecord = uploader.createRecord || null;
       options.removeRecord = uploader.removeRecord || null;
+      options.allowCaptions = uploader.allowCaptions || false;
 
       file = new File(file, options);
 
@@ -41760,11 +41823,16 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
         uploader._remove(file);
       };
 
+      file.onCaptionChange = function(fileData) {
+        uploader.onCaptionChange(fileData)
+        uploader.onUpdate();
+      }
+
       return file;
     };
 
     Uploader.prototype._remove = function(file) {
-      this.files.splice(this._indexOfFilename(file.name), 1);
+      this.files.splice(this._indexOfFilename(file.data.name), 1);
       this.onUpdate();
 
       return $q.when(true);
@@ -41774,7 +41842,7 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
       var uploader = this;
 
       for (var i = 0; i < uploader.files.length; i++) {
-        if (uploader.files[i].name === name) return i;
+        if (uploader.files[i].data.name === name) return i;
       }
 
       return -1;
@@ -41811,9 +41879,9 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
       options = angular.copy(options);
 
       file.data = data;
-      file.name = data.name;
       file.newFile = options.newFile !== false;
       file.locked = options.locked || false;
+      file.allowCaptions = options.allowCaptions || false;
 
       file.presign = options.presign || null;
       file.query = options.query || null;
@@ -41821,7 +41889,6 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
       file.removeRecord = options.removeRecord || null;
 
       if (!file.newFile) {
-        file.fileId = options.fileId;
         file.uploading = false;
         file.hasErrors = false;
       }
@@ -41858,11 +41925,27 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
       });
     };
 
+    File.prototype.setCaption = function(caption) {
+      var file = this;
+
+      file.data.caption = caption;
+
+      file.onCaptionChange({
+        caption: file.data.caption,
+        id: file.data.id,
+        name: file.data.name,
+        path: file.data.path,
+        size: file.data.size,
+        type: file.data.type
+      });
+    };
+
     File.prototype.onStart = function() { /* noop */ };
     File.prototype.onRemove = function() { /* noop */ };
     File.prototype.onProgress = function() { /* noop */ };
     File.prototype.onSuccess = function() { /* noop */ };
     File.prototype.onFailure = function() { /* noop */ };
+    File.prototype.onCaptionChange = function() { /* noop */ };
 
     //
     // Private methods
@@ -41893,7 +41976,7 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
 
     File.prototype._deleteFileRecord = function() {
       var params = this.removeRecord.params || {};
-      params.fileId = this.fileId;
+      params.fileId = this.data.id;
 
       return this.removeRecord.resource.delete(params).$promise;
     };
@@ -41931,7 +42014,9 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
     }
 
     function storeFilePath(content) {
-      this.createRecord.params.filePath = content.filePath;
+      var file = this;
+
+      file.data.path = content.filePath;
       return content;
     }
 
@@ -42003,6 +42088,7 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
       };
 
       params.param.fileName = this.data.name;
+      params.param.filePath = this.data.path;
       params.param.fileType = this.data.type;
       params.param.fileSize = this.data.size;
 
@@ -42012,7 +42098,7 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
     function fileRecordSuccess(response) {
       var file = this;
       
-      file.fileId = response.result.content.fileId;
+      file.data.id = response.result.content.fileId;
       file.hasErrors = false;
       file.uploading = false;
       file.onSuccess(response);
@@ -42088,6 +42174,7 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
         uploading: '=',
         hasErrors: '=',
         hasFiles: '=',
+        fileArray: '=',
         config: '='
       },
       controller: 'UploaderController as vm',
@@ -42133,6 +42220,10 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
       $scope.hasFiles = newValue;
     });
 
+    $scope.$watch('vm.uploader.fileArray', function(newValue) {
+      $scope.fileArray = newValue;
+    });
+
     configUploader();
 
     if (config.query) {
@@ -42173,11 +42264,20 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
   function FileController($scope) {
     var vm = this;
     vm.file = $scope.file;
+    vm.allowCaptions = vm.file.allowCaptions;
+    vm.caption = '';
+
+    vm.setCaption = function () {
+      if (vm.caption.length) {
+        vm.file.setCaption(vm.caption);
+        vm.caption = '';
+      }
+    }
   }
-  
+
 })();
 
-angular.module("ap-file-upload").run(["$templateCache", function($templateCache) {$templateCache.put("file.html","<div ng-class=\"{\'failed\': vm.file.hasErrors}\" class=\"uploader\"><div class=\"fileName\"><span>{{vm.file.name}}</span></div><div class=\"fileActions\"><button ng-show=\"vm.file.uploading\" ng-click=\"vm.file.cancel()\" type=\"button\">Cancel</button><button ng-show=\"!vm.file.uploading\" ng-click=\"vm.file.remove()\" type=\"button\">Remove</button><button ng-show=\"vm.file.hasErrors\" ng-click=\"vm.file.retry()\" type=\"button\">Retry</button><p ng-show=\"vm.file.hasErrors\">Upload Failed</p><progress ng-show=\"vm.file.uploading\" value=\"{{vm.file.progress}}\" max=\"100\">{{vm.file.progress}}%</progress></div></div>");
+angular.module("ap-file-upload").run(["$templateCache", function($templateCache) {$templateCache.put("file.html","<div ng-class=\"{\'failed\': vm.file.hasErrors}\" class=\"uploader\"><div class=\"fileName\"><span>{{vm.file.data.name}}</span></div><div class=\"fileActions\"><button ng-show=\"vm.file.uploading\" ng-click=\"vm.file.cancel()\" type=\"button\">Cancel</button><button ng-show=\"!vm.file.uploading\" ng-click=\"vm.file.remove()\" type=\"button\">Remove</button><button ng-show=\"vm.file.hasErrors\" ng-click=\"vm.file.retry()\" type=\"button\">Retry</button><p ng-show=\"vm.file.hasErrors\">Upload Failed</p><progress ng-show=\"vm.file.uploading\" value=\"{{vm.file.progress}}\" max=\"100\">{{vm.file.progress}}%</progress><p ng-if=\"vm.file.data.caption\">{{vm.file.data.caption}}</p><input ng-if=\"vm.allowCaptions\" type=\"text\" ng-model=\"vm.caption\"/><button ng-if=\"vm.allowCaptions\" ng-click=\"vm.setCaption()\">Edit Caption</button></div></div>");
 $templateCache.put("uploader.html","<div class=\"uploaderWrapper\"><input ng-if=\"vm.allowMultiple\" multiple=\"\" type=\"file\" on-file-change=\"vm.uploader.add(fileList)\"/><input ng-if=\"!vm.allowMultiple\" type=\"file\" on-file-change=\"vm.uploader.add(fileList)\"/><ul class=\"uploaderFiles\"><li ng-repeat=\"file in vm.uploader.files\"><ap-file file=\"file\"></ap-file></li></ul></div>");}]);
 (function() {
   'use strict';
@@ -42231,27 +42331,10 @@ $templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"v
     vm.ranks = [];
     vm.projectId = $scope.projectId;
     vm.stepId = $scope.stepId;
-    vm.handleRankSelect = function(submission) {
-      if (submission.id && submission.rank) {
-        return StepsService.updateRank(vm.projectId, vm.stepId, submission.id, submission.rank);
-      }
-    };
-    vm.confirmRanks = function() {
-      return StepsService.confirmRanks(vm.projectId, vm.stepId);
-    };
+    vm.userType = $scope.userType;
     activate = function() {
-      var destroyStepsListener, destroySubmissionsListener;
-      destroyStepsListener = $rootScope.$on('StepsService:changed', function() {
-        return onChange();
-      });
-      destroySubmissionsListener = $rootScope.$on('SubmissionsService:changed', function() {
-        return onChange();
-      });
-      $scope.$on('$destroy', function() {
-        destroyStepsListener();
-        return destroySubmissionsListener();
-      });
-      return onChange();
+      StepsService.subscribe($scope, onChange);
+      return SubmissionsService.subscribe($scope, onChange);
     };
     vm.drop = {
       handle: function(event, rankToAssign) {
@@ -42261,6 +42344,14 @@ $templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"v
           return StepsService.updateRank(vm.projectId, vm.stepId, submissionId, rankToAssign);
         }
       }
+    };
+    vm.handleRankSelect = function(submission) {
+      if (submission.id && submission.rank) {
+        return StepsService.updateRank(vm.projectId, vm.stepId, submission.id, submission.rank);
+      }
+    };
+    vm.confirmRanks = function() {
+      return StepsService.confirmRanks(vm.projectId, vm.stepId);
     };
     getStepRef = function(projectId, step) {
       if (step) {
@@ -42326,9 +42417,10 @@ $templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"v
       controller: 'SubmissionsController as vm',
       templateUrl: 'views/submissions.directive.html',
       scope: {
-        projectId: '@projectId',
-        stepId: '@stepId',
-        stepType: '@stepType'
+        projectId: '@',
+        stepId: '@',
+        stepType: '@',
+        userType: '@'
       }
     };
   };
@@ -42541,7 +42633,7 @@ $templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"v
   var srv;
 
   srv = function($rootScope, helpers, StepsAPIService, OptimistCollection) {
-    var acceptFixes, confirmRanks, createStepCollection, currentProjectId, fetch, get, getCurrentStep, getStepById, steps, updateRank, updateStep;
+    var acceptFixes, confirmRanks, createStepCollection, currentProjectId, fetch, get, getCurrentStep, getStepById, steps, subscribe, updateRank, updateStep;
     currentProjectId = null;
     steps = null;
     createStepCollection = function() {
@@ -42553,6 +42645,16 @@ $templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"v
         propsToIgnore: ['$promise', '$resolved']
       });
       return newSteps;
+    };
+    subscribe = function(scope, onChange) {
+      var destroyStepsListener;
+      destroyStepsListener = $rootScope.$on('StepsService:changed', function() {
+        return onChange();
+      });
+      scope.$on('$destroy', function() {
+        return destroyStepsListener();
+      });
+      return onChange();
     };
     get = function(projectId) {
       if (projectId !== currentProjectId) {
@@ -42656,6 +42758,7 @@ $templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"v
     };
     return {
       get: get,
+      subscribe: subscribe,
       getCurrentStep: getCurrentStep,
       getStepById: getStepById,
       updateRank: updateRank,
@@ -42675,7 +42778,7 @@ $templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"v
   var SubmissionsService;
 
   SubmissionsService = function($rootScope, helpers, SubmissionsAPIService, SubmissionsMessagesAPIService, UserV3Service, MessageUpdateAPIService) {
-    var currentProjectId, currentStepId, emitUpdates, error, fetch, get, markMessagesAsRead, pending, sendMessage, submissions;
+    var currentProjectId, currentStepId, emitUpdates, error, fetch, get, markMessagesAsRead, pending, sendMessage, submissions, subscribe;
     submissions = null;
     currentProjectId = null;
     currentStepId = null;
@@ -42683,6 +42786,16 @@ $templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"v
     error = false;
     emitUpdates = function() {
       return $rootScope.$emit('SubmissionsService:changed');
+    };
+    subscribe = function(scope, onChange) {
+      var destroySubmissionsListener;
+      destroySubmissionsListener = $rootScope.$on('SubmissionsService:changed', function() {
+        return onChange();
+      });
+      scope.$on('$destroy', function() {
+        return destroySubmissionsListener();
+      });
+      return onChange();
     };
     get = function(projectId, stepId) {
       var copy, i, item, len;
@@ -42796,6 +42909,7 @@ $templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"v
       return emitUpdates();
     };
     return {
+      subscribe: subscribe,
       get: get,
       markMessagesAsRead: markMessagesAsRead,
       sendMessage: sendMessage
@@ -42835,22 +42949,13 @@ $templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"v
     vm.submission = {};
     vm.projectId = $scope.projectId;
     vm.stepId = $scope.stepId;
+    vm.userType = $scope.userType;
+    activate = function() {
+      StepsService.subscribe($scope, onChange);
+      return SubmissionsService.subscribe($scope, onChange);
+    };
     vm.confirmApproval = function() {
       return StepsService.acceptFixes(vm.projectId, vm.stepId);
-    };
-    activate = function() {
-      var destroyStepsListener, destroySubmissionsListener;
-      destroyStepsListener = $rootScope.$on('StepsService:changed', function() {
-        return onChange();
-      });
-      destroySubmissionsListener = $rootScope.$on('SubmissionsService:changed', function() {
-        return onChange();
-      });
-      $scope.$on('$destroy', function() {
-        destroyStepsListener();
-        return destroySubmissionsListener();
-      });
-      return onChange();
     };
     getStepRef = function(projectId, step) {
       if (step) {
@@ -42905,8 +43010,9 @@ $templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"v
       controller: 'FinalFixesController as vm',
       templateUrl: 'views/final-fixes.directive.html',
       scope: {
-        projectId: '@projectId',
-        stepId: '@stepId'
+        projectId: '@',
+        stepId: '@',
+        userType: '@'
       }
     };
   };
@@ -42931,22 +43037,13 @@ $templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"v
     vm.projectId = $scope.projectId;
     vm.stepId = $scope.stepId;
     vm.submissionId = $scope.submissionId;
+    vm.userType = $scope.userType;
+    activate = function() {
+      StepsService.subscribe($scope, onChange);
+      return SubmissionsService.subscribe($scope, onChange);
+    };
     vm.handleRankSelect = function(submission) {
       return StepsService.updateRank(vm.projectId, vm.stepId, submission.id, submission.rank);
-    };
-    activate = function() {
-      var destroyStepsListener, destroySubmissionsListener;
-      destroyStepsListener = $rootScope.$on('StepsService:changed', function() {
-        return onChange();
-      });
-      destroySubmissionsListener = $rootScope.$on('SubmissionsService:changed', function() {
-        return onChange();
-      });
-      $scope.$on('$destroy', function() {
-        destroyStepsListener();
-        return destroySubmissionsListener();
-      });
-      return onChange();
     };
     onChange = function() {
       var currentStep, steps, submissions;
@@ -42987,9 +43084,10 @@ $templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"v
       controller: 'SubmissionDetailController as vm',
       templateUrl: 'views/submission-detail.directive.html',
       scope: {
-        projectId: '@projectId',
-        stepId: '@stepId',
-        submissionId: '@submissionId'
+        projectId: '@',
+        stepId: '@',
+        submissionId: '@',
+        userType: '@'
       }
     };
   };
@@ -43014,11 +43112,15 @@ $templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"v
     vm.stepId = $scope.stepId;
     vm.submissionId = $scope.submissionId;
     vm.fileId = $scope.fileId;
+    vm.userType = $scope.userType;
     vm.messages = [];
     vm.newMessage = '';
     vm.showMessages = false;
-    vm.userId = null;
+    vm.userId = UserV3Service.getCurrentUser().id;
     vm.avatars = {};
+    activate = function() {
+      return SubmissionsService.subscribe($scope, onChange);
+    };
     vm.sendMessage = function() {
       if (vm.newMessage) {
         SubmissionsService.sendMessage(vm.submissionId, vm.fileId, vm.newMessage, vm.userId);
@@ -43030,19 +43132,6 @@ $templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"v
       if (vm.showComments && vm.file.unreadMessages > 0) {
         return SubmissionsService.markMessagesAsRead(vm.submissionId, vm.fileId, vm.userId);
       }
-    };
-    activate = function() {
-      var destroySubmissionsListener;
-      destroySubmissionsListener = $rootScope.$on('SubmissionsService:changed', function() {
-        return onChange();
-      });
-      $scope.$on('$destroy', function() {
-        return destroySubmissionsListener();
-      });
-      $scope.$watch(UserV3Service.getCurrentUser, function(user) {
-        return vm.userId = user != null ? user.id : void 0;
-      });
-      return onChange();
     };
     onChange = function() {
       var currentIndex, nextIndex, prevIndex, ref, submissions;
@@ -43088,10 +43177,11 @@ $templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"v
       controller: 'FileDetailController as vm',
       templateUrl: 'views/file-detail.directive.html',
       scope: {
-        projectId: '@projectId',
-        stepId: '@stepId',
-        fileId: '@fileId',
-        submissionId: '@submissionId'
+        projectId: '@',
+        stepId: '@',
+        submissionId: '@',
+        fileId: '@',
+        userType: '@'
       }
     };
   };

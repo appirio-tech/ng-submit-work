@@ -863,7 +863,7 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
   var SubmitWorkService;
 
   SubmitWorkService = function($rootScope, OptimistModel, SubmitWorkAPIService, $q) {
-    var create, currentWorkId, emitUpdates, fetch, get, getPromise, resetWork, save, work, workTemplate;
+    var create, currentWorkId, emitUpdates, fetch, get, getPromise, resetWork, save, subscribe, work, workTemplate;
     currentWorkId = null;
     work = null;
     workTemplate = {
@@ -909,6 +909,16 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
           return work.get();
         });
       }
+    };
+    subscribe = function(scope, onChange) {
+      var destroyWorkListener;
+      destroyWorkListener = $rootScope.$on('StepsService:changed', function() {
+        return onChange();
+      });
+      scope.$on('$destroy', function() {
+        return destroyWorkListener();
+      });
+      return onChange();
     };
     create = function(updates) {
       var apiCall, interceptResponse;
@@ -965,6 +975,7 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
     return {
       get: get,
       getPromise: getPromise,
+      subscribe: subscribe,
       create: create,
       fetch: fetch,
       save: save
