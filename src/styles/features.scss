@@ -37,7 +37,7 @@ submit-work-features {
         > li {
           &:first-child {
             > ul {
-              max-height: 460px;
+              max-height: 560px;
               overflow: auto;
 
               li {
@@ -101,7 +101,7 @@ submit-work-features {
 
             img {
               margin-top: $margin;
-              max-height: 400px;
+              max-height: 500px;
             }
           }
         }
