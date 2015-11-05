@@ -9,6 +9,14 @@ submit-work-complete {
   text-align      : center;
   background-color: $white;
 
+  h1 {
+    font-weight: $font-weight-bold;
+  }
+
+  h5 {
+    font-weight: $font-weight-bold;
+  }
+
   .uploaderWrapper {
     margin-top: $margin-small;
 
