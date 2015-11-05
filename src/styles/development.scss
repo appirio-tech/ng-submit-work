@@ -40,9 +40,10 @@ submit-work-development {
     .nav {
       @include vertical-align-middle;
 
-      text-align: center;
-      width     : 100%;
-      padding   : $padding-big;
+      text-align    : center;
+      width         : 100%;
+      padding       : $padding-big;
+      text-transform: uppercase;
 
       > li {
         margin: 0 $margin-small;

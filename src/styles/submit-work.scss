@@ -46,8 +46,9 @@ submit-work-complete {
   .navs {
     @include justify-content(space-between);
 
-    width: 400px;
-    margin: 0 auto;
+    width         : 400px;
+    margin        : 0 auto;
+    text-transform: uppercase;
 
     li {
       width: 133.33px;
