@@ -864,7 +864,7 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
   'use strict';
   var SubmitWorkService;
 
-  SubmitWorkService = function($rootScope, OptimistModel, SubmitWorkAPIService, $q) {
+  SubmitWorkService = function($rootScope, OptimistModel, SubmitWorkAPIService, ProjectsAPIService, $q) {
     var create, currentWorkId, emitUpdates, fetch, get, getPromise, resetWork, save, subscribe, work, workTemplate;
     currentWorkId = null;
     work = null;
@@ -885,7 +885,8 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
       offlineAccessComment: null,
       usesPersonalInformation: null,
       securityLevel: null,
-      numberOfApiIntegrations: null
+      numberOfApiIntegrations: null,
+      threadId: null
     };
     emitUpdates = function() {
       return $rootScope.$emit('SubmitWorkService.work:changed');
@@ -929,14 +930,15 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
         currentWorkId = res.id;
         work.set({
           updates: {
-            id: res.id
+            id: res.id,
+            threadId: res.threadId
           },
           updateValues: true
         });
         return res;
       };
       apiCall = function(model) {
-        return SubmitWorkAPIService.post({}, model).$promise.then(interceptResponse);
+        return ProjectsAPIService.post({}, model).$promise.then(interceptResponse);
       };
       return work.update({
         updates: updates,
@@ -984,7 +986,7 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
     };
   };
 
-  SubmitWorkService.$inject = ['$rootScope', 'OptimistModel', 'SubmitWorkAPIService', '$q'];
+  SubmitWorkService.$inject = ['$rootScope', 'OptimistModel', 'SubmitWorkAPIService', 'ProjectsAPIService', '$q'];
 
   angular.module('appirio-tech-ng-submit-work').factory('SubmitWorkService', SubmitWorkService);
 
@@ -1128,19 +1130,23 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
       {
         name: 'Blue',
         id: 'BLUE',
-        imgUrl: 'http://s3.amazonaws.com/colorcombos-images/users/1/color-schemes/color-scheme-375-main.png?v=20120505082910'
+        imgUrl: 'http://s3.amazonaws.com/colorcombos-images/users/1/color-schemes/color-scheme-375-main.png?v=20120505082910',
+        selected: false
       }, {
         name: 'Red',
         id: 'RED',
-        imgUrl: 'http://s3.amazonaws.com/colorcombos-images/users/1/color-schemes/color-scheme-375-main.png?v=20120505082910'
+        imgUrl: 'http://s3.amazonaws.com/colorcombos-images/users/1/color-schemes/color-scheme-375-main.png?v=20120505082910',
+        selected: false
       }, {
         name: 'Green',
         id: 'GREEN',
-        imgUrl: 'http://s3.amazonaws.com/colorcombos-images/users/1/color-schemes/color-scheme-375-main.png?v=20120505082910'
+        imgUrl: 'http://s3.amazonaws.com/colorcombos-images/users/1/color-schemes/color-scheme-375-main.png?v=20120505082910',
+        selected: false
       }, {
         name: 'Orange',
         id: 'ORANGE',
-        imgUrl: 'http://s3.amazonaws.com/colorcombos-images/users/1/color-schemes/color-scheme-375-main.png?v=20120505082910'
+        imgUrl: 'http://s3.amazonaws.com/colorcombos-images/users/1/color-schemes/color-scheme-375-main.png?v=20120505082910',
+        selected: false
       }
     ];
     service.icons = [
