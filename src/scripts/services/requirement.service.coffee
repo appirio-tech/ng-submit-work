@@ -130,18 +130,22 @@ srv = () ->
     name: 'Blue'
     id: 'BLUE'
     imgUrl: 'http://s3.amazonaws.com/colorcombos-images/users/1/color-schemes/color-scheme-375-main.png?v=20120505082910'
+    selected: false
   ,
     name: 'Red'
     id: 'RED'
     imgUrl: 'http://s3.amazonaws.com/colorcombos-images/users/1/color-schemes/color-scheme-375-main.png?v=20120505082910'
+    selected: false
   ,
     name: 'Green'
     id: 'GREEN'
     imgUrl: 'http://s3.amazonaws.com/colorcombos-images/users/1/color-schemes/color-scheme-375-main.png?v=20120505082910'
+    selected: false
   ,
     name: 'Orange'
     id: 'ORANGE'
     imgUrl: 'http://s3.amazonaws.com/colorcombos-images/users/1/color-schemes/color-scheme-375-main.png?v=20120505082910'
+    selected: false
   ]
 
   service.icons = [
