@@ -10,7 +10,9 @@ header
 .flush-height.flex.column(flush-height=true)
   ul.dark-bg.flex.center.middle.flex-grow.selectable-choices
     li
-      img.icon.biggest(src="/images/define-feature.svg")
+      img.icon.biggest(ng-if="!vm.featuresDefined" src="/images/define-feature.svg")
+
+      img.icon.biggest(ng-if="vm.featuresDefined" src="/images/define-feature-selected.svg")
 
       h4 Define features
 
@@ -19,7 +21,9 @@ header
       button.action.wide(ng-click="vm.showFeatures()") select
 
     li
-      img.icon.biggest(src="/images/upload.svg")
+      img.icon.biggest(ng-if="!vm.uploaderHasFiles || vm.uploaderHasErrors || vm.uploaderUploading" src="/images/upload.svg")
+
+      img.icon.biggest(ng-if="vm.uploaderHasFiles && !vm.uploaderHasErrors && !vm.uploaderUploading" src="/images/upload-selected.svg")
 
       h4 Upload document
 

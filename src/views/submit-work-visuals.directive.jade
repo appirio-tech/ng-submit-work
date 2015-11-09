@@ -12,7 +12,9 @@ header
 .flush-height.flex.column(flush-height=true)
   ul.dark-bg.flex.center.flex-grow.middle.selectable-choices(ng-class="{active: vm.showPaths}")
     li
-      img.icon.big.biggest(src="/images/brand-reqs.svg")
+      img.icon.big.biggest(ng-if="!vm.specsDefined" src="/images/brand-reqs.svg")
+
+      img.icon.big.biggest(ng-if="vm.specsDefined" src="/images/brand-reqs-selected.svg")
 
       h4 Choose Styles
 
@@ -21,7 +23,9 @@ header
       button.action.wide(ng-click="vm.showChooseStyles()") select
 
     li
-      img.icon.big.biggest(src="/images/upload.svg")
+      img.icon.big.biggest(ng-if="!vm.uploaderHasFiles || vm.uploaderHasErrors || vm.uploaderUploading" src="/images/upload.svg")
+
+      img.icon.big.biggest(ng-if="vm.uploaderHasFiles && !vm.uploaderHasErrors && !vm.uploaderUploading" src="/images/upload-selected.svg")
 
       h4 Upload styles
 
@@ -30,7 +34,9 @@ header
       button.action.wide(ng-click="vm.showUploadStyles()") select
 
     li
-      img.icon.big.biggest(src="/images/url-styles.svg")
+      img.icon.big.biggest(ng-if="!vm.urlAdded" src="/images/url-styles.svg")
+
+      img.icon.big.biggest(ng-if="vm.urlAdded" src="/images/url-styles-selected.svg")
 
       h4 Get style from url
 
