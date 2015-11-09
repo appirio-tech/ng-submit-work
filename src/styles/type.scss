@@ -9,40 +9,56 @@ submit-work-type {
     }
   }
 
-  ul.type {
-    padding-right: 0;
-    padding-bottom: 0;
-    margin-top: $margin;
+  .error {
+    @include block-center();
+  }
 
-    .house {
-      width           : 300px;
-      display         : inline-block;
-      margin-top      : $margin-small;
-      background-color: $neutral-color-light;
-      padding         : $padding;
+  #app-name {
+    .error {
+      text-align: left;
+    }
+  }
 
-      .active {
-        display: none;
-      }
+  .type  {
+    .error {
+      margin-top: $margin-small;
+    }
 
-      .inactive {
-        display: inline-block;
-      }
+    > ul {
+      padding-right: 0;
+      padding-bottom: 0;
+      margin-top: $margin;
 
-      &.selected {
-        background-color: $primary-color;
+      .house {
+        width           : 433px;
+        height          : 195px;
+        margin-top      : $margin-small;
+        background-color: $neutral-color-light;
+        padding         : $padding;
 
         .active {
-          display: inline-block;
+          display: none;
         }
 
         .inactive {
-          display: none;
+          display: inline-block;
         }
-      }
 
-      img {
-        height: 100px;
+        &.selected {
+          background-color: $primary-color;
+
+          .active {
+            display: inline-block;
+          }
+
+          .inactive {
+            display: none;
+          }
+        }
+
+        img {
+          height: 80px;
+        }
       }
     }
 

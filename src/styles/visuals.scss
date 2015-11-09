@@ -35,9 +35,10 @@ submit-work-visuals {
     .nav {
       @include vertical-align-middle;
 
-      text-align: center;
-      width     : 100%;
-      padding   : $padding-big;
+      text-align    : center;
+      text-transform: uppercase;
+      width         : 100%;
+      padding       : $padding-big;
 
       > li {
         margin: 0 $margin-small;
@@ -68,6 +69,8 @@ submit-work-visuals {
     .colors {
       img {
         width: 150px;
+        display: block;
+        margin-top: $margin-small;
       }
     }
 

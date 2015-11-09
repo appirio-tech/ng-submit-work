@@ -1,4 +1,4 @@
-header
+header.flex.column.center
   h1 How to create a new project
 
   p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -14,9 +14,9 @@ form(ng-submit="vm.validateAllSections()")
         ng-class="{error: vm.nameError}"
       )
 
-      p.error(ng-if="vm.nameError && !vm.name.length") Please enter an app name.
+      p.error.wider(ng-if="vm.nameError && !vm.name.length") Please enter an app name.
 
-    button.wider.continue.action(
+    button.wider.continue(
       type="button"
       ng-click="vm.validateSection('platform-details', 'name', true)"
     ) continue
@@ -44,30 +44,30 @@ form(ng-submit="vm.validateAllSections()")
             li(ng-repeat="orientation in vm.orientations")
               checkbox(label="{{orientation.name}}" ng-model="orientation.selected")
 
-      p.error(ng-if="vm.devicesError") Please choose a device.
+      p.error.wider(ng-if="vm.devicesError") Please choose a device.
 
-      p.error(ng-if="vm.orientationsError") Please choose an orientation.
+      p.error.wider(ng-if="vm.orientationsError") Please choose an orientation.
 
-    button.wider.continue.action(
+    button.wider.continue(
       type="button"
       ng-click="vm.validateSection('type-details', ['devices', 'orientations'], true)"
     ) continue
 
   .full-height.flex.column(full-height=true)
-    .dark-bg.flex.column.center.flex-grow(id="type-details")
+    .type.dark-bg.flex.column.center.flex-grow(id="type-details")
       h2 What <strong>type of work</strong> are you looking for?
 
       ul.type.flex.center
         li(ng-repeat="projectType in vm.projectTypes")
-          .house(
+          .house.flex.column.center(
             ng-class="{ selected: vm.projectType == projectType.id }"
             ng-if="projectType.id == 'DESIGN'"
           )
             img.inactive(src="/images/design-thin.svg")
 
-            img.active(src="/images/design-active.svg")
+            img.active(src="/images/design-white-thin.svg")
 
-          .house(
+          .house.flex.column.center(
             ng-class="{ selected: vm.projectType == projectType.id }"
             ng-if="projectType.id == 'DESIGN_AND_CODE'"
           )
@@ -79,16 +79,16 @@ form(ng-submit="vm.validateAllSections()")
 
           p {{ projectType.description }}
 
-          button(
+          button.action(
             type="button"
             selectable="true"
             ng-model="vm.projectType"
             value="projectType.id"
           )
 
-      p.error(ng-if="vm.projectTypeError") Please choose a type of work.
+      p.error.wider(ng-if="vm.projectTypeError") Please choose a type of work.
 
-    button.wider.continue.action(type="button" ng-click="vm.validateSection('brief-details', 'projectType', true)") continue
+    button.wider.continue(type="button" ng-click="vm.validateSection('brief-details', 'projectType', true)") continue
 
   .full-height.flex.column.has-loader(full-height=true)
     loader(ng-if="vm.loading")
@@ -98,7 +98,7 @@ form(ng-submit="vm.validateAllSections()")
 
       textarea.brief(placeholder="E.g. I need a mobile HR application with social features to support my growing organization" ng-model="vm.brief")
 
-      p.error(ng-if="vm.briefError") Please enter project details.
+      p.error.wider(ng-if="vm.briefError") Please enter project details.
 
       button.action.continue.wider(type="submit") Create Project
 

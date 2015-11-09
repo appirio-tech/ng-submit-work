@@ -12,9 +12,7 @@ header
 .flush-height.flex.column(flush-height=true)
   ul.dark-bg.flex.center.flex-grow.middle.selectable-choices(ng-class="{active: vm.showPaths}")
     li
-      img.icon.big.biggest(ng-if="!vm.specsDefined" src="/images/brand-reqs.svg")
-
-      img.icon.big.biggest(ng-if="vm.specsDefined" src="/images/icon-check-solid.svg")
+      img.icon.big.biggest(src="/images/brand-reqs.svg")
 
       h4 Choose Styles
 
@@ -23,9 +21,7 @@ header
       button.action.wide(ng-click="vm.showChooseStyles()") select
 
     li
-      img.icon.big.biggest(ng-if="!vm.uploaderHasFiles || vm.uploaderHasErrors || vm.uploaderUploading" src="/images/upload.svg")
-
-      img.icon.big.biggest(ng-if="vm.uploaderHasFiles && !vm.uploaderHasErrors && !vm.uploaderUploading" src="/images/icon-check-solid.svg")
+      img.icon.big.biggest(src="/images/upload.svg")
 
       h4 Upload styles
 
@@ -34,9 +30,7 @@ header
       button.action.wide(ng-click="vm.showUploadStyles()") select
 
     li
-      img.icon.big.biggest(ng-if="!vm.urlAdded" src="/images/url-styles.svg")
-
-      img.icon.big.biggest(ng-if="vm.urlAdded" src="/images/icon-check-solid.svg")
+      img.icon.big.biggest(src="/images/url-styles.svg")
 
       h4 Get style from url
 
@@ -44,7 +38,7 @@ header
 
       button.action.wide(ng-click="vm.showUrlStyles()") select
 
-  a.button.wider.action.continue(
+  a.button.wider.continue(
     ng-if="vm.projectType == 'DESIGN_AND_CODE'"
     ui-sref="submit-work-development({ id: vm.workId })"
   ) go to development
@@ -122,7 +116,7 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
 
         img(src="/images/serif.png" ng-if="font.name == 'Serif' ")
 
-        button.wider(selectable=true type="button" ng-model="vm.font" value="font.id")
+        button.wider.action(selectable=true type="button" ng-model="vm.font" value="font.id")
 
       li.or(ng-repeat-end ng-if="font.name == 'Serif' ")
         .house OR
@@ -132,11 +126,11 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
 
     ul.flex.center
       li(ng-repeat="color in vm.colors")
-        img(src="/images/{{color.name}}.png")
-
         h6 {{ color.name }}
 
-        button(type="button" selectable=true ng-model="color.selected")
+        img(src="/images/{{color.name}}.png")
+
+        button.action(type="button" selectable=true ng-model="color.selected")
 
   main.dark-bg.icons.flex.column.center.flex-grow(ng-show="vm.activeStyleModal == 'icons' ")
     h2 Tell us <strong>the icons</strong> you like
@@ -149,7 +143,7 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
 
         p {{icon.description}}
 
-        button.wider(type="button" selectable=true ng-model="vm.icon" value="icon.id")
+        button.wider.action(type="button" selectable=true ng-model="vm.icon" value="icon.id")
 
   footer
     button.wider(ng-hide="vm.backButtonDisabled" ng-click="vm.viewPrevious()") back
