@@ -41,6 +41,12 @@ submit-work-features {
               overflow: auto;
 
               li {
+                &.active {
+                  button {
+                    background-color: $neutral-color;
+                  }
+                }
+
                 button {
                   @include vertical-align-middle();
 
