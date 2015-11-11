@@ -425,7 +425,7 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
       vm.loading = false;
       vm.font = vm.font || ((ref = work.fontIds) != null ? ref[0] : void 0);
       vm.icon = vm.icon || ((ref1 = work.iconsetIds) != null ? ref1[0] : void 0);
-      vm.url = vm.url || ((ref2 = work.urlIds) != null ? ref2[0] : void 0);
+      vm.url = vm.url || ((ref2 = work.designUrls) != null ? ref2[0] : void 0);
       vm.fonts = angular.copy(RequirementService.fonts);
       vm.colors = angular.copy(RequirementService.colors);
       vm.icons = angular.copy(RequirementService.icons);
