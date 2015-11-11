@@ -121,7 +121,7 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Sub
     vm.loading = false
     vm.font    = vm.font || work.fontIds?[0]
     vm.icon    = vm.icon || work.iconsetIds?[0]
-    vm.url     = vm.url || work.urlIds?[0]
+    vm.url     = vm.url || work.designUrls?[0]
 
     vm.fonts   = angular.copy RequirementService.fonts
     vm.colors  = angular.copy RequirementService.colors
