@@ -11,6 +11,8 @@ submit-work-type {
 
   .error {
     @include block-center();
+
+    margin-top: 10px;
   }
 
   #app-name {
@@ -33,7 +35,7 @@ submit-work-type {
         width           : 433px;
         height          : 195px;
         margin-top      : $margin-small;
-        background-color: $neutral-color-light;
+        background-color: #e6e7e8;
         padding         : $padding;
 
         .active {
@@ -89,7 +91,7 @@ submit-work-type {
       }
 
       > ul {
-        margin-top : $margin-smallest;
+        margin-top : 20px;
 
         > li {
           display: inline-block;

@@ -30,16 +30,12 @@ form(ng-submit="vm.validateAllSections()")
         li
           h5 Devices
 
-          hr
-
           ul
             li(ng-repeat="device in vm.devices")
               checkbox(label="{{device.name}}" ng-model="device.selected")
 
         li(ng-class="{invisible: !vm.showOrientation()}")
           h5 Orientation
-
-          hr
 
           ul
             li(ng-repeat="orientation in vm.orientations")
