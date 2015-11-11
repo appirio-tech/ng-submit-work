@@ -12,6 +12,7 @@ form(ng-submit="vm.validateAllSections()")
         ng-blur="vm.validateSection('platform-details', 'name')"
         ng-model="vm.name"
         ng-class="{error: vm.nameError}"
+        autofocus=true
       )
 
       p.error.wider(ng-if="vm.nameError && !vm.name.length") Please enter an app name.
