@@ -39333,7 +39333,7 @@ angular.module('ui.router.state')
   'use strict';
   var dependencies;
 
-  dependencies = ['appirio-tech-ng-auth', 'appirio-tech-ng-api-services', 'appirio-tech-ng-messaging', 'appirio-tech-ng-ui-components', 'appirio-tech-submissions', 'duScroll'];
+  dependencies = ['appirio-tech-ng-auth', 'appirio-tech-ng-api-services', 'appirio-tech-ng-ui-components', 'appirio-tech-submissions', 'duScroll'];
 
   angular.module('appirio-tech-ng-work-layout', dependencies);
 
@@ -39343,7 +39343,7 @@ angular.module('ui.router.state')
   'use strict';
   var LayoutHeaderController;
 
-  LayoutHeaderController = function($scope, $state, UserV3Service, WorkAPIService, ThreadsAPIService, AuthService, SubmitWorkAPIService, InboxesProjectAPIService, ProjectsAPIService, $rootScope) {
+  LayoutHeaderController = function($scope, $state, UserV3Service, ThreadsAPIService, AuthService, SubmitWorkAPIService, InboxesProjectAPIService) {
     var activate, getNotificationCount, onProjectChange, onUserChange, setAppName, vm;
     vm = this;
     vm.homeHref = $state.href('home');
@@ -39363,7 +39363,7 @@ angular.module('ui.router.state')
       });
     };
     onUserChange = function() {
-      var params, resource, user;
+      var user;
       user = UserV3Service.getCurrentUser();
       if (user != null ? user.id : void 0) {
         vm.loggedIn = true;
@@ -39375,23 +39375,8 @@ angular.module('ui.router.state')
         } else {
           vm.homeHref = $state.href('copilot-projects');
         }
-        getNotificationCount(user.id);
-        if (vm.userType === 'customer') {
-          resource = WorkAPIService.get();
-          return resource.$promise.then(function(response) {
-            return vm.projects = response;
-          });
-        } else {
-          params = {
-            filter: "copilotId=" + user.id
-          };
-          resource = ProjectsAPIService.query(params);
-          return resource.$promise.then(function(response) {
-            return vm.copilotProjects = response;
-          });
-        }
+        return getNotificationCount(user.id);
       } else {
-        vm.projects = [];
         vm.homeHref = $state.href('home');
         return vm.loggedIn = false;
       }
@@ -39429,7 +39414,7 @@ angular.module('ui.router.state')
     return vm;
   };
 
-  LayoutHeaderController.$inject = ['$scope', '$state', 'UserV3Service', 'WorkAPIService', 'ThreadsAPIService', 'AuthService', 'SubmitWorkAPIService', 'InboxesProjectAPIService', 'ProjectsAPIService', '$rootScope'];
+  LayoutHeaderController.$inject = ['$scope', '$state', 'UserV3Service', 'ThreadsAPIService', 'AuthService', 'SubmitWorkAPIService', 'InboxesProjectAPIService'];
 
   angular.module('appirio-tech-ng-work-layout').controller('LayoutHeaderController', LayoutHeaderController);
 
@@ -39513,12 +39498,12 @@ angular.module('ui.router.state')
   'use strict';
   var ProjectNavController;
 
-  ProjectNavController = function($scope, $state, StepsService, $rootScope) {
+  ProjectNavController = function($scope, $state, StepsService, ProjectsAPIService, $rootScope) {
     var activate, onChange, vm;
     vm = this;
     vm.workId = $scope.workId;
     vm.currentStepId = null;
-    vm.threadId = "threadfor-" + vm.workId;
+    vm.threadId = null;
     vm.userType = $scope.userType || 'customer';
     vm.currentStep = null;
     onChange = function() {
@@ -39536,7 +39521,16 @@ angular.module('ui.router.state')
       }
     };
     activate = function() {
-      var destroyStepsListener;
+      var destroyStepsListener, params, resource;
+      if (vm.workId) {
+        params = {
+          id: vm.workId
+        };
+        resource = ProjectsAPIService.get(params);
+        resource.$promise.then(function(response) {
+          return vm.threadId = response.threadId;
+        });
+      }
       destroyStepsListener = $rootScope.$on('StepsService:changed', function() {
         return onChange();
       });
@@ -39549,15 +39543,180 @@ angular.module('ui.router.state')
     return vm;
   };
 
-  ProjectNavController.$inject = ['$scope', '$state', 'StepsService', '$rootScope'];
+  ProjectNavController.$inject = ['$scope', '$state', 'StepsService', 'ProjectsAPIService', '$rootScope'];
 
   angular.module('appirio-tech-ng-work-layout').controller('ProjectNavController', ProjectNavController);
 
 }).call(this);
 
-angular.module("appirio-tech-ng-work-layout").run(["$templateCache", function($templateCache) {$templateCache.put("views/layout-header.directive.html","<ul class=\"flex center middle\"><li><a ng-home-link=\"ng-home-link\" href=\"{{ vm.homeHref }}\" ng-if=\"vm.userType != \'member\'\" class=\"clean logo\"><img src=\"/images/asp-logo.svg\"/></a><img src=\"/images/asp-logo.svg\" ng-if=\"vm.userType == \'member\'\"/></li><li class=\"app-name\"><h4 ng-if=\"vm.showAppName\">{{ vm.appName }}</h4></li><li><ul ng-if=\"vm.userType != \'member\'\" class=\"links\"><li ng-show=\"vm.loggedIn\" class=\"dashboard\"><a ng-if=\"vm.userType == \'customer\' \" ui-sref=\"view-work-multiple\">Dashboard</a><a ng-if=\"vm.userType != \'customer\' \" ui-sref=\"copilot-projects\">Dashboard</a></li><li ng-show=\"vm.loggedIn\" class=\"projects\"><button focus-on-click=\"focus-on-click\" class=\"clean\">Projects <span class=\"caret\">&dtrif;</span></button><ul class=\"sublinks elevated\"><li><a ng-if=\"vm.userType == \'customer\' \" ui-sref=\"submit-work\">Create New Project</a></li><li ng-if=\"vm.userType == \'customer\' \" ng-repeat=\"project in vm.projects\"><a ui-sref=\"timeline({ workId: project.id })\"><div class=\"name\">{{ project.name }}</div></a></li><li ng-if=\"vm.userType != \'customer\' \" ng-repeat=\"project in vm.copilotProjects\"><a ui-sref=\"copilot-project-details({ id: project.id })\"><div class=\"name\">{{ project.name }}</div></a></li></ul></li><li ng-hide=\"vm.loggedIn\" class=\"login\"><a ui-sref=\"login\" class=\"button hollow\">Log in</a></li><li ng-show=\"vm.loggedIn\" class=\"profile\"><button focus-on-click=\"focus-on-click\" class=\"clean\"><avatar avatar-url=\"{{vm.userAvatar}}\"></avatar></button><ul class=\"sublinks elevated\"><li><a href=\"#\">View Profile</a></li><li><a ui-sref=\"submit-work\">Settings</a></li><li><a ng-click=\"vm.logout()\">LOGOUT</a></li></ul></li><li ng-show=\"vm.loggedIn\" class=\"notifications\"><button type=\"button\" focus-on-click=\"focus-on-click\" class=\"clean\"><div ng-class=\"{ danger: vm.unreadCount &gt; 0 }\" class=\"notification\">{{ vm.unreadCount || 0 }}</div></button><div class=\"popup elevated\"><threads ng-if=\"vm.userType == \'customer\'\" subscriber-id=\"{{ vm.subscriberId }}\"></threads><threads ng-if=\"vm.userType != \'customer\'\" subscriber-id=\"{{ vm.subscriberId }}\" user-type=\"copilot\"></threads></div></li></ul></li></ul>");
-$templateCache.put("views/layout-footer.directive.html","<footer class=\"layout-footer\"><ul><li><a ui-sref=\"register\">Sign up</a></li><li><a ui-sref=\"#\">Help</a></li><li><a ui-sref=\"#\">About</a></li><li><a ui-sref=\"copilot-projects\">Copilot Dashboard</a></li></ul></footer>");
-$templateCache.put("views/layout-project-nav.directive.html","<ul><li ng-class=\"{active: vm.activeLink == \'timeline\'}\" ng-if=\"vm.userType == \'customer\'\"><a ui-sref=\"timeline({ workId: vm.workId })\">Timeline</a></li><li ng-class=\"{active: vm.activeLink == \'submissions\'}\" ng-if=\"vm.userType == \'customer\'\"><a ui-sref=\"step({ projectId: vm.workId, stepId: vm.currentStepId })\">Submissions</a></li><li ng-class=\"{active: vm.activeLink == \'messaging\'}\" ng-if=\"vm.userType == \'customer\'\"><a ui-sref=\"messaging({ id: vm.workId, threadId: vm.threadId })\">Messaging</a></li><li ng-class=\"{active: vm.activeLink == \'project-details\'}\" ng-if=\"vm.userType == \'customer\'\"><a ui-sref=\"project-details({ id: vm.workId })\">Project details</a></li><li ng-class=\"{active: vm.activeLink == \'copilot-project-details\'}\" ng-if=\"vm.userType != \'customer\'\"><a ui-sref=\"copilot-project-details({ id: vm.workId })\">Project details</a></li><li ng-class=\"{active: vm.activeLink == \'copilot-messaging\'}\" ng-if=\"vm.userType != \'customer\'\"><a ui-sref=\"copilot-messaging({ id: vm.workId, threadId: vm.threadId })\">Messaging</a></li><li ng-class=\"{active: vm.activeLink == \'copilot-submissions\'}\" ng-if=\"vm.userType != \'customer\'\"><a ui-sref=\"step({ projectId: vm.workId, stepId: vm.currentStepId })\">Submissions</a></li><li ng-class=\"{active: vm.activeLink == \'copilot-status-reports\'}\" ng-if=\"vm.userType != \'customer\'\"><a ui-sref=\"copilot-status-reports({ id: vm.workId})\">Status Reports</a></li></ul>");}]);
+(function() {
+  'use strict';
+  var dir;
+
+  dir = function() {
+    return {
+      restrict: 'E',
+      templateUrl: 'views/project-drop-down.directive.html',
+      controller: 'ProjectDropDownController as vm',
+      scope: {
+        userType: '@userType'
+      }
+    };
+  };
+
+  dir.$inject = [];
+
+  angular.module('appirio-tech-ng-work-layout').directive('projectDropDown', dir);
+
+}).call(this);
+
+(function() {
+  'use strict';
+  var dir;
+
+  dir = function() {
+    return {
+      restrict: 'E',
+      templateUrl: 'views/user-drop-down.directive.html',
+      scope: true
+    };
+  };
+
+  dir.$inject = [];
+
+  angular.module('appirio-tech-ng-work-layout').directive('userDropDown', dir);
+
+}).call(this);
+
+(function() {
+  'use strict';
+  var ProjectDropDownController;
+
+  ProjectDropDownController = function($scope, UserV3Service, WorkAPIService, ProjectsAPIService) {
+    var activate, onUserChange, vm;
+    vm = this;
+    vm.userType = $scope.userType || 'customer';
+    vm.projects = [];
+    onUserChange = function() {
+      var params, resource, user;
+      user = UserV3Service.getCurrentUser();
+      if (user != null ? user.id : void 0) {
+        if (vm.userType === 'customer') {
+          resource = WorkAPIService.get();
+          return resource.$promise.then(function(response) {
+            return vm.projects = response;
+          });
+        } else {
+          params = {
+            filter: "copilotId=" + user.id
+          };
+          resource = ProjectsAPIService.query(params);
+          return resource.$promise.then(function(response) {
+            return vm.copilotProjects = response;
+          });
+        }
+      }
+    };
+    activate = function() {
+      $scope.$watch(UserV3Service.getCurrentUser, onUserChange);
+      return vm;
+    };
+    return activate();
+  };
+
+  ProjectDropDownController.$inject = ['$scope', 'UserV3Service', 'WorkAPIService', 'ProjectsAPIService'];
+
+  angular.module('appirio-tech-ng-work-layout').controller('ProjectDropDownController', ProjectDropDownController);
+
+}).call(this);
+
+(function() {
+  'use strict';
+  var directive;
+
+  directive = function() {
+    return {
+      restrict: 'E',
+      templateUrl: 'views/message-drop-down.directive.html',
+      controller: 'MessageDropDownController as vm',
+      scope: {
+        subscriberId: '@subscriberId',
+        userType: '@userType'
+      }
+    };
+  };
+
+  directive.$inject = [];
+
+  angular.module('appirio-tech-ng-work-layout').directive('messageDropDown', directive);
+
+}).call(this);
+
+(function() {
+  'use strict';
+  var MessageDropDownController;
+
+  MessageDropDownController = function($scope, $state, InboxesProjectAPIService) {
+    var activate, getUserThreads, removeBlanksAndOrder, vm;
+    vm = this;
+    vm.loadingThreads = false;
+    vm.userType = $scope.userType || 'customer';
+    if (vm.userType === 'customer') {
+      vm.threadHref = 'messaging';
+    } else {
+      vm.threadHref = 'copilot-messaging';
+    }
+    removeBlanksAndOrder = function(threads) {
+      var i, len, noBlanks, orderedThreads, ref, thread;
+      noBlanks = [];
+      if (threads) {
+        for (i = 0, len = threads.length; i < len; i++) {
+          thread = threads[i];
+          if (thread != null ? (ref = thread.messages) != null ? ref.length : void 0 : void 0) {
+            noBlanks.push(thread);
+          }
+        }
+        noBlanks;
+        orderedThreads = noBlanks != null ? noBlanks.sort(function(previous, next) {
+          return new Date(next.messages[next.messages.length - 1].createdAt) - new Date(previous.messages[previous.messages.length - 1].createdAt);
+        }) : void 0;
+        return orderedThreads;
+      }
+    };
+    getUserThreads = function() {
+      var resource;
+      vm.loadingThreads = true;
+      resource = InboxesProjectAPIService.get();
+      resource.$promise.then(function(response) {
+        vm.threads = removeBlanksAndOrder(response != null ? response.threads : void 0);
+        return vm.totalUnreadCount = response != null ? response.totalUnreadCount : void 0;
+      });
+      resource.$promise["catch"](function() {});
+      return resource.$promise["finally"](function() {
+        return vm.loadingThreads = false;
+      });
+    };
+    activate = function() {
+      $scope.$watch('subscriberId', function() {
+        return getUserThreads();
+      });
+      return vm;
+    };
+    return activate();
+  };
+
+  MessageDropDownController.$inject = ['$scope', '$state', 'InboxesProjectAPIService'];
+
+  angular.module('appirio-tech-ng-work-layout').controller('MessageDropDownController', MessageDropDownController);
+
+}).call(this);
+
+angular.module("appirio-tech-ng-work-layout").run(["$templateCache", function($templateCache) {$templateCache.put("views/layout-footer.directive.html","<footer class=\"layout-footer\"><ul><li><a ui-sref=\"register\">Sign up</a></li><li><a ui-sref=\"#\">Help</a></li><li><a ui-sref=\"#\">About</a></li><li><a ui-sref=\"copilot-projects\">Copilot Dashboard</a></li></ul></footer>");
+$templateCache.put("views/layout-header.directive.html","<ul class=\"flex center middle\"><li><a ng-home-link=\"ng-home-link\" href=\"{{ vm.homeHref }}\" ng-if=\"vm.userType != \'member\'\" class=\"clean logo\"><img src=\"/images/asp-logo.svg\"/></a><img src=\"/images/asp-logo.svg\" ng-if=\"vm.userType == \'member\'\"/></li><li class=\"app-name\"><h4 ng-if=\"vm.showAppName\">{{ vm.appName }}</h4></li><li><ul ng-if=\"vm.userType != \'member\'\" class=\"links\"><li ng-show=\"vm.loggedIn\" class=\"dashboard\"><a ng-if=\"vm.userType == \'customer\' \" ui-sref=\"view-work-multiple\">Dashboard</a><a ng-if=\"vm.userType != \'customer\' \" ui-sref=\"copilot-projects\">Dashboard</a></li><li ng-show=\"vm.loggedIn\" class=\"projects\"><button focus-on-click=\"focus-on-click\" class=\"clean\">Projects <span class=\"caret\">&dtrif;</span></button><project-drop-down user-type=\"{{ vm.userType }}\" class=\"drop-down transition elevated\"></project-drop-down></li><li ng-hide=\"vm.loggedIn\" class=\"login\"><a ui-sref=\"login\" class=\"button hollow\">Log in</a></li><li ng-show=\"vm.loggedIn\" class=\"profile\"><button focus-on-click=\"focus-on-click\" class=\"clean\"><avatar avatar-url=\"{{vm.userAvatar}}\"></avatar></button><user-drop-down class=\"drop-down transition elevated\"></user-drop-down></li><li ng-show=\"vm.loggedIn\" class=\"notifications\"><button type=\"button\" focus-on-click=\"focus-on-click\" class=\"clean\"><div ng-class=\"{ danger: vm.unreadCount &gt; 0 }\" class=\"notification\">{{ vm.unreadCount || 0 }}</div></button><message-drop-down ng-if=\"vm.userType == \'customer\'\" subscriber-id=\"{{ vm.subscriberId }}\" class=\"drop-down transition elevated\"></message-drop-down><message-drop-down ng-if=\"vm.userType != \'customer\'\" subscriber-id=\"{{ vm.subscriberId }}\" user-type=\"copilot\" class=\"drop-down transition elevated\"></message-drop-down></li></ul></li></ul>");
+$templateCache.put("views/layout-project-nav.directive.html","<ul><li ng-class=\"{active: vm.activeLink == \'timeline\'}\" ng-if=\"vm.userType == \'customer\'\"><a ui-sref=\"timeline({ workId: vm.workId })\">Timeline</a></li><li ng-class=\"{active: vm.activeLink == \'submissions\'}\" ng-if=\"vm.userType == \'customer\'\"><a ui-sref=\"step({ projectId: vm.workId, stepId: vm.currentStepId })\">Submissions</a></li><li ng-class=\"{active: vm.activeLink == \'messaging\'}\" ng-if=\"vm.userType == \'customer\'\"><a ui-sref=\"messaging({ id: vm.workId, threadId: vm.threadId })\">Messaging</a></li><li ng-class=\"{active: vm.activeLink == \'project-details\'}\" ng-if=\"vm.userType == \'customer\'\"><a ui-sref=\"project-details({ id: vm.workId })\">Project details</a></li><li ng-class=\"{active: vm.activeLink == \'copilot-project-details\'}\" ng-if=\"vm.userType != \'customer\'\"><a ui-sref=\"copilot-project-details({ id: vm.workId })\">Project details</a></li><li ng-class=\"{active: vm.activeLink == \'copilot-messaging\'}\" ng-if=\"vm.userType != \'customer\'\"><a ui-sref=\"copilot-messaging({ id: vm.workId, threadId: vm.threadId })\">Messaging</a></li><li ng-class=\"{active: vm.activeLink == \'copilot-submissions\'}\" ng-if=\"vm.userType != \'customer\'\"><a ui-sref=\"step({ projectId: vm.workId, stepId: vm.currentStepId })\">Submissions</a></li><li ng-class=\"{active: vm.activeLink == \'copilot-status-reports\'}\" ng-if=\"vm.userType != \'customer\'\"><a ui-sref=\"copilot-status-reports({ id: vm.workId})\">Status Reports</a></li></ul>");
+$templateCache.put("views/message-drop-down.directive.html","<header>messages</header><ul><li ng-repeat=\"thread in vm.threads track by $index\"><a ui-sref=\"{{vm.threadHref}}({ id: thread.projectId, threadId: thread.id })\" ng-class=\"{unread: thread.unreadCount &gt; 0}\"><div class=\"app-name\">{{thread.subject}}</div><div class=\"sender\"><avatar avatar-url=\"{{ thread.publishers[0].avatar }}\"></avatar><div class=\"name\">{{thread.messages[thread.messages.length -1].publisher.handle}}</div><time>{{ thread.messages[thread.messages.length -1].createdAt | timeLapse }}</time></div><p class=\"message\">{{ thread.messages[thread.messages.length -1].body }}</p></a></li></ul><div ng-show=\"vm.threads.length == 0\" class=\"none\">None</div>");
+$templateCache.put("views/project-drop-down.directive.html","<header>projects</header><ul><li><a ng-if=\"vm.userType == \'customer\' \" ui-sref=\"submit-work\">Create New Project</a></li><li ng-if=\"vm.userType == \'customer\' \" ng-repeat=\"project in vm.projects\"><a ui-sref=\"timeline({ workId: project.id })\">{{ project.name }}</a></li><li ng-if=\"vm.userType != \'customer\' \" ng-repeat=\"project in vm.copilotProjects\"><a ui-sref=\"copilot-project-details({ id: project.id })\">{{ project.name }}</a></li></ul>");
+$templateCache.put("views/user-drop-down.directive.html","<header>Batman66 (wip)</header><ul><li><a href=\"#\">View Profile</a></li><li><a ui-sref=\"submit-work\">Settings</a></li><li><a ng-click=\"vm.logout()\">LOGOUT</a></li></ul>");}]);
 (function() {
   'use strict';
   var dependencies;
@@ -40146,20 +40305,12 @@ $templateCache.put("views/layout-project-nav.directive.html","<ul><li ng-class=\
 
 (function() {
   'use strict';
-  var srv, transformIdOnlyResponse, transformResponse;
+  var srv, transformResponse;
 
   transformResponse = function(response) {
     var parsed, ref;
     parsed = JSON.parse(response);
     return (parsed != null ? (ref = parsed.result) != null ? ref.content : void 0 : void 0) || [];
-  };
-
-  transformIdOnlyResponse = function(response) {
-    var parsed, ref;
-    parsed = JSON.parse(response);
-    return {
-      id: parsed != null ? (ref = parsed.result) != null ? ref.content : void 0 : void 0
-    };
   };
 
   srv = function($resource, API_URL) {
@@ -40171,11 +40322,11 @@ $templateCache.put("views/layout-project-nav.directive.html","<ul><li ng-class=\
     methods = {
       put: {
         method: 'PUT',
-        transformResponse: transformIdOnlyResponse
+        transformResponse: transformResponse
       },
       post: {
         method: 'POST',
-        transformResponse: transformIdOnlyResponse
+        transformResponse: transformResponse
       },
       get: {
         transformResponse: transformResponse
@@ -40436,283 +40587,6 @@ $templateCache.put("views/layout-project-nav.directive.html","<ul><li ng-class=\
   'use strict';
   var dependencies;
 
-  dependencies = ['ui.router', 'ngResource', 'app.constants', 'duScroll', 'appirio-tech-ng-ui-components', 'appirio-tech-ng-api-services'];
-
-  angular.module('appirio-tech-ng-messaging', dependencies);
-
-}).call(this);
-
-(function() {
-  'use strict';
-  var MessagingController;
-
-  MessagingController = function($scope, MessagesAPIService, ThreadsAPIService, InboxesAPIService, MessageUpdateAPIService) {
-    var activate, getThread, markMessageRead, orderMessagesByCreationDate, sendMessage, vm;
-    vm = this;
-    vm.currentUser = null;
-    vm.activeThread = null;
-    vm.sending = false;
-    vm.loadingThreads = false;
-    vm.loadingMessages = false;
-    vm.workId = $scope.workId;
-    vm.threadId = $scope.threadId;
-    vm.subscriberId = $scope.subscriberId;
-    orderMessagesByCreationDate = function(messages) {
-      var orderedMessages;
-      orderedMessages = messages != null ? messages.sort(function(previous, next) {
-        return new Date(previous.createdAt) - new Date(next.createdAt);
-      }) : void 0;
-      return orderedMessages;
-    };
-    markMessageRead = function(message) {
-      var putParams, queryParams, resource;
-      queryParams = {
-        threadId: vm.threadId,
-        messageId: message.id
-      };
-      putParams = {
-        param: {
-          readFlag: true,
-          subscriberId: $scope.subscriberId
-        }
-      };
-      resource = MessageUpdateAPIService.put(queryParams, putParams);
-      resource.$promise.then(function(response) {});
-      return resource.$promise["finally"](function() {});
-    };
-    activate = function() {
-      vm.newMessage = '';
-      $scope.$watch('subscriberId', function() {
-        return getThread();
-      });
-      vm.sendMessage = sendMessage;
-      return vm;
-    };
-    getThread = function() {
-      var params, resource;
-      if ($scope.subscriberId) {
-        params = {
-          threadId: vm.threadId
-        };
-        vm.loadingThreads = true;
-        resource = InboxesAPIService.get(params);
-        resource.$promise.then(function(response) {
-          var lastMessage;
-          vm.thread = response;
-          vm.thread.messages = orderMessagesByCreationDate(vm.thread.messages);
-          if (vm.thread.unreadCount > 0) {
-            lastMessage = vm.thread.messages[vm.thread.messages.length - 1];
-            return markMessageRead(lastMessage);
-          }
-        });
-        resource.$promise["catch"](function() {});
-        return resource.$promise["finally"](function() {
-          return vm.loadingThreads = false;
-        });
-      }
-    };
-    sendMessage = function() {
-      var message, resource;
-      if (vm.newMessage.length && vm.thread) {
-        message = {
-          param: {
-            publisherId: $scope.subscriberId,
-            threadId: vm.threadId,
-            body: vm.newMessage,
-            attachments: []
-          }
-        };
-        vm.sending = true;
-        resource = MessagesAPIService.post(message);
-        resource.$promise.then(function(response) {
-          vm.newMessage = '';
-          $scope.showLast = 'scroll';
-          return getThread();
-        });
-        resource.$promise["catch"](function(response) {});
-        return resource.$promise["finally"](function() {
-          return vm.sending = false;
-        });
-      }
-    };
-    return activate();
-  };
-
-  MessagingController.$inject = ['$scope', 'MessagesAPIService', 'ThreadsAPIService', 'InboxesAPIService', 'MessageUpdateAPIService'];
-
-  angular.module('appirio-tech-ng-messaging').controller('MessagingController', MessagingController);
-
-}).call(this);
-
-(function() {
-  'use strict';
-  var directive;
-
-  directive = function() {
-    var link;
-    link = function(scope, element, attrs) {
-      var showLast;
-      showLast = function(newValue, oldValue) {
-        var $messageList, bottom, messageList, uls;
-        if (newValue) {
-          scope.showLast = false;
-          uls = element.find('ul');
-          messageList = uls[0];
-          $messageList = angular.element(messageList);
-          bottom = messageList.scrollHeight;
-          if (newValue === 'scroll') {
-            return $messageList.scrollTopAnimated(bottom);
-          } else {
-            return $messageList.scrollTop(bottom);
-          }
-        }
-      };
-      showLast(true);
-      return scope.$watch('showLast', showLast);
-    };
-    return {
-      restrict: 'E',
-      templateUrl: 'views/messaging.directive.html',
-      link: link,
-      controller: 'MessagingController',
-      controllerAs: 'vm',
-      scope: {
-        threadId: '@threadId',
-        workId: '@workId',
-        subscriberId: '@subscriberId'
-      }
-    };
-  };
-
-  directive.$inject = [];
-
-  angular.module('appirio-tech-ng-messaging').directive('messaging', directive);
-
-}).call(this);
-
-(function() {
-  'use strict';
-  var directive;
-
-  directive = function() {
-    return {
-      restrict: 'E',
-      templateUrl: 'views/threads.directive.html',
-      controller: 'ThreadsController',
-      controllerAs: 'vm',
-      scope: {
-        subscriberId: '@subscriberId',
-        userType: '@userType'
-      }
-    };
-  };
-
-  directive.$inject = [];
-
-  angular.module('appirio-tech-ng-messaging').directive('threads', directive);
-
-}).call(this);
-
-(function() {
-  'use strict';
-  var srv;
-
-  srv = function(ThreadsAPIService) {
-    var get;
-    get = function(subscriberId, onChange) {
-      var queryParams, resource, threadsVm;
-      queryParams = {
-        subscriberId: subscriberId
-      };
-      threadsVm = {
-        threads: [],
-        totalUnreadCount: {},
-        avatars: {}
-      };
-      resource = ThreadsAPIService.query(queryParams);
-      resource.$promise.then(function(response) {
-        threadsVm.threads = response.threads;
-        return typeof onChange === "function" ? onChange(threadsVm) : void 0;
-      });
-      resource.$promise["catch"](function() {});
-      return resource.$promise["finally"](function() {});
-    };
-    return {
-      get: get
-    };
-  };
-
-  srv.$inject = ['ThreadsAPIService'];
-
-  angular.module('appirio-tech-ng-messaging').factory('ThreadsService', srv);
-
-}).call(this);
-
-(function() {
-  'use strict';
-  var ThreadsController;
-
-  ThreadsController = function($scope, $state, InboxesProjectAPIService) {
-    var activate, getUserThreads, removeBlanksAndOrder, vm;
-    vm = this;
-    vm.loadingThreads = false;
-    vm.userType = $scope.userType || 'customer';
-    if (vm.userType === 'customer') {
-      vm.threadHref = 'messaging';
-    } else {
-      vm.threadHref = 'copilot-messaging';
-    }
-    removeBlanksAndOrder = function(threads) {
-      var i, len, noBlanks, orderedThreads, ref, thread;
-      noBlanks = [];
-      if (threads) {
-        for (i = 0, len = threads.length; i < len; i++) {
-          thread = threads[i];
-          if (thread != null ? (ref = thread.messages) != null ? ref.length : void 0 : void 0) {
-            noBlanks.push(thread);
-          }
-        }
-        noBlanks;
-        orderedThreads = noBlanks != null ? noBlanks.sort(function(previous, next) {
-          return new Date(next.messages[next.messages.length - 1].createdAt) - new Date(previous.messages[previous.messages.length - 1].createdAt);
-        }) : void 0;
-        return orderedThreads;
-      }
-    };
-    getUserThreads = function() {
-      var resource;
-      vm.loadingThreads = true;
-      resource = InboxesProjectAPIService.get();
-      resource.$promise.then(function(response) {
-        vm.threads = removeBlanksAndOrder(response != null ? response.threads : void 0);
-        return vm.totalUnreadCount = response != null ? response.totalUnreadCount : void 0;
-      });
-      resource.$promise["catch"](function() {});
-      return resource.$promise["finally"](function() {
-        return vm.loadingThreads = false;
-      });
-    };
-    activate = function() {
-      $scope.$watch('subscriberId', function() {
-        return getUserThreads();
-      });
-      return vm;
-    };
-    return activate();
-  };
-
-  ThreadsController.$inject = ['$scope', '$state', 'InboxesProjectAPIService'];
-
-  angular.module('appirio-tech-ng-messaging').controller('ThreadsController', ThreadsController);
-
-}).call(this);
-
-angular.module("appirio-tech-ng-messaging").run(["$templateCache", function($templateCache) {$templateCache.put("views/messaging.directive.html","<p>You have {{vm.thread.messages.length}} messages with {{vm.thread.messages[0].publisher.handle}}</p><ul class=\"messages flex-grow\"><li ng-repeat=\"message in vm.thread.messages track by $index\"><avatar avatar-url=\"{{ message.publisher.avatar }}\"></avatar><div class=\"message elevated-bottom\"><a href=\"#\" class=\"name\">{{message.publisher.handle}}</a><time>{{ message.createdAt | timeLapse }}</time><p ng-if=\"message.publisher.role != null\" class=\"title\">{{message.publisher.role}}</p><p>{{ message.body }}</p><ul class=\"attachments\"><li ng-repeat=\"attachment in message.attachments track by $index\"><a href=\"#\">{{ message.attachments.originalUrl }}</a></li></ul><a ng-if=\"message.attachments.length &gt; 0\" class=\"download\"><div class=\"icon download smallest\"></div><p>Download all images</p></a></div></li><a id=\"messaging-bottom-{{ vm.threadId }}\"></a></ul><div class=\"respond\"><form ng-submit=\"vm.sendMessage()\"><textarea placeholder=\"Send a message&hellip;\" ng-model=\"vm.newMessage\"></textarea><button type=\"submit\" ng-hide=\"vm.sending\" class=\"wider action\">reply</button><button disabled=\"disabled\" ng-show=\"vm.sending\" class=\"wider action\">sending...</button></form></div>");
-$templateCache.put("views/threads.directive.html","<ul><li ng-repeat=\"thread in vm.threads track by $index\"><a ui-sref=\"{{vm.threadHref}}({ id: thread.projectId, threadId: thread.id })\" ng-class=\"{unread: thread.unreadCount &gt; 0}\"><div class=\"app-name\">{{thread.subject}}</div><div class=\"sender\"><avatar avatar-url=\"{{ thread.publishers[0].avatar }}\"></avatar><div class=\"name\">{{thread.messages[thread.messages.length -1].publisher.handle}}</div><time>{{ thread.messages[thread.messages.length -1].createdAt | timeLapse }}</time></div><p class=\"message\">{{ thread.messages[thread.messages.length -1].body }}</p></a></li></ul><div ng-show=\"vm.threads.length == 0\" class=\"none\">None</div>");}]);
-(function() {
-  'use strict';
-  var dependencies;
-
   dependencies = ['ui.router', 'duScroll'];
 
   angular.module('appirio-tech-ng-ui-components', dependencies);
@@ -40720,7 +40594,7 @@ $templateCache.put("views/threads.directive.html","<ul><li ng-repeat=\"thread in
 }).call(this);
 
 angular.module("appirio-tech-ng-ui-components").run(["$templateCache", function($templateCache) {$templateCache.put("views/avatar.directive.html","<img ng-src=\"{{ vm.avatarUrl }}\" ng-show=\"vm.avatarUrl\" class=\"avatar\"/><svg class=\"avatar\" ng-hide=\"vm.avatarUrl\" version=\"1.1\" id=\"Layer_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 512 512\" enable-background=\"new 0 0 512 512\" xml:space=\"preserve\"><path fill=\"#020201\" d=\"M454.426,392.582c-5.439-16.32-15.298-32.782-29.839-42.362c-27.979-18.572-60.578-28.479-92.099-39.085 c-7.604-2.664-15.33-5.568-22.279-9.7c-6.204-3.686-8.533-11.246-9.974-17.886c-0.636-3.512-1.026-7.116-1.228-10.661 c22.857-31.267,38.019-82.295,38.019-124.136c0-65.298-36.896-83.495-82.402-83.495c-45.515,0-82.403,18.17-82.403,83.468 c0,43.338,16.255,96.5,40.489,127.383c-0.221,2.438-0.511,4.876-0.95,7.303c-1.444,6.639-3.77,14.058-9.97,17.743 c-6.957,4.133-14.682,6.756-22.287,9.42c-31.521,10.605-64.119,19.957-92.091,38.529c-14.549,9.58-24.403,27.159-29.838,43.479 c-5.597,16.938-7.886,37.917-7.541,54.917h205.958h205.974C462.313,430.5,460.019,409.521,454.426,392.582z\"/></svg>");
-$templateCache.put("views/checkbox.directive.html","<div class=\"flex middle\"><button ng-class=\"{\'checked\': ngModel}\" ng-click=\"vm.toggle()\" type=\"button\" class=\"clean\"><img src=\"/images/icon-plus.svg\" ng-hide=\"ngModel\" class=\"icon plus\"/><img src=\"/images/icon-check-solid.svg\" ng-show=\"ngModel\" class=\"icon check-solid\"/></button><label ng-if=\"label\" ng-click=\"vm.toggle()\">{{ label }}</label></div>");
+$templateCache.put("views/checkbox.directive.html","<div class=\"flex middle\"><button ng-class=\"{\'checked\': ngModel}\" ng-click=\"vm.toggle()\" type=\"button\" class=\"clean\"><div ng-hide=\"ngModel\" class=\"icon plus hollow\"></div><div ng-show=\"ngModel\" class=\"icon checkmark active\"></div></button><label ng-if=\"label\" ng-click=\"vm.toggle()\">{{ label }}</label></div>");
 $templateCache.put("views/countdown.directive.html","<ul class=\"countdown\"><li ng-if=\"vm.days &gt; 0\"><span class=\"value\">{{ vm.days }}</span><span class=\"unit\">day<span ng-if=\"vm.days &gt; 1\">s</span></span></li><li ng-if=\"vm.hours &gt; 0 || vm.days &gt; 0\"><span class=\"value\">{{ vm.hours }}</span><span class=\"unit\">hr<span ng-if=\"vm.hours &gt; 1\">s</span></span></li><li ng-if=\"vm.minutes &gt; 0 || vm.hours &gt; 0 || vm.days &gt; 0\"><span class=\"value\">{{ vm.minutes }}</span><span class=\"unit\">min<span ng-if=\"vm.minutes &gt; 1\">s</span></span></li><li><span class=\"value\">{{ vm.seconds }}</span><span class=\"unit\">sec<span ng-if=\"vm.seconds &gt; 1\">s</span></span></li></ul>");
 $templateCache.put("views/loader.directive.html","<div class=\"container\"><div class=\"loader\"></div></div>");
 $templateCache.put("views/modal.directive.html","");
@@ -40915,10 +40789,14 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
       $element.addClass('selected-button');
       $scope.$watch($scope.vm.isSelected, function() {
         $element.removeClass('checked');
-        $element.removeClass('action');
+        if (typeof attrs.selectable === 'string') {
+          $element.removeClass(attrs.selectable);
+        }
         if ($scope.vm.isSelected()) {
           $element.addClass('checked');
-          return $element.addClass('action');
+          if (typeof attrs.selectable === 'string') {
+            return $element.addClass(attrs.selectable);
+          }
         }
       });
       return $element.bind('click', function() {
@@ -40996,7 +40874,10 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
       top = getOffsetTop($element[0]);
       heightDiff = viewPortHeight - top;
       currentHeight = $element.height();
-      return $element.css('min-height', heightDiff + 'px');
+      $element.css('min-height', heightDiff + 'px');
+      if ($element.attr('flush-height') === 'lock') {
+        return $element.css('height', heightDiff + 'px');
+      }
     };
     $($window).bind('resize', function() {
       var element, i, len, results;
@@ -41142,6 +41023,69 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
 
 (function() {
   'use strict';
+  var dir;
+
+  dir = function($window) {
+    var elements, link, lockHeight;
+    elements = [];
+    lockHeight = function($element) {
+      var attr, childrenWithClass, classToToggle;
+      attr = $element.attr('lock-height');
+      if (typeof attr === 'string') {
+        classToToggle = attr;
+      }
+      $element.css('height', 'auto');
+      $element.css('max-height', 'none');
+      if (classToToggle) {
+        childrenWithClass = $element.find('.' + classToToggle);
+        childrenWithClass.removeClass(classToToggle);
+      }
+      if (classToToggle) {
+        $element.removeClass(classToToggle);
+      }
+      $element.css('max-height', $element.height() + 'px');
+      if ($element.attr('retain-class') === 'true') {
+        if (classToToggle) {
+          $element.addClass(classToToggle);
+        }
+        if (childrenWithClass) {
+          return childrenWithClass.addClass(classToToggle);
+        }
+      }
+    };
+    $($window).bind('resize', function() {
+      var element, i, len, results;
+      results = [];
+      for (i = 0, len = elements.length; i < len; i++) {
+        element = elements[i];
+        results.push(lockHeight(element));
+      }
+      return results;
+    });
+    link = function(scope, element, attrs) {
+      elements.push($(element[0]));
+      return element.ready(function() {
+        return lockHeight($(element[0]));
+      });
+    };
+    return {
+      restrict: 'A',
+      link: link,
+      priority: -1,
+      scope: {
+        retainClass: '@retainClass'
+      }
+    };
+  };
+
+  dir.$inject = ['$window'];
+
+  angular.module('appirio-tech-ng-ui-components').directive('lockHeight', dir);
+
+}).call(this);
+
+(function() {
+  'use strict';
   var AvatarController;
 
   AvatarController = function($scope) {
@@ -41258,8 +41202,8 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
         return toggleArray();
       } else {
         if (vm.isSelected()) {
-          return $scope.ngModel = false;
-        } else if ($scope.value != null) {
+          return $scope.ngModel = void 0;
+        } else if ($scope.value !== void 0) {
           return $scope.ngModel = $scope.value;
         } else {
           return $scope.ngModel = true;
@@ -41270,7 +41214,7 @@ $templateCache.put("views/selected-button.directive.html","<button ng-class=\"{\
       if (isArrayModel()) {
         return $scope.ngModel.indexOf($scope.value) !== -1;
       } else {
-        if ($scope.value != null) {
+        if ($scope.value !== void 0) {
           return $scope.ngModel === $scope.value;
         } else {
           return $scope.ngModel;
@@ -42282,16 +42226,16 @@ $templateCache.put("uploader.html","<div class=\"uploaderWrapper\"><input ng-if=
 
 }).call(this);
 
-angular.module("appirio-tech-submissions").run(["$templateCache", function($templateCache) {$templateCache.put("views/submissions.directive.html","<loader ng-hide=\"vm.loaded\"></loader><ul class=\"header flex-center\"><li class=\"previous\"><a ng-class=\"{ invisible: !vm.prevStepRef }\" href=\"{{ vm.prevStepRef }}\"><div class=\"icon arrow\"></div></a></li><li><h1>{{ vm.stepName }}</h1></li><li class=\"next\"><a ng-class=\"{ invisible: !vm.nextStepRef }\" href=\"{{ vm.nextStepRef }}\"><div class=\"icon arrow right\"></div></a></li></ul><div ng-if=\"vm.status == \'scheduled\'\" class=\"subheader\"><img src=\"/images/clock.svg\" class=\"icon biggest\"/><p>Submissions for the {{ vm.stepName }} Phase coming in</p><countdown end=\"{{ vm.startsAt }}\" class=\"block\"></countdown></div><div ng-if=\"vm.status == \'closed\'\" class=\"subheader\"><p>Congratulations! These are your {{ vm.stepName }} winners.</p><hr class=\"small\"/><ul class=\"winners\"><li ng-repeat=\"rank in vm.ranks\" ng-if=\"rank.id\"><div class=\"rank\"><strong>{{rank.label.slice(0, -5)}}</strong><br /> place</div><avatar avatar-url=\"{{rank.avatarUrl}}\"></avatar><a href=\"#\" class=\"name\">{{rank.handle}}</a></li></ul></div><div ng-if=\"vm.status == \'open\'\" class=\"subheader\"><p>Give feedback and select the top {{ vm.ranks.length }} designs. You have <countdown end=\"{{vm.endsAt}}\"></countdown> \nto give feedback.</p><ul class=\"top-selection\"><li ng-repeat=\"rank in vm.ranks track by $index\"><div ng-class=\"{ \'has-avatar\': rank.avatarUrl }\" ondragenter=\"return false\" ondragover=\"return false\" on-drop=\"vm.drop.handle(event, rank.value)\" class=\"shell\"><div ng-if=\"rank.id\" data-id=\"{{ rank.id }}\" draggable=\"draggable\"><avatar avatar-url=\"{{ rank.avatarUrl }}\"></avatar><div class=\"rank\">{{ rank.value }}</div></div><div ng-if=\"!rank.avatarUrl\" class=\"rank\">{{ rank.value }}</div></div></li><li ng-show=\"vm.allFilled\"><button ng-click=\"vm.confirmRanks()\" class=\"action\">Confirm your selections </button></li></ul><p ng-if=\"vm.rankUpdateError\">{{ vm.rankUpdateError }}</p></div><ul class=\"submissions\"><li ng-repeat=\"submission in vm.submissions track by $index\" data-id=\"{{ submission.id }}\" draggable=\"draggable\" class=\"submission flex elevated-bottom\"><ul class=\"user-details flex middle\"><li><avatar avatar-url=\"{{ submission.submitter.avatar }}\"></avatar></li><li><div class=\"name-time\"><div class=\"name\">{{ submission.submitter.handle }}</div><p>{{ submission.files.length }} Images</p></div></li></ul><ul class=\"thumbnails flex-grow\"><li ng-repeat=\"file in submission.files track by $index\" class=\"thumbnail\"><a ui-sref=\"file-detail({projectId: vm.projectId, stepId: vm.stepId, submissionId: submission.id, fileId: file.id})\"><img ng-src=\"{{ file.url }}\" class=\"img\"/></a><div class=\"pop-over elevated\"><a ui-sref=\"file-detail({projectId: vm.projectId, stepId: vm.stepId, submissionId: submission.id, fileId: file.id})\" class=\"preview\"><img ng-src=\"{{ file.url }}\" class=\"previewImage\"/></a><div class=\"icon envelope\"></div><a href=\"{{ file.url }}\" target=\"_blank\"><div class=\"clean icon download\"></div></a></div></li></ul><ul class=\"actions flex middle wrap\"><li><a ui-sref=\"submission-detail({projectId: vm.projectId, stepId: vm.stepId, submissionId: submission.id})\">view all</a></li><li ng-if=\"vm.status != \'closed\'\" class=\"comments\"><a href=\"{{ submission.downloadUrl }}\" target=\"_blank\"><div class=\"icon download small\"></div></a></li><li ng-if=\"vm.status == \'closed\' &amp;&amp; submission.rank\" class=\"comments\"><a href=\"{{ submission.downloadUrl }}\" target=\"_blank\"><div class=\"icon download small\"></div></a></li><li ng-if=\"vm.status == \'open\'\"><select ng-model=\"submission.rank\" ng-change=\"vm.handleRankSelect(submission)\" ng-options=\"rank.value as rank.label for rank in vm.ranks\"></select></li><li ng-if=\"vm.status == \'closed\'\">{{ vm.rankNames[$index] }}</li></ul></li></ul>");
+angular.module("appirio-tech-submissions").run(["$templateCache", function($templateCache) {$templateCache.put("views/submissions.directive.html","<loader ng-hide=\"vm.loaded\"></loader><ul class=\"header flex-center\"><li class=\"previous\"><a ng-class=\"{ invisible: !vm.prevStepRef }\" href=\"{{ vm.prevStepRef }}\"><div class=\"icon arrow\"></div></a></li><li><h1>{{ vm.stepName }}</h1></li><li class=\"next\"><a ng-class=\"{ invisible: !vm.nextStepRef }\" href=\"{{ vm.nextStepRef }}\"><div class=\"icon arrow right\"></div></a></li></ul><div ng-if=\"vm.userType == \'member\' &amp;&amp; vm.statusValue &lt; 4\" class=\"subheader\"><p>There are no submissions to view at this time.</p></div><div ng-if=\"vm.userType == \'member\' &amp;&amp; (vm.status == \'REVIEWING\' || vm.status == \'REVIEWING_LATE\')\" class=\"subheader\"><p>Browse your competitors\' files, view clients comments, and improve your designs in the finals.</p></div><div ng-if=\"vm.userType != \'member\' &amp;&amp; vm.status == \'PLACEHOLDER\'\" class=\"subheader\"><p>You will see submissions here when they are ready.</p></div><div ng-if=\"vm.userType != \'member\' &amp;&amp; vm.status == \'SCHEDULED\'\" class=\"subheader\"><img src=\"/images/clock.svg\" class=\"icon biggest\"/><p>Work will begin on {{ vm.stepName }} submissions in</p><countdown end=\"{{ vm.startsAt }}\" class=\"block\"></countdown></div><div ng-if=\"vm.userType != \'member\' &amp;&amp; vm.status == \'OPEN\'\" class=\"subheader\"><img src=\"/images/clock.svg\" class=\"icon biggest\"/><p>Submissions for the {{ vm.stepName }} Phase coming in</p><countdown end=\"{{ vm.submissionsDueBy }}\" class=\"block\"></countdown></div><div ng-if=\"vm.userType != \'member\' &amp;&amp; vm.status == \'OPEN_LATE\'\" class=\"subheader\"><p>Submissions for the {{ vm.stepName }} Phase are overdue. Please contact your copilot.</p></div><div ng-if=\"vm.userType != \'member\' &amp;&amp; (vm.status == \'REVIEWING\' || vm.status == \'REVIEWING_LATE\')\" class=\"subheader\"><p ng-if=\"vm.status == \'REVIEWING\'\">Give feedback and select the top {{ vm.ranks.length }} designs. You have <countdown end=\"{{vm.endsAt}}\"></countdown> \nto give feedback.</p><p ng-if=\"vm.status == \'REVIEWING_LATE\'\">Your feedback is overdue. Please select the top {{ vm.ranks.length }} designs.</p><ul class=\"top-selection\"><li ng-repeat=\"rank in vm.ranks track by $index\"><div ng-class=\"{ \'has-avatar\': rank.avatarUrl }\" ondragenter=\"return false\" ondragover=\"return false\" on-drop=\"vm.drop.handle(event, rank.value)\" class=\"shell\"><div ng-if=\"rank.id\" data-id=\"{{ rank.id }}\" draggable=\"draggable\"><avatar avatar-url=\"{{ rank.avatarUrl }}\"></avatar><div class=\"rank\">{{ rank.value }}</div></div><div ng-if=\"!rank.avatarUrl\" class=\"rank\">{{ rank.value }}</div></div></li><li ng-show=\"vm.allFilled\"><button ng-click=\"vm.confirmRanks()\" class=\"action\">Confirm your selections </button></li></ul><p ng-if=\"vm.rankUpdateError\">{{ vm.rankUpdateError }}</p></div><div ng-if=\"vm.status == \'CLOSED\'\" class=\"subheader\"><p ng-if=\"vm.userType != \'member\'\">Congratulations! These are your {{ vm.stepName }} winners.</p><p ng-if=\"vm.userType == \'member\' &amp;&amp; vm.userRank\">Congratulations! You came in {{ vm.userRank }}! These are the {{ vm.stepName }} winners.</p><p ng-if=\"vm.userType == \'member\' &amp;&amp; !vm.userRank\">These are the phase winners. You design was not chosen as a winner. However, you can still submit designs in the final round.</p><ul class=\"winners\"><li ng-repeat=\"rank in vm.ranks\" ng-if=\"rank.id\" ng-class=\"{ \'belongs-to-user\': rank.belongsToUser }\"><div ng-if=\"vm.stepType == \'designConcepts\'\" class=\"rank\"><strong>{{rank.label.slice(0, -6)}}</strong><br /> place</div><div ng-if=\"vm.stepType == \'completeDesigns\'\" class=\"rank\"><strong>Winner</strong></div><avatar avatar-url=\"{{rank.avatarUrl}}\"></avatar><a href=\"#\" class=\"name\">{{rank.handle}}<span ng-if=\"rank.belongsToUser\">&nbsp;(Me)</span></a></li></ul></div><ul ng-if=\"vm.statusValue &gt; 3\" class=\"submissions\"><li ng-repeat=\"submission in vm.submissions track by $index\" data-id=\"{{ submission.id }}\" ng-class=\"{ \'belongs-to-user\': submission.belongsToUser }\" draggable=\"draggable\" class=\"submission flex elevated-bottom\"><ul class=\"user-details flex middle\"><li><avatar avatar-url=\"{{ submission.submitter.avatar }}\"></avatar></li><li><div class=\"name-time\"><div class=\"name\">{{ submission.submitter.handle }}<span ng-if=\"submission.belongsToUser\">&nbsp;(Me)</span></div><p>{{ submission.files.length }} Images</p></div></li></ul><ul class=\"thumbnails flex-grow\"><li ng-repeat=\"file in submission.files track by $index\" class=\"thumbnail\"><a ui-sref=\"file-detail({projectId: vm.projectId, stepId: vm.stepId, submissionId: submission.id, fileId: file.id})\"><img ng-src=\"{{ file.url }}\" class=\"img\"/></a><div class=\"pop-over elevated\"><a ui-sref=\"file-detail({projectId: vm.projectId, stepId: vm.stepId, submissionId: submission.id, fileId: file.id})\" class=\"preview\"><img ng-src=\"{{ file.url }}\" class=\"previewImage\"/></a><a ui-sref=\"file-detail({projectId: vm.projectId, stepId: vm.stepId, submissionId: submission.id, fileId: file.id})\"><div class=\"icon envelope\"></div></a><a href=\"{{ file.url }}\" target=\"_blank\"><div class=\"clean icon download\"></div></a></div></li></ul><ul class=\"actions flex middle wrap\"><li><a ui-sref=\"submission-detail({projectId: vm.projectId, stepId: vm.stepId, submissionId: submission.id})\">view all</a></li><li ng-if=\"vm.status != \'CLOSED\'\" class=\"comments\"><a href=\"{{ submission.downloadUrl }}\" target=\"_blank\"><div class=\"icon download small\"></div></a></li><li ng-if=\"vm.status == \'CLOSED\' &amp;&amp; submission.rank\" class=\"comments\"><a href=\"{{ submission.downloadUrl }}\" target=\"_blank\"><div class=\"icon download small\"></div></a></li><li ng-if=\"vm.userType != \'member\' &amp;&amp; vm.status != \'CLOSED\'\"><select ng-model=\"submission.rank\" ng-change=\"vm.handleRankSelect(submission)\" ng-options=\"rank.value as rank.label for rank in vm.ranks\"></select></li><li ng-if=\"vm.status == \'CLOSED\'\">{{ vm.rankNames[$index] }}</li></ul></li></ul>");
 $templateCache.put("views/final-fixes.directive.html","<loader ng-show=\"!vm.loaded\"></loader><ul class=\"header flex-center\"><li class=\"previous\"><a ng-class=\"{ invisible: !vm.prevStepRef }\" href=\"{{ vm.prevStepRef }}\"><div class=\"icon arrow\"></div></a></li><li><h1>{{ vm.stepName }}</h1></li><li class=\"next\"><a ng-class=\"{ invisible: !vm.nextStepRef }\" href=\"{{ vm.nextStepRef }}\"><div class=\"icon arrow right\"></div></a></li></ul><div ng-if=\"vm.status == \'scheduled\'\" class=\"subheader\"><img src=\"/images/clock.svg\" class=\"icon biggest\"/><p>Final Fixes Phase starts in</p><countdown end=\"{{ vm.work.phase.startDate }}\" class=\"block\"></countdown><hr/><ul class=\"winners\"><li><div class=\"rank\"><strong>winner</strong></div><avatar avatar-url=\"{{vm.submission.submitter.avatar}}\"></avatar><a href=\"#\" class=\"name\">{{vm.submission.submitter.handle}}</a></li></ul></div><div ng-if=\"vm.status == \'closed\'\" class=\"subheader\"><p>Project Complete! Review final submission</p></div><div ng-if=\"vm.status == \'open\'\" class=\"subheader\"><p>Give your final feedback to complete this design project.</p><countdown end=\"{{ vm.work.phase.endDate }}\" class=\"block\"></countdown><p class=\"duration\">remaining to give feedback</p></div><div class=\"buttons flex space-between wrap\"><button ng-if=\"vm.status == \'open\' || vm.status == \'closed\'\" class=\"download\"><div class=\"icon download smallest\"></div><span>download files</span></button><button ng-click=\"vm.confirmApproval()\" ng-if=\"vm.status == \'open\'\" class=\"action\">confirm final approval</button></div><hr/><ul ng-if=\"vm.status == \'open\' || vm.status == \'closed\'\" class=\"flex wrap previews\"><li ng-repeat=\"file in vm.submission.files track by $index\" fitted-width=\"fitted-width\" class=\"preview\"><img ng-src=\"{{ file.url }}\" ui-sref=\"file-detail({projectId: vm.projectId, stepId: vm.stepId, submissionId: vm.submission.id, fileId: file.id})\" class=\"img\"/></li></ul>");
-$templateCache.put("views/submission-detail.directive.html","<loader ng-hide=\"vm.loaded\"></loader><ul class=\"header flex middle\"><li class=\"flex-grow submitter\"><a ui-sref=\"step({projectId: vm.projectId, stepId: vm.stepId})\">submissions</a><div class=\"icon arrow right smallest\"></div><avatar avatar-url=\"{{ vm.submission.submitter.avatar }}\"></avatar><div class=\"name\">{{ vm.submission.submitter.handle }}</div></li><li><select ng-model=\"vm.submission.rank\" ng-change=\"vm.handleRankSelect(vm.submission)\" ng-options=\"rank.value as rank.label for rank in vm.ranks\"></select></li><li class=\"download\"><button class=\"clean\"><div class=\"icon download small\"></div></button></li></ul><hr/><ul class=\"previews flex wrap\"><li ng-repeat=\"file in vm.submission.files track by $index\" fitted-width=\"fitted-width\" class=\"preview\"><a ui-sref=\"file-detail({projectId: vm.projectId, stepId: vm.stepId, submissionId: vm.submissionId, fileId: file.id})\"><img ng-src=\"{{ file.url }}\" class=\"img\"/></a><p>{{ file.name }}</p></li></ul>");
-$templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"vm.loaded\"></loader><ul class=\"header\"><li class=\"submitter\"><avatar avatar-url=\"{{ vm.submission.submitter.avatar }}\"></avatar><div class=\"name-time\"><p class=\"name\">{{ vm.submission.submitter.handle }}</p><time>Submitted: {{ vm.submission.createdAt | timeLapse }}</time></div></li><li class=\"icons\"><button class=\"clean\"><a href=\"{{ vm.file.url }}\"><div class=\"icon download\"></div></a></button><button ng-click=\"vm.toggleComments()\" class=\"clean\"><div class=\"icon envelope\"></div></button></li></ul><hr/><aside ng-class=\"{ active: vm.showComments }\" flush-height=\"flush-height\" class=\"messaging flex column\"><h4>Submission comments</h4><hr/><div class=\"flex column flex-grow\"><ul class=\"messages flex-grow\"><li ng-repeat=\"message in vm.messages track by $index\"><header class=\"flex middle\"><avatar avatar-url=\"{{ message.publisher.avatar }}\"></avatar><div class=\"name\">{{ message.publisher.handle }}</div><time>{{ message.createdAt | timeLapse }}</time></header><p class=\"message\">{{ message.body }}</p></li></ul><form ng-submit=\"vm.sendMessage()\"><textarea placeholder=\"Send a message&hellip;\" ng-model=\"vm.newMessage\"></textarea><button type=\"submit\" class=\"enter\">Enter</button></form></div></aside><ul class=\"slideshow\"><li><a ng-if=\"vm.prevFile\" ui-sref=\"file-detail({projectId: vm.projectId, stepId: vm.stepId, submissionId: vm.submission.id, fileId: vm.prevFile.id})\"><button class=\"clean icon arrow big\"></button></a></li><li class=\"preview\"><p>{{ vm.file.name }}</p><div class=\"img-container\"><img ng-src=\"{{ vm.file.url }}\"/></div></li><li><a ng-if=\"vm.nextFile\" ui-sref=\"file-detail({projectId: vm.projectId, stepId: vm.stepId, submissionId: vm.submission.id, fileId: vm.nextFile.id})\"><button class=\"clean icon arrow right big\"></button></a></li></ul><ul class=\"thumbnails\"><li ng-repeat=\"file in vm.submission.files\" class=\"thumbnail\"><button class=\"clean thumbnail\"><a ui-sref=\"file-detail({projectId: vm.projectId, stepId: vm.stepId, submissionId: vm.submission.id, fileId: file.id})\"><img ng-src=\"{{ file.url }}\"/><div ng-if=\"file.unreadMessages &gt; 0\" class=\"notification absolute\">{{ file.unreadMessages }}</div></a></button></li></ul></main>");}]);
+$templateCache.put("views/submission-detail.directive.html","<loader ng-hide=\"vm.loaded\"></loader><ul class=\"header flex middle\"><li class=\"flex-grow submitter\"><a ui-sref=\"step({projectId: vm.projectId, stepId: vm.stepId})\">submissions</a><div class=\"icon arrow right smallest\"></div><avatar avatar-url=\"{{ vm.submission.submitter.avatar }}\"></avatar><div class=\"name\">{{ vm.submission.submitter.handle }}</div></li><li ng-if=\"vm.userType != \'member\' &amp;&amp; vm.status != \'CLOSED\'\"><select ng-model=\"vm.submission.rank\" ng-change=\"vm.handleRankSelect(vm.submission)\" ng-options=\"rank.value as rank.label for rank in vm.ranks\"></select></li><li ng-if=\"vm.status == \'CLOSED\' &amp;&amp; vm.rank\">{{ vm.rank }}</li><li class=\"download\"><a href=\"{{ vm.submission.downloadUrl }}\" target=\"_blank\"><div class=\"icon download small\"></div></a></li></ul><hr/><ul class=\"previews flex wrap\"><li ng-repeat=\"file in vm.submission.files track by $index\" fitted-width=\"fitted-width\" class=\"preview\"><a ui-sref=\"file-detail({projectId: vm.projectId, stepId: vm.stepId, submissionId: vm.submissionId, fileId: file.id})\"><img ng-src=\"{{ file.url }}\" class=\"img\"/></a><p>{{ file.name }}</p></li></ul>");
+$templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"vm.loaded\"></loader><ul class=\"header\"><li class=\"submitter\"><avatar avatar-url=\"{{ vm.submission.submitter.avatar }}\"></avatar><div class=\"name-time\"><p class=\"name\">{{ vm.submission.submitter.handle }}</p><time>Submitted: {{ vm.submission.createdAt | timeLapse }}</time></div></li><li class=\"icons\"><button class=\"clean\"><a href=\"{{ vm.file.url }}\" target=\"_blank\"><div class=\"icon download\"></div></a></button><button ng-click=\"vm.toggleComments()\" class=\"clean\"><div class=\"icon envelope\"></div></button></li></ul><hr/><aside ng-class=\"{ active: vm.showComments }\" flush-height=\"flush-height\" class=\"messaging flex column\"><h4>File Comments</h4><hr/><div class=\"flex column flex-grow\"><ul class=\"messages flex-grow\"><li ng-repeat=\"message in vm.messages track by $index\"><header class=\"flex middle\"><avatar avatar-url=\"{{ message.publisher.avatar }}\"></avatar><div class=\"name\">{{ message.publisher.handle }}</div><time>{{ message.createdAt | timeLapse }}</time></header><p class=\"message\">{{ message.body }}</p></li></ul><form ng-submit=\"vm.sendMessage()\" ng-if=\"vm.status != \'CLOSED\'\"><textarea placeholder=\"Send a message&hellip;\" ng-model=\"vm.newMessage\"></textarea><button type=\"submit\" class=\"enter\">Enter</button></form></div></aside><ul class=\"slideshow\"><li><a ng-if=\"vm.prevFile\" ui-sref=\"file-detail({projectId: vm.projectId, stepId: vm.stepId, submissionId: vm.submission.id, fileId: vm.prevFile.id})\"><button class=\"clean icon arrow big\"></button></a></li><li class=\"preview\"><p>{{ vm.file.name }}</p><div class=\"img-container\"><img ng-src=\"{{ vm.file.url }}\"/></div></li><li><a ng-if=\"vm.nextFile\" ui-sref=\"file-detail({projectId: vm.projectId, stepId: vm.stepId, submissionId: vm.submission.id, fileId: vm.nextFile.id})\"><button class=\"clean icon arrow right big\"></button></a></li></ul><ul class=\"thumbnails\"><li ng-repeat=\"file in vm.submission.files\" class=\"thumbnail\"><button class=\"clean thumbnail\"><a ui-sref=\"file-detail({projectId: vm.projectId, stepId: vm.stepId, submissionId: vm.submission.id, fileId: file.id})\"><img ng-src=\"{{ file.url }}\"/><div ng-if=\"file.unreadMessages &gt; 0\" class=\"notification absolute\">{{ file.unreadMessages }}</div></a></button></li></ul></main>");}]);
 (function() {
   'use strict';
   var SubmissionsController;
 
-  SubmissionsController = function(helpers, $scope, $rootScope, $state, StepsService, SubmissionsService) {
-    var activate, config, getStepRef, onChange, vm;
+  SubmissionsController = function(helpers, $scope, $rootScope, $state, StepsService, SubmissionsService, UserV3Service) {
+    var activate, config, getStepRef, onChange, ref, userId, vm;
     vm = this;
     config = {};
     if ($scope.stepType === 'designConcepts') {
@@ -42302,7 +42246,7 @@ $templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"v
       config.nextStepType = 'completeDesigns';
       config.nextStepName = 'Complete Designs';
       config.timeline = ['active', '', ''];
-      config.defaultStatus = 'scheduled';
+      config.defaultStatus = 'PLACEHOLDER';
     }
     if ($scope.stepType === 'completeDesigns') {
       config.stepType = 'completeDesigns';
@@ -42312,19 +42256,22 @@ $templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"v
       config.nextStepType = 'finalFixes';
       config.nextStepName = 'Final Fixes';
       config.timeline = ['', 'active', ''];
-      config.defaultStatus = 'scheduled';
+      config.defaultStatus = 'PLACEHOLDER';
     }
     config.rankNames = ['1st Place', '2nd Place', '3rd Place', '4th Place', '5th Place', '6th Place', '7th Place', '8th Place', '9th Place', '10th Place'];
     vm.loaded = false;
     vm.timeline = config.timeline;
     vm.stepName = config.stepName;
-    vm.status = null;
+    vm.stepType = config.stepType;
+    vm.status = config.defaultStatus;
+    vm.statusValue = 0;
     vm.allFilled = false;
     vm.submissions = [];
     vm.ranks = [];
     vm.projectId = $scope.projectId;
     vm.stepId = $scope.stepId;
     vm.userType = $scope.userType;
+    userId = (ref = UserV3Service.getCurrentUser()) != null ? ref.id : void 0;
     activate = function() {
       StepsService.subscribe($scope, onChange);
       return SubmissionsService.subscribe($scope, onChange);
@@ -42347,14 +42294,21 @@ $templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"v
       return StepsService.confirmRanks(vm.projectId, vm.stepId);
     };
     getStepRef = function(projectId, step) {
-      if (step) {
-        return $state.href('step', {
-          projectId: projectId,
-          stepId: step.id
-        });
-      } else {
+      var stepStatus;
+      if (!step) {
         return null;
       }
+      stepStatus = helpers.statusOf(step);
+      if (vm.userType === 'member' && helpers.statusValueOf(stepStatus) < 4) {
+        return null;
+      }
+      if (vm.userType !== 'member' && stepStatus === 'PLACEHOLDER') {
+        return null;
+      }
+      return $state.href('step', {
+        projectId: projectId,
+        stepId: step.id
+      });
     };
     onChange = function() {
       var currentStep, nextStep, prevStep, steps, submissions;
@@ -42372,29 +42326,26 @@ $templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"v
       vm.endsAt = currentStep.endsAt;
       vm.prevStepRef = getStepRef(vm.projectId, prevStep);
       vm.nextStepRef = getStepRef(vm.projectId, nextStep);
-      vm.submissions = helpers.decorateSubmissionsWithRanks(submissions, currentStep.details.rankedSubmissions);
+      vm.submissions = helpers.submissionsWithRanks(submissions, currentStep.details.rankedSubmissions);
       vm.submissions = helpers.sortSubmissions(vm.submissions);
-      vm.submissions = helpers.decorateSubmissionsWithMessageCounts(vm.submissions);
+      vm.submissions = helpers.submissionsWithMessageCounts(vm.submissions);
+      vm.submissions = helpers.submissionsWithOwnership(vm.submissions, userId);
       vm.rankNames = config.rankNames.slice(0, currentStep.details.numberOfRanks);
       vm.ranks = helpers.makeEmptyRankList(vm.rankNames);
-      vm.ranks = helpers.decorateRankListWithSubmissions(vm.ranks, vm.submissions);
+      vm.ranks = helpers.populatedRankList(vm.ranks, vm.submissions);
+      vm.userRank = helpers.highestRank(vm.ranks, userId);
       if (currentStep.rankedSubmissions_error) {
         vm.rankUpdateError = currentStep.rankedSubmissions_error;
       }
       vm.allFilled = currentStep.details.rankedSubmissions.length === currentStep.details.numberOfRanks;
-      vm.status = config.defaultStatus;
-      if (Date.now() > new Date(currentStep.startsAt)) {
-        vm.status = 'open';
-      }
-      if (currentStep.details.customerConfirmedRanks) {
-        return vm.status = 'closed';
-      }
+      vm.status = helpers.statusOf(currentStep);
+      return vm.statusValue = helpers.statusValueOf(vm.status);
     };
     activate();
     return vm;
   };
 
-  SubmissionsController.$inject = ['SubmissionsHelpers', '$scope', '$rootScope', '$state', 'StepsService', 'SubmissionsService'];
+  SubmissionsController.$inject = ['SubmissionsHelpers', '$scope', '$rootScope', '$state', 'StepsService', 'SubmissionsService', 'UserV3Service'];
 
   angular.module('appirio-tech-submissions').controller('SubmissionsController', SubmissionsController);
 
@@ -42424,7 +42375,7 @@ $templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"v
 
 (function() {
   'use strict';
-  var SubmissionsHelpers, createOrderedRankList, decorateFileWithMessageCounts, decorateRankListWithSubmissions, decorateSubmissionWithMessageCounts, decorateSubmissionWithRank, decorateSubmissionsWithMessageCounts, decorateSubmissionsWithRanks, findInCollection, makeEmptyRankList, removeBlankAfterN, sortSubmissions, updateRankedSubmissions;
+  var SubmissionsHelpers, createOrderedRankList, fileWithMessageCounts, findInCollection, highestRank, makeEmptyRankList, populatedRankList, removeBlankAfterN, sortSubmissions, statusOf, statusValueOf, statuses, submissionWithMessageCounts, submissionWithRank, submissionsWithMessageCounts, submissionsWithOwnership, submissionsWithRanks, updateRankedSubmissions;
 
   findInCollection = function(collection, prop, value) {
     var el, index;
@@ -42485,7 +42436,7 @@ $templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"v
     return rankedSubmissions;
   };
 
-  decorateSubmissionWithRank = function(submission, rankedSubmissions) {
+  submissionWithRank = function(submission, rankedSubmissions) {
     if (rankedSubmissions == null) {
       rankedSubmissions = [];
     }
@@ -42498,17 +42449,16 @@ $templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"v
     return submission;
   };
 
-  decorateSubmissionsWithRanks = function(submissions, rankedSubmissions) {
+  submissionsWithRanks = function(submissions, rankedSubmissions) {
     if (rankedSubmissions == null) {
       rankedSubmissions = [];
     }
-    submissions.forEach(function(submission) {
-      return submission = decorateSubmissionWithRank(submission, rankedSubmissions);
+    return submissions.map(function(submission) {
+      return submissionWithRank(submission, rankedSubmissions);
     });
-    return submissions;
   };
 
-  decorateFileWithMessageCounts = function(file) {
+  fileWithMessageCounts = function(file) {
     var ref, ref1;
     file.totalMessages = 0;
     file.unreadMessages = 0;
@@ -42525,22 +42475,29 @@ $templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"v
     return file;
   };
 
-  decorateSubmissionWithMessageCounts = function(submission) {
+  submissionWithMessageCounts = function(submission) {
     submission.totalMessages = 0;
     submission.unreadMessages = 0;
     submission.files.forEach(function(file) {
-      decorateFileWithMessageCounts(file);
+      fileWithMessageCounts(file);
       submission.totalMessages = submission.totalMessages + file.totalMessages;
       return submission.unreadMessages = submission.unreadMessages + file.unreadMessages;
     });
     return submission;
   };
 
-  decorateSubmissionsWithMessageCounts = function(submissions) {
-    submissions.forEach(function(submission) {
-      return submission = decorateSubmissionWithMessageCounts(submission);
+  submissionsWithMessageCounts = function(submissions) {
+    return submissions.map(function(submission) {
+      return submissionWithMessageCounts(submission);
     });
-    return submissions;
+  };
+
+  submissionsWithOwnership = function(submissions, userId) {
+    return submissions.map(function(submission) {
+      return angular.merge({}, submission, {
+        belongsToUser: submission.submitter.id === userId
+      });
+    });
   };
 
   sortSubmissions = function(submissions) {
@@ -42561,10 +42518,7 @@ $templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"v
     return orderedSubmissions;
   };
 
-  decorateRankListWithSubmissions = function(ranks, submissions) {
-    if (ranks == null) {
-      ranks = [];
-    }
+  populatedRankList = function(rankList, submissions) {
     if (submissions == null) {
       submissions = [];
     }
@@ -42572,14 +42526,17 @@ $templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"v
       var submissionRank;
       if (submission.rank !== '') {
         submissionRank = submission.rank - 1;
-        if (submissionRank < ranks.length) {
-          ranks[submissionRank].avatarUrl = submission.submitter.avatar;
-          ranks[submissionRank].id = submission.id;
-          return ranks[submissionRank].handle = submission.submitter.handle;
+        if (submissionRank < rankList.length) {
+          return angular.extend(rankList[submissionRank], {
+            avatarUrl: submission.submitter.avatar,
+            id: submission.id,
+            handle: submission.submitter.handle,
+            belongsToUser: submission.belongsToUser
+          });
         }
       }
     });
-    return ranks;
+    return rankList;
   };
 
   makeEmptyRankList = function(rankNames) {
@@ -42596,23 +42553,64 @@ $templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"v
     return ranks;
   };
 
+  highestRank = function(rankList, userId) {
+    var i, j, ref;
+    for (i = j = 0, ref = rankList.length; j < ref; i = j += 1) {
+      if (rankList[i].id === userId) {
+        return rankList[i].label;
+      }
+    }
+    return null;
+  };
+
+  statuses = ['PLACEHOLDER', 'SCHEDULED', 'OPEN', 'OPEN_LATE', 'REVIEWING', 'REVIEWING_LATE', 'CLOSED'];
+
+  statusOf = function(step) {
+    var closed, endsAt, hasSubmissions, now, ref, startsAt, submissionsDueBy;
+    now = Date.now();
+    startsAt = new Date(step.startsAt);
+    submissionsDueBy = new Date(step.details.submissionsDueBy);
+    endsAt = new Date(step.endsAt);
+    hasSubmissions = ((ref = step.details.rankedSubmissions) != null ? ref.length : void 0) > 0;
+    closed = step.details.customerConfirmedRanks || step.details.customerAcceptedFixes;
+    if (closed) {
+      return 'CLOSED';
+    } else if (now > endsAt) {
+      return 'REVIEWING_LATE';
+    } else if (hasSubmissions) {
+      return 'REVIEWING';
+    } else if (now > submissionsDueBy) {
+      return 'OPEN_LATE';
+    } else if (now > startsAt) {
+      return 'OPEN';
+    } else {
+      return 'SCHEDULED';
+    }
+  };
+
+  statusValueOf = function(status) {
+    return statuses.indexOf(status);
+  };
+
   SubmissionsHelpers = function() {
-    var submissionsHelpers;
-    submissionsHelpers = {
+    return {
       findInCollection: findInCollection,
       createOrderedRankList: createOrderedRankList,
       removeBlankAfterN: removeBlankAfterN,
       updateRankedSubmissions: updateRankedSubmissions,
-      decorateSubmissionWithRank: decorateSubmissionWithRank,
-      decorateSubmissionsWithRanks: decorateSubmissionsWithRanks,
-      decorateFileWithMessageCounts: decorateFileWithMessageCounts,
-      decorateSubmissionWithMessageCounts: decorateSubmissionWithMessageCounts,
-      decorateSubmissionsWithMessageCounts: decorateSubmissionsWithMessageCounts,
+      submissionWithRank: submissionWithRank,
+      submissionsWithRanks: submissionsWithRanks,
+      fileWithMessageCounts: fileWithMessageCounts,
+      submissionWithMessageCounts: submissionWithMessageCounts,
+      submissionsWithMessageCounts: submissionsWithMessageCounts,
+      submissionsWithOwnership: submissionsWithOwnership,
       sortSubmissions: sortSubmissions,
-      decorateRankListWithSubmissions: decorateRankListWithSubmissions,
-      makeEmptyRankList: makeEmptyRankList
+      populatedRankList: populatedRankList,
+      makeEmptyRankList: makeEmptyRankList,
+      highestRank: highestRank,
+      statusOf: statusOf,
+      statusValueOf: statusValueOf
     };
-    return submissionsHelpers;
   };
 
   SubmissionsHelpers.$inject = [];
@@ -42974,7 +42972,7 @@ $templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"v
       vm.startsAt = currentStep.startsAt;
       vm.endsAt = currentStep.endsAt;
       vm.prevStepRef = getStepRef(vm.projectId, prevStep);
-      vm.submission = helpers.decorateSubmissionWithMessageCounts(submissions[0]);
+      vm.submission = helpers.submissionWithMessageCounts(submissions[0]);
       vm.status = config.defaultStatus;
       if (Date.now() > new Date(currentStep.startsAt)) {
         vm.status = 'open';
@@ -43049,13 +43047,15 @@ $templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"v
       vm.loaded = true;
       currentStep = helpers.findInCollection(steps, 'id', vm.stepId);
       vm.submission = helpers.findInCollection(submissions, 'id', vm.submissionId);
-      vm.submission = helpers.decorateSubmissionWithRank(vm.submission, currentStep.details.rankedSubmissions);
-      vm.submission = helpers.decorateSubmissionWithMessageCounts(vm.submission);
+      vm.submission = helpers.submissionWithRank(vm.submission, currentStep.details.rankedSubmissions);
+      vm.submission = helpers.submissionWithMessageCounts(vm.submission);
       vm.rankNames = config.rankNames.slice(0, currentStep.details.numberOfRanks);
       vm.ranks = helpers.makeEmptyRankList(vm.rankNames);
-      vm.ranks = helpers.decorateRankListWithSubmissions(vm.ranks, vm.submissions);
+      vm.ranks = helpers.populatedRankList(vm.ranks, vm.submissions);
+      vm.rank = vm.submission.rank ? config.rankNames[vm.submission.rank - 1] : null;
       vm.allFilled = currentStep.details.rankedSubmissions.length === currentStep.details.numberOfRanks;
-      return vm.allFilled = currentStep.details.rankedSubmissions.length === currentStep.details.numberOfRanks;
+      vm.allFilled = currentStep.details.rankedSubmissions.length === currentStep.details.numberOfRanks;
+      return vm.status = helpers.statusOf(currentStep);
     };
     activate();
     return vm;
@@ -43093,8 +43093,8 @@ $templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"v
   'use strict';
   var FileDetailController;
 
-  FileDetailController = function(helpers, $scope, $rootScope, SubmissionsService, UserV3Service) {
-    var activate, onChange, vm;
+  FileDetailController = function(helpers, $scope, $rootScope, StepsService, SubmissionsService, UserV3Service) {
+    var activate, onChange, ref, userId, vm;
     vm = this;
     vm.loaded = false;
     vm.submission = {};
@@ -43109,35 +43109,38 @@ $templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"v
     vm.messages = [];
     vm.newMessage = '';
     vm.showMessages = false;
-    vm.userId = UserV3Service.getCurrentUser().id;
     vm.avatars = {};
+    userId = (ref = UserV3Service.getCurrentUser()) != null ? ref.id : void 0;
     activate = function() {
+      StepsService.subscribe($scope, onChange);
       return SubmissionsService.subscribe($scope, onChange);
     };
     vm.sendMessage = function() {
       if (vm.newMessage) {
-        SubmissionsService.sendMessage(vm.submissionId, vm.fileId, vm.newMessage, vm.userId);
+        SubmissionsService.sendMessage(vm.submissionId, vm.fileId, vm.newMessage, userId);
         return vm.newMessage = '';
       }
     };
     vm.toggleComments = function() {
       vm.showComments = !vm.showComments;
       if (vm.showComments && vm.file.unreadMessages > 0) {
-        return SubmissionsService.markMessagesAsRead(vm.submissionId, vm.fileId, vm.userId);
+        return SubmissionsService.markMessagesAsRead(vm.submissionId, vm.fileId, userId);
       }
     };
     onChange = function() {
-      var currentIndex, nextIndex, prevIndex, ref, submissions;
+      var currentIndex, currentStep, nextIndex, prevIndex, ref1, steps, submissions;
+      steps = StepsService.get(vm.projectId);
       submissions = SubmissionsService.get(vm.projectId, vm.stepId);
-      if (submissions._pending) {
+      if (steps._pending || submissions._pending) {
         vm.loaded = false;
         return null;
       }
       vm.loaded = true;
+      currentStep = helpers.findInCollection(steps, 'id', vm.stepId);
       vm.submission = helpers.findInCollection(submissions, 'id', vm.submissionId);
-      vm.submission = helpers.decorateSubmissionWithMessageCounts(vm.submission);
+      vm.submission = helpers.submissionWithMessageCounts(vm.submission);
       vm.file = helpers.findInCollection(vm.submission.files, 'id', vm.fileId);
-      vm.messages = ((ref = vm.file.threads[0]) != null ? ref.messages : void 0) || [];
+      vm.messages = ((ref1 = vm.file.threads[0]) != null ? ref1.messages : void 0) || [];
       currentIndex = vm.submission.files.indexOf(vm.file);
       prevIndex = currentIndex - 1;
       if (prevIndex < 0) {
@@ -43148,13 +43151,14 @@ $templateCache.put("views/file-detail.directive.html","<main><loader ng-hide=\"v
         nextIndex = 0;
       }
       vm.prevFile = vm.submission.files[prevIndex];
-      return vm.nextFile = vm.submission.files[nextIndex];
+      vm.nextFile = vm.submission.files[nextIndex];
+      return vm.status = helpers.statusOf(currentStep);
     };
     activate();
     return vm;
   };
 
-  FileDetailController.$inject = ['SubmissionsHelpers', '$scope', '$rootScope', 'SubmissionsService', 'UserV3Service'];
+  FileDetailController.$inject = ['SubmissionsHelpers', '$scope', '$rootScope', 'StepsService', 'SubmissionsService', 'UserV3Service'];
 
   angular.module('appirio-tech-submissions').controller('FileDetailController', FileDetailController);
 
