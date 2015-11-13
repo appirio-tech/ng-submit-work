@@ -7,7 +7,7 @@ header
 
   p Tell us what features we need to include in your new app.
 
-.flush-height.flex.column(flush-height=true)
+.flush-height.flex.column(flush-height="lock")
   ul.dark-bg.flex.center.middle.flex-grow.selectable-choices
     li
       img.icon.biggest(ng-if="!vm.featuresDefined" src="/images/define-feature.svg")
@@ -33,12 +33,13 @@ header
 
   a.button.continue.wider(ui-sref="submit-work-visuals({ id: vm.workId })") go to design
 
-modal.full.define-features(show="vm.showFeaturesModal" background-click-close=true)
+//- ng-if is needed for lock height
+modal.full.define-features(show="vm.showFeaturesModal" ng-if="vm.showFeaturesModal" background-click-close=true)
   h2 Data booklet mobile app <strong>features</strong>
 
   main.flex.flex-grow.stretch
     ul.features.flex.column
-      li
+      li.flex-grow(lock-height=true ignore-content="true")
         ul.feature-list
           li(ng-repeat="feature in vm.features" ng-class="{active: vm.activeFeature.title == feature.title}")
             button.widest.clean(ng-click="vm.activateFeature(feature)")
@@ -48,7 +49,7 @@ modal.full.define-features(show="vm.showFeaturesModal" background-click-close=tr
 
               span {{ feature.title }}
 
-      li.flex-grow
+      li
         button.widest.clean(ng-click="vm.toggleDefineFeatures()")
           span Define a new feature
 

@@ -9,7 +9,7 @@ header
 
   p Help us define the visual style of your mobile app.
 
-.flush-height.flex.column(flush-height=true)
+.flush-height.flex.column(flush-height="lock")
   ul.dark-bg.flex.center.flex-grow.middle.selectable-choices(ng-class="{active: vm.showPaths}")
     li
       img.icon.big.biggest(ng-if="!vm.specsDefined" src="/images/brand-reqs.svg")

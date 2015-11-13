@@ -35,11 +35,10 @@ submit-work-features {
         border-right    : 1px solid $neutral-color;
 
         > li {
+          overflow: auto;
+
           &:first-child {
             > ul {
-              max-height: 560px;
-              overflow: auto;
-
               li {
                 &.active {
                   button {
@@ -70,6 +69,7 @@ submit-work-features {
 
           &:last-child {
             position: relative;
+            min-height: $footer-height;
 
             button {
               @include vertical-align-middle();
