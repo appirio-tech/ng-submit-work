@@ -4,7 +4,7 @@ header.flex.column.center
   p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
 form(ng-submit="vm.validateAllSections()")
-  .flush-height.flex.column(flush-height=true)
+  .flush-height.flex.column(flush-height="lock")
     .dark-bg.flex.column.center.middle.flex-grow(id="app-name")
       input.wider(
         type="text"
@@ -56,7 +56,7 @@ form(ng-submit="vm.validateAllSections()")
 
       ul.type.flex.center
         li(ng-repeat="projectType in vm.projectTypes")
-          .house.flex.column.center(
+          .house.flex.column.center.middle(
             ng-class="{ selected: vm.projectType == projectType.id }"
             ng-if="projectType.id == 'DESIGN'"
           )
@@ -64,7 +64,7 @@ form(ng-submit="vm.validateAllSections()")
 
             img.active(src="/images/design-white-thin.svg")
 
-          .house.flex.column.center(
+          .house.flex.column.center.middle(
             ng-class="{ selected: vm.projectType == projectType.id }"
             ng-if="projectType.id == 'DESIGN_AND_CODE'"
           )

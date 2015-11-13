@@ -22,7 +22,7 @@ modal.upload-documents(show="vm.showUploadSpecs" background-click-close=true)
       has-files="vm.uploaderHasFiles"
     )
 
-.flush-height.flex.column(flush-height=true)
+.flush-height.flex.column(flush-height="lock")
   ul.dark-bg.flex.center.middle.flex-grow.selectable-choices
     li
       img.icon.biggest(ng-if="!vm.specsDefined" src="/images/define-dev-specs.svg")
