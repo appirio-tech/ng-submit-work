@@ -15,7 +15,7 @@ form(ng-submit="vm.validateAllSections()")
         autofocus=true
       )
 
-      p.error.wider(ng-if="vm.nameError && !vm.name.length") Please enter an app name.
+      p.error.wider.transition(ng-class="{ show: vm.nameError && !vm.name.length }") Please enter an app name.
 
     button.wider.continue(
       type="button"
@@ -41,9 +41,9 @@ form(ng-submit="vm.validateAllSections()")
             li(ng-repeat="orientation in vm.orientations")
               checkbox(label="{{orientation.name}}" ng-model="orientation.selected")
 
-      p.error.wider(ng-if="vm.devicesError") Please choose a device.
+      p.error.wider.transition(ng-class="{ show: vm.devicesError }") Please choose a device.
 
-      p.error.wider(ng-if="vm.orientationsError") Please choose an orientation.
+      p.error.wider.transition(ng-class="{ show: vm.orientationsError }") Please choose an orientation.
 
     button.wider.continue(
       type="button"
@@ -83,7 +83,7 @@ form(ng-submit="vm.validateAllSections()")
             value="projectType.id"
           )
 
-      p.error.wider(ng-if="vm.projectTypeError") Please choose a type of work.
+      p.error.wider.transition(ng-class="{ show: vm.projectTypeError }") Please choose a type of work.
 
     button.wider.continue(type="button" ng-click="vm.validateSection('brief-details', 'projectType', true)") continue
 
@@ -95,7 +95,7 @@ form(ng-submit="vm.validateAllSections()")
 
       textarea.brief(placeholder="E.g. I need a mobile HR application with social features to support my growing organization" ng-model="vm.brief")
 
-      p.error.wider(ng-if="vm.briefError") Please enter project details.
+      p.error.wider.transition(ng-class="{ show: vm.briefError }") Please enter project details.
 
       button.action.continue.wider(type="submit") Create Project
 
