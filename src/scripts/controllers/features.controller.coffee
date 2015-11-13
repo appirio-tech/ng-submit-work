@@ -54,6 +54,7 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
     vm.showDefineFeaturesForm = false
 
   vm.activateFeature = (feature) ->
+    vm.showDefineFeaturesForm = false
     vm.addingCustomFeature = false
     vm.activePreview = feature.title
     vm.activeFeature = feature
