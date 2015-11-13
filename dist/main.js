@@ -532,6 +532,7 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
       return vm.showDefineFeaturesForm = false;
     };
     vm.activateFeature = function(feature) {
+      vm.showDefineFeaturesForm = false;
       vm.addingCustomFeature = false;
       vm.activePreview = feature.title;
       return vm.activeFeature = feature;
