@@ -9,10 +9,16 @@ submit-work-type {
     }
   }
 
-  .error {
+  p.error {
     @include block-center();
 
-    margin-top: 10px;
+    max-height: 0px;
+    overflow: hidden;
+
+    &.show {
+      max-height: 30px;
+      padding-top: 10px;
+    }
   }
 
   #app-name {
