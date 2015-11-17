@@ -82,7 +82,7 @@ modal.full.define-features(show="vm.showFeaturesModal" ng-if="vm.showFeaturesMod
 
           label New feature title
 
-          input.widest(type="text" ng-model="vm.customFeature.title" required=true)
+          input.widest(type="text" ng-model="vm.customFeature.title" ng-change="vm.customNameUnique()" required=true)
 
           p.error(ng-if="vm.featureTitleError") This feature name already exists, please try another.
 

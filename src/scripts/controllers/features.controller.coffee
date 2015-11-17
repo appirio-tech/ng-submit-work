@@ -8,7 +8,7 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
   vm                        = this
   vm.workId                 = $scope.workId
   vm.loading                = true
-  vm.featureNameError       = false
+  vm.featureTitleError      = false
   vm.showFeaturesModal      = false
   vm.showUploadModal        = false
   vm.showDefineFeaturesForm = false
@@ -81,14 +81,19 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
     vm.activeFeature = null
     onChange()
 
-  vm.addCustomFeature = ->
-    customFeatureValid = vm.customFeature.title && vm.customFeature.description
+  vm.customNameUnique = ->
     vm.featureTitleError = false
+    unique = true
 
     vm.features.forEach (feature) ->
-      if vm.customFeature.title.toLowerCase() == feature.title.toLowerCase()
-        customFeatureValid = false
+      if vm.customFeature.title?.toLowerCase() == feature.title.toLowerCase()
         vm.featureTitleError = true
+        unique = false
+
+    unique
+
+  vm.addCustomFeature = ->
+    customFeatureValid = vm.customFeature.title && vm.customFeature.description && vm.customNameUnique()
 
     if customFeatureValid
       vm.updatedFeatures.push vm.customFeature
@@ -130,6 +135,7 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
 
     vm.loading = false
     vm.customFeature         = angular.copy config.customFeatureTemplate
+    vm.featureTitleError     = false
     vm.selectedFeaturesCount = 0
     vm.features              = angular.copy RequirementService.features
 
