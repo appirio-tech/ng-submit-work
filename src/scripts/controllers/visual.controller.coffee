@@ -21,6 +21,8 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Sub
   vm.specsDefined          = false
   vm.urlAdded              = false
   vm.styleModals           = ['fonts', 'colors', 'icons']
+  vm.urlRegEx              = /^(http(s?):\/\/)?(www\.)?[a-zA-Z0-9\.\-\_]+(\.[a-zA-Z]{2,3})+(\/[a-zA-Z0-9\_\-\s\.\/\?\%\#\&\=]*)?$/
+  vm.urlError              = false
 
   vm.showChooseStyles = ->
     vm.showPaths = false
@@ -71,7 +73,16 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Sub
       else if vm.showChooseStylesModal
         vm.hideChooseStyles()
       else if vm.showUrlStylesModal
-        vm.hideUrlStyles()
+        unless vm.urlError
+          vm.hideUrlStyles()
+
+  vm.checkAddressValidity = ->
+    urlValid = vm.urlRegEx.test vm.url
+    vm.urlError = !urlValid
+
+  transformToUrl = (address) ->
+    if address.substr(0, 5) != 'http'
+      "http://#{address}"
 
   getUpdates = ->
     getId = (item) ->
@@ -81,7 +92,7 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Sub
       fontIds:  if vm.font then [ vm.font ] else null
       colorSwatchIds: vm.colors.filter(isSelected).map(getId)
       iconsetIds:  if vm.icon then [ vm.icon ] else null
-      designUrls: if vm.url then [ vm.url ] else null
+      designUrls: if vm.url && !vm.urlError then [ transformToUrl(vm.url) ] else null
 
     updates
 

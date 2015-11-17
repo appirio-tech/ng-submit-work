@@ -34,9 +34,9 @@ header
       button.action.wide(ng-click="vm.showUploadStyles()") select
 
     li
-      img.icon.big.biggest(ng-if="!vm.urlAdded" src="/images/url-styles.svg")
+      img.icon.big.biggest(ng-if="!vm.urlAdded || vm.urlError" src="/images/url-styles.svg")
 
-      img.icon.big.biggest(ng-if="vm.urlAdded" src="/images/url-styles-selected.svg")
+      img.icon.big.biggest(ng-if="vm.urlAdded && !vm.urlError" src="/images/url-styles-selected.svg")
 
       h4 Get style from url
 
@@ -83,8 +83,10 @@ modal.enter-url(show="vm.showUrlStylesModal" background-click-close=true)
 
     p You can enter your website address and we'll grab your colors, fonts amd ocpms to use when designing your new app.
 
-    form(ng-submit="vm.save()")
-      input.wide(type="url" placeholder="http://www.example.com" ng-model="vm.url" required=true)
+    form(ng-submit="vm.save()" name="urlForm")
+      input.wide(type="text" name="addressInput" ng-pattern="vm.urlRegEx" ng-change="vm.checkAddressValidity()" placeholder="http://www.example.com" ng-model="vm.url" required=true)
+
+      p.error.wider.transition(ng-class="{show: urlForm.addressInput.$error.pattern }") Please enter a valid address.
 
       button.wider.action(type="submit") save
 

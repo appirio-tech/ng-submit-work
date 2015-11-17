@@ -13,6 +13,18 @@ submit-work-visuals {
     }
   }
 
+  p.error {
+    @include block-center();
+
+    max-height: 0px;
+    overflow: hidden;
+
+    &.show {
+      max-height: 30px;
+      padding-top: 10px;
+    }
+  }
+
   .fonts {
     button {
       margin-top: $margin;
