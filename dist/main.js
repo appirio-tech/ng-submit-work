@@ -666,8 +666,8 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
     };
     activate = function() {
       var destroyWorkListener;
-      $scope.$watch('vm.showFeaturesModal', function(newValue) {
-        if (newValue === false) {
+      $scope.$watch('vm.showFeaturesModal', function(newValue, oldValue) {
+        if (oldValue && !newValue) {
           return vm.save();
         }
       });
