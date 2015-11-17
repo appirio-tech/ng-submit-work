@@ -36,6 +36,16 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
 
     showOrientation
 
+  vm.interceptSubmit = (event) ->
+    if event.keyCode == 13 || event.which == 13
+      event.preventDefault()
+      event.stopPropagation()
+      if vm.name.length > 0
+        scrollElement = angular.element document.getElementById 'platform-details'
+        $document.scrollToElementAnimated scrollElement
+      else
+        vm.validateSection('platform-details', 'name', true)
+
   vm.validateSection = (nextId, models, scrollActivated) ->
     nextSection = angular.element document.getElementById nextId
     foundErrors = false

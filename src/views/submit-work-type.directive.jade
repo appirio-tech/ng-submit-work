@@ -9,9 +9,10 @@ form(ng-submit="vm.validateAllSections()")
       input.wider(
         type="text"
         placeholder="Name your project..."
-        ng-blur="vm.validateSection('platform-details', 'name')"
+        ng-change="vm.validateSection('platform-details', 'name', false)"
+        ng-keydown="vm.interceptSubmit($event)"
         ng-model="vm.name"
-        ng-class="{error: vm.nameError}"
+        ng-class="{error: vm.nameError && !vm.name.length}"
         autofocus=true
       )
 
@@ -32,14 +33,14 @@ form(ng-submit="vm.validateAllSections()")
 
           ul
             li(ng-repeat="device in vm.devices")
-              checkbox(label="{{device.name}}" ng-model="device.selected")
+              checkbox(label="{{device.name}}" ng-model="device.selected" ng-click="vm.validateSection('type-details', ['devices'])")
 
         li(ng-class="{invisible: !vm.showOrientation()}")
           h5 Orientation
 
           ul
             li(ng-repeat="orientation in vm.orientations")
-              checkbox(label="{{orientation.name}}" ng-model="orientation.selected")
+              checkbox(label="{{orientation.name}}" ng-model="orientation.selected" ng-click="vm.validateSection('type-details', ['orientations'])")
 
       p.error.wider.transition(ng-class="{ show: vm.devicesError }") Please choose a device.
 
@@ -80,6 +81,7 @@ form(ng-submit="vm.validateAllSections()")
             type="button"
             selectable="true"
             ng-model="vm.projectType"
+            ng-click="vm.validateSection('brief-details', 'projectType')"
             value="projectType.id"
           )
 
@@ -93,7 +95,7 @@ form(ng-submit="vm.validateAllSections()")
     .dark-bg.flex.column.center.flex-grow(id="brief-details")
       h2 Can you <strong>share a brief</strong> overview?
 
-      textarea.brief(placeholder="E.g. I need a mobile HR application with social features to support my growing organization" ng-model="vm.brief")
+      textarea.brief(placeholder="E.g. I need a mobile HR application with social features to support my growing organization" ng-model="vm.brief" ng-change="vm.validateSection('brief-details', 'brief')")
 
       p.error.wider.transition(ng-class="{ show: vm.briefError }") Please enter project details.
 
