@@ -78,6 +78,8 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Sub
   transformToUrl = (address) ->
     if address.substr(0, 4) != 'http'
       "http://#{address}"
+    else
+      address
 
   getUpdates = ->
     getId = (item) ->
@@ -87,7 +89,7 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Sub
       fontIds:  if vm.font then [ vm.font ] else null
       colorSwatchIds: vm.colors.filter(isSelected).map(getId)
       iconsetIds:  if vm.icon then [ vm.icon ] else null
-      designUrls: if vm.url && !$scope.urlForm.addressInput.$error.pattern then [ transformToUrl(vm.url) ] else null
+      designUrls: if vm.url then [ transformToUrl(vm.url) ] else null
 
     updates
 
