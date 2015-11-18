@@ -34,9 +34,9 @@ header
       button.action.wide(ng-click="vm.showUploadStyles()") select
 
     li
-      img.icon.big.biggest(ng-if="!vm.urlAdded || vm.urlError" src="/images/url-styles.svg")
+      img.icon.big.biggest(ng-if="!vm.urlAdded || urlForm.addressInput.$error.pattern" src="/images/url-styles.svg")
 
-      img.icon.big.biggest(ng-if="vm.urlAdded && !vm.urlError" src="/images/url-styles-selected.svg")
+      img.icon.big.biggest(ng-if="vm.urlAdded && !urlForm.addressInput.$error.pattern" src="/images/url-styles-selected.svg")
 
       h4 Get style from url
 
