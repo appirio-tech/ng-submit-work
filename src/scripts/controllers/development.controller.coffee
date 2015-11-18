@@ -63,6 +63,8 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
     SubmitWorkService.save(updates).then ->
       if done && kickoff && uploaderValid
         $state.go 'submit-work-complete', { id: vm.workId }
+      else if done
+        $state.go 'view-work-multiple'
       else
         vm.hideDefineSpecs()
 
