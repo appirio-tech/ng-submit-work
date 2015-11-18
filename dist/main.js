@@ -391,6 +391,8 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
     transformToUrl = function(address) {
       if (address.substr(0, 4) !== 'http') {
         return "http://" + address;
+      } else {
+        return address;
       }
     };
     getUpdates = function() {
@@ -402,7 +404,7 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
         fontIds: vm.font ? [vm.font] : null,
         colorSwatchIds: vm.colors.filter(isSelected).map(getId),
         iconsetIds: vm.icon ? [vm.icon] : null,
-        designUrls: vm.url && !$scope.urlForm.addressInput.$error.pattern ? [transformToUrl(vm.url)] : null
+        designUrls: vm.url ? [transformToUrl(vm.url)] : null
       };
       return updates;
     };
