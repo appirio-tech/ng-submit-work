@@ -18,6 +18,11 @@ describe 'SubmitWorkVisualController', ->
     bard.inject this, '$rootScope', '$q', '$controller', 'SubmitWorkService'
     scope = $rootScope.$new()
     scope.workId = 'someIdString'
+    scope.urlForm =
+      addressInput:
+        $error:
+          pattern: false
+
 
     mockedService = bard.mockService SubmitWorkService,
       get: mockData
