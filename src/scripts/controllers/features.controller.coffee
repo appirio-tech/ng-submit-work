@@ -44,7 +44,7 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
   ]
 
   vm.filterByCategory = (list, category) ->
-    featureList = list.filter (feature) ->
+    featureList = list?.filter (feature) ->
       feature.category == category
 
     featureList
