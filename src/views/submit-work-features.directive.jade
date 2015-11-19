@@ -40,14 +40,18 @@ modal.full.define-features(show="vm.showFeaturesModal" ng-if="vm.showFeaturesMod
   main.flex.flex-grow.stretch
     ul.features.flex.column
       li.flex-grow(lock-height=true ignore-content="true")
-        ul.feature-list
-          li(ng-repeat="feature in vm.features" ng-class="{active: vm.activeFeature.title == feature.title}")
-            button.widest.clean(ng-click="vm.activateFeature(feature)")
-              img.icon.small(src="{{ feature.icon }}" ng-hide="feature.selected")
+        ul.feature-categories-list
+          li(ng-repeat="featureCategory in vm.categoriesList" ng-if="vm.filterByCategory(vm.features, featureCategory).length > 0")
+            span {{featureCategory}}
 
-              img.icon.small(src="/images/icon-check-solid.svg" ng-show="feature.selected")
+            ul.feature-list
+              li(ng-repeat="feature in vm.features" ng-if="feature.category == featureCategory" ng-class="{active: vm.activeFeature.title == feature.title}")
+                button.widest.clean(ng-click="vm.activateFeature(feature)")
+                  //- img.icon.small(src="{{ feature.icon }}" ng-hide="feature.selected")
 
-              span {{ feature.title }}
+                  img.icon.small(src="/images/icon-check-solid.svg" ng-show="feature.selected")
+
+                  span {{ feature.title }}
 
       li
         button.widest.clean(ng-click="vm.toggleDefineFeatures()")

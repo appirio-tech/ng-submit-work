@@ -23,12 +23,31 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
 
   config =
     customFeatureTemplate:
+      category: 'Custom Features'
       id: null
       title: null
       description: null
       notes: null
       custom: true
       fileIds: []
+
+  vm.categoriesList = [
+    'Custom Features'
+  ,
+    'Login & Registration'
+  ,
+    'General Building Blocks'
+  ,
+    'Ecommerce Building Blocks'
+  ,
+    'Social Building Blocks'
+  ]
+
+  vm.filterByCategory = (list, category) ->
+    featureList = list.filter (feature) ->
+      feature.category == category
+
+    featureList
 
   vm.activeFeatureChangedNotes = (activeFeature) ->
     changedNotes = false
@@ -114,6 +133,7 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
 
     vm.updatedFeatures?.forEach (feature) ->
       updates.features.push
+        category: feature.category
         id: feature.id
         title: feature.title
         description: feature.description
