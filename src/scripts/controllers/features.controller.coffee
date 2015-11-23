@@ -38,9 +38,9 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
   ,
     'General Building Blocks'
   ,
-    'Ecommerce Building Blocks'
+    'Ecommerce'
   ,
-    'Social Building Blocks'
+    'Social'
   ]
 
   vm.filterByCategory = (list, category) ->
@@ -154,6 +154,7 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
       return false
 
     vm.loading = false
+    vm.appName = work.name
     vm.customFeature         = angular.copy config.customFeatureTemplate
     vm.featureTitleError     = false
     vm.selectedFeaturesCount = 0

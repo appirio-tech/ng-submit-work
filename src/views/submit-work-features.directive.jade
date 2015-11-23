@@ -35,14 +35,14 @@ header
 
 //- ng-if is needed for lock height
 modal.full.define-features(show="vm.showFeaturesModal" ng-if="vm.showFeaturesModal" background-click-close=true)
-  h2 Data booklet mobile app <strong>features</strong>
+  h2 {{vm.appName}} mobile app <strong>features</strong>
 
   main.flex.flex-grow.stretch
     ul.features.flex.column
       li.flex-grow(lock-height=true ignore-content="true")
         ul.feature-categories-list
           li(ng-repeat="featureCategory in vm.categoriesList" ng-if="vm.filterByCategory(vm.features, featureCategory).length > 0")
-            span {{featureCategory}}
+            h6 {{featureCategory}}
 
             ul.feature-list
               li(ng-repeat="feature in vm.features" ng-if="feature.category == featureCategory" ng-class="{active: vm.activeFeature.title == feature.title}")

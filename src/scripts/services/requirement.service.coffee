@@ -184,7 +184,7 @@ srv = () ->
     icon: '/images/audio.svg'
     selected: false
   ,
-    category: 'Ecommerce Building Blocks'
+    category: 'Ecommerce'
     id: 'MARKETPLACE'
     title: 'Marketplace'
     description: 'Allow users to buy, sell, or rent products or services. Please provide details below regarding how your marketplace should work. '
@@ -193,7 +193,7 @@ srv = () ->
     icon: '/images/audio.svg'
     selected: false
   ,
-    category: 'Ecommerce Building Blocks'
+    category: 'Ecommerce'
     id: 'RATINGS & REVIEWS'
     title: 'Ratings & Reviews'
     description: 'Let users rate or review people, products, or services. Please specify your desired usage below.'
@@ -202,7 +202,7 @@ srv = () ->
     icon: '/images/audio.svg'
     selected: false
   ,
-    category: 'Ecommerce Building Blocks'
+    category: 'Ecommerce'
     id: 'PAYMENTS'
     title: 'Payments'
     description: 'Allow users to pay in some way; for example, using credit cards, PayPal, or Bitcoin. Please specify your desired functionality below.'
@@ -211,7 +211,7 @@ srv = () ->
     icon: '/images/audio.svg'
     selected: false
   ,
-    category: 'Ecommerce Building Blocks'
+    category: 'Ecommerce'
     id: 'SHOPPING CART'
     title: 'Shopping Cart'
     description: 'Allow users to save items before purchasing. Please specify your desired usage below.'
@@ -220,7 +220,7 @@ srv = () ->
     icon: '/images/audio.svg'
     selected: false
   ,
-    category: 'Ecommerce Building Blocks'
+    category: 'Ecommerce'
     id: 'PRODUCT LISTING'
     title: 'Product Listing'
     description: 'Add this feature to shows lists of product or services, with individual detail pages for each one. Please specify below your desired usage and the information you would like in a product listing.'
@@ -229,7 +229,7 @@ srv = () ->
     icon: '/images/audio.svg'
     selected: false
   ,
-    category: 'Social Building Blocks'
+    category: 'Social'
     id: 'ACTIVITY FEED'
     title: 'Activity Feed'
     description: 'Show your users an activity feed of some kind, as they’re used to seeing on Facebook and Twitter, for example. Please specify below your desired usage and the information that a user should see in the activity feed.'
@@ -238,7 +238,7 @@ srv = () ->
     icon: '/images/audio.svg'
     selected: false
   ,
-    category: 'Social Building Blocks'
+    category: 'Social'
     id: 'PROFILES'
     title: 'Profiles'
     description: 'Add this feature if your app requires users to have a profile, including the ability to edit it. Please specify below your desired usage and the information you need in the profile.'
@@ -247,7 +247,7 @@ srv = () ->
     icon: '/images/audio.svg'
     selected: false
   ,
-    category: 'Social Building Blocks'
+    category: 'Social'
     id: 'MESSAGING'
     title: 'Messaging'
     description: 'Allow direct communication between two or more users. Please specify your desired functionality below.'

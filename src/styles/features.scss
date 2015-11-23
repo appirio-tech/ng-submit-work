@@ -37,6 +37,13 @@ submit-work-features {
         > li {
           overflow: auto;
 
+          ul.feature-categories-list {
+
+            h6 {
+              font-weight: $font-weight-boldest;
+            }
+          }
+
           &:first-child {
             > ul {
               li {
