@@ -18,10 +18,11 @@ form(ng-submit="vm.validateAllSections()")
 
       p.error.wider.transition(ng-class="{ show: vm.nameError && !vm.name.length }") Please enter an app name.
 
-    button.wider.continue(
-      type="button"
-      ng-click="vm.validateSection('platform-details', 'name', true)"
-    ) continue
+    .continue-buttons
+      button.wider(
+        type="button"
+        ng-click="vm.validateSection('platform-details', 'name', true)"
+      ) continue
 
   .full-height.flex.column(full-height=true)
     .dark-bg.flex.column.center.flex-grow(id="platform-details")
@@ -46,10 +47,11 @@ form(ng-submit="vm.validateAllSections()")
 
       p.error.wider.transition(ng-class="{ show: vm.orientationsError }") Please choose an orientation.
 
-    button.wider.continue(
-      type="button"
-      ng-click="vm.validateSection('type-details', ['devices', 'orientations'], true)"
-    ) continue
+    .continue-buttons
+      button.wider(
+        type="button"
+        ng-click="vm.validateSection('type-details', ['devices', 'orientations'], true)"
+      ) continue
 
   .full-height.flex.column(full-height=true)
     .type.dark-bg.flex.column.center.flex-grow(id="type-details")
@@ -87,7 +89,8 @@ form(ng-submit="vm.validateAllSections()")
 
       p.error.wider.transition(ng-class="{ show: vm.projectTypeError }") Please choose a type of work.
 
-    button.wider.continue(type="button" ng-click="vm.validateSection('brief-details', 'projectType', true)") continue
+    .continue-buttons
+      button.wider(type="button" ng-click="vm.validateSection('brief-details', 'projectType', true)") continue
 
   .full-height.flex.column.has-loader(full-height=true)
     loader(ng-if="vm.loading")
@@ -99,7 +102,8 @@ form(ng-submit="vm.validateAllSections()")
 
       p.error.wider.transition(ng-class="{ show: vm.briefError }") Please enter project details.
 
-      button.action.continue.wider(type="submit") Create Project
+      .continue-buttons
+        button.action.wider(type="submit") Create Project
 
 modal(show="vm.showSuccessModal" background-click-close=true)
   .success

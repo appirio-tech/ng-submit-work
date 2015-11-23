@@ -42,9 +42,10 @@ modal.upload-documents(show="vm.showUploadSpecs" background-click-close=true)
 
       button.action.wide(ng-click="vm.uploadSpecs()") select
 
-  button.continue.wider.save(ng-click="vm.save(true, false)") save
+  .continue-buttons
+    button.wider.save(ng-click="vm.save(true, false)") save
 
-  button.continue.wider.kick-off.action(ng-click="vm.save(true, true)") kick off project
+    button.wider.kick-off.action(ng-click="vm.save(true, true)") kick off project
 
 modal.full.define-development(show="vm.showDefineSpecsModal" background-click-close=true)
   ul.nav

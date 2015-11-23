@@ -31,7 +31,8 @@ header
 
       button.action.wide(ng-click="vm.showUpload()") select
 
-  a.button.continue.wider(ui-sref="submit-work-visuals({ id: vm.workId })") go to design
+  .continue-buttons
+    a.button.wider(ui-sref="submit-work-visuals({ id: vm.workId })") go to design
 
 //- ng-if is needed for lock height
 modal.full.define-features(show="vm.showFeaturesModal" ng-if="vm.showFeaturesModal" background-click-close=true)

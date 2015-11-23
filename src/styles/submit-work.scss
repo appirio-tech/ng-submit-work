@@ -43,8 +43,16 @@ submit-work-complete {
     }
   }
 
-  a.button.continue, button.continue, > button.action {
-    margin: $margin auto;
+  .continue-buttons {
+    padding: 32px;
+
+    button {
+      margin-left: $margin-small;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
   }
 
   .app-name {
