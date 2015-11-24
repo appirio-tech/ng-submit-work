@@ -1,0 +1,14 @@
+modal.upload-documents(show="vm.showUploadStylesModal" background-click-close=true)
+  .upload
+    img.upload-icon(src="/images/upload.svg")
+
+    h2 Upload brand guidelines
+
+    p Upload any guidelines, style guides, or prior designs.
+
+    ap-uploader(
+      config="vm.uploaderConfig"
+      uploading="vm.uploaderUploading"
+      has-errors="vm.uploaderHasErrors"
+      has-files="vm.uploaderHasFiles"
+    )

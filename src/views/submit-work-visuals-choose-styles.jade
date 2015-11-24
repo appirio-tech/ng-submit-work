@@ -1,0 +1,68 @@
+modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=true)
+  ul.nav
+    li
+      button.clean(ng-click="vm.viewPrevious()")
+        .icon.arrow.smallest
+
+    li
+      button.clean(ng-click="vm.activateModal('fonts')" ng-class="{active: vm.activeStyleModal == 'fonts'}") fonts
+
+    li
+      button.clean(ng-click="vm.activateModal('colors')" ng-class="{active: vm.activeStyleModal == 'colors'}") colors
+
+    li
+      button.clean(ng-click="vm.activateModal('icons')" ng-class="{active: vm.activeStyleModal == 'icons'}") icons
+
+    li
+      button.clean(ng-click="vm.viewNext()")
+        .icon.arrow.smallest.right
+
+  main.dark-bg.fonts.flex.column.center.flex-grow(ng-show="vm.activeStyleModal == 'fonts' ")
+    h2 Pick the font style that you prefer
+
+    p Our community will offer choices within these broad font styles. Feel free to skip this step if you don't have a preference.
+
+    ul.or-choices.flex.middle.center
+      li(ng-repeat-start="font in vm.fonts")
+        h2 {{font.name}}
+
+        hr
+
+        p {{font.description}}
+
+        img(src="/images/sans.png" ng-if="font.name != 'Serif' ")
+
+        img(src="/images/serif.png" ng-if="font.name == 'Serif' ")
+
+        button.wider.action(selectable=true type="button" ng-model="vm.font" value="font.id")
+
+      li.or(ng-repeat-end ng-if="font.name == 'Serif' ")
+        .house OR
+
+  main.dark-bg.colors.flex.column.center.flex-grow(ng-show="vm.activeStyleModal == 'colors' ")
+    h2 Pick the colors that you prefer
+
+    p Our community will use these choices to pick the appropriate shade. Feel free to skip this step if you don’t have a preference.
+
+    ul.flex.center
+      li(ng-repeat="color in vm.colors")
+        h6 {{ color.name }}
+
+        img(src="/images/{{color.name}}.png")
+
+        button.action(type="button" selectable=true ng-model="color.selected")
+
+  main.dark-bg.icons.flex.column.center.flex-grow(ng-show="vm.activeStyleModal == 'icons' ")
+    h2 Pick the icon styles that you prefer
+
+    p Feel free to skip this step if you don't have a preference.
+
+    ul.flex.center
+      li(ng-repeat="icon in vm.icons")
+        img(src="/images/{{icon.img}}.svg")
+
+        h6 {{icon.name}}
+
+        p {{icon.description}}
+
+        button.wider.action(type="button" selectable=true ng-model="vm.icon" value="icon.id")

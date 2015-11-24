@@ -1,6 +1,6 @@
 'use strict'
 
-SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, SubmitWorkUploaderService, RequirementService) ->
+SubmitWorkVisualController = ($scope, $rootScope, $state, $document, SubmitWorkService, SubmitWorkUploaderService, RequirementService) ->
   if $scope.workId
     localStorageKey               = "recentSubmitWorkSection-#{$scope.workId}"
     localStorage[localStorageKey] = 'visuals'
@@ -22,6 +22,10 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Sub
   vm.urlAdded              = false
   vm.styleModals           = ['fonts', 'colors', 'icons']
   vm.urlRegEx              = /^(http(s?):\/\/)?(www\.)?[a-zA-Z0-9\.\-\_]+(\.[a-zA-Z]{2,3})+(\/[a-zA-Z0-9\_\-\s\.\/\?\%\#\&\=]*)?$/
+
+  vm.scrollTo = (id) ->
+    element = angular.element document.getElementById id
+    $document.scrollToElementAnimated element
 
   vm.showChooseStyles = ->
     vm.showPaths = false
@@ -167,6 +171,6 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, SubmitWorkService, Sub
 
   activate()
 
-SubmitWorkVisualController.$inject = ['$scope', '$rootScope', '$state', 'SubmitWorkService', 'SubmitWorkUploaderService', 'RequirementService']
+SubmitWorkVisualController.$inject = ['$scope', '$rootScope', '$state', '$document', 'SubmitWorkService', 'SubmitWorkUploaderService', 'RequirementService']
 
 angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkVisualController', SubmitWorkVisualController

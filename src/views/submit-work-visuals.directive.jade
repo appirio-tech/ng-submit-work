@@ -3,11 +3,11 @@ loader(ng-if="vm.loading")
 header
   include nav
 
-  img(src="/images/design-active.svg")
+  img(src="/images/design-white-thin.svg")
 
-  h1 Visual Design
+  h1 Let's design your app!
 
-  p Help us define the visual style of your mobile app.
+  p Help define the visual style for your app
 
 .flush-height.flex.column(flush-height="lock")
   ul.dark-bg.flex.center.flex-grow.middle.selectable-choices(ng-class="{active: vm.showPaths}")
@@ -16,12 +16,25 @@ header
 
       img.icon.big.biggest(ng-if="vm.specsDefined" src="/images/brand-reqs-selected.svg")
 
-      h4 Choose Styles
+      h4 I don't have brand requirements
 
-      p Pick few fonts style for your mobile app
+      p Tell us your preferences for fonts, colors, and icons, and let our community come up with the most elegant designs.
 
       button.action.wide(ng-click="vm.showChooseStyles()") select
 
+    li
+      img.icon.big.biggest(src="/images/upload.svg")
+
+      h4 I have brand requirements
+
+      p Give us the link to your company's website or style guide, or upload any brand guidelines.
+
+      button.action.wide(ng-click="vm.scrollTo('secondary')") select
+
+  include submit-work-visuals-footer
+
+.flush-height.flex.column(id="secondary" full-height="lock")
+  ul.dark-bg.flex.center.flex-grow.middle.selectable-choices(ng-class="{active: vm.showPaths}")
     li
       img.icon.big.biggest(ng-if="!vm.uploaderHasFiles || vm.uploaderHasErrors || vm.uploaderUploading" src="/images/upload.svg")
 
@@ -44,118 +57,10 @@ header
 
       button.action.wide(ng-click="vm.showUrlStyles()") select
 
-  a.button.wider.continue(
-    ng-if="vm.projectType == 'DESIGN_AND_CODE'"
-    ui-sref="submit-work-development({ id: vm.workId })"
-  ) go to development
+  include submit-work-visuals-footer
 
-  .design-buttons
-    button.continue.wider.save(
-      ng-if="vm.projectType != 'DESIGN_AND_CODE'"
-      ng-click="vm.save(true, false)"
-    ) save
+include submit-work-visuals-upload
 
-    button.contine.wider.kick-off.action(
-      ng-if="vm.projectType != 'DESIGN_AND_CODE'"
-      ng-click="vm.save(true, true)"
-    ) kick off project
+include submit-work-visuals-get-style
 
-modal.upload-documents(show="vm.showUploadStylesModal" background-click-close=true)
-  .upload
-    img(src="/images/upload.svg")
-
-    h2 Upload <strong>documents</strong>
-
-    p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-
-    ap-uploader(
-      config="vm.uploaderConfig"
-      uploading="vm.uploaderUploading"
-      has-errors="vm.uploaderHasErrors"
-      has-files="vm.uploaderHasFiles"
-    )
-
-modal.enter-url(show="vm.showUrlStylesModal" background-click-close=true)
-  .upload
-    img(src="/images/url-styles.svg")
-
-    h2 Enter your <strong>url</strong>
-
-    p You can enter your website address and we'll grab your colors, fonts amd ocpms to use when designing your new app.
-
-    form(ng-submit="vm.save()" name="urlForm")
-      input.wide(type="text" name="addressInput" ng-pattern="vm.urlRegEx" ng-change="vm.checkAddressValidity()" placeholder="http://www.example.com" ng-model="vm.url" required=true)
-
-      p.error.wider.transition(ng-class="{show: urlForm.addressInput.$error.pattern }") Please enter a valid address.
-
-      button.wider.action(type="submit") save
-
-modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=true)
-  ul.nav
-    li
-      button.clean(ng-click="vm.viewPrevious()")
-        .icon.arrow.smallest
-
-    li
-      button.clean(ng-click="vm.activateModal('fonts')" ng-class="{active: vm.activeStyleModal == 'fonts'}") fonts
-
-    li
-      button.clean(ng-click="vm.activateModal('colors')" ng-class="{active: vm.activeStyleModal == 'colors'}") colors
-
-    li
-      button.clean(ng-click="vm.activateModal('icons')" ng-class="{active: vm.activeStyleModal == 'icons'}") icons
-
-    li
-      button.clean(ng-click="vm.viewNext()")
-        .icon.arrow.smallest.right
-
-  main.dark-bg.fonts.flex.column.center.flex-grow(ng-show="vm.activeStyleModal == 'fonts' ")
-    h2 Tell us your <strong>font preference</strong>
-
-    ul.or-choices.flex.middle.center
-      li(ng-repeat-start="font in vm.fonts")
-        h2 {{font.name}}
-
-        hr
-
-        p {{font.description}}
-
-        img(src="/images/sans.png" ng-if="font.name != 'Serif' ")
-
-        img(src="/images/serif.png" ng-if="font.name == 'Serif' ")
-
-        button.wider.action(selectable=true type="button" ng-model="vm.font" value="font.id")
-
-      li.or(ng-repeat-end ng-if="font.name == 'Serif' ")
-        .house OR
-
-  main.dark-bg.colors.flex.column.center.flex-grow(ng-show="vm.activeStyleModal == 'colors' ")
-    h2 Tell us <strong>the colors</strong> you like
-
-    ul.flex.center
-      li(ng-repeat="color in vm.colors")
-        h6 {{ color.name }}
-
-        img(src="/images/{{color.name}}.png")
-
-        button.action(type="button" selectable=true ng-model="color.selected")
-
-  main.dark-bg.icons.flex.column.center.flex-grow(ng-show="vm.activeStyleModal == 'icons' ")
-    h2 Tell us <strong>the icons</strong> you like
-
-    ul.flex.center
-      li(ng-repeat="icon in vm.icons")
-        img(src="/images/{{icon.img}}.svg")
-
-        h6 {{icon.name}}
-
-        p {{icon.description}}
-
-        button.wider.action(type="button" selectable=true ng-model="vm.icon" value="icon.id")
-
-  footer
-    button.wider(ng-hide="vm.backButtonDisabled" ng-click="vm.viewPrevious()") back
-
-    button.action.action.wider(ng-hide="vm.nextButtonDisabled" ng-click="vm.viewNext()") next
-
-    button.action.wider(ng-show="vm.showFinishDesignButton" ng-click="vm.save()") Save
+include submit-work-visuals-choose-styles
