@@ -3,6 +3,16 @@
 $card-max-width: 180px;
 
 submit-work-visuals {
+  .design-buttons {
+    button {
+      margin-left: $margin-small;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+
   p.error {
     @include block-center();
 

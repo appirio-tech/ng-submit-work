@@ -4,6 +4,10 @@ submit-work-development {
   display: block;
   text-align: center;
 
+  .save {
+    margin-top: $margin;
+  }
+
   .security img {
     height: 80px;
   }

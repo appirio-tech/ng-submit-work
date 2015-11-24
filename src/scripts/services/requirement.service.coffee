@@ -5,12 +5,12 @@ srv = () ->
 
   service.projectTypes = [
     name: 'Design'
-    description: 'Do you have an idea or requirements that you would like visualized? You will receive design mockups that will illustrate your app in detail and be ready to be turned into code.'
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
     id: 'DESIGN'
     selected: false
   ,
     name: 'Design & Development'
-    description: 'Do you have an idea, sketch, or design that you would like turned into an app that can appear in the app store? You will receive a fully functioning app, along with the source code. '
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
     id: 'DESIGN_AND_CODE'
     selected: false
   ]
@@ -235,13 +235,13 @@ srv = () ->
 
   service.fonts = [
     name: 'Serif'
-    description: 'Classic font families that work well for stylized headlines, as well as paragraphs of text.'
+    description: 'Classic design, good legiblity for large and small text.'
     id: 'SERIF'
     selected: false
   ,
     name: 'Sans Serif'
     id: 'SANS_SERIF'
-    description: 'Modern font families known for their versatility.'
+    description: 'Modern design, good for headers and body text.'
     selected: false
   ]
 
@@ -268,20 +268,20 @@ srv = () ->
   ]
 
   service.icons = [
-    name: 'Flat Color'
-    description: 'A one dimensional, modern and colorful icon style.'
+    name: 'Flat Colors'
+    description: 'Lorem ipsum dolor sit amet'
     id: 'FLAT_COLORS'
     selected: false
     img: 'flat-colors'
   ,
     name: 'Thin Line'
-    description: 'A lighter weight and modern icon style.'
+    description: 'Lorem ipsum dolor sit amet'
     id: 'THIN_LINE'
     selected: false
     img: 'thin-line'
   ,
     name: 'Solid Line'
-    description: 'A bold and visually powerful icon style.'
+    description: 'Lorem ipsum dolor sit amet'
     id: 'SOLID_LINE'
     selected: false
     img: 'solid-line'
