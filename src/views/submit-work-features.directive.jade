@@ -3,9 +3,9 @@ header
 
   img(src="/images/features-white.svg")
 
-  h1 Specify Features
+  h1 Feature Requirements
 
-  p Tell us what features we need to include in your new app.
+  p Tell us the features that you would like in your app
 
 .flush-height.flex.column(flush-height="lock")
   ul.dark-bg.flex.center.middle.flex-grow.selectable-choices
@@ -16,7 +16,7 @@ header
 
       h4 Define features
 
-      p UX design greating the usability, accessibility, and costume journey.
+      p Use our wizard to pick the most commonly-requested features and add your own custom features.
 
       button.action.wide(ng-click="vm.showFeatures()") select
 
@@ -25,106 +25,15 @@ header
 
       img.icon.biggest(ng-if="vm.uploaderHasFiles && !vm.uploaderHasErrors && !vm.uploaderUploading" src="/images/upload-selected.svg")
 
-      h4 Upload document
+      h4 Upload Requirements
 
-      p Upload your specs or any documents you have.
+      p Upload a brief, requirements, specs, or feature list.
 
       button.action.wide(ng-click="vm.showUpload()") select
 
-  a.button.continue.wider(ui-sref="submit-work-visuals({ id: vm.workId })") go to design
+  .continue-buttons
+    a.button.wider(ui-sref="submit-work-visuals({ id: vm.workId })") go to design
 
-//- ng-if is needed for lock height
-modal.full.define-features(show="vm.showFeaturesModal" ng-if="vm.showFeaturesModal" background-click-close=true)
-  h2 {{vm.appName}} mobile app <strong>features</strong>
+include submit-work-features-define
 
-  main.flex.flex-grow.stretch
-    ul.features.flex.column
-      li.flex-grow(lock-height=true ignore-content="true")
-        ul.feature-categories-list
-          li(ng-repeat="featureCategory in vm.categoriesList" ng-if="vm.filterByCategory(vm.features, featureCategory).length > 0")
-            h6 {{featureCategory}}
-
-            ul.feature-list
-              li(ng-repeat="feature in vm.features" ng-if="feature.category == featureCategory" ng-class="{active: vm.activeFeature.title == feature.title}")
-                button.widest.clean(ng-click="vm.activateFeature(feature)")
-                  //- img.icon.small(src="{{ feature.icon }}" ng-hide="feature.selected")
-
-                  img.icon.small(src="/images/icon-check-solid.svg" ng-show="feature.selected")
-
-                  span {{ feature.title }}
-
-      li
-        button.widest.clean(ng-click="vm.toggleDefineFeatures()")
-          span Define a new feature
-
-          .icon +
-
-    ul.contents.flex.column.flex-grow
-      li.flex.flex-grow
-        .default.active(ng-hide="vm.showDefineFeaturesForm" ng-class="{active: !vm.activeFeature}")
-          h5 Select and define features for your app
-
-          p Please list the functionality that your app needs to have by selecting from the list of popular features on the left or by defining your own custom features
-
-        .description(ng-hide="vm.showDefineFeaturesForm" ng-class="{active: vm.activeFeature}")
-          h5 Select and define features for your app
-
-          h6 {{ vm.activeFeature.title }} description
-
-          p {{vm.activeFeature.description}}
-
-          textarea.widest(placeholder="Notes..." ng-model="vm.activeFeature.notes")
-
-          button.wider.action(ng-if="!vm.activeFeature.selected" ng-click="vm.applyFeature()") apply feature
-
-          button.wider.action(ng-if="vm.activeFeature.selected" ng-click="vm.removeFeature()") remove feature
-
-          button.wider.action(ng-if="vm.activeFeatureChangedNotes(vm.activeFeature)" ng-click="vm.saveNotes()") save notes
-
-        form.new-feature(ng-submit="vm.addCustomFeature()" ng-class="{active: vm.showDefineFeaturesForm}")
-          h5 Define a new feature
-
-          label New feature title
-
-          input.widest(type="text" ng-model="vm.customFeature.title" ng-change="vm.customNameUnique()" required=true)
-
-          p.error(ng-if="vm.featureTitleError") This feature name already exists, please try another.
-
-          label New feature description
-
-          textarea.widest(ng-model="vm.customFeature.description" required=true)
-
-          button.wide.action(type="submit") add
-
-          button.wide.cancel(type="button" ng-click="vm.hideCustomFeatures()") Cancel
-
-        .example.flex-grow
-          img(ng-if="vm.activeFeature && !vm.activeFeature.custom" src="/images/{{ vm.activePreview }}.png")
-
-          img(ng-if="vm.activeFeature && vm.activeFeature.custom" src="/images/Custom-feature.png")
-
-          img(ng-if="!vm.activeFeature && vm.addingCustomFeature" src="/images/Custom-feature.png")
-
-          img(ng-if="!vm.activeFeature && !vm.addingCustomFeature" src="/images/Default-preview.png")
-
-      li.flex.middle.space-between
-        .count {{vm.selectedFeaturesCount}} features added
-
-        button.wider.action(ng-click="vm.save()") Save
-
-modal.upload-documents(show="vm.showUploadModal" background-click-close=true)
-  .upload
-    img(src="/images/upload.svg")
-
-    h2 Upload <strong>documents</strong>
-
-    p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-
-    ap-uploader(
-      config="vm.uploaderConfig"
-      uploading="vm.uploaderUploading"
-      has-errors="vm.uploaderHasErrors"
-      has-files="vm.uploaderHasFiles"
-    )
-
-
+include submit-work-features-upload

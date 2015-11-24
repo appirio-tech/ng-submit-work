@@ -1,0 +1,78 @@
+//- ng-if is needed for lock height
+modal.full.define-features(show="vm.showFeaturesModal" ng-if="vm.showFeaturesModal" background-click-close=true)
+  h2 <strong>features</strong>
+
+  main.flex.flex-grow.stretch
+    ul.features.flex.column
+      li.flex-grow(lock-height=true ignore-content="true")
+        ul.feature-categories-list
+          li(ng-repeat="featureCategory in vm.categoriesList" ng-if="vm.filterByCategory(vm.features, featureCategory.category).length > 0")
+            h6 {{featureCategory.category}}
+
+            ul.feature-list
+              li(ng-repeat="feature in vm.features" ng-if="feature.category == featureCategory.category" ng-class="{active: vm.activeFeature.title == feature.title}")
+                button.widest.clean(ng-click="vm.activateFeature(feature)")
+                  //- img.icon.small(src="{{ feature.icon }}" ng-hide="feature.selected")
+
+                  img.icon.small(src="/images/icon-check-solid.svg" ng-show="feature.selected")
+
+                  span {{ feature.title }}
+
+      li
+        button.widest.clean(ng-click="vm.toggleDefineFeatures()")
+          span Define a new feature
+
+          .icon +
+
+    ul.contents.flex.column.flex-grow
+      li.flex.flex-grow
+        .default.active(ng-hide="vm.showDefineFeaturesForm" ng-class="{active: !vm.activeFeature}")
+          h5 Select and define features for your app
+
+          p Select from the most popular features, listed on the left, or define your own custom features.
+
+        .description(ng-hide="vm.showDefineFeaturesForm" ng-class="{active: vm.activeFeature}")
+          h5 Select and define features for your app
+
+          h6 {{ vm.activeFeature.title }} description
+
+          p {{vm.activeFeature.description}}
+
+          textarea.widest(placeholder="Notes..." ng-model="vm.activeFeature.notes")
+
+          button.wider.action(ng-if="!vm.activeFeature.selected" ng-click="vm.applyFeature()") Add this feature
+
+          button.wider.action(ng-if="vm.activeFeature.selected" ng-click="vm.removeFeature()") remove feature
+
+          button.wider.action(ng-if="vm.activeFeatureChangedNotes(vm.activeFeature)" ng-click="vm.saveNotes()") save notes
+
+        form.new-feature(ng-submit="vm.addCustomFeature()" ng-class="{active: vm.showDefineFeaturesForm}")
+          h5 Define a new feature
+
+          label Feature name
+
+          input.widest(type="text" ng-model="vm.customFeature.title" ng-change="vm.customNameUnique()" required=true)
+
+          p.error(ng-if="vm.featureTitleError") This feature name already exists, please try another.
+
+          label Feature description
+
+          textarea.widest(ng-model="vm.customFeature.description" required=true placeholder="Briefly describe the feature, including how it will be used, and provide examples that will help designers and developers understand it.")
+
+          button.wide.action(type="submit") add
+
+          button.wide.cancel(type="button" ng-click="vm.hideCustomFeatures()") Cancel
+
+        .example.flex-grow
+          img(ng-if="vm.activeFeature && !vm.activeFeature.custom" src="/images/{{ vm.activePreview }}.png")
+
+          img(ng-if="vm.activeFeature && vm.activeFeature.custom" src="/images/Custom-feature.png")
+
+          img(ng-if="!vm.activeFeature && vm.addingCustomFeature" src="/images/Custom-feature.png")
+
+          img(ng-if="!vm.activeFeature && !vm.addingCustomFeature" src="/images/Default-preview.png")
+
+      li.flex.middle.space-between
+        .count {{vm.selectedFeaturesCount}} features added
+
+        button.wider.action(ng-click="vm.save()") Save
