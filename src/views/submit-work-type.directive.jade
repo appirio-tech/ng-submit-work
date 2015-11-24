@@ -1,7 +1,7 @@
 header.flex.column.center
-  h1 How to create a new project
+  h1 Let's Start Creating Your App
 
-  p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+  p Welcome to our step-by-step guide for gathering  your requirements. Tell us about your feature requirements and design preferences, and we’ll start creating your app.
 
 form(ng-submit="vm.validateAllSections()")
   .flush-height.flex.column(flush-height="lock")
@@ -16,7 +16,7 @@ form(ng-submit="vm.validateAllSections()")
         autofocus=true
       )
 
-      p.error.wider.transition(ng-class="{ show: vm.nameError && !vm.name.length }") Please enter an app name.
+      p.error.wider.transition(ng-class="{ show: vm.nameError && !vm.name.length }") Please name your project.
 
     .continue-buttons
       button.wider(
@@ -26,18 +26,18 @@ form(ng-submit="vm.validateAllSections()")
 
   .full-height.flex.column(full-height=true)
     .dark-bg.flex.column.center.flex-grow(id="platform-details")
-      h2 IOS <strong>platform details</strong>
+      h2 iOS <strong>platform details</strong>
 
       ul.target-platforms
         li
-          h5 Devices
+          h5 Choose the <strong>devices</strong> on which you’d like your app to run 
 
           ul
             li(ng-repeat="device in vm.devices")
               checkbox(label="{{device.name}}" ng-model="device.selected" ng-click="vm.validateSection('type-details', ['devices'])")
 
         li(ng-class="{invisible: !vm.showOrientation()}")
-          h5 Orientation
+          h5 What <strong>screen</strong> orientations would you like to support?
 
           ul
             li(ng-repeat="orientation in vm.orientations")
@@ -96,9 +96,9 @@ form(ng-submit="vm.validateAllSections()")
     loader(ng-if="vm.loading")
 
     .dark-bg.flex.column.center.flex-grow(id="brief-details")
-      h2 Can you <strong>share a brief</strong> overview?
+      h2 <strong>share a brief</strong> overview
 
-      textarea.brief(placeholder="E.g. I need a mobile HR application with social features to support my growing organization" ng-model="vm.brief" ng-change="vm.validateSection('brief-details', 'brief')")
+      textarea.brief(placeholder="You can include a short pitch for your app or just quickly describe how it will be used and by whom. Don't worry, you will get a chance to add more details later in the process." ng-model="vm.brief" ng-change="vm.validateSection('brief-details', 'brief')")
 
       p.error.wider.transition(ng-class="{ show: vm.briefError }") Please enter project details.
 

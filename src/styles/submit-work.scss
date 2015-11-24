@@ -167,6 +167,8 @@ submit-work-complete {
     > li {
       margin: 0 $margin;
 
+      width: 450px;
+
       button {
         margin-top: $margin-small;
       }
@@ -182,6 +184,10 @@ submit-work-complete {
 
       h4 {
         margin-top: $margin-small;
+      }
+
+      p {
+        height: 40px;
       }
     }
   }
