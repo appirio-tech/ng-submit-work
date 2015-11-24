@@ -40710,283 +40710,6 @@ $templateCache.put("views/user-drop-down.directive.html","<header>Batman66 (wip)
   'use strict';
   var dependencies;
 
-  dependencies = ['ui.router', 'ngResource', 'app.constants', 'duScroll', 'appirio-tech-ng-ui-components', 'appirio-tech-ng-api-services'];
-
-  angular.module('appirio-tech-ng-messaging', dependencies);
-
-}).call(this);
-
-(function() {
-  'use strict';
-  var MessagingController;
-
-  MessagingController = function($scope, MessagesAPIService, ThreadsAPIService, InboxesAPIService, MessageUpdateAPIService) {
-    var activate, getThread, markMessageRead, orderMessagesByCreationDate, sendMessage, vm;
-    vm = this;
-    vm.currentUser = null;
-    vm.activeThread = null;
-    vm.sending = false;
-    vm.loadingThreads = false;
-    vm.loadingMessages = false;
-    vm.workId = $scope.workId;
-    vm.threadId = $scope.threadId;
-    vm.subscriberId = $scope.subscriberId;
-    orderMessagesByCreationDate = function(messages) {
-      var orderedMessages;
-      orderedMessages = messages != null ? messages.sort(function(previous, next) {
-        return new Date(previous.createdAt) - new Date(next.createdAt);
-      }) : void 0;
-      return orderedMessages;
-    };
-    markMessageRead = function(message) {
-      var putParams, queryParams, resource;
-      queryParams = {
-        threadId: vm.threadId,
-        messageId: message.id
-      };
-      putParams = {
-        param: {
-          readFlag: true,
-          subscriberId: $scope.subscriberId
-        }
-      };
-      resource = MessageUpdateAPIService.put(queryParams, putParams);
-      resource.$promise.then(function(response) {});
-      return resource.$promise["finally"](function() {});
-    };
-    activate = function() {
-      vm.newMessage = '';
-      $scope.$watch('subscriberId', function() {
-        return getThread();
-      });
-      vm.sendMessage = sendMessage;
-      return vm;
-    };
-    getThread = function() {
-      var params, resource;
-      if ($scope.subscriberId) {
-        params = {
-          threadId: vm.threadId
-        };
-        vm.loadingThreads = true;
-        resource = InboxesAPIService.get(params);
-        resource.$promise.then(function(response) {
-          var lastMessage;
-          vm.thread = response;
-          vm.thread.messages = orderMessagesByCreationDate(vm.thread.messages);
-          if (vm.thread.unreadCount > 0) {
-            lastMessage = vm.thread.messages[vm.thread.messages.length - 1];
-            return markMessageRead(lastMessage);
-          }
-        });
-        resource.$promise["catch"](function() {});
-        return resource.$promise["finally"](function() {
-          return vm.loadingThreads = false;
-        });
-      }
-    };
-    sendMessage = function() {
-      var message, resource;
-      if (vm.newMessage.length && vm.thread) {
-        message = {
-          param: {
-            publisherId: $scope.subscriberId,
-            threadId: vm.threadId,
-            body: vm.newMessage,
-            attachments: []
-          }
-        };
-        vm.sending = true;
-        resource = MessagesAPIService.post(message);
-        resource.$promise.then(function(response) {
-          vm.newMessage = '';
-          $scope.showLast = 'scroll';
-          return getThread();
-        });
-        resource.$promise["catch"](function(response) {});
-        return resource.$promise["finally"](function() {
-          return vm.sending = false;
-        });
-      }
-    };
-    return activate();
-  };
-
-  MessagingController.$inject = ['$scope', 'MessagesAPIService', 'ThreadsAPIService', 'InboxesAPIService', 'MessageUpdateAPIService'];
-
-  angular.module('appirio-tech-ng-messaging').controller('MessagingController', MessagingController);
-
-}).call(this);
-
-(function() {
-  'use strict';
-  var directive;
-
-  directive = function() {
-    var link;
-    link = function(scope, element, attrs) {
-      var showLast;
-      showLast = function(newValue, oldValue) {
-        var $messageList, bottom, messageList, uls;
-        if (newValue) {
-          scope.showLast = false;
-          uls = element.find('ul');
-          messageList = uls[0];
-          $messageList = angular.element(messageList);
-          bottom = messageList.scrollHeight;
-          if (newValue === 'scroll') {
-            return $messageList.scrollTopAnimated(bottom);
-          } else {
-            return $messageList.scrollTop(bottom);
-          }
-        }
-      };
-      showLast(true);
-      return scope.$watch('showLast', showLast);
-    };
-    return {
-      restrict: 'E',
-      templateUrl: 'views/messaging.directive.html',
-      link: link,
-      controller: 'MessagingController',
-      controllerAs: 'vm',
-      scope: {
-        threadId: '@threadId',
-        workId: '@workId',
-        subscriberId: '@subscriberId'
-      }
-    };
-  };
-
-  directive.$inject = [];
-
-  angular.module('appirio-tech-ng-messaging').directive('messaging', directive);
-
-}).call(this);
-
-(function() {
-  'use strict';
-  var directive;
-
-  directive = function() {
-    return {
-      restrict: 'E',
-      templateUrl: 'views/threads.directive.html',
-      controller: 'ThreadsController',
-      controllerAs: 'vm',
-      scope: {
-        subscriberId: '@subscriberId',
-        userType: '@userType'
-      }
-    };
-  };
-
-  directive.$inject = [];
-
-  angular.module('appirio-tech-ng-messaging').directive('threads', directive);
-
-}).call(this);
-
-(function() {
-  'use strict';
-  var srv;
-
-  srv = function(ThreadsAPIService) {
-    var get;
-    get = function(subscriberId, onChange) {
-      var queryParams, resource, threadsVm;
-      queryParams = {
-        subscriberId: subscriberId
-      };
-      threadsVm = {
-        threads: [],
-        totalUnreadCount: {},
-        avatars: {}
-      };
-      resource = ThreadsAPIService.query(queryParams);
-      resource.$promise.then(function(response) {
-        threadsVm.threads = response.threads;
-        return typeof onChange === "function" ? onChange(threadsVm) : void 0;
-      });
-      resource.$promise["catch"](function() {});
-      return resource.$promise["finally"](function() {});
-    };
-    return {
-      get: get
-    };
-  };
-
-  srv.$inject = ['ThreadsAPIService'];
-
-  angular.module('appirio-tech-ng-messaging').factory('ThreadsService', srv);
-
-}).call(this);
-
-(function() {
-  'use strict';
-  var ThreadsController;
-
-  ThreadsController = function($scope, $state, InboxesProjectAPIService) {
-    var activate, getUserThreads, removeBlanksAndOrder, vm;
-    vm = this;
-    vm.loadingThreads = false;
-    vm.userType = $scope.userType || 'customer';
-    if (vm.userType === 'customer') {
-      vm.threadHref = 'messaging';
-    } else {
-      vm.threadHref = 'copilot-messaging';
-    }
-    removeBlanksAndOrder = function(threads) {
-      var i, len, noBlanks, orderedThreads, ref, thread;
-      noBlanks = [];
-      if (threads) {
-        for (i = 0, len = threads.length; i < len; i++) {
-          thread = threads[i];
-          if (thread != null ? (ref = thread.messages) != null ? ref.length : void 0 : void 0) {
-            noBlanks.push(thread);
-          }
-        }
-        noBlanks;
-        orderedThreads = noBlanks != null ? noBlanks.sort(function(previous, next) {
-          return new Date(next.messages[next.messages.length - 1].createdAt) - new Date(previous.messages[previous.messages.length - 1].createdAt);
-        }) : void 0;
-        return orderedThreads;
-      }
-    };
-    getUserThreads = function() {
-      var resource;
-      vm.loadingThreads = true;
-      resource = InboxesProjectAPIService.get();
-      resource.$promise.then(function(response) {
-        vm.threads = removeBlanksAndOrder(response != null ? response.threads : void 0);
-        return vm.totalUnreadCount = response != null ? response.totalUnreadCount : void 0;
-      });
-      resource.$promise["catch"](function() {});
-      return resource.$promise["finally"](function() {
-        return vm.loadingThreads = false;
-      });
-    };
-    activate = function() {
-      $scope.$watch('subscriberId', function() {
-        return getUserThreads();
-      });
-      return vm;
-    };
-    return activate();
-  };
-
-  ThreadsController.$inject = ['$scope', '$state', 'InboxesProjectAPIService'];
-
-  angular.module('appirio-tech-ng-messaging').controller('ThreadsController', ThreadsController);
-
-}).call(this);
-
-angular.module("appirio-tech-ng-messaging").run(["$templateCache", function($templateCache) {$templateCache.put("views/messaging.directive.html","<p>You have {{vm.thread.messages.length}} messages with {{vm.thread.messages[0].publisher.handle}}</p><ul class=\"messages flex-grow\"><li ng-repeat=\"message in vm.thread.messages track by $index\"><avatar avatar-url=\"{{ message.publisher.avatar }}\"></avatar><div class=\"message elevated-bottom\"><a href=\"#\" class=\"name\">{{message.publisher.handle}}</a><time>{{ message.createdAt | timeLapse }}</time><p ng-if=\"message.publisher.role != null\" class=\"title\">{{message.publisher.role}}</p><p>{{ message.body }}</p><ul class=\"attachments\"><li ng-repeat=\"attachment in message.attachments track by $index\"><a href=\"#\">{{ message.attachments.originalUrl }}</a></li></ul><a ng-if=\"message.attachments.length &gt; 0\" class=\"download\"><div class=\"icon download smallest\"></div><p>Download all images</p></a></div></li><a id=\"messaging-bottom-{{ vm.threadId }}\"></a></ul><div class=\"respond\"><form ng-submit=\"vm.sendMessage()\"><textarea placeholder=\"Send a message&hellip;\" ng-model=\"vm.newMessage\"></textarea><button type=\"submit\" ng-hide=\"vm.sending\" class=\"wider action\">reply</button><button disabled=\"disabled\" ng-show=\"vm.sending\" class=\"wider action\">sending...</button></form></div>");
-$templateCache.put("views/threads.directive.html","<ul><li ng-repeat=\"thread in vm.threads track by $index\"><a ui-sref=\"{{vm.threadHref}}({ id: thread.projectId, threadId: thread.id })\" ng-class=\"{unread: thread.unreadCount &gt; 0}\"><div class=\"app-name\">{{thread.subject}}</div><div class=\"sender\"><avatar avatar-url=\"{{ thread.publishers[0].avatar }}\"></avatar><div class=\"name\">{{thread.messages[thread.messages.length -1].publisher.handle}}</div><time>{{ thread.messages[thread.messages.length -1].createdAt | timeLapse }}</time></div><p class=\"message\">{{ thread.messages[thread.messages.length -1].body }}</p></a></li></ul><div ng-show=\"vm.threads.length == 0\" class=\"none\">None</div>");}]);
-(function() {
-  'use strict';
-  var dependencies;
-
   dependencies = ['ui.router', 'duScroll'];
 
   angular.module('appirio-tech-ng-ui-components', dependencies);
@@ -42032,7 +41755,8 @@ $templateCache.put("views/simple-countdown.directive.html","<p>{{vm.timeRemainin
   'use strict';
 
   angular.module('ap-file-upload', [
-    'ngResource'
+    'ngResource',
+    'appirio-tech-ng-ui-components'
   ]);
 
 })();
@@ -42591,7 +42315,7 @@ $templateCache.put("views/simple-countdown.directive.html","<p>{{vm.timeRemainin
         config: '='
       },
       controller: 'UploaderController as vm',
-      templateUrl: 'uploader.html'
+      templateUrl: 'views/uploader.directive.html'
     }
   };
 
@@ -42607,42 +42331,47 @@ $templateCache.put("views/simple-countdown.directive.html","<p>{{vm.timeRemainin
 
   function UploaderController($scope, UploaderService) {
     var vm = this;
-    var config = $scope.config || {};
 
-    vm.allowMultiple = config.allowMultiple || false;
-    vm.uploader = UploaderService.get(config.name);
+    function configUploader(newConfig, oldConfig) {
+      if (newConfig === undefined) {
+        return false;
+      }
 
-    function configUploader() {
-      vm.uploader.config(config);
+      var oldName = oldConfig ? oldConfig.name : undefined;
+      if (newConfig.name !== oldName) {
+        vm.uploader = UploaderService.get(newConfig.name);
+      }
+
+      vm.config = newConfig;
+      vm.uploader.config(vm.config);
+
+      var oldQuery = oldConfig ? oldConfig.query : undefined;
+      if (newConfig.query && newConfig.query !== oldQuery) {
+        vm.uploader.populate();
+      }
+
+      if (newConfig && !oldConfig) {
+        $scope.$watch('vm.uploader.uploading', function(newValue) {
+          $scope.uploading = newValue;
+        });
+
+        $scope.$watch('vm.uploader.hasErrors', function(newValue) {
+          $scope.hasErrors = newValue;
+        });
+
+        $scope.$watch('vm.uploader.hasFiles', function(newValue) {
+          $scope.hasFiles = newValue;
+        });
+
+        $scope.$watch('vm.uploader.fileArray', function(newValue) {
+          $scope.fileArray = newValue;
+        });
+      }
     }
 
-    $scope.$watch('config', function(newValue) {
-      config = newValue || {};
-      configUploader();
-    }, true);
+    $scope.$watch('config', configUploader, true);
 
-    $scope.$watch('vm.uploader.uploading', function(newValue) {
-      $scope.uploading = newValue;
-    });
-
-    $scope.$watch('vm.uploader.hasErrors', function(newValue) {
-      $scope.hasErrors = newValue;
-    });
-
-    $scope.$watch('vm.uploader.hasFiles', function(newValue) {
-      $scope.hasFiles = newValue;
-    });
-
-    $scope.$watch('vm.uploader.fileArray', function(newValue) {
-      $scope.fileArray = newValue;
-    });
-
-    configUploader();
-
-    if (config.query) {
-      vm.uploader.populate();
-    }
-
+    configUploader($scope.config);
   }
 
 })();
@@ -42660,7 +42389,7 @@ $templateCache.put("views/simple-countdown.directive.html","<p>{{vm.timeRemainin
         file: '='
       },
       controller: 'FileController as vm',
-      templateUrl: 'file.html'
+      templateUrl: 'views/file.directive.html'
     }
   };
 
@@ -42690,8 +42419,27 @@ $templateCache.put("views/simple-countdown.directive.html","<p>{{vm.timeRemainin
 
 })();
 
-angular.module("ap-file-upload").run(["$templateCache", function($templateCache) {$templateCache.put("file.html","<div ng-class=\"{\'failed\': vm.file.hasErrors}\" class=\"uploader\"><div class=\"fileName\"><span>{{vm.file.data.name}}</span></div><div class=\"fileActions\"><button ng-show=\"vm.file.uploading\" ng-click=\"vm.file.cancel()\" type=\"button\">Cancel</button><button ng-show=\"!vm.file.uploading\" ng-click=\"vm.file.remove()\" type=\"button\">Remove</button><button ng-show=\"vm.file.hasErrors\" ng-click=\"vm.file.retry()\" type=\"button\">Retry</button><p ng-show=\"vm.file.hasErrors\">Upload Failed</p><progress ng-show=\"vm.file.uploading\" value=\"{{vm.file.progress}}\" max=\"100\">{{vm.file.progress}}%</progress><p ng-if=\"vm.file.data.caption\">{{vm.file.data.caption}}</p><input ng-if=\"vm.allowCaptions\" type=\"text\" ng-model=\"vm.caption\"/><button ng-if=\"vm.allowCaptions\" ng-click=\"vm.setCaption()\">Edit Caption</button></div></div>");
-$templateCache.put("uploader.html","<div class=\"uploaderWrapper\"><input ng-if=\"vm.allowMultiple\" multiple=\"\" type=\"file\" on-file-change=\"vm.uploader.add(fileList)\" class=\"choose-files\"/><input ng-if=\"!vm.allowMultiple\" type=\"file\" on-file-change=\"vm.uploader.add(fileList)\" class=\"choose-files\"/><ul class=\"uploaderFiles\"><li ng-repeat=\"file in vm.uploader.files\"><ap-file file=\"file\"></ap-file></li></ul></div>");}]);
+(function() {
+  'use strict';
+  var directive;
+
+  directive = function() {
+    return {
+      restrict: 'E',
+      templateUrl: 'views/uploaded-files.directive.html',
+      scope: {
+        files: '='
+      }
+    };
+  };
+
+  angular.module('ap-file-upload').directive('uploadedFiles', directive);
+
+}).call(this);
+
+angular.module("ap-file-upload").run(["$templateCache", function($templateCache) {$templateCache.put("views/file.directive.html","<div ng-class=\"{\'failed\': vm.file.hasErrors}\" class=\"uploader\"><main ng-class=\"{ end: vm.file.uploading}\" class=\"flex column middle center\"><img ng-src=\"/images/icon-document.svg\" ng-hide=\"vm.file.hasErrors || vm.file.uploading\"/><div ng-show=\"vm.file.uploading\" class=\"progress-house\"><progress value=\"{{vm.file.progress}}\" max=\"100\">{{ vm.file.progress }}%</progress></div><div ng-show=\"vm.file.hasErrors\" class=\"failed flex column center\"><img ng-src=\"/images/icon-alert-red.svg\"/><button ng-click=\"vm.file.retry()\" type=\"button\" class=\"clean\">retry</button></div></main><footer class=\"flex space-between\"><p class=\"file-name\">{{ vm.file.data.name }}</p><button ng-show=\"!vm.file.uploading\" ng-click=\"vm.file.remove()\" type=\"button\" class=\"clean\"><div class=\"icon cross\"></div></button></footer><p ng-if=\"vm.file.data.caption\">{{ vm.file.data.caption }}</p><div class=\"fileActions\"><input ng-if=\"vm.allowCaptions\" type=\"text\" ng-model=\"vm.caption\"/><button ng-if=\"vm.allowCaptions\" ng-click=\"vm.setCaption()\">Edit Caption</button></div></div>");
+$templateCache.put("views/uploaded-files.directive.html","<ul class=\"flex wrap\"><li ng-repeat=\"file in files\"><ap-file file=\"file\"></ap-file></li></ul>");
+$templateCache.put("views/uploader.directive.html","<div ng-if=\"vm.config\" class=\"flex column center middle\"><uploaded-files files=\"vm.uploader.files\" ng-show=\"vm.uploader.files.length\"></uploaded-files><input ng-if=\"vm.config.allowMultiple\" multiple=\"\" type=\"file\" on-file-change=\"vm.uploader.add(fileList)\" class=\"choose-files\"/><input ng-if=\"!vm.config.allowMultiple\" type=\"file\" on-file-change=\"vm.uploader.add(fileList)\" class=\"choose-files\"/></div>");}]);
 (function() {
   'use strict';
   var dependencies;
