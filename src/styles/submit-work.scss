@@ -43,16 +43,8 @@ submit-work-complete {
     }
   }
 
-  .continue-buttons {
-    padding: 32px;
-
-    button {
-      margin-left: $margin-small;
-
-      &:first-child {
-        margin-left: 0;
-      }
-    }
+  a.button.continue, button.continue, > button.action {
+    margin: $margin auto;
   }
 
   .app-name {
@@ -92,17 +84,17 @@ submit-work-complete {
     }
   }
 
+  progress {
+    display   : block;
+    width     : 400px;
+    margin    : 0 auto;
+    margin-top: $margin-smallest;
+  }
+
   > header {
     background-color: $black;
     padding         : $padding-big;
     min-height      : 350px;
-
-    progress {
-      display   : block;
-      width     : 400px;
-      margin    : 0 auto;
-      margin-top: $margin-smallest;
-    }
 
     a {
       color: $white;
@@ -189,15 +181,8 @@ submit-work-complete {
   .upload-documents, .enter-url {
     background-color: $white;
 
-    .upload-icon {
+    img {
       height: 100px;
-    }
-
-    uploaded-files {
-      margin-top: 40px;
-      max-width : 892px;
-      max-height: 398px;
-      overflow  : auto;
     }
 
     .close {
@@ -205,6 +190,11 @@ submit-work-complete {
     }
 
     h2 {
+      margin-top: $margin;
+    }
+
+    input {
+      margin: 0 auto;
       margin-top: $margin;
     }
 
