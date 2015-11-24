@@ -92,17 +92,17 @@ submit-work-complete {
     }
   }
 
-  progress {
-    display   : block;
-    width     : 400px;
-    margin    : 0 auto;
-    margin-top: $margin-smallest;
-  }
-
   > header {
     background-color: $black;
     padding         : $padding-big;
     min-height      : 350px;
+
+    progress {
+      display   : block;
+      width     : 400px;
+      margin    : 0 auto;
+      margin-top: $margin-smallest;
+    }
 
     a {
       color: $white;
@@ -167,8 +167,6 @@ submit-work-complete {
     > li {
       margin: 0 $margin;
 
-      width: 450px;
-
       button {
         margin-top: $margin-small;
       }
@@ -185,18 +183,21 @@ submit-work-complete {
       h4 {
         margin-top: $margin-small;
       }
-
-      p {
-        height: 40px;
-      }
     }
   }
 
   .upload-documents, .enter-url {
     background-color: $white;
 
-    img {
+    .upload-icon {
       height: 100px;
+    }
+
+    uploaded-files {
+      margin-top: 40px;
+      max-width : 892px;
+      max-height: 398px;
+      overflow  : auto;
     }
 
     .close {
@@ -204,11 +205,6 @@ submit-work-complete {
     }
 
     h2 {
-      margin-top: $margin;
-    }
-
-    input {
-      margin: 0 auto;
       margin-top: $margin;
     }
 
