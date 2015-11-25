@@ -44,36 +44,6 @@ submit-work-features {
             }
           }
 
-          &:first-child {
-            > ul {
-              li {
-                &.active {
-                  button {
-                    background-color: $neutral-color;
-                  }
-                }
-
-                button {
-                  @include vertical-align-middle();
-
-                  text-align : left;
-                  padding    : $padding;
-                  color      : $black;
-
-                  &:hover {
-                    background-color: $primary-color-dark;
-                    color: $white;
-                  }
-                }
-
-                .icon {
-                  display     : inline-block;
-                  margin-right: $margin-smallest;
-                }
-              }
-            }
-          }
-
           &:last-child {
             position: relative;
             min-height: $footer-height;

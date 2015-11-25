@@ -1,0 +1,15 @@
+header.flex.middle
+  img(ng-src="{{ icon }}")
+
+  h6 {{ headerText }}
+
+ul
+  li(
+    ng-repeat="feature in features"
+    ng-class="{ active: feature.active }"
+  )
+    button.clean(ng-click="vm.activateFeature(feature)")
+      .flex
+        img(src="/images/icon-check-solid.svg" ng-class="{ invisible: !feature.selected }")
+
+        p {{ feature.name }}

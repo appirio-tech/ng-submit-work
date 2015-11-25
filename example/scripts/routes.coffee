@@ -29,6 +29,12 @@ config = ($stateProvider) ->
     title       : 'submit work complete'
     templateUrl : 'views/submit-work-complete.example.html'
 
+  states['feature-list'] =
+    url         : '/feature-list'
+    title       : 'feature-list'
+    controller  : 'FeatureListExample as vm'
+    templateUrl : 'views/feature-list.example.html'
+
   for key, state of states
     $stateProvider.state key, state
 
