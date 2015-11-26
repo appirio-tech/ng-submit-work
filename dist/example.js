@@ -58,6 +58,12 @@ angular.module("app.constants", [])
       title: 'submit work complete',
       templateUrl: 'views/submit-work-complete.example.html'
     };
+    states['feature-list'] = {
+      url: '/feature-list',
+      title: 'feature-list',
+      controller: 'FeatureListExample as vm',
+      templateUrl: 'views/feature-list.example.html'
+    };
     results = [];
     for (key in states) {
       state = states[key];
@@ -87,5 +93,41 @@ angular.module("app.constants", [])
   };
 
   angular.module('appirio-tech-ng-work-layout').controller('TypeController', TypeController);
+
+}).call(this);
+
+(function() {
+  'use strict';
+  var FeatureListExample;
+
+  FeatureListExample = function() {
+    var activate, vm;
+    vm = this;
+    activate = function() {
+      vm.features = [
+        {
+          name: 'Introductions',
+          active: false,
+          selected: true
+        }, {
+          name: 'spiderman',
+          active: true
+        }, {
+          name: 'A very very very very very very very long feaking name',
+          active: false,
+          selected: true
+        }
+      ];
+      vm.activeFeature = vm.features[0];
+      vm.activate = function(feature) {
+        vm.activeFeature = feature;
+        return console.log('active feature is', vm.activeFeature.name);
+      };
+      return vm;
+    };
+    return activate();
+  };
+
+  angular.module('appirio-tech-ng-work-layout').controller('FeatureListExample', FeatureListExample);
 
 }).call(this);

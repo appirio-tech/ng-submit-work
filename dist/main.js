@@ -10,7 +10,7 @@
 
 angular.module("appirio-tech-ng-submit-work").run(["$templateCache", function($templateCache) {$templateCache.put("views/nav.html","<ul class=\"navs flex center\"><li ng-class=\"{ active: vm.section == 1 }\"><a ui-sref=\"submit-work-features({ id: vm.workId })\">Features</a></li><li ng-class=\"{ active: vm.section == 2 }\"><a ui-sref=\"submit-work-visuals({ id: vm.workId })\">Visual Design</a></li><li ng-if=\"vm.projectType == \'DESIGN_AND_CODE\'\" ng-class=\"{ active: vm.section == 3 }\"><a ui-sref=\"submit-work-development({ id: vm.workId })\">Development</a></li></ul><progress value=\"{{ vm.section }}\" max=\"{{ vm.numberOfSections }}\"></progress>");
 $templateCache.put("views/submit-work-type.directive.html","<header class=\"flex column center\"><h1>How to create a new project</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></header><form ng-submit=\"vm.validateAllSections()\"><div flush-height=\"lock\" class=\"flush-height flex column\"><div id=\"app-name\" class=\"dark-bg flex column center middle flex-grow\"><input type=\"text\" placeholder=\"Name your project...\" ng-change=\"vm.validateSection(\'platform-details\', \'name\', false)\" ng-keydown=\"vm.interceptSubmit($event)\" ng-model=\"vm.name\" ng-class=\"{error: vm.nameError &amp;&amp; !vm.name.length}\" autofocus=\"autofocus\" class=\"wider\"/><p ng-class=\"{ show: vm.nameError &amp;&amp; !vm.name.length }\" class=\"error wider transition\">Please enter an app name.</p></div><button type=\"button\" ng-click=\"vm.validateSection(\'platform-details\', \'name\', true)\" class=\"wider continue\">continue</button></div><div full-height=\"full-height\" class=\"full-height flex column\"><div id=\"platform-details\" class=\"dark-bg flex column center flex-grow\"><h2>IOS <strong>platform details</strong></h2><ul class=\"target-platforms\"><li><h5>Devices</h5><ul><li ng-repeat=\"device in vm.devices\"><checkbox label=\"{{device.name}}\" ng-model=\"device.selected\" ng-click=\"vm.validateSection(\'type-details\', [\'devices\'])\"></checkbox></li></ul></li><li ng-class=\"{invisible: !vm.showOrientation()}\"><h5>Orientation</h5><ul><li ng-repeat=\"orientation in vm.orientations\"><checkbox label=\"{{orientation.name}}\" ng-model=\"orientation.selected\" ng-click=\"vm.validateSection(\'type-details\', [\'orientations\'])\"></checkbox></li></ul></li></ul><p ng-class=\"{ show: vm.devicesError }\" class=\"error wider transition\">Please choose a device.</p><p ng-class=\"{ show: vm.orientationsError }\" class=\"error wider transition\">Please choose an orientation.</p></div><button type=\"button\" ng-click=\"vm.validateSection(\'type-details\', [\'devices\', \'orientations\'], true)\" class=\"wider continue\">continue</button></div><div full-height=\"full-height\" class=\"full-height flex column\"><div id=\"type-details\" class=\"type dark-bg flex column center flex-grow\"><h2>What <strong>type of work</strong> are you looking for?</h2><ul class=\"type flex center\"><li ng-repeat=\"projectType in vm.projectTypes\"><div ng-class=\"{ selected: vm.projectType == projectType.id }\" ng-if=\"projectType.id == \'DESIGN\'\" class=\"house flex column center middle\"><img src=\"/images/design-thin.svg\" class=\"inactive\"/><img src=\"/images/design-white-thin.svg\" class=\"active\"/></div><div ng-class=\"{ selected: vm.projectType == projectType.id }\" ng-if=\"projectType.id == \'DESIGN_AND_CODE\'\" class=\"house flex column center middle\"><img src=\"/images/design-development.svg\" class=\"inactive\"/><img src=\"/images/design-development-active.svg\" class=\"active\"/></div><h4>{{projectType.name}}</h4><p>{{ projectType.description }}</p><button type=\"button\" selectable=\"true\" ng-model=\"vm.projectType\" ng-click=\"vm.validateSection(\'brief-details\', \'projectType\')\" value=\"projectType.id\" class=\"action\"></button></li></ul><p ng-class=\"{ show: vm.projectTypeError }\" class=\"error wider transition\">Please choose a type of work.</p></div><button type=\"button\" ng-click=\"vm.validateSection(\'brief-details\', \'projectType\', true)\" class=\"wider continue\">continue</button></div><div full-height=\"full-height\" class=\"full-height flex column has-loader\"><loader ng-if=\"vm.loading\"></loader><div id=\"brief-details\" class=\"dark-bg flex column center flex-grow\"><h2>Can you <strong>share a brief</strong> overview?</h2><textarea placeholder=\"E.g. I need a mobile HR application with social features to support my growing organization\" ng-model=\"vm.brief\" ng-change=\"vm.validateSection(\'brief-details\', \'brief\')\" class=\"brief\"></textarea><p ng-class=\"{ show: vm.briefError }\" class=\"error wider transition\">Please enter project details.</p><button type=\"submit\" class=\"action continue wider\">Create Project</button></div></div></form><modal show=\"vm.showSuccessModal\" background-click-close=\"background-click-close\"><div class=\"success\"><h2>Awesome!</h2><p>Your {{ vm.name }} is set up now</p><p>Share your email to signup and we\'ll be sure to send a project link.</p><form><input type=\"email\" required=\"required\" class=\"wider\"/><button type=\"submit\" class=\"wider\">Submit</button></form></div></modal>");
-$templateCache.put("views/submit-work-features.directive.html","<header><ul class=\"navs flex center\"><li ng-class=\"{ active: vm.section == 1 }\"><a ui-sref=\"submit-work-features({ id: vm.workId })\">Features</a></li><li ng-class=\"{ active: vm.section == 2 }\"><a ui-sref=\"submit-work-visuals({ id: vm.workId })\">Visual Design</a></li><li ng-if=\"vm.projectType == \'DESIGN_AND_CODE\'\" ng-class=\"{ active: vm.section == 3 }\"><a ui-sref=\"submit-work-development({ id: vm.workId })\">Development</a></li></ul><progress value=\"{{ vm.section }}\" max=\"{{ vm.numberOfSections }}\"></progress><img src=\"/images/features-white.svg\"/><h1>Specify Features</h1><p>Tell us what features we need to include in your new app.</p></header><div flush-height=\"lock\" class=\"flush-height flex column\"><ul class=\"dark-bg flex center middle flex-grow selectable-choices\"><li><img ng-if=\"!vm.featuresDefined\" src=\"/images/define-feature.svg\" class=\"icon biggest\"/><img ng-if=\"vm.featuresDefined\" src=\"/images/define-feature-selected.svg\" class=\"icon biggest\"/><h4>Define features</h4><p>UX design greating the usability, accessibility, and costume journey.</p><button ng-click=\"vm.showFeatures()\" class=\"action wide\">select</button></li><li><img ng-if=\"!vm.uploaderHasFiles || vm.uploaderHasErrors || vm.uploaderUploading\" src=\"/images/upload.svg\" class=\"icon biggest\"/><img ng-if=\"vm.uploaderHasFiles &amp;&amp; !vm.uploaderHasErrors &amp;&amp; !vm.uploaderUploading\" src=\"/images/upload-selected.svg\" class=\"icon biggest\"/><h4>Upload document</h4><p>Upload your specs or any documents you have.</p><button ng-click=\"vm.showUpload()\" class=\"action wide\">select</button></li></ul><a ui-sref=\"submit-work-visuals({ id: vm.workId })\" class=\"button continue wider\">go to design</a></div><modal show=\"vm.showFeaturesModal\" ng-if=\"vm.showFeaturesModal\" background-click-close=\"background-click-close\" class=\"full define-features\"><h2>Data booklet mobile app <strong>features</strong></h2><main class=\"flex flex-grow stretch\"><ul class=\"features flex column\"><li lock-height=\"lock-height\" ignore-content=\"true\" class=\"flex-grow\"><ul class=\"feature-list\"><li ng-repeat=\"feature in vm.features\" ng-class=\"{active: vm.activeFeature.title == feature.title}\"><button ng-click=\"vm.activateFeature(feature)\" class=\"widest clean\"><img src=\"{{ feature.icon }}\" ng-hide=\"feature.selected\" class=\"icon small\"/><img src=\"/images/icon-check-solid.svg\" ng-show=\"feature.selected\" class=\"icon small\"/><span>{{ feature.title }}</span></button></li></ul></li><li><button ng-click=\"vm.toggleDefineFeatures()\" class=\"widest clean\"><span>Define a new feature</span><div class=\"icon\">+</div></button></li></ul><ul class=\"contents flex column flex-grow\"><li class=\"flex flex-grow\"><div ng-hide=\"vm.showDefineFeaturesForm\" ng-class=\"{active: !vm.activeFeature}\" class=\"default active\"><h5>Select and define features for your app</h5><p>Please list the functionality that your app needs to have by selecting from the list of popular features on the left or by defining your own custom features</p></div><div ng-hide=\"vm.showDefineFeaturesForm\" ng-class=\"{active: vm.activeFeature}\" class=\"description\"><h5>Select and define features for your app</h5><h6>{{ vm.activeFeature.title }} description</h6><p>{{vm.activeFeature.description}}</p><textarea placeholder=\"Notes...\" ng-model=\"vm.activeFeature.notes\" class=\"widest\"></textarea><button ng-if=\"!vm.activeFeature.selected\" ng-click=\"vm.applyFeature()\" class=\"wider action\">apply feature</button><button ng-if=\"vm.activeFeature.selected\" ng-click=\"vm.removeFeature()\" class=\"wider action\">remove feature</button><button ng-if=\"vm.activeFeatureChangedNotes(vm.activeFeature)\" ng-click=\"vm.saveNotes()\" class=\"wider action\">save notes</button></div><form ng-submit=\"vm.addCustomFeature()\" ng-class=\"{active: vm.showDefineFeaturesForm}\" class=\"new-feature\"><h5>Define a new feature</h5><label>New feature title</label><input type=\"text\" ng-model=\"vm.customFeature.title\" ng-change=\"vm.customNameUnique()\" required=\"required\" class=\"widest\"/><p ng-if=\"vm.featureTitleError\" class=\"error\">This feature name already exists, please try another.</p><label>New feature description</label><textarea ng-model=\"vm.customFeature.description\" required=\"required\" class=\"widest\"></textarea><button type=\"submit\" class=\"wide action\">add</button><button type=\"button\" ng-click=\"vm.hideCustomFeatures()\" class=\"wide cancel\">Cancel</button></form><div class=\"example flex-grow\"><img ng-if=\"vm.activeFeature &amp;&amp; !vm.activeFeature.custom\" src=\"/images/{{ vm.activePreview }}.png\"/><img ng-if=\"vm.activeFeature &amp;&amp; vm.activeFeature.custom\" src=\"/images/Custom-feature.png\"/><img ng-if=\"!vm.activeFeature &amp;&amp; vm.addingCustomFeature\" src=\"/images/Custom-feature.png\"/><img ng-if=\"!vm.activeFeature &amp;&amp; !vm.addingCustomFeature\" src=\"/images/Default-preview.png\"/></div></li><li class=\"flex middle space-between\"><div class=\"count\">{{vm.selectedFeaturesCount}} features added</div><button ng-click=\"vm.save()\" class=\"wider action\">Save</button></li></ul></main></modal><modal show=\"vm.showUploadModal\" background-click-close=\"background-click-close\" class=\"upload-documents\"><div class=\"upload\"><img src=\"/images/upload.svg\"/><h2>Upload <strong>documents</strong></h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><ap-uploader config=\"vm.uploaderConfig\" uploading=\"vm.uploaderUploading\" has-errors=\"vm.uploaderHasErrors\" has-files=\"vm.uploaderHasFiles\"></ap-uploader></div></modal>");
+$templateCache.put("views/submit-work-features.directive.html","<header><ul class=\"navs flex center\"><li ng-class=\"{ active: vm.section == 1 }\"><a ui-sref=\"submit-work-features({ id: vm.workId })\">Features</a></li><li ng-class=\"{ active: vm.section == 2 }\"><a ui-sref=\"submit-work-visuals({ id: vm.workId })\">Visual Design</a></li><li ng-if=\"vm.projectType == \'DESIGN_AND_CODE\'\" ng-class=\"{ active: vm.section == 3 }\"><a ui-sref=\"submit-work-development({ id: vm.workId })\">Development</a></li></ul><progress value=\"{{ vm.section }}\" max=\"{{ vm.numberOfSections }}\"></progress><img src=\"/images/features-white.svg\"/><h1>Feature Requirements</h1><p>Tell us the features that you would like in your app</p></header><div flush-height=\"lock\" class=\"flush-height flex column\"><ul class=\"dark-bg flex center middle flex-grow selectable-choices\"><li><img ng-if=\"!vm.featuresDefined\" src=\"/images/define-feature.svg\" class=\"icon biggest\"/><img ng-if=\"vm.featuresDefined\" src=\"/images/define-feature-selected.svg\" class=\"icon biggest\"/><h4>Define features</h4><p>Use our wizard to pick the most commonly-requested features and add your own custom features.</p><button ng-click=\"vm.showFeatures()\" class=\"action wide\">select</button></li><li><img ng-if=\"!vm.uploaderHasFiles || vm.uploaderHasErrors || vm.uploaderUploading\" src=\"/images/upload.svg\" class=\"icon biggest\"/><img ng-if=\"vm.uploaderHasFiles &amp;&amp; !vm.uploaderHasErrors &amp;&amp; !vm.uploaderUploading\" src=\"/images/upload-selected.svg\" class=\"icon biggest\"/><h4>Upload Requirements</h4><p>Upload a brief, requirements, specs, or feature list.</p><button ng-click=\"vm.showUpload()\" class=\"action wide\">select</button></li></ul><div class=\"continue-buttons\"><a ui-sref=\"submit-work-visuals({ id: vm.workId })\" class=\"button wider\">go to design</a></div></div><modal show=\"vm.showFeaturesModal\" ng-if=\"vm.showFeaturesModal\" background-click-close=\"background-click-close\" class=\"full define-features\"><h2><strong>features</strong></h2><main class=\"flex flex-grow stretch\"><ul class=\"features flex column\"><li lock-height=\"lock-height\" ignore-content=\"true\" class=\"flex-grow\"><ul class=\"feature-categories-list\"><li ng-repeat=\"featureCategory in vm.categoriesList\" ng-if=\"vm.filterByCategory(vm.features, featureCategory.category).length &gt; 0\"><feature-list icon=\"{{featureCategory.icon}}\" active-feature=\"vm.activeFeature\" header-text=\"{{featureCategory.category}}\" features=\"vm.features\" activate-feature=\"vm.activateFeature(feature)\"></feature-list></li></ul></li><li><button ng-click=\"vm.toggleDefineFeatures()\" class=\"widest clean\"><span>Define a new feature</span><div class=\"icon\">+</div></button></li></ul><ul class=\"contents flex column flex-grow\"><li class=\"flex flex-grow\"><div ng-hide=\"vm.showDefineFeaturesForm\" ng-class=\"{active: !vm.activeFeature}\" class=\"default active\"><h5>Select and define features for your app</h5><p>Select from the most popular features, listed on the left, or define your own custom features.</p></div><div ng-hide=\"vm.showDefineFeaturesForm\" ng-class=\"{active: vm.activeFeature}\" class=\"description\"><h5>Select and define features for your app</h5><h6>{{ vm.activeFeature.title }} description</h6><p>{{vm.activeFeature.description}}</p><textarea placeholder=\"Notes...\" ng-model=\"vm.activeFeature.notes\" class=\"widest\"></textarea><button ng-if=\"!vm.activeFeature.selected\" ng-click=\"vm.applyFeature()\" class=\"wider action\">Add this feature</button><button ng-if=\"vm.activeFeature.selected\" ng-click=\"vm.removeFeature()\" class=\"wider action\">remove feature</button><button ng-if=\"vm.activeFeatureChangedNotes(vm.activeFeature)\" ng-click=\"vm.saveNotes()\" class=\"wider action\">save notes</button></div><form ng-submit=\"vm.addCustomFeature()\" ng-class=\"{active: vm.showDefineFeaturesForm}\" class=\"new-feature\"><h5>Define a new feature</h5><label>Feature name</label><input type=\"text\" ng-model=\"vm.customFeature.title\" ng-change=\"vm.customNameUnique()\" required=\"required\" class=\"widest\"/><p ng-if=\"vm.featureTitleError\" class=\"error\">This feature name already exists, please try another.</p><label>Feature description</label><textarea ng-model=\"vm.customFeature.description\" required=\"required\" placeholder=\"Briefly describe the feature, including how it will be used, and provide examples that will help designers and developers understand it.\" class=\"widest\"></textarea><button type=\"submit\" class=\"wide action\">add</button><button type=\"button\" ng-click=\"vm.hideCustomFeatures()\" class=\"wide cancel\">Cancel</button></form><div class=\"example flex-grow\"><img ng-if=\"vm.activeFeature &amp;&amp; !vm.activeFeature.custom\" src=\"/images/{{ vm.activePreview }}.png\"/><img ng-if=\"vm.activeFeature &amp;&amp; vm.activeFeature.custom\" src=\"/images/Custom-feature.png\"/><img ng-if=\"!vm.activeFeature &amp;&amp; vm.addingCustomFeature\" src=\"/images/Custom-feature.png\"/><img ng-if=\"!vm.activeFeature &amp;&amp; !vm.addingCustomFeature\" src=\"/images/Default-preview.png\"/></div></li><li class=\"flex middle space-between\"><div class=\"count\">{{vm.selectedFeaturesCount}} features added</div><button ng-click=\"vm.save()\" class=\"wider action\">Save</button></li></ul></main></modal><modal show=\"vm.showUploadModal\" background-click-close=\"background-click-close\" class=\"upload-documents\"><div class=\"upload\"><img src=\"/images/upload.svg\" class=\"upload-icon\"/><h2>Upload <strong>Requirements</strong></h2><p>Upload a brief, requirements, specs, or feature list.</p><ap-uploader config=\"vm.uploaderConfig\" uploading=\"vm.uploaderUploading\" has-errors=\"vm.uploaderHasErrors\" has-files=\"vm.uploaderHasFiles\"></ap-uploader></div></modal>");
 $templateCache.put("views/submit-work-visuals.directive.html","<loader ng-if=\"vm.loading\"></loader><header><ul class=\"navs flex center\"><li ng-class=\"{ active: vm.section == 1 }\"><a ui-sref=\"submit-work-features({ id: vm.workId })\">Features</a></li><li ng-class=\"{ active: vm.section == 2 }\"><a ui-sref=\"submit-work-visuals({ id: vm.workId })\">Visual Design</a></li><li ng-if=\"vm.projectType == \'DESIGN_AND_CODE\'\" ng-class=\"{ active: vm.section == 3 }\"><a ui-sref=\"submit-work-development({ id: vm.workId })\">Development</a></li></ul><progress value=\"{{ vm.section }}\" max=\"{{ vm.numberOfSections }}\"></progress><img src=\"/images/design-active.svg\"/><h1>Visual Design</h1><p>Help us define the visual style of your mobile app.</p></header><div flush-height=\"lock\" class=\"flush-height flex column\"><ul ng-class=\"{active: vm.showPaths}\" class=\"dark-bg flex center flex-grow middle selectable-choices\"><li><img ng-if=\"!vm.specsDefined\" src=\"/images/brand-reqs.svg\" class=\"icon big biggest\"/><img ng-if=\"vm.specsDefined\" src=\"/images/brand-reqs-selected.svg\" class=\"icon big biggest\"/><h4>Choose Styles</h4><p>Pick few fonts style for your mobile app</p><button ng-click=\"vm.showChooseStyles()\" class=\"action wide\">select</button></li><li><img ng-if=\"!vm.uploaderHasFiles || vm.uploaderHasErrors || vm.uploaderUploading\" src=\"/images/upload.svg\" class=\"icon big biggest\"/><img ng-if=\"vm.uploaderHasFiles &amp;&amp; !vm.uploaderHasErrors &amp;&amp; !vm.uploaderUploading\" src=\"/images/upload-selected.svg\" class=\"icon big biggest\"/><h4>Upload styles</h4><p>Pick color palette for your mobile app</p><button ng-click=\"vm.showUploadStyles()\" class=\"action wide\">select</button></li><li><img ng-if=\"!vm.urlAdded || urlForm.addressInput.$error.pattern\" src=\"/images/url-styles.svg\" class=\"icon big biggest\"/><img ng-if=\"vm.urlAdded &amp;&amp; !urlForm.addressInput.$error.pattern\" src=\"/images/url-styles-selected.svg\" class=\"icon big biggest\"/><h4>Get style from url</h4><p>Pick graphic style for your mobile app.</p><button ng-click=\"vm.showUrlStyles()\" class=\"action wide\">select</button></li></ul><a ng-if=\"vm.projectType == \'DESIGN_AND_CODE\'\" ui-sref=\"submit-work-development({ id: vm.workId })\" class=\"button wider continue\">go to development</a><div class=\"design-buttons\"><button ng-if=\"vm.projectType != \'DESIGN_AND_CODE\'\" ng-click=\"vm.save(true, false)\" class=\"continue wider save\">save</button><button ng-if=\"vm.projectType != \'DESIGN_AND_CODE\'\" ng-click=\"vm.save(true, true)\" class=\"contine wider kick-off action\">kick off project</button></div></div><modal show=\"vm.showUploadStylesModal\" background-click-close=\"background-click-close\" class=\"upload-documents\"><div class=\"upload\"><img src=\"/images/upload.svg\"/><h2>Upload <strong>documents</strong></h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><ap-uploader config=\"vm.uploaderConfig\" uploading=\"vm.uploaderUploading\" has-errors=\"vm.uploaderHasErrors\" has-files=\"vm.uploaderHasFiles\"></ap-uploader></div></modal><modal show=\"vm.showUrlStylesModal\" background-click-close=\"background-click-close\" class=\"enter-url\"><div class=\"upload\"><img src=\"/images/url-styles.svg\"/><h2>Enter your <strong>url</strong></h2><p>You can enter your website address and we\'ll grab your colors, fonts amd ocpms to use when designing your new app.</p><form ng-submit=\"vm.save()\" name=\"urlForm\"><input type=\"text\" name=\"addressInput\" ng-pattern=\"vm.urlRegEx\" ng-change=\"vm.checkAddressValidity()\" placeholder=\"http://www.example.com\" ng-model=\"vm.url\" required=\"required\" class=\"wide\"/><p ng-class=\"{show: urlForm.addressInput.$error.pattern }\" class=\"error wider transition\">Please enter a valid address.</p><button type=\"submit\" class=\"wider action\">save</button></form></div></modal><modal show=\"vm.showChooseStylesModal\" background-click-close=\"background-click-close\" class=\"full choose-styles\"><ul class=\"nav\"><li><button ng-click=\"vm.viewPrevious()\" class=\"clean\"><div class=\"icon arrow smallest\"></div></button></li><li><button ng-click=\"vm.activateModal(\'fonts\')\" ng-class=\"{active: vm.activeStyleModal == \'fonts\'}\" class=\"clean\">fonts</button></li><li><button ng-click=\"vm.activateModal(\'colors\')\" ng-class=\"{active: vm.activeStyleModal == \'colors\'}\" class=\"clean\">colors</button></li><li><button ng-click=\"vm.activateModal(\'icons\')\" ng-class=\"{active: vm.activeStyleModal == \'icons\'}\" class=\"clean\">icons</button></li><li><button ng-click=\"vm.viewNext()\" class=\"clean\"><div class=\"icon arrow smallest right\"></div></button></li></ul><main ng-show=\"vm.activeStyleModal == \'fonts\' \" class=\"dark-bg fonts flex column center flex-grow\"><h2>Tell us your <strong>font preference</strong></h2><ul class=\"or-choices flex middle center\"><li ng-repeat-start=\"font in vm.fonts\"><h2>{{font.name}}</h2><hr/><p>{{font.description}}</p><img src=\"/images/sans.png\" ng-if=\"font.name != \'Serif\' \"/><img src=\"/images/serif.png\" ng-if=\"font.name == \'Serif\' \"/><button selectable=\"selectable\" type=\"button\" ng-model=\"vm.font\" value=\"font.id\" class=\"wider action\"></button></li><li ng-repeat-end=\"ng-repeat-end\" ng-if=\"font.name == \'Serif\' \" class=\"or\"><div class=\"house\">OR</div></li></ul></main><main ng-show=\"vm.activeStyleModal == \'colors\' \" class=\"dark-bg colors flex column center flex-grow\"><h2>Tell us <strong>the colors</strong> you like</h2><ul class=\"flex center\"><li ng-repeat=\"color in vm.colors\"><h6>{{ color.name }}</h6><img src=\"/images/{{color.name}}.png\"/><button type=\"button\" selectable=\"selectable\" ng-model=\"color.selected\" class=\"action\"></button></li></ul></main><main ng-show=\"vm.activeStyleModal == \'icons\' \" class=\"dark-bg icons flex column center flex-grow\"><h2>Tell us <strong>the icons</strong> you like</h2><ul class=\"flex center\"><li ng-repeat=\"icon in vm.icons\"><img src=\"/images/{{icon.img}}.svg\"/><h6>{{icon.name}}</h6><p>{{icon.description}}</p><button type=\"button\" selectable=\"selectable\" ng-model=\"vm.icon\" value=\"icon.id\" class=\"wider action\"></button></li></ul></main><footer><button ng-hide=\"vm.backButtonDisabled\" ng-click=\"vm.viewPrevious()\" class=\"wider\">back</button><button ng-hide=\"vm.nextButtonDisabled\" ng-click=\"vm.viewNext()\" class=\"action action wider\">next</button><button ng-show=\"vm.showFinishDesignButton\" ng-click=\"vm.save()\" class=\"action wider\">Save</button></footer></modal>");
 $templateCache.put("views/submit-work-development.directive.html","<header><ul class=\"navs flex center\"><li ng-class=\"{ active: vm.section == 1 }\"><a ui-sref=\"submit-work-features({ id: vm.workId })\">Features</a></li><li ng-class=\"{ active: vm.section == 2 }\"><a ui-sref=\"submit-work-visuals({ id: vm.workId })\">Visual Design</a></li><li ng-if=\"vm.projectType == \'DESIGN_AND_CODE\'\" ng-class=\"{ active: vm.section == 3 }\"><a ui-sref=\"submit-work-development({ id: vm.workId })\">Development</a></li></ul><progress value=\"{{ vm.section }}\" max=\"{{ vm.numberOfSections }}\"></progress><img src=\"/images/development-active.svg\"/><h1>Development</h1><p>Help us understand the technical requirements of your app.</p></header><modal show=\"vm.showUploadSpecs\" background-click-close=\"background-click-close\" class=\"upload-documents\"><div class=\"upload\"><img src=\"/images/upload.svg\"/><h2>Upload your <strong>Development specs</strong></h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><ap-uploader config=\"vm.uploaderConfig\" uploading=\"vm.uploaderUploading\" has-errors=\"vm.uploaderHasErrors\" has-files=\"vm.uploaderHasFiles\"></ap-uploader></div></modal><div flush-height=\"lock\" class=\"flush-height flex column\"><ul class=\"dark-bg flex center middle flex-grow selectable-choices\"><li><img ng-if=\"!vm.specsDefined\" src=\"/images/define-dev-specs.svg\" class=\"icon biggest\"/><img ng-if=\"vm.specsDefined\" src=\"/images/define-dev-specs-selected.svg\" class=\"icon biggest\"/><h4>Define development specs</h4><button type=\"button\" ng-click=\"vm.showDefineSpecs()\" class=\"action wide\">select</button></li><li><img ng-if=\"!vm.uploaderHasFiles || vm.uploaderHasErrors || vm.uploaderUploading\" src=\"/images/upload.svg\" class=\"icon biggest\"/><img ng-if=\"vm.uploaderHasFiles &amp;&amp; !vm.uploaderHasErrors &amp;&amp; !vm.uploaderUploading\" src=\"/images/upload-selected.svg\" class=\"icon biggest\"/><h4>Upload development specs</h4><button ng-click=\"vm.uploadSpecs()\" class=\"action wide\">select</button></li></ul><button ng-click=\"vm.save(true, false)\" class=\"continue wider save\">save</button><button ng-click=\"vm.save(true, true)\" class=\"continue wider kick-off action\">kick off project</button></div><modal show=\"vm.showDefineSpecsModal\" background-click-close=\"background-click-close\" class=\"full define-development\"><ul class=\"nav\"><li><button ng-click=\"vm.viewPrevious()\" class=\"clean\"><div class=\"icon arrow smallest\"></div></button></li><li><button ng-click=\"vm.activateModal(\'offlineAccess\')\" ng-class=\"{active: vm.activeDevelopmentModal == \'offlineAccess\'}\" class=\"clean\">offline access</button></li><li><button ng-click=\"vm.activateModal(\'personalInformation\')\" ng-class=\"{active: vm.activeDevelopmentModal == \'personalInformation\'}\" class=\"clean\">personal information</button></li><li><button ng-click=\"vm.activateModal(\'security\')\" ng-class=\"{active: vm.activeDevelopmentModal == \'security\'}\" class=\"clean\">security level</button></li><li><button ng-click=\"vm.activateModal(\'thirdPartyIntegrations\')\" ng-class=\"{active: vm.activeDevelopmentModal == \'thirdPartyIntegrations\'}\" class=\"clean\">third party integrations</button></li><li><button ng-click=\"vm.viewNext()\" class=\"clean\"><div class=\"icon arrow smallest right\"></div></button></li></ul><main ng-show=\"vm.activeDevelopmentModal == \'offlineAccess\'\" class=\"dark-bg flex column center flex-grow\"><h2>Do you require users to have <strong>offline access to data</strong>?</h2><p>Do your users need to be able to interact with the application when they are unable to connect to the internet (over the air or via wifi)?</p><ul class=\"or-choices flex center\"><li><button ng-model=\"vm.work.offlineAccess\" label=\"yes\" value=\"true\" selectable=\"action\" type=\"button\" class=\"big widest\"></button><p>Users will need to interact with the app even when offline.  This feature increases complexity and costs.</p></li><li class=\"or\"><div class=\"house\">OR</div></li><li><button ng-model=\"vm.work.offlineAccess\" label=\"no\" value=\"false\" selectable=\"action\" type=\"button\" class=\"big widest\"></button><p>The application will gracefully present a message to the user to please connect to the internet.</p></li></ul></main><main ng-show=\"vm.activeDevelopmentModal == \'personalInformation\'\" class=\"dark-bg flex column center flex-grow\"><h2>Personal information</h2><p>Is there any level of personal information? (stored or transmitted)</p><ul class=\"or-choices flex center\"><li><button ng-model=\"vm.work.usesPersonalInformation\" label=\"yes\" value=\"true\" selectable=\"action\" type=\"button\" class=\"big widest\"></button><p>Storing and/or transmitting personal information increases security and encryption needs which adds complexity and cost.</p></li><li class=\"or\"><div class=\"house\">OR</div></li><li><button ng-model=\"vm.work.usesPersonalInformation\" label=\"no\" value=\"false\" selectable=\"action\" type=\"button\" class=\"big widest\"></button><p>The app is not transferring or storing personal information.</p></li></ul></main><main ng-show=\"vm.activeDevelopmentModal == \'security\'\" class=\"dark-bg security flex column center flex-grow\"><h2>What level of <strong>security do you need</strong>?</h2><ul class=\"selectable-choices flex center\"><li><img src=\"/images/security-none.svg\"/><h6>No security</h6><button selectable=\"selectable\" type=\"button\" ng-model=\"vm.work.securityLevel\" value=\"vm.securityLevels.none\" class=\"wide action\"></button></li><li><img src=\"/images/security-minimal.svg\"/><h6>Minimal security</h6><button selectable=\"selectable\" type=\"button\" ng-model=\"vm.work.securityLevel\" value=\"vm.securityLevels.minimal\" class=\"wide action\"></button></li><li><img src=\"/images/security-complete.svg\"/><h6>Complete security</h6><button selectable=\"selectable\" type=\"button\" ng-model=\"vm.work.securityLevel\" value=\"vm.securityLevels.complete\" class=\"wide action\"></button></li></ul></main><main ng-show=\"vm.activeDevelopmentModal == \'thirdPartyIntegrations\'\" class=\"dark-bg third-party-integrations flex column center flex-grow\"><h2>How many 3rd party integrations</strong>?</h2><p>Enter the number of 3rd party integrations so we can estimate effort involved.</p><input type=\"number\" min=\"1\" max=\"6\" ng-model=\"vm.work.numberOfApiIntegrations\"/></main><footer><button ng-hide=\"vm.backButtonDisabled\" ng-click=\"vm.viewPrevious()\" class=\"wider\">back</button><button ng-hide=\"vm.nextButtonDisabled\" ng-click=\"vm.viewNext()\" class=\"action action wider\">next</button><button ng-show=\"vm.showFinishDevelopmentButton\" ng-click=\"vm.save()\" class=\"action wider\">Save</button></footer></modal>");
 $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm.show\" class=\"full\"><main class=\"flex column middle center flex-grow\"><div class=\"icon-house\"><div class=\"icon biggest checkmark-white\"></div></div><h1>Awesome!</h1><h6>Your <span class=\"app-name\">{{vm.appName}}</span> app has been submitted</h6><button ui-sref=\"view-work-multiple\" ng-click=\"vm.show = false\" class=\"action wider\">go to dashboard</button></main></modal>");}]);
@@ -106,6 +106,29 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
   };
 
   angular.module('appirio-tech-ng-submit-work').directive('submitWorkComplete', directive);
+
+}).call(this);
+
+(function() {
+  'use strict';
+  var directive;
+
+  directive = function() {
+    return {
+      restrict: 'E',
+      templateUrl: 'views/feature-list.directive.html',
+      controller: 'FeaturelistController as vm',
+      scope: {
+        activateFeature: '&',
+        activeFeature: '=',
+        headerText: '@',
+        icon: '@',
+        features: '='
+      }
+    };
+  };
+
+  angular.module('appirio-tech-ng-submit-work').directive('featureList', directive);
 
 }).call(this);
 
@@ -520,6 +543,7 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
     vm.features = [];
     config = {
       customFeatureTemplate: {
+        category: 'Custom Features',
         id: null,
         title: null,
         description: null,
@@ -527,6 +551,31 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
         custom: true,
         fileIds: []
       }
+    };
+    vm.categoriesList = [
+      {
+        category: 'Custom Features',
+        icon: '/images/general-building-blocks.svg'
+      }, {
+        category: 'Login & Registration',
+        icon: '/images/login-reg.svg'
+      }, {
+        category: 'General Building Blocks',
+        icon: '/images/general-building-blocks.svg'
+      }, {
+        category: 'Ecommerce',
+        icon: '/images/ecommerce.svg'
+      }, {
+        category: 'Social',
+        icon: '/images/social.svg'
+      }
+    ];
+    vm.filterByCategory = function(list, category) {
+      var featureList;
+      featureList = list != null ? list.filter(function(feature) {
+        return feature.category === category;
+      }) : void 0;
+      return featureList;
     };
     vm.activeFeatureChangedNotes = function(activeFeature) {
       var changedNotes, ref;
@@ -625,6 +674,7 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
       if ((ref = vm.updatedFeatures) != null) {
         ref.forEach(function(feature) {
           return updates.features.push({
+            category: feature.category,
             id: feature.id,
             title: feature.title,
             description: feature.description,
@@ -647,6 +697,7 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
         return false;
       }
       vm.loading = false;
+      vm.appName = work.name;
       vm.customFeature = angular.copy(config.customFeatureTemplate);
       vm.featureTitleError = false;
       vm.selectedFeaturesCount = 0;
@@ -895,6 +946,31 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
 
 (function() {
   'use strict';
+  var FeaturelistController;
+
+  FeaturelistController = function($scope) {
+    var activate, vm;
+    vm = this;
+    vm.activateFeature = $scope.activateFeature;
+    vm.headerText = $scope.headerText;
+    vm.features = $scope.features;
+    activate = function() {
+      $scope.$watch('activeFeature', function(newValue) {
+        return vm.activeFeature = newValue;
+      });
+      return vm;
+    };
+    return activate();
+  };
+
+  FeaturelistController.$inject = ['$scope'];
+
+  angular.module('appirio-tech-ng-submit-work').controller('FeaturelistController', FeaturelistController);
+
+}).call(this);
+
+(function() {
+  'use strict';
   var SubmitWorkService;
 
   SubmitWorkService = function($rootScope, OptimistModel, SubmitWorkAPIService, ProjectsAPIService, $q) {
@@ -1073,73 +1149,217 @@ $templateCache.put("views/submit-work-complete.directive.html","<modal show=\"vm
     ];
     service.features = [
       {
-        id: 'ONBOARDING',
-        title: 'Onboarding',
-        description: 'Virtually walk your users through your application. This functionality is especially useful if you need new users to set up an account or express preferences.',
+        category: 'Login & Registration',
+        id: 'EMAIL LOGIN',
+        title: 'Email Login',
+        description: 'Allow users to register and log in using their email address and a password. Users can also change their password or recover a forgotten one.',
         notes: null,
         custom: null,
         icon: '/images/help-me.svg',
         selected: false
       }, {
-        id: 'LOGIN',
-        title: 'Login',
-        description: 'Allow users to register and log in using their email address and a password. Users can also change their password or recover a forgotten one.',
+        category: 'Login & Registration',
+        id: 'SOCIAL LOGIN',
+        title: 'Social Login',
+        description: 'Allow users to register and log in using third-party services such as Facebook, Twitter, and Google. Please specify below the ones that you would like to use.',
         notes: null,
         custom: null,
         icon: '/images/security-minimal.svg',
         selected: false
       }, {
-        id: 'REGISTRATION',
-        title: 'Registration',
-        description: ' Allow users to register and log in using third-party services such as Facebook, Twitter, and Google. Please specify below the ones that you would like to use.',
+        category: 'Login & Registration',
+        id: 'INVITATIONS',
+        title: 'Invitations',
+        description: 'Allow users to invite others to use your app. This functionality is especially useful if you are building a social application or provide incentives for users to invite their friends. Invitations can be sent via email or text message. Please specify your preference below.',
         notes: null,
         custom: null,
         icon: '/images/login-reg.svg',
         selected: false
       }, {
-        id: 'LOCATION',
-        title: 'Location',
-        description: 'Add this feature if your app has any geographic location-based functionality, such as showing store locations on a map or illustrating the progress of a delivery. Please specify your desired functionality below.',
+        category: 'Login & Registration',
+        id: 'INTRODUCTIONS',
+        title: 'Introductions',
+        description: 'Present your app and inform users of core functionality using a series of introductory screens.',
         notes: null,
         custom: null,
         icon: '/images/location.svg',
         selected: false
       }, {
-        id: 'Social',
-        title: 'Social',
-        description: 'Show your users an activity feed of some kind, as they’re used to seeing on Facebook and Twitter, for example. Please specify below your desired usage and the information that a user should see in the activity feed.',
+        category: 'Login & Registration',
+        id: 'ONBOARDING',
+        title: 'Onboarding',
+        description: 'Virtually walk your users through your application. This functionality is especially useful if you need new users to set up an account or express preferences.',
         notes: null,
         custom: null,
         icon: '/images/social.svg',
         selected: false
       }, {
-        id: 'Ecommerce',
-        title: 'Ecommerce',
-        description: 'Allow users to buy, sell, or rent products or services. Please provide details below regarding how your marketplace should work.',
+        category: 'General Building Blocks',
+        id: 'SEARCH',
+        title: 'Search',
+        description: 'Provide the ability to search your app for specific content, such as products, members, or locations. Please specify below if you also would like autocomplete--suggesting appropriate search terms as a user starts typing.',
         notes: null,
         custom: null,
         icon: '/images/ecommerce.svg',
         selected: false
       }, {
-        id: 'Payments & Billing',
-        title: 'Payments & Billing',
-        description: 'Allow users to pay in some way; for example, using credit cards, PayPal, or Bitcoin. Please specify your desired functionality below.',
+        category: 'General Building Blocks',
+        id: 'GEOLOCATION FEATURES',
+        title: 'Geolocation Features',
+        description: 'Add this feature if your app has any geographic location-based functionality, such as showing store locations on a map or illustrating the progress of a delivery. Please specify your desired functionality below.',
         notes: null,
         custom: null,
         icon: '/images/payments.svg',
         selected: false
       }, {
-        id: 'Notifications',
-        title: 'Notifications',
-        description: 'Take advantage of mobile notifications; for example, remind users to do certain tasks or update them on new content. Please specify your desired functionality below.',
+        category: 'General Building Blocks',
+        id: 'CAMERA (AUDIO & VIDEO)',
+        title: 'Camera (Audio & Video)',
+        description: 'Add this feature if your app will require using the camera to capture audio or video. Please specify your desired usage below.',
         notes: null,
         custom: null,
         icon: '/images/notifications.svg',
         selected: false
       }, {
-        id: 'Audio',
-        title: 'Audio',
-        description: 'Add this feature if your app will require using the camera to capture audio or video. Please specify your desired usage below.',
+        category: 'General Building Blocks',
+        id: 'FILE UPLOAD',
+        title: 'File Upload',
+        description: 'Allow users to upload photos or other files from their phone. Please specify your desired usage below.',
+        notes: null,
+        custom: null,
+        icon: '/images/audio.svg',
+        selected: false
+      }, {
+        category: 'General Building Blocks',
+        id: 'NOTIFICATIONS',
+        title: 'Notifications',
+        description: 'Take advantage of mobile notifications; for example, remind users to do certain tasks or update them on new content. Please specify your desired functionality below.',
+        notes: null,
+        custom: null,
+        icon: '/images/audio.svg',
+        selected: false
+      }, {
+        category: 'General Building Blocks',
+        id: 'SHARING',
+        title: 'Sharing',
+        description: 'Allow users to share content from your app using common options, such as email, text message, or Facebook. Please specify your desired usage below.',
+        notes: null,
+        custom: null,
+        icon: '/images/audio.svg',
+        selected: false
+      }, {
+        category: 'General Building Blocks',
+        id: 'TAGS',
+        title: 'Tags',
+        description: 'Allow users to tag products, people or content; for example, in order to classify and easily retrieve notes. Please specify your desired functionality below.',
+        notes: null,
+        custom: null,
+        icon: '/images/audio.svg',
+        selected: false
+      }, {
+        category: 'General Building Blocks',
+        id: 'ADMIN FUNCTIONALITY',
+        title: 'Admin Functionality',
+        description: 'Add this feature if your app will have users that serve as administrators and require special access rights. Please specify your desired usage below.',
+        notes: null,
+        custom: null,
+        icon: '/images/audio.svg',
+        selected: false
+      }, {
+        category: 'General Building Blocks',
+        id: 'ACCOUNT SETTINGS',
+        title: 'Account Settings',
+        description: 'Allow your users to adjust settings or specify preferences, such as communication frequency. Please specify your desired functionality below.',
+        notes: null,
+        custom: null,
+        icon: '/images/audio.svg',
+        selected: false
+      }, {
+        category: 'General Building Blocks',
+        id: 'DASHBOARD',
+        title: 'Dashboard',
+        description: 'Customize your users’ home screen with personalized content or basic performance indicators, such as number of wins or progress toward a goal. Please specify your desired usage below.',
+        notes: null,
+        custom: null,
+        icon: '/images/audio.svg',
+        selected: false
+      }, {
+        category: 'General Building Blocks',
+        id: 'HELP',
+        title: 'Help',
+        description: 'Include a section dedicated to FAQ or Help content.',
+        notes: null,
+        custom: null,
+        icon: '/images/audio.svg',
+        selected: false
+      }, {
+        category: 'Ecommerce',
+        id: 'MARKETPLACE',
+        title: 'Marketplace',
+        description: 'Allow users to buy, sell, or rent products or services. Please provide details below regarding how your marketplace should work. ',
+        notes: null,
+        custom: null,
+        icon: '/images/audio.svg',
+        selected: false
+      }, {
+        category: 'Ecommerce',
+        id: 'RATINGS & REVIEWS',
+        title: 'Ratings & Reviews',
+        description: 'Let users rate or review people, products, or services. Please specify your desired usage below.',
+        notes: null,
+        custom: null,
+        icon: '/images/audio.svg',
+        selected: false
+      }, {
+        category: 'Ecommerce',
+        id: 'PAYMENTS',
+        title: 'Payments',
+        description: 'Allow users to pay in some way; for example, using credit cards, PayPal, or Bitcoin. Please specify your desired functionality below.',
+        notes: null,
+        custom: null,
+        icon: '/images/audio.svg',
+        selected: false
+      }, {
+        category: 'Ecommerce',
+        id: 'SHOPPING CART',
+        title: 'Shopping Cart',
+        description: 'Allow users to save items before purchasing. Please specify your desired usage below.',
+        notes: null,
+        custom: null,
+        icon: '/images/audio.svg',
+        selected: false
+      }, {
+        category: 'Ecommerce',
+        id: 'PRODUCT LISTING',
+        title: 'Product Listing',
+        description: 'Add this feature to shows lists of product or services, with individual detail pages for each one. Please specify below your desired usage and the information you would like in a product listing.',
+        notes: null,
+        custom: null,
+        icon: '/images/audio.svg',
+        selected: false
+      }, {
+        category: 'Social',
+        id: 'ACTIVITY FEED',
+        title: 'Activity Feed',
+        description: 'Show your users an activity feed of some kind, as they’re used to seeing on Facebook and Twitter, for example. Please specify below your desired usage and the information that a user should see in the activity feed.',
+        notes: null,
+        custom: null,
+        icon: '/images/audio.svg',
+        selected: false
+      }, {
+        category: 'Social',
+        id: 'PROFILES',
+        title: 'Profiles',
+        description: 'Add this feature if your app requires users to have a profile, including the ability to edit it. Please specify below your desired usage and the information you need in the profile.',
+        notes: null,
+        custom: null,
+        icon: '/images/audio.svg',
+        selected: false
+      }, {
+        category: 'Social',
+        id: 'MESSAGING',
+        title: 'Messaging',
+        description: 'Allow direct communication between two or more users. Please specify your desired functionality below.',
         notes: null,
         custom: null,
         icon: '/images/audio.svg',
