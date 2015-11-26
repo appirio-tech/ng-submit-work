@@ -1,12 +1,17 @@
 'use strict'
 
 FeaturelistController = ($scope) ->
-  vm = this
-  vm.activateFeature = ->
-    $scope.activate()
+  vm                 = this
+  vm.activateFeature = $scope.activateFeature
+  vm.headerText      = $scope.headerText
+  vm.features        = $scope.features
 
   activate = ->
+    $scope.$watch 'activeFeature', (newValue) ->
+      vm.activeFeature = newValue
+
     vm
+
 
   activate()
 

@@ -5,7 +5,8 @@ directive = ->
   templateUrl : 'views/feature-list.directive.html'
   controller  : 'FeaturelistController as vm'
   scope       :
-    activate  : '&'
+    activateFeature  : '&'
+    activeFeature: '='
     headerText: '@'
     icon      : '@'
     features  : '='

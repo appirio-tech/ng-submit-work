@@ -17,8 +17,11 @@ FeatureListExample = ->
       selected: true
     ]
 
-    vm.activate = ->
-      console.log 'lalalalalala i love you!'
+    vm.activeFeature = vm.features[0]
+
+    vm.activate = (feature)->
+      vm.activeFeature = feature
+      console.log('active feature is',  vm.activeFeature.name)
 
     vm
 

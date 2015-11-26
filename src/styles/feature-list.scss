@@ -6,6 +6,9 @@ feature-list {
   width: 286px;
 
   header {
+    padding: 15px;
+    padding-left: 0px;
+
     h6 {
       @include ellipsis;
 

@@ -33,19 +33,19 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
 
   vm.categoriesList = [
     category: 'Custom Features'
-    icon    : '/images/help-me.svg'
+    icon    : '/images/general-building-blocks.svg'
   ,
     category: 'Login & Registration'
-    icon    : '/images/help-me.svg'
+    icon    : '/images/login-reg.svg'
   ,
     category: 'General Building Blocks'
-    icon    : '/images/help-me.svg'
+    icon    : '/images/general-building-blocks.svg'
   ,
     category: 'Ecommerce'
-    icon    : '/images/help-me.svg'
+    icon    : '/images/ecommerce.svg'
   ,
     category: 'Social'
-    icon    : '/images/help-me.svg'
+    icon    : '/images/social.svg'
   ]
 
   vm.filterByCategory = (list, category) ->
