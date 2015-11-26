@@ -1,5 +1,5 @@
 - var scripts     = []
-- var examples    = ['constants', 'example.module', 'routes', 'type-example.controller']
+- var examples    = ['constants', 'example.module', 'routes', 'type-example.controller', 'feature-list.example']
 - var bowers      = []
 - var directives  = []
 - var controllers = []
@@ -17,12 +17,14 @@
 - directives.push('visuals')
 - directives.push('development')
 - directives.push('complete')
+- directives.push('feature-list')
 
 - controllers.push('type')
 - controllers.push('visual')
 - controllers.push('features')
 - controllers.push('development')
 - controllers.push('complete')
+- controllers.push('feature-list')
 
 each directive in directives
   - scripts.push('directives/' + directive + '.directive')
@@ -44,6 +46,7 @@ end
 - bowers.push('angular-ui-router/release/angular-ui-router')
 - bowers.push('appirio-tech-ng-work-layout/dist/main')
 - bowers.push('appirio-tech-ng-api-services/dist/main')
+- bowers.push('appirio-tech-ng-messaging/dist/main')
 - bowers.push('appirio-tech-ng-ui-components/dist/main')
 - bowers.push('appirio-tech-ng-auth/dist/main')
 - bowers.push('appirio-tech-ng-file-upload/dist/main')

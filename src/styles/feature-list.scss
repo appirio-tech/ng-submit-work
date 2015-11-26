@@ -1,0 +1,61 @@
+@import "work-includes";
+
+feature-list {
+  display: block;
+  background-color: $neutral-color-light;
+  width: 286px;
+
+  header {
+    padding: 15px;
+    padding-left: 0px;
+
+    h6 {
+      @include ellipsis;
+
+      margin: 0 15px;
+      font-size  : 16px;
+      font-weight: bold;
+      color      : $text-color-darkest;
+    }
+  }
+
+  img {
+    width      : 20px;
+    height     : 20px;
+    min-width  : 20px;
+    margin-left: 15px;
+  }
+
+
+  button.clean {
+    padding: 15px 15px 15px 0;
+  }
+
+  li {
+    &.active {
+      button {
+        background-color: $neutral-color;
+      }
+    }
+
+    p {
+      @include ellipsis;
+
+      color: $text-color-dark;
+      margin-left: 15px;
+    }
+
+    button {
+      width: 100%;
+      text-align: left;
+
+      &:hover {
+        background-color: $primary-color-dark;
+
+        p {
+          color: $white;
+        }
+      }
+    }
+  }
+}

@@ -23,12 +23,36 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
 
   config =
     customFeatureTemplate:
+      category: 'Custom Features'
       id: null
       title: null
       description: null
       notes: null
       custom: true
       fileIds: []
+
+  vm.categoriesList = [
+    category: 'Custom Features'
+    icon    : '/images/general-building-blocks.svg'
+  ,
+    category: 'Login & Registration'
+    icon    : '/images/login-reg.svg'
+  ,
+    category: 'General Building Blocks'
+    icon    : '/images/general-building-blocks.svg'
+  ,
+    category: 'Ecommerce'
+    icon    : '/images/ecommerce.svg'
+  ,
+    category: 'Social'
+    icon    : '/images/social.svg'
+  ]
+
+  vm.filterByCategory = (list, category) ->
+    featureList = list?.filter (feature) ->
+      feature.category == category
+
+    featureList
 
   vm.activeFeatureChangedNotes = (activeFeature) ->
     changedNotes = false
@@ -114,6 +138,7 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
 
     vm.updatedFeatures?.forEach (feature) ->
       updates.features.push
+        category: feature.category
         id: feature.id
         title: feature.title
         description: feature.description
@@ -134,6 +159,7 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
       return false
 
     vm.loading = false
+    vm.appName = work.name
     vm.customFeature         = angular.copy config.customFeatureTemplate
     vm.featureTitleError     = false
     vm.selectedFeaturesCount = 0

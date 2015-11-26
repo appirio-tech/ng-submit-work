@@ -21,10 +21,6 @@ submit-work-features {
       color: $primary-color;
     }
 
-    h6 {
-      margin-top: $margin-small;
-    }
-
     > main {
       width: 100%;
       border-top: 1px solid $neutral-color-light;
@@ -37,33 +33,10 @@ submit-work-features {
         > li {
           overflow: auto;
 
-          &:first-child {
-            > ul {
-              li {
-                &.active {
-                  button {
-                    background-color: $neutral-color;
-                  }
-                }
+          ul.feature-categories-list {
 
-                button {
-                  @include vertical-align-middle();
-
-                  text-align : left;
-                  padding    : $padding;
-                  color      : $black;
-
-                  &:hover {
-                    background-color: $primary-color-dark;
-                    color: $white;
-                  }
-                }
-
-                .icon {
-                  display     : inline-block;
-                  margin-right: $margin-smallest;
-                }
-              }
+            h6 {
+              font-weight: $font-weight-boldest;
             }
           }
 

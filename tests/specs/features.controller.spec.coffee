@@ -42,7 +42,7 @@ describe 'SubmitWorkFeaturesController', ->
     expect(vm.uploaderHasErrors).to.be.null
     expect(vm.features).to.be.an 'array'
 
-    expect(vm.customFeature).to.have.all.keys 'id', 'title', 'description', 'notes', 'custom', 'fileIds'
+    expect(vm.customFeature).to.have.all.keys 'category', 'id', 'title', 'description', 'notes', 'custom', 'fileIds'
     expect(vm.selectedFeaturesCount).to.be.a 'number'
     expect(vm.projectType).to.be.a 'string'
     expect(vm.section).to.be.a 'number'
@@ -90,6 +90,7 @@ describe 'SubmitWorkFeaturesController', ->
   it 'vm.addCustomFeature() should update the updated features list', ->
     vm.updatedFeatures = []
     vm.customFeature =
+      category: 'Custom Features'
       id: null
       title: 'Testing'
       description: '1.. 2.. 3..'
