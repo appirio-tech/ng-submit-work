@@ -30916,6 +30916,13 @@ var ngOptionsMinErr = minErr('ngOptions');
  *   subItem: { name: 'bSubItem' }
  * }];
  * ```
+<<<<<<< HEAD
+ *
+ * This will work:
+ *
+ * ```html
+ * <select ng-options="item as item.label for item in items track by item.id" ng-model="selected"></select>
+=======
  *
  * This will work:
  *
@@ -30924,8 +30931,23 @@ var ngOptionsMinErr = minErr('ngOptions');
  * ```
  * ```js
  * $scope.selected = $scope.items[0];
+>>>>>>> parent of 713b6e9... Revert "Merge branch 'DEM-1850' of github.com:appirio-tech/submit-work into DEM-1850"
+ * ```
+ * ```js
+ * $scope.selected = $scope.items[0];
  * ```
  *
+ * but this will not work:
+ *
+<<<<<<< HEAD
+ * ```html
+ * <select ng-options="item.subItem as item.label for item in items track by item.id" ng-model="selected"></select>
+ * ```
+ * ```js
+ * $scope.selected = $scope.items[0].subItem;
+ * ```
+ *
+=======
  * but this will not work:
  *
  * ```html
@@ -30935,6 +30957,7 @@ var ngOptionsMinErr = minErr('ngOptions');
  * $scope.selected = $scope.items[0].subItem;
  * ```
  *
+>>>>>>> parent of 713b6e9... Revert "Merge branch 'DEM-1850' of github.com:appirio-tech/submit-work into DEM-1850"
  * In both examples, the **`track by`** expression is applied successfully to each `item` in the
  * `items` array. Because the selected option has been set programmatically in the controller, the
  * **`track by`** expression is also applied to the `ngModel` value. In the first example, the
@@ -42367,6 +42390,7 @@ $templateCache.put("views/simple-countdown.directive.html","<p>{{vm.timeRemainin
 
   function UploaderController($scope, UploaderService) {
     var vm = this;
+<<<<<<< HEAD
 
     function configUploader(newConfig, oldConfig) {
       if (newConfig === undefined) {
@@ -42381,6 +42405,22 @@ $templateCache.put("views/simple-countdown.directive.html","<p>{{vm.timeRemainin
       vm.config = newConfig;
       vm.uploader.config(vm.config);
 
+=======
+
+    function configUploader(newConfig, oldConfig) {
+      if (newConfig === undefined) {
+        return false;
+      }
+
+      var oldName = oldConfig ? oldConfig.name : undefined;
+      if (newConfig.name !== oldName) {
+        vm.uploader = UploaderService.get(newConfig.name);
+      }
+
+      vm.config = newConfig;
+      vm.uploader.config(vm.config);
+
+>>>>>>> parent of 713b6e9... Revert "Merge branch 'DEM-1850' of github.com:appirio-tech/submit-work into DEM-1850"
       var oldQuery = oldConfig ? oldConfig.query : undefined;
       if (newConfig.query && newConfig.query !== oldQuery) {
         vm.uploader.populate();
@@ -42473,9 +42513,15 @@ $templateCache.put("views/simple-countdown.directive.html","<p>{{vm.timeRemainin
 
 }).call(this);
 
+<<<<<<< HEAD
 angular.module("ap-file-upload").run(["$templateCache", function($templateCache) {$templateCache.put("views/file.directive.html","<div ng-class=\"{\'failed\': vm.file.hasErrors}\" class=\"uploader\"><main ng-class=\"{ end: vm.file.uploading}\" class=\"flex column middle center\"><img ng-src=\"/images/icon-document.svg\" ng-hide=\"vm.file.hasErrors || vm.file.uploading\"/><div ng-show=\"vm.file.uploading\" class=\"progress-house\"><progress value=\"{{vm.file.progress}}\" max=\"100\">{{ vm.file.progress }}%</progress></div><div ng-show=\"vm.file.hasErrors\" class=\"failed flex column center\"><img ng-src=\"/images/icon-alert-red.svg\"/><button ng-click=\"vm.file.retry()\" type=\"button\" class=\"clean\">retry</button></div></main><footer class=\"flex space-between\"><p class=\"file-name\">{{ vm.file.data.name }}</p><button ng-show=\"!vm.file.uploading\" ng-click=\"vm.file.remove()\" type=\"button\" class=\"clean\"><div class=\"icon cross\"></div></button></footer><textarea ng-if=\"vm.allowCaptions\" ng-model=\"vm.file.data.caption\" ng-blur=\"vm.setCaption()\" placeholder=\"enter a caption\"></textarea></div>");
 $templateCache.put("views/uploaded-files.directive.html","<ul class=\"flex wrap\"><li ng-repeat=\"file in files\"><ap-file file=\"file\"></ap-file></li></ul>");
 $templateCache.put("views/uploader.directive.html","<div ng-if=\"vm.config\"><uploaded-files files=\"vm.uploader.files\" ng-show=\"vm.uploader.files.length\"></uploaded-files><input ng-if=\"vm.config.allowMultiple\" multiple=\"\" type=\"file\" on-file-change=\"vm.uploader.add(fileList)\" class=\"choose-files\"/><input ng-if=\"!vm.config.allowMultiple\" type=\"file\" on-file-change=\"vm.uploader.add(fileList)\" class=\"choose-files\"/></div>");}]);
+=======
+angular.module("ap-file-upload").run(["$templateCache", function($templateCache) {$templateCache.put("views/file.directive.html","<div ng-class=\"{\'failed\': vm.file.hasErrors}\" class=\"uploader\"><main ng-class=\"{ end: vm.file.uploading}\" class=\"flex column middle center\"><img ng-src=\"/images/icon-document.svg\" ng-hide=\"vm.file.hasErrors || vm.file.uploading\"/><div ng-show=\"vm.file.uploading\" class=\"progress-house\"><progress value=\"{{vm.file.progress}}\" max=\"100\">{{ vm.file.progress }}%</progress></div><div ng-show=\"vm.file.hasErrors\" class=\"failed flex column center\"><img ng-src=\"/images/icon-alert-red.svg\"/><button ng-click=\"vm.file.retry()\" type=\"button\" class=\"clean\">retry</button></div></main><footer class=\"flex space-between\"><p class=\"file-name\">{{ vm.file.data.name }}</p><button ng-show=\"!vm.file.uploading\" ng-click=\"vm.file.remove()\" type=\"button\" class=\"clean\"><div class=\"icon cross\"></div></button></footer><p ng-if=\"vm.file.data.caption\">{{ vm.file.data.caption }}</p><div class=\"fileActions\"><input ng-if=\"vm.allowCaptions\" type=\"text\" ng-model=\"vm.caption\"/><button ng-if=\"vm.allowCaptions\" ng-click=\"vm.setCaption()\">Edit Caption</button></div></div>");
+$templateCache.put("views/uploaded-files.directive.html","<ul class=\"flex wrap\"><li ng-repeat=\"file in files\"><ap-file file=\"file\"></ap-file></li></ul>");
+$templateCache.put("views/uploader.directive.html","<div ng-if=\"vm.config\" class=\"flex column center middle\"><uploaded-files files=\"vm.uploader.files\" ng-show=\"vm.uploader.files.length\"></uploaded-files><input ng-if=\"vm.config.allowMultiple\" multiple=\"\" type=\"file\" on-file-change=\"vm.uploader.add(fileList)\" class=\"choose-files\"/><input ng-if=\"!vm.config.allowMultiple\" type=\"file\" on-file-change=\"vm.uploader.add(fileList)\" class=\"choose-files\"/></div>");}]);
+>>>>>>> parent of 713b6e9... Revert "Merge branch 'DEM-1850' of github.com:appirio-tech/submit-work into DEM-1850"
 (function() {
   'use strict';
   var dependencies;

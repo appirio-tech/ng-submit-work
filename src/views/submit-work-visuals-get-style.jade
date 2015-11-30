@@ -1,0 +1,14 @@
+modal.enter-url(show="vm.showUrlStylesModal" background-click-close=true)
+  .upload
+    img(src="/images/url-styles.svg")
+
+    h2 Enter your brand URL
+
+    p Enter the URL where we can see your company’s design style or brand guidelines.
+
+    form(ng-submit="vm.save()" name="urlForm")
+      input.wide(type="text" name="addressInput" ng-pattern="vm.urlRegEx" ng-change="vm.checkAddressValidity()" placeholder="http://www.example.com" ng-model="vm.url" required=true)
+
+      p.error.wider.transition(ng-class="{show: urlForm.addressInput.$error.pattern }") Please enter a valid address.
+
+      button.wider.action(type="submit") save

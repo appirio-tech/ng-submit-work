@@ -4,13 +4,22 @@ srv = () ->
   service = {}
 
   service.projectTypes = [
+<<<<<<< HEAD
     name: 'Design'=
     description: 'Have an idea or requirements for an app that you would like designed? Get design mockups that are ready to be turned into code.'
+=======
+    name: 'Design'
+    description: 'Do you have an idea or requirements that you would like visualized? You will receive design mockups that will illustrate your app in detail and be ready to be turned into code.'
+>>>>>>> parent of 713b6e9... Revert "Merge branch 'DEM-1850' of github.com:appirio-tech/submit-work into DEM-1850"
     id: 'DESIGN'
     selected: false
   ,
     name: 'Design & Development'
+<<<<<<< HEAD
     description: 'Have an idea, sketch, or designs for an app? Get a fully functioning app built, along with the source code.'
+=======
+    description: 'Do you have an idea, sketch, or design that you would like turned into an app that can appear in the app store? You will receive a fully functioning app, along with the source code. '
+>>>>>>> parent of 713b6e9... Revert "Merge branch 'DEM-1850' of github.com:appirio-tech/submit-work into DEM-1850"
     id: 'DESIGN_AND_CODE'
     selected: false
   ]
@@ -259,13 +268,13 @@ srv = () ->
 
   service.fonts = [
     name: 'Serif'
-    description: 'Classic design, good legiblity for large and small text.'
+    description: 'Classic font families that work well for stylized headlines, as well as paragraphs of text.'
     id: 'SERIF'
     selected: false
   ,
     name: 'Sans Serif'
     id: 'SANS_SERIF'
-    description: 'Modern design, good for headers and body text.'
+    description: 'Modern font families known for their versatility.'
     selected: false
   ]
 
@@ -292,20 +301,20 @@ srv = () ->
   ]
 
   service.icons = [
-    name: 'Flat Colors'
-    description: 'Lorem ipsum dolor sit amet'
+    name: 'Flat Color'
+    description: 'A one dimensional, modern and colorful icon style.'
     id: 'FLAT_COLORS'
     selected: false
     img: 'flat-colors'
   ,
     name: 'Thin Line'
-    description: 'Lorem ipsum dolor sit amet'
+    description: 'A lighter weight and modern icon style.'
     id: 'THIN_LINE'
     selected: false
     img: 'thin-line'
   ,
     name: 'Solid Line'
-    description: 'Lorem ipsum dolor sit amet'
+    description: 'A bold and visually powerful icon style.'
     id: 'SOLID_LINE'
     selected: false
     img: 'solid-line'
