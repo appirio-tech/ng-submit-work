@@ -31,7 +31,7 @@ header
 
       button.action.wide(ng-click="vm.scrollTo('secondary')") select
 
-  include submit-work-visuals-footer
+  include parts/visual-continue-buttons
 
 .flush-height.flex.column(id="secondary" full-height="lock")
   ul.dark-bg.flex.center.flex-grow.middle.selectable-choices(ng-class="{active: vm.showPaths}")
@@ -57,10 +57,10 @@ header
 
       button.action.wide(ng-click="vm.showUrlStyles()") select
 
-  include submit-work-visuals-footer
+  include parts/visual-continue-buttons
 
-include submit-work-visuals-upload
+include parts/visual-upload
 
-include submit-work-visuals-get-style
+include parts/get-style
 
-include submit-work-visuals-choose-styles
+include parts/choose-styles

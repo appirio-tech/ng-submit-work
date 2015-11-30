@@ -95,9 +95,10 @@ submit-work-features {
             display: block;
           }
 
-          p {
-            margin-top: $margin-smallest;
+          p, h6 {
+            margin-top: 10px;
           }
+
 
           input {
             display: block;
