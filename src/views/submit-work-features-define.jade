@@ -28,9 +28,7 @@ modal.full.define-features(show="vm.showFeaturesModal" ng-if="vm.showFeaturesMod
           p Select from the most popular features, listed on the left, or define your own custom features.
 
         .description(ng-hide="vm.showDefineFeaturesForm" ng-if="vm.activeFeature" ng-class="{active: vm.activeFeature}")
-          h5 Select and define features for your app
-
-          h6 {{ vm.activeFeature.title }} description
+          h6 {{ vm.activeFeature.title }}
 
           p {{vm.activeFeature.description}}
 
