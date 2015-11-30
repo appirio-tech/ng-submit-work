@@ -3,24 +3,9 @@ header
 
   img(src="/images/development-active.svg")
 
-  h1 Development
+  h1 Let's build your app!
 
-  p Help us understand the technical requirements of your app.
-
-modal.upload-documents(show="vm.showUploadSpecs" background-click-close=true)
-  .upload
-    img(src="/images/upload.svg")
-
-    h2 Upload your <strong>Development specs</strong>
-
-    p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-
-    ap-uploader(
-      config="vm.uploaderConfig"
-      uploading="vm.uploaderUploading"
-      has-errors="vm.uploaderHasErrors"
-      has-files="vm.uploaderHasFiles"
-    )
+  p Help define the technical requirements for your app
 
 .flush-height.flex.column(flush-height="lock")
   ul.dark-bg.flex.center.middle.flex-grow.selectable-choices
@@ -40,13 +25,16 @@ modal.upload-documents(show="vm.showUploadSpecs" background-click-close=true)
 
       img.icon.biggest(ng-if="vm.uploaderHasFiles && !vm.uploaderHasErrors && !vm.uploaderUploading" src="/images/upload-selected.svg")
 
-      h4 Upload development specs
+      h4 Upload Requirements
+
+      p Please upload any technical requirements.
 
       button.action.wide(ng-click="vm.uploadSpecs()") select
 
-  button.continue.wider.save(ng-click="vm.save(true, false)") save
+  .continue-buttons
+    button.wider.save(ng-click="vm.save(true, false)") save
 
-  button.continue.wider.kick-off.action(ng-click="vm.save(true, true)") kick off project
+    button.wider.kick-off.action(ng-click="vm.save(true, true)") kick off project
 
 modal.full.define-development(show="vm.showDefineSpecsModal" background-click-close=true)
   ul.nav
@@ -71,7 +59,7 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
         .icon.arrow.smallest.right
 
   main.dark-bg.flex.column.center.flex-grow(ng-show= "vm.activeDevelopmentModal == 'offlineAccess'")
-    h2 Do you require users to have <strong>offline access to data</strong>?
+    h2 Does your application need offline access? 
 
     p Do your users need to be able to interact with the application when they are unable to connect to the internet (over the air or via wifi)?
 
@@ -85,7 +73,7 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
           type="button"
         )
 
-        p Users will need to interact with the app even when offline.  This feature increases complexity and costs.
+        p Users will need to use the app even when they’re offline. This feature increases complexity and cost.
 
       li.or
         .house OR
@@ -99,12 +87,12 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
           type="button"
         )
 
-        p The application will gracefully present a message to the user to please connect to the internet.
+        p The application will gracefully present a message to users to please connect to the internet.
 
   main.dark-bg.flex.column.center.flex-grow(ng-show= "vm.activeDevelopmentModal == 'personalInformation'")
     h2 Personal information
 
-    p Is there any level of personal information? (stored or transmitted)
+    p Is there any personal user information that is stored or transmitted?
 
     ul.or-choices.flex.center
       li
@@ -116,7 +104,7 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
           type="button"
         )
 
-        p Storing and/or transmitting personal information increases security and encryption needs which adds complexity and cost.
+        p Storing or transmitting personal information requires security and encryption, adding complexity and cost.
 
       li.or
         .house OR
@@ -133,7 +121,7 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
         p The app is not transferring or storing personal information.
 
   main.dark-bg.security.flex.column.center.flex-grow(ng-show= "vm.activeDevelopmentModal == 'security'")
-    h2 What level of <strong>security do you need</strong>?
+    h2 What level of security do you need?
 
     ul.selectable-choices.flex.center
       li
@@ -166,7 +154,7 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
   main.dark-bg.third-party-integrations.flex.column.center.flex-grow(ng-show= "vm.activeDevelopmentModal == 'thirdPartyIntegrations'")
     h2 How many 3rd party integrations</strong>?
 
-    p Enter the number of 3rd party integrations so we can estimate effort involved.
+    p Enter the number of required 3rd party integrations. Examples include: Facebook, Twitter, Yelp, Google Maps, and Docusign.
 
     input(type="number" min=1 max=6 ng-model="vm.work.numberOfApiIntegrations")
 
@@ -176,3 +164,16 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
     button.action.action.wider(ng-hide="vm.nextButtonDisabled" ng-click="vm.viewNext()") next
 
     button.action.wider(ng-show="vm.showFinishDevelopmentButton" ng-click="vm.save()") Save
+
+modal.upload-documents(show="vm.showUploadSpecs" background-click-close=true)
+  .upload
+    img.upload-icon(src="/images/upload.svg")
+
+    h2 Upload documents
+
+    ap-uploader(
+      config="vm.uploaderConfig"
+      uploading="vm.uploaderUploading"
+      has-errors="vm.uploaderHasErrors"
+      has-files="vm.uploaderHasFiles"
+    )

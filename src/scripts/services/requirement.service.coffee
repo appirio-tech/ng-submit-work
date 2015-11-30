@@ -1,6 +1,6 @@
 'use strict'
 
-srv = () ->
+srv = ->
   service = {}
 
   service.projectTypes = [
@@ -259,13 +259,13 @@ srv = () ->
 
   service.fonts = [
     name: 'Serif'
-    description: 'Classic design, good legiblity for large and small text.'
+    description: 'Classic font families that work well for stylized headlines, as well as paragraphs of text.'
     id: 'SERIF'
     selected: false
   ,
     name: 'Sans Serif'
     id: 'SANS_SERIF'
-    description: 'Modern design, good for headers and body text.'
+    description: 'Modern font families known for their versatility.'
     selected: false
   ]
 
@@ -292,20 +292,20 @@ srv = () ->
   ]
 
   service.icons = [
-    name: 'Flat Colors'
-    description: 'Lorem ipsum dolor sit amet'
+    name: 'Flat Color'
+    description: 'A one dimensional, modern and colorful icon style.'
     id: 'FLAT_COLORS'
     selected: false
     img: 'flat-colors'
   ,
     name: 'Thin Line'
-    description: 'Lorem ipsum dolor sit amet'
+    description: 'A lighter weight and modern icon style.'
     id: 'THIN_LINE'
     selected: false
     img: 'thin-line'
   ,
     name: 'Solid Line'
-    description: 'Lorem ipsum dolor sit amet'
+    description: 'A bold and visually powerful icon style.'
     id: 'SOLID_LINE'
     selected: false
     img: 'solid-line'
