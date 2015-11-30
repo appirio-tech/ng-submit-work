@@ -66,3 +66,10 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
         p {{icon.description}}
 
         button.wider.action(type="button" selectable=true ng-model="vm.icon" value="icon.id")
+
+  footer
+    button.wider(ng-hide="vm.backButtonDisabled" ng-click="vm.viewPrevious()") back
+
+    button.action.action.wider(ng-hide="vm.nextButtonDisabled" ng-click="vm.viewNext()") next
+
+    button.action.wider(ng-show="vm.showFinishDesignButton" ng-click="vm.save()") Save
