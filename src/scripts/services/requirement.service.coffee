@@ -4,13 +4,13 @@ srv = () ->
   service = {}
 
   service.projectTypes = [
-    name: 'Design'
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+    name: 'Design'=
+    description: 'Have an idea or requirements for an app that you would like designed? Get design mockups that are ready to be turned into code.'
     id: 'DESIGN'
     selected: false
   ,
     name: 'Design & Development'
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+    description: 'Have an idea, sketch, or designs for an app? Get a fully functioning app built, along with the source code.'
     id: 'DESIGN_AND_CODE'
     selected: false
   ]

@@ -71,7 +71,11 @@ submit-work-type {
     }
 
     button, h4 {
-      margin-top: $margin;
+      margin-top: 30px;
+    }
+
+    p {
+      margin-top: 5px;
     }
 
     > li {
@@ -137,5 +141,6 @@ submit-work-type {
     height    : 200px;
     margin    : 0 auto;
     margin-top: $margin;
+    font-size : 16px;
   }
 }

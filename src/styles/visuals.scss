@@ -30,6 +30,14 @@ submit-work-visuals {
       margin-top: $margin;
     }
 
+    .serif {
+      font-family: serif;
+    }
+
+    h2 {
+      font-weight: 300px;
+    }
+
     > ul {
       > li {
         &:first-child, &:last-child {

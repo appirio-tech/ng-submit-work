@@ -13,7 +13,7 @@ submit-work-features {
     }
 
     > h2 {
-      margin: $margin;
+      margin: 15px;
       text-align: center;
     }
 
@@ -50,14 +50,15 @@ submit-work-features {
               position        : absolute;
               bottom          : 0;
               left            : 0;
-              background-color: $white;
-              color           : $neutral-color-darkest;
+              background-color: $primary-color;
+              color           : $white;
               text-align      : center;
               height          : $footer-height;
+              text-transform  : uppercase;
 
               .icon {
-                color           : $white;
-                background-color: $primary-color;
+                color           : $primary-color;
+                background-color: $white;
                 border-radius   : 50%;
                 text-align      : center;
                 font-size       : 20px;
