@@ -4,7 +4,7 @@ srv = () ->
   service = {}
 
   service.projectTypes = [
-    name: 'Design'=
+    name: 'Design'
     description: 'Have an idea or requirements for an app that you would like designed? Get design mockups that are ready to be turned into code.'
     id: 'DESIGN'
     selected: false
