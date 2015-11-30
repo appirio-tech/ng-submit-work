@@ -33,7 +33,7 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
 
   vm.categoriesList = [
     category: 'Custom Features'
-    icon    : '/images/general-building-blocks.svg'
+    icon    : '/images/custom-features.svg'
   ,
     category: 'Login & Registration'
     icon    : '/images/login-reg.svg'
