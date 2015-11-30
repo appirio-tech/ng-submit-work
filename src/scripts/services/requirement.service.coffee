@@ -1,25 +1,16 @@
 'use strict'
 
-srv = () ->
+srv = ->
   service = {}
 
   service.projectTypes = [
-<<<<<<< HEAD
-    name: 'Design'=
-    description: 'Have an idea or requirements for an app that you would like designed? Get design mockups that are ready to be turned into code.'
-=======
     name: 'Design'
-    description: 'Do you have an idea or requirements that you would like visualized? You will receive design mockups that will illustrate your app in detail and be ready to be turned into code.'
->>>>>>> parent of 713b6e9... Revert "Merge branch 'DEM-1850' of github.com:appirio-tech/submit-work into DEM-1850"
+    description: 'Have an idea or requirements for an app that you would like designed? Get design mockups that are ready to be turned into code.'
     id: 'DESIGN'
     selected: false
   ,
     name: 'Design & Development'
-<<<<<<< HEAD
     description: 'Have an idea, sketch, or designs for an app? Get a fully functioning app built, along with the source code.'
-=======
-    description: 'Do you have an idea, sketch, or design that you would like turned into an app that can appear in the app store? You will receive a fully functioning app, along with the source code. '
->>>>>>> parent of 713b6e9... Revert "Merge branch 'DEM-1850' of github.com:appirio-tech/submit-work into DEM-1850"
     id: 'DESIGN_AND_CODE'
     selected: false
   ]
