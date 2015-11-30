@@ -11,6 +11,7 @@ configs.templateCache.push
     '.tmp/views/submit-work-visuals.directive.html'
     '.tmp/views/submit-work-development.directive.html'
     '.tmp/views/submit-work-complete.directive.html'
+    '.tmp/views/feature-list.directive.html'
   ]
   root  : 'views/'
   module: 'appirio-tech-ng-submit-work'
