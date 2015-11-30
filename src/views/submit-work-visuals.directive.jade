@@ -16,12 +16,25 @@ header
 
       img.icon.big.biggest(ng-if="vm.specsDefined" src="/images/brand-reqs-selected.svg")
 
-      h4 Choose Styles
+      h4 define my designs
 
-      p Pick few fonts style for your mobile app
+      p Choose fonts, colors, and icons.
 
       button.action.wide(ng-click="vm.showChooseStyles()") select
 
+    li
+      img.icon.big.biggest(src="/images/upload.svg")
+
+      h4 use brand guidelines
+
+      p Link to your brand style guide or upload any design guidelines.
+
+      button.action.wide(ng-click="vm.scrollTo('secondary')") select
+
+  include submit-work-visuals-footer
+
+.flush-height.flex.column(id="secondary" full-height="lock")
+  ul.dark-bg.flex.center.flex-grow.middle.selectable-choices(ng-class="{active: vm.showPaths}")
     li
       img.icon.big.biggest(ng-if="!vm.uploaderHasFiles || vm.uploaderHasErrors || vm.uploaderUploading" src="/images/upload.svg")
 

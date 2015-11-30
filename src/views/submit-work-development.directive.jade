@@ -29,7 +29,9 @@ modal.upload-documents(show="vm.showUploadSpecs" background-click-close=true)
 
       img.icon.biggest(ng-if="vm.specsDefined" src="/images/define-dev-specs-selected.svg")
 
-      h4 Define development specs
+      h4 Define Requirements
+
+      p Answer questions to help us estimate cost and time.
 
       button.action.wide(type="button" ng-click="vm.showDefineSpecs()") select
 
@@ -137,21 +139,27 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
       li
         img(src="/images/security-none.svg")
 
-        h6 No security
+        h6 Standard
+
+        p Standard measures, including https, that are sufficient for the majority of the apps.
 
         button.wide.action(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.none")
 
       li
         img(src="/images/security-minimal.svg")
 
-        h6 Minimal security
+        h6 Enhanced
+
+        p Includes encrypting data stored on devices and other precautions needed when viewing sensitive data in an app.
 
         button.wide.action(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.minimal")
 
       li
         img(src="/images/security-complete.svg")
 
-        h6 Complete security
+        h6 Maximum security
+
+        p Includes custom certificates for all service calls and other measures needed for highly-secure apps.
 
         button.wide.action(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.complete")
 
