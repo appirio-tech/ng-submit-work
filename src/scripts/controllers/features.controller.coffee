@@ -171,6 +171,7 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
     vm.updatedFeatures.forEach (feature) ->
       if feature.custom
         feature.selected = true
+        feature.category = 'Custom Features'
         vm.features.push feature
         vm.selectedFeaturesCount++
       else
