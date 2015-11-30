@@ -714,6 +714,7 @@ $templateCache.put("views/feature-list.directive.html","<header class=\"flex mid
       vm.updatedFeatures.forEach(function(feature) {
         if (feature.custom) {
           feature.selected = true;
+          feature.category = 'Custom Features';
           vm.features.push(feature);
           return vm.selectedFeaturesCount++;
         } else {
