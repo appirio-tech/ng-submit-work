@@ -10,6 +10,9 @@ FeaturelistController = ($scope) ->
     $scope.$watch 'activeFeature', (newValue) ->
       vm.activeFeature = newValue
 
+    $scope.$watch 'features', (newValue) ->
+      vm.features = newValue
+
     vm
 
 
