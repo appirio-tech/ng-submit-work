@@ -22,12 +22,12 @@ modal.full.define-features(show="vm.showFeaturesModal" ng-if="vm.showFeaturesMod
 
     ul.contents.flex.column.flex-grow
       li.flex.flex-grow
-        .default.active(ng-hide="vm.showDefineFeaturesForm" ng-class="{active: !vm.activeFeature}")
+        .default.active(ng-hide="vm.showDefineFeaturesForm" ng-if="!vm.activeFeature" ng-class="{active: !vm.activeFeature}")
           h5 Select and define features for your app
 
           p Select from the most popular features, listed on the left, or define your own custom features.
 
-        .description(ng-hide="vm.showDefineFeaturesForm" ng-class="{active: vm.activeFeature}")
+        .description(ng-hide="vm.showDefineFeaturesForm" ng-if="vm.activeFeature" ng-class="{active: vm.activeFeature}")
           h5 Select and define features for your app
 
           h6 {{ vm.activeFeature.title }} description
