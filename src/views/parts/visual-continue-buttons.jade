@@ -1,15 +1,15 @@
 .continue-buttons
-  a.button.wider(
+  a.button(
     ng-if="vm.projectType == 'DESIGN_AND_CODE'"
     ui-sref="submit-work-development({ id: vm.workId })"
   ) go to development
 
-  button.wider.save(
+  button.save(
     ng-if="vm.projectType != 'DESIGN_AND_CODE'"
     ng-click="vm.save(true, false)"
   ) save
 
-  button.wider.kick-off.action(
+  button.kick-off.action(
     ng-if="vm.projectType != 'DESIGN_AND_CODE'"
     ng-click="vm.save(true, true)"
   ) kick off project

@@ -1,9 +1,9 @@
-@import "work-includes";
+@import "work/work-includes";
 
 feature-list {
-  display: block;
-  background-color: $neutral-color-light;
-  width: 286px;
+  display         : block;
+  background-color: $grey-lightest;
+  width           : 286px;
 
   header {
     padding: 15px;
@@ -15,7 +15,7 @@ feature-list {
       margin: 0 15px;
       font-size  : 16px;
       font-weight: bold;
-      color      : $text-color-darkest;
+      color      : $text-color-dark;
     }
   }
 
@@ -34,7 +34,11 @@ feature-list {
   li {
     &.active {
       button {
-        background-color: $neutral-color;
+        background-color: $grey-lighter;
+
+        p {
+          font-weight: 400;
+        }
       }
     }
 
@@ -50,10 +54,10 @@ feature-list {
       text-align: left;
 
       &:hover {
-        background-color: $primary-color-dark;
+        background-color: $grey-lighter;
 
         p {
-          color: $white;
+          font-weight: 400;
         }
       }
     }

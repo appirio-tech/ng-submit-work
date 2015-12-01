@@ -259,7 +259,7 @@ srv = ->
 
   service.fonts = [
     name: 'Serif'
-    description: 'Classic font families that work well for stylized headlines, as well as paragraphs of text.'
+    description: 'Classic design, good legibility for large and small text.'
     id: 'SERIF'
     selected: false
   ,
@@ -272,28 +272,28 @@ srv = ->
   service.colors = [
     name: 'Blue'
     id: 'BLUE'
-    imgUrl: 'http://s3.amazonaws.com/colorcombos-images/users/1/color-schemes/color-scheme-375-main.png?v=20120505082910'
     selected: false
   ,
     name: 'Red'
     id: 'RED'
-    imgUrl: 'http://s3.amazonaws.com/colorcombos-images/users/1/color-schemes/color-scheme-375-main.png?v=20120505082910'
     selected: false
   ,
     name: 'Green'
     id: 'GREEN'
-    imgUrl: 'http://s3.amazonaws.com/colorcombos-images/users/1/color-schemes/color-scheme-375-main.png?v=20120505082910'
     selected: false
   ,
     name: 'Orange'
     id: 'ORANGE'
-    imgUrl: 'http://s3.amazonaws.com/colorcombos-images/users/1/color-schemes/color-scheme-375-main.png?v=20120505082910'
+    selected: false
+  ,
+    name: 'Black'
+    id: 'BLACK'
     selected: false
   ]
 
   service.icons = [
     name: 'Flat Color'
-    description: 'A one dimensional, modern and colorful icon style.'
+    description: 'A one dimensional, colorful icon style.'
     id: 'FLAT_COLORS'
     selected: false
     img: 'flat-colors'

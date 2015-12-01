@@ -20,7 +20,7 @@ header
 
       p Choose fonts, colors, and icons.
 
-      button.action.wide(ng-click="vm.showChooseStyles()") select
+      button.action(ng-click="vm.showChooseStyles()") select
 
     li
       img.icon.big.biggest(src="/images/upload.svg")
@@ -29,7 +29,7 @@ header
 
       p Link to your brand style guide or upload any design guidelines.
 
-      button.action.wide(ng-click="vm.scrollTo('secondary')") select
+      button.action(ng-click="vm.scrollTo('secondary')") select
 
   include parts/visual-continue-buttons
 
@@ -40,11 +40,11 @@ header
 
       img.icon.big.biggest(ng-if="vm.uploaderHasFiles && !vm.uploaderHasErrors && !vm.uploaderUploading" src="/images/upload-selected.svg")
 
-      h4 Upload styles
+      h4 upload brand guidelines
 
-      p Pick color palette for your mobile app
+      p Upload any guidelines, style guides, or prior designs.
 
-      button.action.wide(ng-click="vm.showUploadStyles()") select
+      button.action(ng-click="vm.showUploadStyles()") select
 
     li
       img.icon.big.biggest(ng-if="!vm.urlAdded || urlForm.addressInput.$error.pattern" src="/images/url-styles.svg")
@@ -53,9 +53,9 @@ header
 
       h4 Get style from url
 
-      p Pick graphic style for your mobile app.
+      p Link to your brand website.
 
-      button.action.wide(ng-click="vm.showUrlStyles()") select
+      button.action(ng-click="vm.showUrlStyles()") select
 
   include parts/visual-continue-buttons
 

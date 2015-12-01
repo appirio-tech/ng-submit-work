@@ -1,12 +1,16 @@
-@import "work-includes";
+@import "work/work-includes";
 
 submit-work-type {
   header {
-    padding: $padding-biggest;
+    padding: 64px;
 
     p {
-      margin-top: $margin-small;
+      margin-top: 15px;
     }
+  }
+
+  input[type="text"] {
+    max-width: 450px;
   }
 
   p.error {
@@ -22,6 +26,8 @@ submit-work-type {
   }
 
   #app-name {
+    padding: 10px;
+
     .error {
       text-align: left;
     }
@@ -29,13 +35,13 @@ submit-work-type {
 
   .type  {
     .error {
-      margin-top: $margin-small;
+      margin-top: 15px;
     }
 
     > ul {
       padding-right: 0;
       padding-bottom: 0;
-      margin-top: $margin;
+      margin-top: 30px;
 
       li {
         max-width: 433px;
@@ -43,11 +49,11 @@ submit-work-type {
 
       .house {
         height          : 195px;
-        margin-top      : $margin-small;
+        margin-top      : 15px;
         margin-left     : auto;
         margin-right    : auto;
-        background-color: $neutral-color-light;
-        padding         : $padding;
+        background-color: $grey-light;
+        padding         : 15px;
 
         .active {
           display: none;
@@ -84,21 +90,21 @@ submit-work-type {
     }
 
     > li {
-      margin: 0 $margin;
+      margin: 0 30px;
     }
   }
 
   ul.target-platforms {
     text-align: left;
-    margin-top: $margin;
+    margin-top: 30px;
 
     label {
-      font-weight: $font-weight-light;
+      font-weight: 300;
     }
 
     > li {
       margin    : 0 auto;
-      margin-top: $margin;
+      margin-top: 30px;
       max-width : 700px;
 
       &:first-child {
@@ -110,8 +116,8 @@ submit-work-type {
 
         > li {
           display: inline-block;
-          margin-right: $margin-big;
-          margin-bottom: $margin-small;
+          margin-right: 40px;
+          margin-bottom: 15px;
         }
       }
     }
@@ -129,13 +135,13 @@ submit-work-type {
 
       input {
         margin: 0 auto;
-        margin-top: $margin;
+        margin-top: 30px;
       }
 
       button {
         display   : block;
         margin    : 0 auto;
-        margin-top: $margin-small;
+        margin-top: 15px;
       }
     }
   }
@@ -145,7 +151,7 @@ submit-work-type {
     max-width : 700px;
     height    : 200px;
     margin    : 0 auto;
-    margin-top: $margin;
+    margin-top: 30px;
     font-size : 16px;
   }
 }
