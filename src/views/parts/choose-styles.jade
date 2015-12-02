@@ -23,28 +23,28 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
     p Our community will offer choices within these broad font styles. Feel free to skip this step if you don't have a preference.
 
     ul.or-choices.flex.middle.center
-      li
-        img(class="/images/serif-header.svg")
+      li.serif
+        img.header(src="/images/serif-header.svg")
 
         p Classic design, good legibility for large and small text.
 
         hr
 
-        img(src="/images/serif.png"
+        img(src="/images/serif.png")
 
         button.action(selectable=true type="button" ng-model="vm.font" value="SERIF")
 
       li.or(ng-repeat-end ng-if="font.name == 'Serif' ")
         .house OR
 
-      li
-        img(class="/images/sans-header.svg")
+      li.sans-serif
+        img.header(src="/images/sans-serif-header.svg")
 
         p Classic design, good legibility for large and small text.
 
         hr
 
-        img(src="/images/sans.png"
+        img(src="/images/sans.png")
 
         button.action(selectable=true type="button" ng-model="vm.font" value="SANS_SERIF")
 

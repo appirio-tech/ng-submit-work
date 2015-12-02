@@ -34,11 +34,15 @@ submit-work-visuals {
     }
 
     .serif {
-      width: 85px;
+      .header {
+        width: 85px;
+      }
     }
 
     .sans-serif {
-      width: 156px;
+      .header {
+        width: 156px;
+      }
     }
 
     h2 {
