@@ -1,5 +1,5 @@
 header
-  include nav
+  include parts/nav
 
   img(src="/images/features-white.svg")
 
@@ -18,7 +18,7 @@ header
 
       p Use our wizard to pick common features or add your own.
 
-      button.action.wide(ng-click="vm.showFeatures()") select
+      button.action(ng-click="vm.showFeatures()") select
 
     li
       img.icon.biggest(ng-if="!vm.uploaderHasFiles || vm.uploaderHasErrors || vm.uploaderUploading" src="/images/upload.svg")
@@ -29,15 +29,12 @@ header
 
       p Upload a brief, requirements, specs, or feature list.
 
-      button.action.wide(ng-click="vm.showUpload()") select
+      button.action(ng-click="vm.showUpload()") select
 
   .continue-buttons
-    a.button.wider(ui-sref="submit-work-visuals({ id: vm.workId })") go to design
+    a.button(ui-sref="submit-work-visuals({ id: vm.workId })") go to design
 
-include submit-work-features-define
+include parts/define-features
 
-include submit-work-features-upload
+include parts/upload-features
 
-include submit-work-features-define
-
-include submit-work-features-upload

@@ -1,4 +1,4 @@
-@import "work-includes";
+@import "work/work-includes";
 
 submit-work-type,
 submit-work-features,
@@ -9,16 +9,12 @@ submit-work-complete {
   text-align      : center;
   background-color: $white;
 
-  h1 {
-    font-weight: $font-weight-bold;
-  }
-
-  h5 {
-    font-weight: $font-weight-bold;
+  h1, h5 {
+    font-weight: 500;
   }
 
   .uploaderWrapper {
-    margin-top: $margin-small;
+    margin-top: 15px;
 
     .failed {
       color: $danger-color;
@@ -26,13 +22,13 @@ submit-work-complete {
 
     .uploader {
       .fileActions {
-        margin-top: $margin-smallest;
+        margin-top: 10px;
       }
 
-      margin: $margin-smallest;
+      margin: 10px;
 
       button {
-        margin: $margin-smallest;
+        margin: 10px;
       }
     }
   }
@@ -47,7 +43,7 @@ submit-work-complete {
     padding: 32px;
 
     button {
-      margin-left: $margin-small;
+      margin-left: 15px;
 
       &:first-child {
         margin-left: 0;
@@ -81,7 +77,7 @@ submit-work-complete {
     }
 
     a {
-      color: $neutral-color;
+      color: $grey;
       text-transform: uppercase;
     }
 
@@ -100,7 +96,7 @@ submit-work-complete {
       display   : block;
       width     : 400px;
       margin    : 0 auto;
-      margin-top: $margin-smallest;
+      margin-top: 10px;
     }
 
     a {
@@ -116,31 +112,50 @@ submit-work-complete {
 
     img {
       height: 60px;
-      margin-top: $margin;
+      margin-top: 30px;
     }
 
     p {
-      margin-top: $margin-smallest;
-      font-weight: $font-weight-lightest;
+      margin-top: 10px;
+      font-weight: 200;
     }
   }
 
   ul.or-choices {
-    margin-top: $margin;
+    margin-top: 30px;
 
     li {
-      min-width: 300px;
-      max-width: 300px;
+      min-width: 340px;
+      max-width: 340px;
+
+      > p {
+        margin-top: 10px;
+      }
 
       hr {
-        margin-bottom: $margin-smallest;
-        background-color: $neutral-color;
+        margin-top: 10px;
+        background-color: $grey;
+      }
+
+      button.big {
+        width: 280px;
+        height: 100px;
+        font-size: 18px;
+
+        .icon-container {
+          margin-right: 10px;
+
+          .icon.checkmark-white {
+            width: 20px;
+            height: 20px;
+          }
+        }
       }
 
       &.or {
-        margin          : $margin;
-        background-color: $neutral-color;
-        font-size       : $font-size;
+        margin          : 30px;
+        background-color: $grey;
+        font-size       : 15px;
         color           : $white;
         min-width       : 40px;
         max-width       : 40px;
@@ -160,11 +175,11 @@ submit-work-complete {
 
   ul.selectable-choices {
     > li {
-      margin: 0 $margin;
+      margin: 0 30px;
       width: 400px;
 
       button {
-        margin-top: $margin-small;
+        margin-top: 15px;
       }
 
       .icon {
@@ -177,7 +192,7 @@ submit-work-complete {
       }
 
       h4 {
-        margin-top: $margin-small;
+        margin-top: 15px;
       }
     }
   }
@@ -189,15 +204,24 @@ submit-work-complete {
       height: 100px;
     }
 
-    .upload {
+    main {
       width: 100%;
       max-width: 892px;
+
+      > p, > button {
+        margin-top: 15px;
+      }
     }
 
-    uploaded-files {
-      margin-top: 40px;
-      max-height: 398px;
-      overflow  : auto;
+    ap-uploader {
+      margin-top: 30px;
+
+      uploaded-files {
+        overflow        : auto;
+        max-height      : 398px;
+        padding         : 15px;
+        background-color: $grey-lightest;
+      }
     }
 
     .close {
@@ -205,11 +229,17 @@ submit-work-complete {
     }
 
     h2 {
-      margin-top: $margin;
+      margin-top: 30px;
     }
+  }
+}
 
-    p, button {
-      margin-top: $margin-small;
+submit-work-visuals,
+submit-work-development {
+  modal > footer {
+    button {
+      margin: 30px;
+      width: 120px;
     }
   }
 }

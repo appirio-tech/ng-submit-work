@@ -18,29 +18,38 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
         .icon.arrow.smallest.right
 
   main.dark-bg.fonts.flex.column.center.flex-grow(ng-show="vm.activeStyleModal == 'fonts' ")
-    h2 Pick the font style that you prefer
+    h2 Pick the <strong>font style</strong> that you prefer
 
     p Our community will offer choices within these broad font styles. Feel free to skip this step if you don't have a preference.
 
     ul.or-choices.flex.middle.center
-      li(ng-repeat-start="font in vm.fonts")
-        h2(class="{{ font.name.toLowerCase() }}") {{font.name}}
+      li.serif
+        img.header(src="/images/serif-header.svg")
+
+        p Classic design, good legibility for large and small text.
 
         hr
 
-        p {{font.description}}
+        img(src="/images/serif.png")
 
-        img(src="/images/sans.png" ng-if="font.name != 'Serif' ")
-
-        img(src="/images/serif.png" ng-if="font.name == 'Serif' ")
-
-        button.wider.action(selectable=true type="button" ng-model="vm.font" value="font.id")
+        button.action(selectable=true type="button" ng-model="vm.font" value="SERIF")
 
       li.or(ng-repeat-end ng-if="font.name == 'Serif' ")
         .house OR
 
+      li.sans-serif
+        img.header(src="/images/sans-serif-header.svg")
+
+        p Classic design, good legibility for large and small text.
+
+        hr
+
+        img(src="/images/sans.png")
+
+        button.action(selectable=true type="button" ng-model="vm.font" value="SANS_SERIF")
+
   main.dark-bg.colors.flex.column.center.flex-grow(ng-show="vm.activeStyleModal == 'colors' ")
-    h2 Pick the colors that you prefer
+    h2 Pick <strong>the colors</strong> that you prefer
 
     p Our community will use these choices to pick the appropriate shade. Feel free to skip this step if you don’t have a preference.
 
@@ -48,12 +57,12 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
       li(ng-repeat="color in vm.colors")
         h6 {{ color.name }}
 
-        img(src="/images/{{color.name}}.png")
+        img(src="/images/{{ color.name.toLowerCase() }}.png")
 
         button.action(type="button" selectable=true ng-model="color.selected")
 
   main.dark-bg.icons.flex.column.center.flex-grow(ng-show="vm.activeStyleModal == 'icons' ")
-    h2 Pick the icon styles that you prefer
+    h2 Pick the <strong>icon styles</strong> that you prefer
 
     p Feel free to skip this step if you don't have a preference.
 
@@ -65,11 +74,11 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
 
         p {{icon.description}}
 
-        button.wider.action(type="button" selectable=true ng-model="vm.icon" value="icon.id")
+        button.action(type="button" selectable=true ng-model="vm.icon" value="icon.id")
 
   footer
-    button.wider(ng-hide="vm.backButtonDisabled" ng-click="vm.viewPrevious()") back
+    button(ng-hide="vm.backButtonDisabled" ng-click="vm.viewPrevious()") back
 
-    button.action.action.wider(ng-hide="vm.nextButtonDisabled" ng-click="vm.viewNext()") next
+    button.action.action(ng-hide="vm.nextButtonDisabled" ng-click="vm.viewNext()") next
 
-    button.action.wider(ng-show="vm.showFinishDesignButton" ng-click="vm.save()") Save
+    button.action(ng-show="vm.showFinishDesignButton" ng-click="vm.save()") Save

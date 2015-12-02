@@ -6,7 +6,7 @@ header.flex.column.center
 form(ng-submit="vm.validateAllSections()")
   .flush-height.flex.column(flush-height="lock")
     .dark-bg.flex.column.center.middle.flex-grow(id="app-name")
-      input.wider(
+      input(
         type="text"
         placeholder="Name your project..."
         ng-change="vm.validateSection('platform-details', 'name', false)"
@@ -16,10 +16,10 @@ form(ng-submit="vm.validateAllSections()")
         autofocus=true
       )
 
-      p.error.wider.transition(ng-class="{ show: vm.nameError && !vm.name.length }") Please name your project.
+      p.error.transition(ng-class="{ show: vm.nameError && !vm.name.length }") Please name your project.
 
     .continue-buttons
-      button.wider(
+      button(
         type="button"
         ng-click="vm.validateSection('platform-details', 'name', true)"
       ) continue
@@ -43,12 +43,12 @@ form(ng-submit="vm.validateAllSections()")
             li(ng-repeat="orientation in vm.orientations")
               checkbox(label="{{orientation.name}}" ng-model="orientation.selected" ng-click="vm.validateSection('type-details', ['orientations'])")
 
-      p.error.wider.transition(ng-class="{ show: vm.devicesError }") Please choose a device.
+      p.error.transition(ng-class="{ show: vm.devicesError }") Please choose a device.
 
-      p.error.wider.transition(ng-class="{ show: vm.orientationsError }") Please choose an orientation.
+      p.error.transition(ng-class="{ show: vm.orientationsError }") Please choose an orientation.
 
     .continue-buttons
-      button.wider(
+      button(
         type="button"
         ng-click="vm.validateSection('type-details', ['devices', 'orientations'], true)"
       ) continue
@@ -87,10 +87,10 @@ form(ng-submit="vm.validateAllSections()")
             value="projectType.id"
           )
 
-      p.error.wider.transition(ng-class="{ show: vm.projectTypeError }") Please choose a type of work.
+      p.error.transition(ng-class="{ show: vm.projectTypeError }") Please choose a type of work.
 
     .continue-buttons
-      button.wider(type="button" ng-click="vm.validateSection('brief-details', 'projectType', true)") continue
+      button(type="button" ng-click="vm.validateSection('brief-details', 'projectType', true)") continue
 
   .full-height.flex.column.has-loader(full-height=true)
     loader(ng-if="vm.loading")
@@ -100,10 +100,10 @@ form(ng-submit="vm.validateAllSections()")
 
       textarea.brief(placeholder="You can include a short pitch for your app or just quickly describe how it will be used and by whom. Don't worry, you will get a chance to add more details later in the process." ng-model="vm.brief" ng-change="vm.validateSection('brief-details', 'brief')")
 
-      p.error.wider.transition(ng-class="{ show: vm.briefError }") Please enter project details.
+      p.error.transition(ng-class="{ show: vm.briefError }") Please enter project details.
 
       .continue-buttons
-        button.action.wider(type="submit") Create Project
+        button.action(type="submit") Create Project
 
 modal(show="vm.showSuccessModal" background-click-close=true)
   .success
@@ -114,6 +114,6 @@ modal(show="vm.showSuccessModal" background-click-close=true)
     p Share your email to signup and we'll be sure to send a project link.
 
     form
-      input.wider(type="email" required=true)
+      input(type="email" required=true)
 
-      button.wider(type="submit") Submit
+      button(type="submit") Submit

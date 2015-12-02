@@ -1,4 +1,4 @@
-@import "work-includes";
+@import "work/work-includes";
 
 $card-max-width: 180px;
 
@@ -17,28 +17,46 @@ submit-work-visuals {
 
   .enter-url {
     input {
-      width: 100%;
-      margin-top: 10px;
+      width       : 375px;
+      margin-top  : 10px;
+      margin-right: auto;
+      margin-left : auto;
+    }
+
+    button {
+      margin-top: 30px;
     }
   }
 
   .fonts {
     button {
-      margin-top: $margin;
+      margin-top: 40px;
     }
 
     .serif {
-      font-family: serif;
+      .header {
+        width: 85px;
+      }
+    }
+
+    .sans-serif {
+      .header {
+        width: 156px;
+      }
     }
 
     h2 {
       font-weight: 300px;
     }
 
+    hr {
+      margin: 10px 0 30px 0;
+    }
+
     > ul {
       > li {
         &:first-child, &:last-child {
-          margin: $margin;
+          margin: 0 30px;
         }
       }
     }
@@ -55,31 +73,25 @@ submit-work-visuals {
       text-align    : center;
       text-transform: uppercase;
       width         : 100%;
-      padding       : $padding-big;
+      padding       : 30px;
 
       > li {
-        margin: 0 $margin-small;
+        margin: 0 15px;
       }
     }
 
     button {
       &.active {
-        color: $neutral-color-darkest;
-      }
-    }
-
-    footer {
-      button {
-        margin: $margin;
+        color: $grey-darkest;
       }
     }
 
     > main {
       width           : 100%;
-      border-top      : 1px solid $neutral-color;
+      border-top      : 1px solid $grey;
 
-      h6 {
-        margin-top: $margin-small;
+      &.icons h6 {
+        margin-top: 25px;
       }
     }
 
@@ -87,19 +99,19 @@ submit-work-visuals {
       img {
         width: 150px;
         display: block;
-        margin-top: $margin-small;
+        margin-top: 15px;
       }
     }
 
     .icons, .colors {
       > ul {
-        margin: $margin;
+        margin: 30px;
 
         li {
-          margin: $margin;
+          margin: 0 30px;
 
           button {
-            margin-top: $margin-small;
+            margin-top: 15px;
           }
         }
       }

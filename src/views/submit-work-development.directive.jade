@@ -1,5 +1,5 @@
 header
-  include nav
+  include parts/nav
 
   img(src="/images/development-active.svg")
 
@@ -18,7 +18,7 @@ header
 
       p Answer questions to help us estimate cost and time.
 
-      button.action.wide(type="button" ng-click="vm.showDefineSpecs()") select
+      button.action(type="button" ng-click="vm.showDefineSpecs()") select
 
     li
       img.icon.biggest(ng-if="!vm.uploaderHasFiles || vm.uploaderHasErrors || vm.uploaderUploading" src="/images/upload.svg")
@@ -29,12 +29,12 @@ header
 
       p Please upload any technical requirements.
 
-      button.action.wide(ng-click="vm.uploadSpecs()") select
+      button.action(ng-click="vm.uploadSpecs()") select
 
   .continue-buttons
-    button.wider.save(ng-click="vm.save(true, false)") save
+    button.save(ng-click="vm.save(true, false)") save
 
-    button.wider.kick-off.action(ng-click="vm.save(true, true)") kick off project
+    button.kick-off.action(ng-click="vm.save(true, true)") kick off project
 
 modal.full.define-development(show="vm.showDefineSpecsModal" background-click-close=true)
   ul.nav
@@ -65,7 +65,7 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
 
     ul.or-choices.flex.center
       li
-        button.big.widest(
+        button.big(
           ng-model="vm.work.offlineAccess"
           label="yes"
           value="true"
@@ -79,7 +79,7 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
         .house OR
 
       li
-        button.big.widest(
+        button.big(
           ng-model="vm.work.offlineAccess"
           label="no"
           value="false"
@@ -96,7 +96,7 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
 
     ul.or-choices.flex.center
       li
-        button.big.widest(
+        button.big(
           ng-model="vm.work.usesPersonalInformation"
           label="yes"
           value="true"
@@ -110,7 +110,7 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
         .house OR
 
       li
-        button.big.widest(
+        button.big(
           ng-model="vm.work.usesPersonalInformation"
           label="no"
           value="false"
@@ -131,7 +131,7 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
 
         p Standard measures, including https, that are sufficient for the majority of the apps.
 
-        button.wide.action(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.none")
+        button.action(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.none")
 
       li
         img(src="/images/security-minimal.svg")
@@ -140,7 +140,7 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
 
         p Includes encrypting data stored on devices and other precautions needed when viewing sensitive data in an app.
 
-        button.wide.action(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.minimal")
+        button.action(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.minimal")
 
       li
         img(src="/images/security-complete.svg")
@@ -149,7 +149,7 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
 
         p Includes custom certificates for all service calls and other measures needed for highly-secure apps.
 
-        button.wide.action(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.complete")
+        button.action(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.complete")
 
   main.dark-bg.third-party-integrations.flex.column.center.flex-grow(ng-show= "vm.activeDevelopmentModal == 'thirdPartyIntegrations'")
     h2 How many 3rd party integrations</strong>?
@@ -159,21 +159,10 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
     input(type="number" min=1 max=6 ng-model="vm.work.numberOfApiIntegrations")
 
   footer
-    button.wider(ng-hide="vm.backButtonDisabled" ng-click="vm.viewPrevious()") back
+    button(ng-hide="vm.backButtonDisabled" ng-click="vm.viewPrevious()") back
 
-    button.action.action.wider(ng-hide="vm.nextButtonDisabled" ng-click="vm.viewNext()") next
+    button.action.action(ng-hide="vm.nextButtonDisabled" ng-click="vm.viewNext()") next
 
-    button.action.wider(ng-show="vm.showFinishDevelopmentButton" ng-click="vm.save()") Save
+    button.action(ng-show="vm.showFinishDevelopmentButton" ng-click="vm.save()") Save
 
-modal.upload-documents(show="vm.showUploadSpecs" background-click-close=true)
-  .upload
-    img.upload-icon(src="/images/upload.svg")
-
-    h2 Upload documents
-
-    ap-uploader(
-      config="vm.uploaderConfig"
-      uploading="vm.uploaderUploading"
-      has-errors="vm.uploaderHasErrors"
-      has-files="vm.uploaderHasFiles"
-    )
+include parts/upload-requirements

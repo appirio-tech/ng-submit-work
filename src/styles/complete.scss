@@ -1,9 +1,9 @@
-@import "work-includes";
+@import "work/work-includes";
 
 submit-work-complete {
   main {
     > * {
-      margin-top: $margin-small;
+      margin-top: 15px;
 
       &:first-child {
         margin-top: 0;
@@ -21,7 +21,7 @@ submit-work-complete {
 
     .icon-house {
       background-color: $primary-color;
-      padding         : $padding;
+      padding         : 15px;
       border-radius   : 50%;
     }
   }

@@ -1,4 +1,4 @@
-@import "work-includes";
+@import "work/work-includes";
 
 submit-work-development {
   display: block;
@@ -10,25 +10,26 @@ submit-work-development {
 
   input[type="number"] {
     margin: 0 auto;
-    margin-top: $margin-small;
+    margin-top: 15px;
+    max-width: 400px;
   }
 
   .security {
     > ul {
-      margin-top: $margin;
+      margin-top: 30px;
     }
 
     label {
-      display: block;
-      margin-top: $margin-small;
+      display    : block;
+      margin-top : 15px;
       font-weight: normal;
-      font-size: $font-size;
+      font-size  : 15px;
     }
   }
 
   .third-party-integrations {
     > p {
-      margin-top: $margin-small;
+      margin-top: 15px;
     }
   }
 
@@ -38,32 +39,26 @@ submit-work-development {
 
       text-align    : center;
       width         : 100%;
-      padding       : $padding-big;
+      padding       : 32px;
       text-transform: uppercase;
 
       > li {
-        margin: 0 $margin-small;
+        margin: 0 15px;
       }
     }
 
     button {
       &.active {
-        color: $neutral-color-darkest;
-      }
-    }
-
-    footer {
-      button {
-        margin: $margin;
+        color: $grey-darkest;
       }
     }
 
     > main {
       width     : 100%;
-      border-top: 1px solid $neutral-color;
+      border-top: 1px solid $grey;
 
       h6 {
-        margin-top: $margin-small;
+        margin-top: 15px;
       }
     }
   }
