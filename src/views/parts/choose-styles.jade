@@ -23,21 +23,30 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
     p Our community will offer choices within these broad font styles. Feel free to skip this step if you don't have a preference.
 
     ul.or-choices.flex.middle.center
-      li(ng-repeat-start="font in vm.fonts")
-        img(class="{{ font.name.toLowerCase().split(' ').join('-') }}" ng-src="/images/{{ font.name.toLowerCase().split(' ').join('-') }}-header.svg")
+      li
+        img(class="/images/serif-header.svg")
 
-        p {{font.description}}
+        p Classic design, good legibility for large and small text.
 
         hr
 
-        img(src="/images/sans.png" ng-if="font.name != 'Serif' ")
+        img(src="/images/serif.png"
 
-        img(src="/images/serif.png" ng-if="font.name == 'Serif' ")
-
-        button.action(selectable=true type="button" ng-model="vm.font" value="font.id")
+        button.action(selectable=true type="button" ng-model="vm.font" value="SERIF")
 
       li.or(ng-repeat-end ng-if="font.name == 'Serif' ")
         .house OR
+
+      li
+        img(class="/images/sans-header.svg")
+
+        p Classic design, good legibility for large and small text.
+
+        hr
+
+        img(src="/images/sans.png"
+
+        button.action(selectable=true type="button" ng-model="vm.font" value="SANS_SERIF")
 
   main.dark-bg.colors.flex.column.center.flex-grow(ng-show="vm.activeStyleModal == 'colors' ")
     h2 Pick <strong>the colors</strong> that you prefer

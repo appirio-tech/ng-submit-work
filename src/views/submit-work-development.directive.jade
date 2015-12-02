@@ -1,5 +1,5 @@
 header
-  include nav
+  include parts/nav
 
   img(src="/images/development-active.svg")
 
@@ -165,15 +165,4 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
 
     button.action(ng-show="vm.showFinishDevelopmentButton" ng-click="vm.save()") Save
 
-modal.upload-documents(show="vm.showUploadSpecs" background-click-close=true)
-  .upload
-    img.upload-icon(src="/images/upload.svg")
-
-    h2 Upload documents
-
-    ap-uploader(
-      config="vm.uploaderConfig"
-      uploading="vm.uploaderUploading"
-      has-errors="vm.uploaderHasErrors"
-      has-files="vm.uploaderHasFiles"
-    )
+include parts/upload-requirements

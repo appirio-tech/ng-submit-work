@@ -1,5 +1,5 @@
 header
-  include nav
+  include parts/nav
 
   img(src="/images/features-white.svg")
 
@@ -34,10 +34,7 @@ header
   .continue-buttons
     a.button(ui-sref="submit-work-visuals({ id: vm.workId })") go to design
 
-include submit-work-features-define
+include parts/define-features
 
-include submit-work-features-upload
+include parts/upload-features
 
-include submit-work-features-define
-
-include submit-work-features-upload
