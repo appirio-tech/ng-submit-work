@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="68px" height="68px" viewBox="0 0 68 68" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12081) - http://www.bohemiancoding.com/sketch -->
+    <title>icon-flat-color</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="icon-flat-color" sketch:type="MSArtboardGroup">
+            <g id="Imported-Layers" sketch:type="MSLayerGroup" transform="translate(8.000000, 1.000000)">
+                <path d="M26.83,55.074 L18.497,45.073 L18.497,35.073 L35.164,35.073 L35.164,45.073 L26.83,55.074" id="Fill-1" fill="#FF9800" sketch:type="MSShapeGroup"></path>
+                <path d="M45.164,25.074 C45.164,26.915 43.672,28.407 41.83,28.407 C39.989,28.407 38.497,26.915 38.497,25.074 C38.497,23.231 39.989,21.74 41.83,21.74 C43.672,21.74 45.164,23.231 45.164,25.074" id="Fill-2" fill="#FFA726" sketch:type="MSShapeGroup"></path>
+                <path d="M15.164,25.074 C15.164,26.915 13.672,28.407 11.83,28.407 C9.989,28.407 8.497,26.915 8.497,25.074 C8.497,23.231 9.989,21.74 11.83,21.74 C13.672,21.74 15.164,23.231 15.164,25.074" id="Fill-3" fill="#FFA726" sketch:type="MSShapeGroup"></path>
+                <path d="M41.83,15.073 C41.83,2.403 11.83,6.74 11.83,15.073 L11.83,26.74 C11.83,35.073 18.497,41.74 26.83,41.74 C35.164,41.74 41.83,35.073 41.83,26.74 L41.83,15.073" id="Fill-4" fill="#FFB74D" sketch:type="MSShapeGroup"></path>
+                <path d="M26.83,0.073 C16.66,0.073 10.164,8.237 10.164,18.407 L10.164,22.242 L13.497,25.074 L13.497,16.74 L33.497,10.074 L40.164,16.74 L40.164,25.074 L43.497,22.242 L43.497,18.407 C43.497,11.74 41.83,5.073 33.497,3.407 L31.83,0.073 L26.83,0.073" id="Fill-5" fill="#424242" sketch:type="MSShapeGroup"></path>
+                <path d="M35.164,25.074 C35.164,25.992 34.415,26.74 33.497,26.74 C32.579,26.74 31.83,25.992 31.83,25.074 C31.83,24.155 32.579,23.407 33.497,23.407 C34.415,23.407 35.164,24.155 35.164,25.074" id="Fill-6" fill="#784719" sketch:type="MSShapeGroup"></path>
+                <path d="M21.83,25.074 C21.83,25.992 21.082,26.74 20.164,26.74 C19.245,26.74 18.497,25.992 18.497,25.074 C18.497,24.155 19.245,23.407 20.164,23.407 C21.082,23.407 21.83,24.155 21.83,25.074" id="Fill-7" fill="#784719" sketch:type="MSShapeGroup"></path>
+                <path d="M26.83,65.073 L18.497,45.073 L26.83,46.74 L35.164,45.073 L26.83,65.073" id="Fill-8" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+                <path d="M25.164,51.74 L23.999,59.24 L26.83,65.907 L29.662,59.24 L28.497,51.74 L30.164,50.073 L26.83,46.74 L23.497,50.073 L25.164,51.74" id="Fill-9" fill="#D32F2F" sketch:type="MSShapeGroup"></path>
+                <path d="M35.164,45.073 L26.83,65.073 L18.497,45.073 C18.497,45.073 0.164,48.407 0.164,66.74 L53.497,66.74 C53.497,48.407 35.164,45.073 35.164,45.073" id="Fill-10" fill="#546E7A" sketch:type="MSShapeGroup"></path>
+            </g>
+        </g>
+    </g>
+</svg>
