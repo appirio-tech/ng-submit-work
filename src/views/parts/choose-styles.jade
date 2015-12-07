@@ -32,7 +32,7 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
 
         img(src="/images/serif.png")
 
-        button.action(selectable=true type="button" ng-model="vm.font" value="SERIF")
+        button.action(selectable=true type="button" ng-model="vm.font" value="vm.serif")
 
       li.or(ng-repeat-end ng-if="font.name == 'Serif' ")
         .house OR
@@ -46,7 +46,7 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
 
         img(src="/images/sans.png")
 
-        button.action(selectable=true type="button" ng-model="vm.font" value="SANS_SERIF")
+        button.action(selectable=true type="button" ng-model="vm.font" value="vm.sansSerif")
 
   main.dark-bg.colors.flex.column.center.flex-grow(ng-show="vm.activeStyleModal == 'colors' ")
     h2 Pick <strong>the colors</strong> that you prefer

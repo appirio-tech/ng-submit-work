@@ -22,6 +22,8 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, $document, SubmitWorkS
   vm.urlAdded              = false
   vm.styleModals           = ['fonts', 'colors', 'icons']
   vm.urlRegEx              = /^(http(s?):\/\/)?(www\.)?[a-zA-Z0-9\.\-\_]+(\.[a-zA-Z]{2,3})+(\/[a-zA-Z0-9\_\-\s\.\/\?\%\#\&\=]*)?$/
+  vm.serif                 = 'SERIF'
+  vm.sansSerif             = 'SANS_SERIF'
 
   vm.scrollTo = (id) ->
     element = angular.element document.getElementById id
