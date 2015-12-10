@@ -41168,7 +41168,7 @@ $templateCache.put("views/simple-countdown.directive.html","<p>{{vm.timeRemainin
   'use strict';
   var dir;
 
-  dir = function($window) {
+  dir = function($window, $timeout) {
     var elements, link, lockHeight;
     elements = [];
     lockHeight = function($element) {
@@ -41216,7 +41216,20 @@ $templateCache.put("views/simple-countdown.directive.html","<p>{{vm.timeRemainin
     link = function(scope, element, attrs) {
       elements.push($(element[0]));
       return element.ready(function() {
-        return lockHeight($(element[0]));
+        var timeoutSet;
+        lockHeight($(element[0]));
+        timeoutSet = false;
+        return scope.$watch(function() {
+          var callback;
+          if (!timeoutSet) {
+            callback = function() {
+              timeoutSet = false;
+              return lockHeight($(element[0]));
+            };
+            $timeout(callback, 0, false);
+            return timeoutSet = true;
+          }
+        });
       });
     };
     return {
@@ -41230,7 +41243,7 @@ $templateCache.put("views/simple-countdown.directive.html","<p>{{vm.timeRemainin
     };
   };
 
-  dir.$inject = ['$window'];
+  dir.$inject = ['$window', '$timeout'];
 
   angular.module('appirio-tech-ng-ui-components').directive('lockHeight', dir);
 
@@ -41596,7 +41609,7 @@ $templateCache.put("views/simple-countdown.directive.html","<p>{{vm.timeRemainin
     sendResetEmail = function(email) {
       return $http({
         method: 'GET',
-        url: API_URL + "/v3/users/resetToken?&email=" + email
+        url: API_URL + "/v3/users/resetToken?email=" + email + "&source=connect"
       });
     };
     resetPassword = function(handle, token, password) {
@@ -41970,7 +41983,8 @@ $templateCache.put("views/simple-countdown.directive.html","<p>{{vm.timeRemainin
             name: file.fileName,
             path: file.filePath,
             size: file.fileSize,
-            type: file.fileType
+            type: file.fileType,
+            url: file.preSignedURL
           }, {
             newFile: false,
           });
@@ -42076,7 +42090,12 @@ $templateCache.put("views/simple-countdown.directive.html","<p>{{vm.timeRemainin
       file.createRecord = options.createRecord || null;
       file.removeRecord = options.removeRecord || null;
 
-      if (!file.newFile) {
+
+      if (file.newFile) {
+        getDataUrl(data).then(function(src) {
+          file.data.src = src;
+        })
+      } else {
         file.uploading = false;
         file.hasErrors = false;
       }
@@ -42120,7 +42139,7 @@ $templateCache.put("views/simple-countdown.directive.html","<p>{{vm.timeRemainin
 
       file.onCaptionChange({
         caption: file.data.caption,
-        id: file.data.id,
+        id:   file.data.id,
         name: file.data.name,
         path: file.data.path,
         size: file.data.size,
@@ -42183,12 +42202,12 @@ $templateCache.put("views/simple-countdown.directive.html","<p>{{vm.timeRemainin
     };
 
     File.prototype._onProgress = function(e) {
-      this.progress = Math.round(e.lengthComputable ? e.loaded * 100 / e.total : 0);
+      var progress = Math.round(e.lengthComputable ? e.loaded * 100 / e.total : 0);
+      this.onProgress(progress);
     };
 
     File.prototype._failed = function(err) {
       var file = this;
-      console.log(err);
       file.hasErrors = true;
       file.uploading = false;
       file.onFailure(err);
@@ -42347,6 +42366,23 @@ $templateCache.put("views/simple-countdown.directive.html","<p>{{vm.timeRemainin
       };
     }
 
+    function getDataUrl(fileData) {
+      var deferred = $q.defer();
+      var reader   = new FileReader();
+
+      reader.onload = function(){
+        deferred.resolve(reader.result);
+      };
+
+      reader.onerror = function() {
+        deferred.reject();
+      }
+
+      reader.readAsDataURL(fileData);
+
+      return deferred.promise;
+    }
+
     return File;
 
   }
@@ -42487,12 +42523,32 @@ $templateCache.put("views/simple-countdown.directive.html","<p>{{vm.timeRemainin
     vm.file = $scope.file;
     vm.allowCaptions = vm.file.allowCaptions;
     vm.caption = '';
+    vm.progress = 0;
+
+    var setSrc = function() {
+      var src = vm.file.data.src || vm.file.data.url
+
+      if (src && vm.file.data.type.match('image.*')) {
+        vm.hasImage = true;
+      }
+
+      vm.src = src || '/images/icon-document.svg';
+    }
+
+    $scope.$watch('vm.file.data.src', setSrc);
+
+    setSrc();
 
     vm.setCaption = function () {
       if (vm.caption.length) {
         vm.file.setCaption(vm.caption);
-        vm.caption = '';
       }
+    }
+
+    vm.file.onProgress = function(progress) {
+      $scope.$apply(function() {
+        vm.progress = progress;
+      })
     }
   }
 
@@ -42516,9 +42572,9 @@ $templateCache.put("views/simple-countdown.directive.html","<p>{{vm.timeRemainin
 
 }).call(this);
 
-angular.module("ap-file-upload").run(["$templateCache", function($templateCache) {$templateCache.put("views/file.directive.html","<div ng-class=\"{\'failed\': vm.file.hasErrors}\" class=\"uploader\"><main ng-class=\"{ end: vm.file.uploading}\" class=\"flex column middle center\"><img ng-src=\"/images/icon-document.svg\" ng-hide=\"vm.file.hasErrors || vm.file.uploading\"/><div ng-show=\"vm.file.uploading\" class=\"progress-house\"><progress value=\"{{vm.file.progress}}\" max=\"100\">{{ vm.file.progress }}%</progress></div><div ng-show=\"vm.file.hasErrors\" class=\"failed flex column center\"><img ng-src=\"/images/icon-alert-red.svg\"/><button ng-click=\"vm.file.retry()\" type=\"button\" class=\"clean\">retry</button></div></main><footer class=\"flex space-between\"><p class=\"file-name\">{{ vm.file.data.name }}</p><button ng-show=\"!vm.file.uploading\" ng-click=\"vm.file.remove()\" type=\"button\" class=\"clean\"><div class=\"icon cross\"></div></button></footer><textarea ng-if=\"vm.allowCaptions\" ng-model=\"vm.file.data.caption\" ng-blur=\"vm.setCaption()\" placeholder=\"enter a caption\"></textarea></div>");
-$templateCache.put("views/uploaded-files.directive.html","<ul class=\"flex wrap\"><li ng-repeat=\"file in files\"><ap-file file=\"file\"></ap-file></li></ul>");
-$templateCache.put("views/uploader.directive.html","<div ng-if=\"vm.config\"><uploaded-files files=\"vm.uploader.files\" ng-show=\"vm.uploader.files.length\"></uploaded-files><input ng-if=\"vm.config.allowMultiple\" multiple=\"\" type=\"file\" on-file-change=\"vm.uploader.add(fileList)\" class=\"choose-files\"/><input ng-if=\"!vm.config.allowMultiple\" type=\"file\" on-file-change=\"vm.uploader.add(fileList)\" class=\"choose-files\"/></div>");}]);
+angular.module("ap-file-upload").run(["$templateCache", function($templateCache) {$templateCache.put("views/file.directive.html","<div ng-class=\"{\'failed\': vm.file.hasErrors}\" class=uploader><main ng-class=\"{ end: vm.file.uploading}\" class=\"flex column middle center\"><div ng-if=!vm.file.hasErrors style=\"background-image: url({{ vm.src }})\" ng-class=\"{ img: vm.hasImage, icon: !vm.hasImage }\" class=fitted></div><div ng-show=vm.file.uploading class=progress-house><progress value={{vm.progress}} max=100>{{ vm.progress }}%</progress></div><div ng-show=vm.file.hasErrors class=\"failed flex column center\"><img ng-src=/images/icon-alert-red.svg class=icon><button ng-click=vm.file.retry() type=button class=clean>retry</button></div></main><footer class=\"flex space-between\"><p class=file-name>{{ vm.file.data.name }}</p><button ng-show=!vm.file.uploading ng-click=vm.file.remove() type=button class=clean><div class=\"icon cross\"></div></button></footer><textarea ng-if=vm.allowCaptions ng-model=vm.caption ng-blur=vm.setCaption() placeholder=\"enter a caption\"></textarea></div>");
+$templateCache.put("views/uploaded-files.directive.html","<ul class=\"flex wrap\"><li ng-repeat=\"file in files\"><ap-file file=file></ap-file></li></ul>");
+$templateCache.put("views/uploader.directive.html","<div ng-if=vm.config><uploaded-files files=vm.uploader.files ng-show=vm.uploader.files.length></uploaded-files><input ng-if=vm.config.allowMultiple multiple type=file on-file-change=vm.uploader.add(fileList) class=choose-files><input ng-if=!vm.config.allowMultiple type=file on-file-change=vm.uploader.add(fileList) class=choose-files></div>");}]);
 (function() {
   'use strict';
   var dependencies;
