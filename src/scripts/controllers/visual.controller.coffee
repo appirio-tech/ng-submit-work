@@ -45,8 +45,14 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, $document, SubmitWorkS
   vm.showUploadStyles = ->
     vm.showUploadStylesModal = true
 
+  vm.hideUploadStyles = ->
+    vm.showUploadStylesModal = false
+
   vm.showUrlStyles = ->
     vm.showUrlStylesModal = true
+
+  vm.hideUrlStyles = ->
+    vm.showUrlStylesModal = false
 
   vm.activateModal = (modal) ->
     vm.activeStyleModal = modal

@@ -69,6 +69,9 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
   vm.showUpload = ->
     vm.showUploadModal = true
 
+  vm.hideUpload = ->
+    vm.showUploadModal = false
+
   vm.toggleDefineFeatures = ->
     vm.activeFeature = null
     vm.addingCustomFeature = true

@@ -26,6 +26,9 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
   vm.uploadSpecs = ->
     vm.showUploadSpecs = true
 
+  vm.hideUploadSpecs = ->
+    vm.showUploadSpecs = false
+
   vm.showDefineSpecs = ->
     vm.showDefineSpecsModal = true
     vm.activateModal('offlineAccess')
