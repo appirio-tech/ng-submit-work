@@ -1,6 +1,6 @@
 'use strict'
 
-SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkService, RequirementService) ->
+SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkService, ProjectsAPIService, RequirementService) ->
   vm                  = this
   vm.loading          = false
   vm.showSuccessModal = false
@@ -9,6 +9,7 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
   vm.orientationError = false
   vm.projectTypeError = false
   vm.briefError       = false
+  userProjectNames    = null
 
   # TODO: move route directing out of here
   if $scope.workId
@@ -73,8 +74,12 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
       model = models
       modelError = "#{model}Error"
       if vm[model]?.length
-        vm[modelError] = false
-        foundErrors = false
+        if (userProjectNames?.indexOf vm[model].toLowerCase() ) > -1
+          vm[modelError] = true
+          foundErrors = true
+        else
+          vm[modelError] = false
+          foundErrors = false
       else
         vm[modelError] = true
         foundErrors = true
@@ -163,8 +168,20 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
       deviceIds     : vm.devices.filter(isSelected).map(getId)
       orientationIds: vm.orientations.filter(isSelected).map(getId)
 
+  activate = ->
+    resource = ProjectsAPIService.query()
+
+    resource.$promise.then (response) ->
+      projectNames = response?.map (project) ->
+        project.name.toLowerCase()
+
+      userProjectNames = projectNames || []
+
+
+  activate()
+
   vm
 
-SubmitWorkTypeController.$inject = ['$scope', '$rootScope', '$state', '$document', 'SubmitWorkService', 'RequirementService']
+SubmitWorkTypeController.$inject = ['$scope', '$rootScope', '$state', '$document', 'SubmitWorkService', 'ProjectsAPIService', 'RequirementService']
 
 angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkTypeController', SubmitWorkTypeController

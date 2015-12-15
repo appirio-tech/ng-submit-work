@@ -12,11 +12,13 @@ form(ng-submit="vm.validateAllSections()")
         ng-change="vm.validateSection('platform-details', 'name', false)"
         ng-keydown="vm.interceptSubmit($event)"
         ng-model="vm.name"
-        ng-class="{error: vm.nameError && !vm.name.length}"
+        ng-class="{error: (vm.nameError && !vm.name.length) || (vm.nameError && vm.name.length) }"
         autofocus=true
       )
 
       p.error.transition(ng-class="{ show: vm.nameError && !vm.name.length }") Please name your project.
+
+      p.error.transition(ng-class="{ show: vm.nameError && vm.name.length }") This name already exists.
 
     .continue-buttons
       button(
