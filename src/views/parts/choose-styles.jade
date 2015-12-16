@@ -29,8 +29,8 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
         p Classic design, good legibility for large and small text.
 
         hr
-
-        img(src="/images/serif.png")
+        button.clean(ng-click="vm.toggleSelection('font', vm.serif)")
+          img(src="/images/serif.png")
 
         button.action(selectable=true type="button" ng-model="vm.font" value="vm.serif")
 
@@ -44,7 +44,8 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
 
         hr
 
-        img(src="/images/sans.png")
+        button.clean(ng-click="vm.toggleSelection('font', vm.sansSerif)")
+          img(src="/images/sans.png")
 
         button.action(selectable=true type="button" ng-model="vm.font" value="vm.sansSerif")
 
@@ -57,7 +58,8 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
       li(ng-repeat="color in vm.colors")
         h6 {{ color.name }}
 
-        img(src="/images/{{ color.name.toLowerCase() }}.png")
+        button.clean(ng-click="vm.toggleColorSelection(color, color.selected)")
+          img(src="/images/{{ color.name.toLowerCase() }}.png")
 
         button.action(type="button" selectable=true ng-model="color.selected")
 
@@ -68,7 +70,8 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
 
     ul.flex.center
       li(ng-repeat="icon in vm.icons")
-        img(src="/images/{{icon.img}}.svg")
+        button.clean(ng-click="vm.toggleSelection('icon', icon.id)")
+          img(src="/images/{{icon.img}}.svg")
 
         h6 {{icon.name}}
 

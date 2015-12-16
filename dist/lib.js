@@ -61015,7 +61015,7 @@ $templateCache.put("views/checkbox.directive.html","<div class=\"flex middle\"><
 $templateCache.put("views/countdown.directive.html","<ul class=countdown><li ng-if=\"vm.days &gt; 0\"><span class=value>{{ vm.days }}</span><span class=unit>day<span ng-if=\"vm.days &gt; 1\">s</span></span></li><li ng-if=\"vm.hours &gt; 0 || vm.days &gt; 0\"><span class=value>{{ vm.hours }}</span><span class=unit>hr<span ng-if=\"vm.hours &gt; 1\">s</span></span></li><li ng-if=\"vm.minutes &gt; 0 || vm.hours &gt; 0 || vm.days &gt; 0\"><span class=value>{{ vm.minutes }}</span><span class=unit>min<span ng-if=\"vm.minutes &gt; 1\">s</span></span></li><li><span class=value>{{ vm.seconds }}</span><span class=unit>sec<span ng-if=\"vm.seconds &gt; 1\">s</span></span></li></ul>");
 $templateCache.put("views/date-input.directive.html","<div class=\"flex middle\"><input type=text ng-model=date placeholder=\"{{ placeHolder }}\"><button class=clean><div class=\"icon warning\"></div></button></div>");
 $templateCache.put("views/image-viewer-header.directive.html","<main class=\"flex column light-bg\"><div class=\"header flex space-between\"><div class=\"user flex middle\"><a href={{vm.generateProfileUrl(vm.handle)}} target=_blank><avatar avatar-url=\"{{ vm.avatar }}\"></avatar></a><a href={{vm.generateProfileUrl(vm.handle)}} target=_blank><p class=name>{{ vm.handle }}</p></a></div><div class=icons><button ng-if=vm.downloadAllowed class=clean><a href=\"{{ vm.downloadUrl }}\" target=_blank><div class=\"icon download\"></div></a></button><button ng-click=vm.toggleComments() ng-if=vm.commentsAllowed class=clean><div class=\"icon bubble\"></div></button></div></div><p ng-if=vm.title class=title>{{vm.title}}</p><hr></main>");
-$templateCache.put("views/image-viewer.directive.html","<main class=\"flex column middle light-bg\"><div class=\"content flex flex-grow\"><div class=\"slideshow flex column flex-grow\"><div class=\"preview flex center flex-grow flex-shrink\"><div class=\"previous flex flex-grow\"><a ng-class=\"{invisible: !vm.prevFile}\" ng-click=vm.viewPrevious() class=arrow-previous><button class=\"clean icon arrow\"></button></a></div><div class=\"image flex column center\"><div class=img-container><p ng-if=vm.file.name class=file-name>{{ vm.file.name }}</p><p ng-if=vm.file.caption class=file-caption>{{ vm.file.caption }}</p><img ng-src=\"{{ vm.file.url }}\"></div></div><div class=\"next flex flex-grow\"><a ng-class=\"{invisible: !vm.nextFile}\" ng-click=vm.viewNext() class=arrow-next><button class=\"clean icon arrow right\"></button></a></div></div><ul class=thumbnails><li ng-repeat=\"file in vm.files\" ng-class=\"{ elevated: !vm.isCurrent(file) }\" class=thumbnail><a href=\"{{ file.detailUrl }}\"><img ng-src=\"{{ file.url }}\"><div ng-if=\"file.unreadMessages &gt; 0 &amp;&amp; vm.showNotifications\" class=\"notification absolute\">{{ file.unreadMessages }}</div></a></li></ul></div></div></main>");
+$templateCache.put("views/image-viewer.directive.html","<main class=\"flex column middle light-bg\"><div class=\"content flex flex-grow\"><div class=\"slideshow flex column flex-grow\"><div class=\"preview flex center flex-grow flex-shrink\"><div class=\"previous flex flex-grow\"><a ng-class=\"{invisible: !vm.prevFile}\" ng-click=vm.viewPrevious() class=arrow-previous><button class=\"clean icon arrow\"></button></a></div><div class=\"image flex column center\"><div class=img-container><p ng-if=vm.file.name class=file-name>{{ vm.file.name }}</p><p ng-if=vm.file.caption class=file-caption>{{ vm.file.caption }}</p><img ng-src=\"{{ vm.file.url }}\"></div></div><div class=\"next flex flex-grow\"><a ng-class=\"{invisible: !vm.nextFile}\" ng-click=vm.viewNext() class=arrow-next><button class=\"clean icon arrow right\"></button></a></div></div><ul class=thumbnails><li ng-repeat=\"file in vm.files\" ng-class=\"{ elevated: !vm.isCurrent(file) }\" class=thumbnail><button ng-click=vm.selectFile(file) class=clean><img ng-src=\"{{ file.url }}\"><div ng-if=\"file.unreadMessages &gt; 0 &amp;&amp; vm.showNotifications\" class=\"notification absolute\">{{ file.unreadMessages }}</div></button></li></ul></div></div></main>");
 $templateCache.put("views/loader.directive.html","<div class=container><div class=loader></div></div>");
 $templateCache.put("views/modal.directive.html","");
 $templateCache.put("views/selectable.directive.html","<div ng-show=\"!label &amp;&amp; !vm.isSelected()\">Select</div><div ng-show=\"!label &amp;&amp; vm.isSelected()\">Selected</div><div ng-show=label>{{ label }}</div><div class=icon-container><div class=\"icon checkmark-white smallest\"></div></div>");
@@ -61603,7 +61603,7 @@ $templateCache.put("views/simple-countdown.directive.html","<p>{{vm.timeRemainin
         title: '@',
         commentsAllowed: '@',
         downloadAllowed: '@',
-        downloadUrl: '@',
+        downloadUrl: '=',
         toggleComments: '&'
       }
     };
@@ -61857,8 +61857,18 @@ $templateCache.put("views/simple-countdown.directive.html","<p>{{vm.timeRemainin
         });
       }
     };
+    vm.selectFile = function(file) {
+      vm.file = file;
+      vm.currentIndex = vm.files.indexOf(vm.file);
+      updateFiles();
+      if (vm.onFileChange) {
+        return vm.onFileChange({
+          file: vm.file
+        });
+      }
+    };
     vm.isCurrent = function(file) {
-      return vm.files.indexOf(file === vm.currentIndex);
+      return (vm.files.indexOf(file)) === vm.currentIndex;
     };
     activate();
     return vm;
@@ -63032,9 +63042,9 @@ $templateCache.put("views/simple-countdown.directive.html","<p>{{vm.timeRemainin
 
 }).call(this);
 
-angular.module("ap-file-upload").run(["$templateCache", function($templateCache) {$templateCache.put("views/file.directive.html","<div ng-class=\"{\'failed\': vm.file.hasErrors}\" class=\"uploader\"><main ng-class=\"{ end: vm.file.uploading}\" class=\"flex column middle center\"><div ng-if=\"!vm.file.hasErrors\" style=\"background-image: url({{ vm.src }})\" ng-class=\"{ img: vm.hasImage, icon: !vm.hasImage }\" class=\"fitted\"></div><div ng-show=\"vm.file.uploading\" class=\"progress-house\"><progress value=\"{{vm.progress}}\" max=\"100\">{{ vm.progress }}%</progress></div><div ng-show=\"vm.file.hasErrors\" class=\"failed flex column center\"><img ng-src=\"/images/icon-alert-red.svg\" class=\"icon\"/><button ng-click=\"vm.file.retry()\" type=\"button\" class=\"clean\">retry</button></div></main><footer class=\"flex space-between\"><p class=\"file-name\">{{ vm.file.data.name }}</p><button ng-show=\"!vm.file.uploading\" ng-click=\"vm.file.remove()\" type=\"button\" class=\"clean\"><div class=\"icon cross\"></div></button></footer><textarea ng-if=\"vm.allowCaptions\" ng-model=\"vm.caption\" ng-blur=\"vm.setCaption()\" placeholder=\"enter a caption\"></textarea></div>");
-$templateCache.put("views/uploaded-files.directive.html","<ul class=\"flex wrap\"><li ng-repeat=\"file in files\"><ap-file file=\"file\"></ap-file></li></ul>");
-$templateCache.put("views/uploader.directive.html","<div ng-if=\"vm.config\"><uploaded-files files=\"vm.uploader.files\" ng-show=\"vm.uploader.files.length\"></uploaded-files><input ng-if=\"vm.config.allowMultiple\" multiple=\"\" type=\"file\" on-file-change=\"vm.uploader.add(fileList)\" class=\"choose-files\"/><input ng-if=\"!vm.config.allowMultiple\" type=\"file\" on-file-change=\"vm.uploader.add(fileList)\" class=\"choose-files\"/></div>");}]);
+angular.module("ap-file-upload").run(["$templateCache", function($templateCache) {$templateCache.put("views/file.directive.html","<div ng-class=\"{\'failed\': vm.file.hasErrors}\" class=uploader><main ng-class=\"{ end: vm.file.uploading}\" class=\"flex column middle center\"><div ng-if=!vm.file.hasErrors style=\"background-image: url({{ vm.src }})\" ng-class=\"{ img: vm.hasImage, icon: !vm.hasImage }\" class=fitted></div><div ng-show=vm.file.uploading class=progress-house><progress value={{vm.progress}} max=100>{{ vm.progress }}%</progress></div><div ng-show=vm.file.hasErrors class=\"failed flex column center\"><img ng-src=/images/icon-alert-red.svg class=icon><button ng-click=vm.file.retry() type=button class=clean>retry</button></div></main><footer class=\"flex space-between\"><p class=file-name>{{ vm.file.data.name }}</p><button ng-show=!vm.file.uploading ng-click=vm.file.remove() type=button class=clean><div class=\"icon cross\"></div></button></footer><textarea ng-if=vm.allowCaptions ng-model=vm.caption ng-blur=vm.setCaption() placeholder=\"enter a caption\"></textarea></div>");
+$templateCache.put("views/uploaded-files.directive.html","<ul class=\"flex wrap\"><li ng-repeat=\"file in files\"><ap-file file=file></ap-file></li></ul>");
+$templateCache.put("views/uploader.directive.html","<div ng-if=vm.config><uploaded-files files=vm.uploader.files ng-show=vm.uploader.files.length></uploaded-files><input ng-if=vm.config.allowMultiple multiple type=file on-file-change=vm.uploader.add(fileList) class=choose-files><input ng-if=!vm.config.allowMultiple type=file on-file-change=vm.uploader.add(fileList) class=choose-files></div>");}]);
 (function() {
   'use strict';
   var dependencies;
