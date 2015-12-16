@@ -23,7 +23,6 @@
     "appirio-tech-ng-file-upload": "0.x.x",
     "appirio-tech-ng-ui-components": "1.x.x",
     "appirio-tech-ng-api-services": "0.x.x",
-    "appirio-tech-ng-file-upload": "0.x.x",
     "appirio-tech-ng-optimist": "0.x.x"
   },
   "ignore": [
