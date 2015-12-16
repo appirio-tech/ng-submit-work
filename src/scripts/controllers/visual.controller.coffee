@@ -72,6 +72,12 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, $document, SubmitWorkS
       previousModal = vm.styleModals[currentIndex - 1]
       vm.activateModal(previousModal)
 
+  vm.makeSelection = (model, value) ->
+    vm[model] = value
+
+  vm.toggleColorSelection = (model, value) ->
+    model.selected = !model.selected
+
   vm.save = (done = false, kickoff = false) ->
     updates        = getUpdates()
     updates.status = if kickoff then 'SUBMITTED' else 'INCOMPLETE'

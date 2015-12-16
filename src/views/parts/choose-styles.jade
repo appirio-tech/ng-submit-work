@@ -24,13 +24,13 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
 
     ul.or-choices.flex.middle.center
       li.serif
-        img.header(src="/images/serif-header.svg")
+        button.clean(ng-click="vm.makeSelection('font', vm.serif)")
+          img.header(src="/images/serif-header.svg")
 
-        p Classic design, good legibility for large and small text.
+          p Classic design, good legibility for large and small text.
 
-        hr
-
-        img(src="/images/serif.png")
+          hr
+          img(src="/images/serif.png")
 
         button.action(selectable=true type="button" ng-model="vm.font" value="vm.serif")
 
@@ -38,13 +38,14 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
         .house OR
 
       li.sans-serif
-        img.header(src="/images/sans-serif-header.svg")
+        button.clean(ng-click="vm.makeSelection('font', vm.sansSerif)")
+          img.header(src="/images/sans-serif-header.svg")
 
-        p Classic design, good legibility for large and small text.
+          p Classic design, good legibility for large and small text.
 
-        hr
+          hr
 
-        img(src="/images/sans.png")
+          img(src="/images/sans.png")
 
         button.action(selectable=true type="button" ng-model="vm.font" value="vm.sansSerif")
 
@@ -57,7 +58,8 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
       li(ng-repeat="color in vm.colors")
         h6 {{ color.name }}
 
-        img(src="/images/{{ color.name.toLowerCase() }}.png")
+        button.clean(ng-click="vm.toggleColorSelection(color, color.selected)")
+          img(src="/images/{{ color.name.toLowerCase() }}.png")
 
         button.action(type="button" selectable=true ng-model="color.selected")
 
@@ -68,11 +70,12 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
 
     ul.flex.center
       li(ng-repeat="icon in vm.icons")
-        img(src="/images/{{icon.img}}.svg")
+        button.clean(ng-click="vm.makeSelection('icon', icon.id)")
+          img(src="/images/{{icon.img}}.svg")
 
-        h6 {{icon.name}}
+          h6 {{icon.name}}
 
-        p {{icon.description}}
+          p {{icon.description}}
 
         button.action(type="button" selectable=true ng-model="vm.icon" value="icon.id")
 

@@ -10,9 +10,10 @@ header
 .flush-height.flex.column(flush-height="lock")
   ul.dark-bg.flex.center.middle.flex-grow.selectable-choices
     li
-      img.icon.biggest(ng-if="!vm.specsDefined" src="/images/define-dev-specs.svg")
+      button.clean(ng-click="vm.showDefineSpecs()")
+        img.icon.biggest(ng-if="!vm.specsDefined" src="/images/define-dev-specs.svg")
 
-      img.icon.biggest(ng-if="vm.specsDefined" src="/images/define-dev-specs-selected.svg")
+        img.icon.biggest(ng-if="vm.specsDefined" src="/images/define-dev-specs-selected.svg")
 
       h4 Define Requirements
 
@@ -21,9 +22,10 @@ header
       button.action(type="button" ng-click="vm.showDefineSpecs()") select
 
     li
-      img.icon.biggest(ng-if="!vm.uploaderHasFiles || vm.uploaderHasErrors || vm.uploaderUploading" src="/images/upload.svg")
+      button.clean(ng-click="vm.uploadSpecs()")
+        img.icon.biggest(ng-if="!vm.uploaderHasFiles || vm.uploaderHasErrors || vm.uploaderUploading" src="/images/upload.svg")
 
-      img.icon.biggest(ng-if="vm.uploaderHasFiles && !vm.uploaderHasErrors && !vm.uploaderUploading" src="/images/upload-selected.svg")
+        img.icon.biggest(ng-if="vm.uploaderHasFiles && !vm.uploaderHasErrors && !vm.uploaderUploading" src="/images/upload-selected.svg")
 
       h4 Upload Requirements
 
