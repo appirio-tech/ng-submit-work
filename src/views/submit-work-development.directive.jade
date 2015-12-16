@@ -127,7 +127,7 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
 
     ul.selectable-choices.flex.center
       li
-        button.clean(ng-click="vm.makeSelection('securityLevel', vm.securityLevels.none)")
+        button.clean(ng-click="vm.toggleSelection('securityLevel', vm.securityLevels.none)")
           img(src="/images/security-none.svg")
 
         h6 Standard
@@ -137,7 +137,7 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
         button.action(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.none")
 
       li
-        button.clean(ng-click="vm.makeSelection('securityLevel', vm.securityLevels.minimal)")
+        button.clean(ng-click="vm.toggleSelection('securityLevel', vm.securityLevels.minimal)")
           img(src="/images/security-minimal.svg")
 
         h6 Enhanced
@@ -147,7 +147,7 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
         button.action(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.minimal")
 
       li
-        button.clean(ng-click="vm.makeSelection('securityLevel', vm.securityLevels.complete)")
+        button.clean(ng-click="vm.toggleSelection('securityLevel', vm.securityLevels.complete)")
           img(src="/images/security-complete.svg")
 
         h6 Maximum security

@@ -72,8 +72,11 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, $document, SubmitWorkS
       previousModal = vm.styleModals[currentIndex - 1]
       vm.activateModal(previousModal)
 
-  vm.makeSelection = (model, value) ->
-    vm[model] = value
+  vm.toggleSelection = (model, value) ->
+    if vm[model] == value
+      vm[model] = null
+    else
+      vm[model] = value
 
   vm.toggleColorSelection = (model, value) ->
     model.selected = !model.selected
