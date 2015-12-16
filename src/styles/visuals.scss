@@ -31,6 +31,10 @@ submit-work-visuals {
   .fonts {
     button {
       margin-top: 40px;
+
+      &.clean {
+        margin-top: 0px;
+      }
     }
 
     .serif {
@@ -99,7 +103,6 @@ submit-work-visuals {
       img {
         width: 150px;
         display: block;
-        margin-top: 15px;
       }
     }
 
@@ -109,6 +112,7 @@ submit-work-visuals {
 
         li {
           margin: 0 30px;
+          max-width: 190px;
 
           button {
             margin-top: 15px;

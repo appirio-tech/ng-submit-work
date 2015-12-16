@@ -10,9 +10,10 @@ header
 .flush-height.flex.column(flush-height="lock")
   ul.dark-bg.flex.center.middle.flex-grow.selectable-choices
     li
-      img.icon.biggest(ng-if="!vm.specsDefined" src="/images/define-dev-specs.svg")
+      button.clean(ng-click="vm.showDefineSpecs()")
+        img.icon.biggest(ng-if="!vm.specsDefined" src="/images/define-dev-specs.svg")
 
-      img.icon.biggest(ng-if="vm.specsDefined" src="/images/define-dev-specs-selected.svg")
+        img.icon.biggest(ng-if="vm.specsDefined" src="/images/define-dev-specs-selected.svg")
 
       h4 Define Requirements
 
@@ -21,9 +22,10 @@ header
       button.action(type="button" ng-click="vm.showDefineSpecs()") select
 
     li
-      img.icon.biggest(ng-if="!vm.uploaderHasFiles || vm.uploaderHasErrors || vm.uploaderUploading" src="/images/upload.svg")
+      button.clean(ng-click="vm.uploadSpecs()")
+        img.icon.biggest(ng-if="!vm.uploaderHasFiles || vm.uploaderHasErrors || vm.uploaderUploading" src="/images/upload.svg")
 
-      img.icon.biggest(ng-if="vm.uploaderHasFiles && !vm.uploaderHasErrors && !vm.uploaderUploading" src="/images/upload-selected.svg")
+        img.icon.biggest(ng-if="vm.uploaderHasFiles && !vm.uploaderHasErrors && !vm.uploaderUploading" src="/images/upload-selected.svg")
 
       h4 Upload Requirements
 
@@ -125,7 +127,8 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
 
     ul.selectable-choices.flex.center
       li
-        img(src="/images/security-none.svg")
+        button.clean(ng-click="vm.toggleSelection('securityLevel', vm.securityLevels.none)")
+          img(src="/images/security-none.svg")
 
         h6 Standard
 
@@ -134,7 +137,8 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
         button.action(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.none")
 
       li
-        img(src="/images/security-minimal.svg")
+        button.clean(ng-click="vm.toggleSelection('securityLevel', vm.securityLevels.minimal)")
+          img(src="/images/security-minimal.svg")
 
         h6 Enhanced
 
@@ -143,7 +147,8 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
         button.action(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.minimal")
 
       li
-        img(src="/images/security-complete.svg")
+        button.clean(ng-click="vm.toggleSelection('securityLevel', vm.securityLevels.complete)")
+          img(src="/images/security-complete.svg")
 
         h6 Maximum security
 

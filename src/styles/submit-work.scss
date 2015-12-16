@@ -128,6 +128,12 @@ submit-work-complete {
       min-width: 340px;
       max-width: 340px;
 
+      > button.clean {
+        p {
+          margin-top: 10px;
+        }
+      }
+
       > p {
         margin-top: 10px;
       }
