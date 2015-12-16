@@ -54,6 +54,9 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
       previousModal = vm.developmentModals[currentIndex - 1]
       vm.activateModal(previousModal)
 
+  vm.makeSelection = (model, value) ->
+    vm.work[model] = value
+
   vm.save = (done = false, kickoff = false) ->
     uploaderValid = !vm.uploaderUploading && !vm.uploaderHasErrors
     updates = vm.work
