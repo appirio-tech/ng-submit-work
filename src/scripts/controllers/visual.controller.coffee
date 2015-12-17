@@ -175,6 +175,14 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, $document, SubmitWorkS
     vm.numberOfSections = if work.projectType == 'DESIGN_AND_CODE' then 3 else 2
 
   activate = ->
+    $scope.$watch 'vm.showChooseStylesModal', (newValue, oldValue) ->
+      if oldValue && !newValue
+        vm.save()
+
+    $scope.$watch 'vm.showUrlStylesModal', (newValue, oldValue) ->
+      if oldValue && !newValue
+        vm.save()
+
     destroyWorkListener = $rootScope.$on "SubmitWorkService.work:changed", ->
       onChange()
 

@@ -133,6 +133,10 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
     vm.numberOfSections = 3
 
   activate = ->
+    $scope.$watch 'vm.showDefineSpecsModal', (newValue, oldValue) ->
+      if oldValue && !newValue
+        vm.save()
+
     destroyWorkListener = $rootScope.$on "SubmitWorkService.work:changed", ->
       onChange()
 
