@@ -538,6 +538,16 @@ $templateCache.put("views/feature-list.directive.html","<header class=\"flex mid
     };
     activate = function() {
       var destroyWorkListener;
+      $scope.$watch('vm.showChooseStylesModal', function(newValue, oldValue) {
+        if (oldValue && !newValue) {
+          return vm.save();
+        }
+      });
+      $scope.$watch('vm.showUrlStylesModal', function(newValue, oldValue) {
+        if (oldValue && !newValue) {
+          return vm.save();
+        }
+      });
       destroyWorkListener = $rootScope.$on("SubmitWorkService.work:changed", function() {
         return onChange();
       });
@@ -970,6 +980,11 @@ $templateCache.put("views/feature-list.directive.html","<header class=\"flex mid
     };
     activate = function() {
       var destroyWorkListener;
+      $scope.$watch('vm.showDefineSpecsModal', function(newValue, oldValue) {
+        if (oldValue && !newValue) {
+          return vm.save();
+        }
+      });
       destroyWorkListener = $rootScope.$on("SubmitWorkService.work:changed", function() {
         return onChange();
       });
