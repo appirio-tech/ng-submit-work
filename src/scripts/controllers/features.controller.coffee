@@ -54,14 +54,18 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
 
     featureList
 
-  vm.activeFeatureChangedNotes = (activeFeature) ->
+  vm.activeFeatureChangedNotes = ->
     changedNotes = false
 
     vm.updatedFeatures?.forEach (feature) ->
-      if feature.id == activeFeature?.id && feature.notes != activeFeature?.notes
-        changedNotes = true
+      if vm.activeFeature.id
+        if feature.id == vm.activeFeature?.id && feature.notes != vm.activeFeature?.notes
+          changedNotes = true
+      else
+        if feature.title == vm.activeFeature?.title && feature.notes != vm.activeFeature?.notes
+          changedNotes = true
 
-    changedNotes
+    vm.saveNotes() if changedNotes
 
   vm.showFeatures = ->
     vm.showFeaturesModal = true
@@ -81,15 +85,20 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
     vm.showDefineFeaturesForm = false
 
   vm.activateFeature = (feature) ->
+    vm.activeFeature = feature
+    vm.customFeature = angular.copy config.customFeatureTemplate
     vm.showDefineFeaturesForm = false
     vm.addingCustomFeature = false
     vm.activePreview = feature.title
-    vm.activeFeature = feature
 
   vm.saveNotes = ->
     vm.updatedFeatures.forEach (updatedFeature) ->
-      if updatedFeature.id == vm.activeFeature.id
-        updatedFeature.notes = vm.activeFeature.notes
+      if updatedFeature.id
+        if updatedFeature.id == vm.activeFeature.id
+          updatedFeature.notes = vm.activeFeature.notes
+      else
+        if updatedFeature.title == vm.activeFeature.title
+          updatedFeature.notes = vm.activeFeature.notes
 
   vm.applyFeature = ->
     vm.activeFeature.selected = true

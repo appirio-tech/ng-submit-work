@@ -70,7 +70,7 @@ srv = ->
     category: 'Login & Registration'
     id: 'INTRODUCTIONS',
     title: 'Introductions',
-    description: 'Present your app and inform users of core functionality using a series of introductory screens.',
+    description: 'Present your app and inform users of core functionality using a series of introductory screens before they sign up.',
     notes: null,
     custom: null,
     icon: '/images/location.svg'
@@ -79,7 +79,7 @@ srv = ->
     category: 'Login & Registration'
     id: 'ONBOARDING'
     title: 'Onboarding'
-    description: 'Virtually walk your users through your application. This functionality is especially useful if you need new users to set up an account or express preferences.'
+    description: 'Virtually walk your users through your application. This functionality is especially useful if you need new users to set up an account or express preferences after they sign up.'
     notes: null
     custom: null
     icon: '/images/social.svg'
