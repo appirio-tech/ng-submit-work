@@ -386,7 +386,9 @@ $templateCache.put("views/feature-list.directive.html","<header class=\"flex mid
       return vm.showUploadStylesModal = true;
     };
     vm.hideUploadStyles = function() {
-      return vm.showUploadStylesModal = false;
+      if (!vm.uploaderUploading) {
+        return vm.showUploadStylesModal = false;
+      }
     };
     vm.showUrlStyles = function() {
       return vm.showUrlStylesModal = true;
@@ -548,6 +550,13 @@ $templateCache.put("views/feature-list.directive.html","<header class=\"flex mid
           return vm.save();
         }
       });
+      $scope.$watch('vm.showUploadStylesModal', function(newValue, oldValue) {
+        if (oldValue && !newValue) {
+          if (vm.uploaderUploading) {
+            return vm.showUploadStylesModal = true;
+          }
+        }
+      });
       destroyWorkListener = $rootScope.$on("SubmitWorkService.work:changed", function() {
         return onChange();
       });
@@ -656,7 +665,9 @@ $templateCache.put("views/feature-list.directive.html","<header class=\"flex mid
       return vm.showUploadModal = true;
     };
     vm.hideUpload = function() {
-      return vm.showUploadModal = false;
+      if (!vm.uploaderUploading) {
+        return vm.showUploadModal = false;
+      }
     };
     vm.toggleDefineFeatures = function() {
       vm.activeFeature = null;
@@ -803,6 +814,13 @@ $templateCache.put("views/feature-list.directive.html","<header class=\"flex mid
           return vm.save();
         }
       });
+      $scope.$watch('vm.showUploadModal', function(newValue, oldValue) {
+        if (oldValue && !newValue) {
+          if (vm.uploaderUploading) {
+            return vm.showUploadModal = true;
+          }
+        }
+      });
       destroyWorkListener = $rootScope.$on("SubmitWorkService.work:changed", function() {
         return onChange();
       });
@@ -853,7 +871,9 @@ $templateCache.put("views/feature-list.directive.html","<header class=\"flex mid
       return vm.showUploadSpecs = true;
     };
     vm.hideUploadSpecs = function() {
-      return vm.showUploadSpecs = false;
+      if (!vm.uploaderUploading) {
+        return vm.showUploadSpecs = false;
+      }
     };
     vm.showDefineSpecs = function() {
       vm.showDefineSpecsModal = true;
@@ -983,6 +1003,13 @@ $templateCache.put("views/feature-list.directive.html","<header class=\"flex mid
       $scope.$watch('vm.showDefineSpecsModal', function(newValue, oldValue) {
         if (oldValue && !newValue) {
           return vm.save();
+        }
+      });
+      $scope.$watch('vm.showUploadSpecs', function(newValue, oldValue) {
+        if (oldValue && !newValue) {
+          if (vm.uploaderUploading) {
+            return vm.showUploadSpecs = true;
+          }
         }
       });
       destroyWorkListener = $rootScope.$on("SubmitWorkService.work:changed", function() {
