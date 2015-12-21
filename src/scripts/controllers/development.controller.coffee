@@ -27,7 +27,8 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
     vm.showUploadSpecs = true
 
   vm.hideUploadSpecs = ->
-    vm.showUploadSpecs = false
+    unless vm.uploaderUploading
+      vm.showUploadSpecs = false
 
   vm.showDefineSpecs = ->
     vm.showDefineSpecsModal = true
@@ -136,6 +137,11 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
     $scope.$watch 'vm.showDefineSpecsModal', (newValue, oldValue) ->
       if oldValue && !newValue
         vm.save()
+
+    $scope.$watch 'vm.showUploadSpecs', (newValue, oldValue) ->
+      if oldValue && !newValue
+        if vm.uploaderUploading
+          vm.showUploadSpecs = true
 
     destroyWorkListener = $rootScope.$on "SubmitWorkService.work:changed", ->
       onChange()

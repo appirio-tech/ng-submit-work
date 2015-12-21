@@ -74,7 +74,8 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
     vm.showUploadModal = true
 
   vm.hideUpload = ->
-    vm.showUploadModal = false
+    unless vm.uploaderUploading
+      vm.showUploadModal = false
 
   vm.toggleDefineFeatures = ->
     vm.activeFeature = null
@@ -202,6 +203,11 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
     $scope.$watch 'vm.showFeaturesModal', (newValue, oldValue) ->
       if oldValue && !newValue
         vm.save()
+
+    $scope.$watch 'vm.showUploadModal', (newValue, oldValue) ->
+      if oldValue && !newValue
+        if vm.uploaderUploading
+          vm.showUploadModal = true
 
     destroyWorkListener = $rootScope.$on "SubmitWorkService.work:changed", ->
       onChange()

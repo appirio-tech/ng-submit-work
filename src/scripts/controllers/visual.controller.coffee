@@ -46,7 +46,8 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, $document, SubmitWorkS
     vm.showUploadStylesModal = true
 
   vm.hideUploadStyles = ->
-    vm.showUploadStylesModal = false
+    unless vm.uploaderUploading
+      vm.showUploadStylesModal = false
 
   vm.showUrlStyles = ->
     vm.showUrlStylesModal = true
@@ -182,6 +183,11 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, $document, SubmitWorkS
     $scope.$watch 'vm.showUrlStylesModal', (newValue, oldValue) ->
       if oldValue && !newValue
         vm.save()
+
+    $scope.$watch 'vm.showUploadStylesModal', (newValue, oldValue) ->
+      if oldValue && !newValue
+        if vm.uploaderUploading
+          vm.showUploadStylesModal = true
 
     destroyWorkListener = $rootScope.$on "SubmitWorkService.work:changed", ->
       onChange()
