@@ -2,6 +2,7 @@ require.context './styles/', true, /^(.*\.(scss$))[^.]*$/igm
 
 require 'appirio-tech-ng-ui-components'
 require 'appirio-tech-ng-file-upload'
+require 'appirio-tech-ng-optimist'
 require './scripts/submit-work.module'
 
 requireContextFiles = (files) ->
