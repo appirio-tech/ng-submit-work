@@ -13,6 +13,6 @@
   "dependencies": {
     "appirio-tech-ng-ui-components": "2.x.x",
     "appirio-tech-ng-file-upload": "1.x.x",
-    "appirio-tech-ng-optimist": "0.x.x"
+    "appirio-tech-ng-optimist": "https://github.com/appirio-tech/ng-optimist.git"
   }
 }

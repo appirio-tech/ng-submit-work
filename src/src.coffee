@@ -31,4 +31,4 @@ templateCache = ($templateCache) ->
 
 templateCache.$nject = ['$templateCache']
 
-angular.module('appirio-tech-submit-work').run templateCache
+angular.module('appirio-tech-ng-submit-work').run templateCache
