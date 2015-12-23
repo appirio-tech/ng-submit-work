@@ -1,18 +1,8 @@
 language: node_js
 node_js:
-- 0.12.7
-install:
-- rm -rf node_modules
-- rm -rf bower_components
-- npm install -g gulp
-- npm install -g bower
+- 5.2.0
+before_install:
 - npm install
-- bower install
 script:
-- gulp preprocessors
-- gulp test
-- gulp useref
-- gulp copy-files
+- webpack
 sudo: false
-after_success:
-- gulp coveralls

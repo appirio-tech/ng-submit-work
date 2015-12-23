@@ -9,15 +9,9 @@
 submit-work(work-id="123")
 ```
 
-## Docs
-### API
-
-### Designs
-
 ## Development
 ```
-alias gserve='nvm use; gulp clean; gulp serve'
-alias gtest='nvm use; gulp test'
-alias gtestserve='nvm use; gulp test-serve'
-alias gbuild='nvm use; gulp clean; gulp preprocessors; gulp useref; gulp copy-files;'
+nvm use
+npm install
+npm run dev
 ```
