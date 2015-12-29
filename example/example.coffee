@@ -1,9 +1,9 @@
 require 'appirio-tech-api-schemas'
-require 'appirio-tech-ng-file-upload'
-require 'appirio-tech-ng-optimist'
 require './styles/main.scss'
 require './scripts/example.module'
+require './scripts/feature-list.example'
 require './scripts/routes'
+require './scripts/type-example.controller'
 
 exampleNav = require './nav.jade'
 

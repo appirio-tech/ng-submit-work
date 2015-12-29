@@ -58,13 +58,13 @@ modal.full.define-features(show="vm.showFeaturesModal" ng-if="vm.showFeaturesMod
           button.cancel(type="button" ng-click="vm.hideCustomFeatures()") Cancel
 
         .example.flex-grow
-          img(ng-if="vm.activeFeature && !vm.activeFeature.custom" src="/images/{{ vm.activePreview }}.png")
+          img(ng-if="vm.activeFeature && !vm.activeFeature.custom" ng-src="{{ vm.activePreview }}")
 
-          img(ng-if="vm.activeFeature && vm.activeFeature.custom" src="/images/Custom-feature.png")
+          img(ng-if="vm.activeFeature && vm.activeFeature.custom" ng-src=require("./../../images/Custom-feature.png"))
 
-          img(ng-if="!vm.activeFeature && vm.addingCustomFeature" src="/images/Custom-feature.png")
+          img(ng-if="!vm.activeFeature && vm.addingCustomFeature" ng-src=require("./../../images/Custom-feature.png"))
 
-          img(ng-if="!vm.activeFeature && !vm.addingCustomFeature" src="/images/Default-preview.png")
+          img(ng-if="!vm.activeFeature && !vm.addingCustomFeature" ng-src=require("./../../images/Default-preview.png"))
 
       li.flex.middle.space-between
         .count {{vm.selectedFeaturesCount}} features added
