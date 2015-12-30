@@ -1,3 +1,2 @@
-require('./node_modules/coffee-script/register');
-
-module.exports = require('appirio-tech-webpack-config')(__dirname);
+webpackConfig  = require 'appirio-tech-webpack-config'
+module.exports = webpackConfig __dirname
