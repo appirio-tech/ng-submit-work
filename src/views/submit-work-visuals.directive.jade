@@ -3,7 +3,7 @@ loader(ng-if="vm.loading")
 header
   include parts/nav
 
-  img(src="/images/design-white-thin.svg")
+  img(src=require("./../images/design-white-thin.svg"))
 
   h1 Let's design your app!
 
@@ -13,9 +13,9 @@ header
   ul.dark-bg.flex.center.flex-grow.middle.selectable-choices(ng-class="{active: vm.showPaths}")
     li
       button.clean(ng-click="vm.showChooseStyles()")
-        img.icon.big.biggest(ng-if="!vm.specsDefined" src="/images/brand-reqs.svg")
+        img.icon.big.biggest(ng-if="!vm.specsDefined" src=require("./../images/brand-reqs.svg"))
 
-        img.icon.big.biggest(ng-if="vm.specsDefined" src="/images/brand-reqs-selected.svg")
+        img.icon.big.biggest(ng-if="vm.specsDefined" src=require("./../images/brand-reqs-selected.svg"))
 
       h4 define my designs
 
@@ -25,7 +25,7 @@ header
 
     li
       button.clean(ng-click="vm.scrollTo('secondary')")
-        img.icon.big.biggest(src="/images/upload.svg")
+        img.icon.big.biggest(src=require("./../images/upload.svg"))
 
       h4 use brand guidelines
 
@@ -39,9 +39,9 @@ header
   ul.dark-bg.flex.center.flex-grow.middle.selectable-choices(ng-class="{active: vm.showPaths}")
     li
       button.clean(ng-click="vm.showUploadStyles()")
-        img.icon.big.biggest(ng-if="!vm.uploaderHasFiles || vm.uploaderHasErrors || vm.uploaderUploading" src="/images/upload.svg")
+        img.icon.big.biggest(ng-if="!vm.uploaderHasFiles || vm.uploaderHasErrors || vm.uploaderUploading" src=require("./../images/upload.svg"))
 
-        img.icon.big.biggest(ng-if="vm.uploaderHasFiles && !vm.uploaderHasErrors && !vm.uploaderUploading" src="/images/upload-selected.svg")
+        img.icon.big.biggest(ng-if="vm.uploaderHasFiles && !vm.uploaderHasErrors && !vm.uploaderUploading" src=require("./../images/upload-selected.svg"))
 
       h4 upload brand guidelines
 
@@ -51,9 +51,9 @@ header
 
     li
       button.clean(ng-click="vm.showUrlStyles()")
-        img.icon.big.biggest(ng-if="!vm.urlAdded || urlForm.addressInput.$error.pattern" src="/images/url-styles.svg")
+        img.icon.big.biggest(ng-if="!vm.urlAdded || urlForm.addressInput.$error.pattern" src=require("./../images/url-styles.svg"))
 
-        img.icon.big.biggest(ng-if="vm.urlAdded && !urlForm.addressInput.$error.pattern" src="/images/url-styles-selected.svg")
+        img.icon.big.biggest(ng-if="vm.urlAdded && !urlForm.addressInput.$error.pattern" src=require("./../images/url-styles-selected.svg"))
 
       h4 Get style from url
 

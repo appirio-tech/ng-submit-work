@@ -11,6 +11,6 @@ ul
   )
     button.clean(ng-click="vm.activateFeature({feature: feature})")
       .flex
-        img(src="/images/icon-check-solid.svg" ng-class="{ invisible: !feature.selected }")
+        img(ng-src=require("./../images/icon-check-solid.svg") ng-class="{ invisible: !feature.selected }")
 
         p {{ feature.title }}

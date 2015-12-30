@@ -46,7 +46,7 @@ srv = ->
     description: 'Allow users to register and log in using their email address and a password. Users can also change their password or recover a forgotten one.',
     notes: null
     custom: null
-    icon: '/images/help-me.svg'
+    icon: require './../../images/help-me.svg'
     selected: false
   ,
     category: 'Login & Registration'
@@ -55,7 +55,7 @@ srv = ->
     description: 'Allow users to register and log in using third-party services such as Facebook, Twitter, and Google. Please specify below the ones that you would like to use.'
     notes: null
     custom: null
-    icon: '/images/security-minimal.svg'
+    icon: require './../../images/security-minimal.svg'
     selected: false
   ,
     category: 'Login & Registration'
@@ -64,7 +64,7 @@ srv = ->
     description: 'Allow users to invite others to use your app. This functionality is especially useful if you are building a social application or provide incentives for users to invite their friends. Invitations can be sent via email or text message. Please specify your preference below.',
     notes: null,
     custom: null,
-    icon: '/images/login-reg.svg'
+    icon: require './../../images/login-reg.svg'
     selected: false
   ,
     category: 'Login & Registration'
@@ -73,7 +73,7 @@ srv = ->
     description: 'Present your app and inform users of core functionality using a series of introductory screens before they sign up.',
     notes: null,
     custom: null,
-    icon: '/images/location.svg'
+    icon: require './../../images/location.svg'
     selected: false
   ,
     category: 'Login & Registration'
@@ -82,7 +82,7 @@ srv = ->
     description: 'Virtually walk your users through your application. This functionality is especially useful if you need new users to set up an account or express preferences after they sign up.'
     notes: null
     custom: null
-    icon: '/images/social.svg'
+    icon: require './../../images/social.svg'
     selected: false
   ,
     category: 'General Building Blocks'
@@ -91,7 +91,7 @@ srv = ->
     description: 'Provide the ability to search your app for specific content, such as products, members, or locations. Please specify below if you also would like autocomplete--suggesting appropriate search terms as a user starts typing.'
     notes: null
     custom: null
-    icon: '/images/ecommerce.svg'
+    icon: require './../../images/ecommerce.svg'
     selected: false
   ,
     category: 'General Building Blocks'
@@ -100,7 +100,7 @@ srv = ->
     description: 'Add this feature if your app has any geographic location-based functionality, such as showing store locations on a map or illustrating the progress of a delivery. Please specify your desired functionality below.'
     notes: null
     custom: null
-    icon: '/images/payments.svg'
+    icon: require './../../images/payments.svg'
     selected: false
   ,
     category: 'General Building Blocks'
@@ -109,7 +109,7 @@ srv = ->
     description: 'Add this feature if your app will require using the camera to capture audio or video. Please specify your desired usage below.'
     notes: null
     custom: null
-    icon: '/images/notifications.svg'
+    icon: require './../../images/notifications.svg'
     selected: false
   ,
     category: 'General Building Blocks'
@@ -118,7 +118,7 @@ srv = ->
     description: 'Allow users to upload photos or other files from their phone. Please specify your desired usage below.'
     notes: null
     custom: null
-    icon: '/images/audio.svg'
+    icon: require './../../images/audio.svg'
     selected: false
   ,
     category: 'General Building Blocks'
@@ -127,7 +127,7 @@ srv = ->
     description: 'Take advantage of mobile notifications; for example, remind users to do certain tasks or update them on new content. Please specify your desired functionality below.'
     notes: null
     custom: null
-    icon: '/images/audio.svg'
+    icon: require './../../images/audio.svg'
     selected: false
   ,
     category: 'General Building Blocks'
@@ -136,7 +136,7 @@ srv = ->
     description: 'Allow users to share content from your app using common options, such as email, text message, or Facebook. Please specify your desired usage below.'
     notes: null
     custom: null
-    icon: '/images/audio.svg'
+    icon: require './../../images/audio.svg'
     selected: false
   ,
     category: 'General Building Blocks'
@@ -145,7 +145,7 @@ srv = ->
     description: 'Allow users to tag products, people or content; for example, in order to classify and easily retrieve notes. Please specify your desired functionality below.'
     notes: null
     custom: null
-    icon: '/images/audio.svg'
+    icon: require './../../images/audio.svg'
     selected: false
   ,
     category: 'General Building Blocks'
@@ -154,7 +154,7 @@ srv = ->
     description: 'Add this feature if your app will have users that serve as administrators and require special access rights. Please specify your desired usage below.'
     notes: null
     custom: null
-    icon: '/images/audio.svg'
+    icon: require './../../images/audio.svg'
     selected: false
   ,
     category: 'General Building Blocks'
@@ -163,7 +163,7 @@ srv = ->
     description: 'Allow your users to adjust settings or specify preferences, such as communication frequency. Please specify your desired functionality below.'
     notes: null
     custom: null
-    icon: '/images/audio.svg'
+    icon: require './../../images/audio.svg'
     selected: false
   ,
     category: 'General Building Blocks'
@@ -172,7 +172,7 @@ srv = ->
     description: 'Customize your users’ home screen with personalized content or basic performance indicators, such as number of wins or progress toward a goal. Please specify your desired usage below.'
     notes: null
     custom: null
-    icon: '/images/audio.svg'
+    icon: require './../../images/audio.svg'
     selected: false
   ,
     category: 'General Building Blocks'
@@ -181,7 +181,7 @@ srv = ->
     description: 'Include a section dedicated to FAQ or Help content.'
     notes: null
     custom: null
-    icon: '/images/audio.svg'
+    icon: require './../../images/audio.svg'
     selected: false
   ,
     category: 'Ecommerce'
@@ -190,7 +190,7 @@ srv = ->
     description: 'Allow users to buy, sell, or rent products or services. Please provide details below regarding how your marketplace should work. '
     notes: null
     custom: null
-    icon: '/images/audio.svg'
+    icon: require './../../images/audio.svg'
     selected: false
   ,
     category: 'Ecommerce'
@@ -199,7 +199,7 @@ srv = ->
     description: 'Let users rate or review people, products, or services. Please specify your desired usage below.'
     notes: null
     custom: null
-    icon: '/images/audio.svg'
+    icon: require './../../images/audio.svg'
     selected: false
   ,
     category: 'Ecommerce'
@@ -208,7 +208,7 @@ srv = ->
     description: 'Allow users to pay in some way; for example, using credit cards, PayPal, or Bitcoin. Please specify your desired functionality below.'
     notes: null
     custom: null
-    icon: '/images/audio.svg'
+    icon: require './../../images/audio.svg'
     selected: false
   ,
     category: 'Ecommerce'
@@ -217,7 +217,7 @@ srv = ->
     description: 'Allow users to save items before purchasing. Please specify your desired usage below.'
     notes: null
     custom: null
-    icon: '/images/audio.svg'
+    icon: require './../../images/audio.svg'
     selected: false
   ,
     category: 'Ecommerce'
@@ -226,7 +226,7 @@ srv = ->
     description: 'Add this feature to shows lists of product or services, with individual detail pages for each one. Please specify below your desired usage and the information you would like in a product listing.'
     notes: null
     custom: null
-    icon: '/images/audio.svg'
+    icon: require './../../images/audio.svg'
     selected: false
   ,
     category: 'Social'
@@ -235,7 +235,7 @@ srv = ->
     description: 'Show your users an activity feed of some kind, as they’re used to seeing on Facebook and Twitter, for example. Please specify below your desired usage and the information that a user should see in the activity feed.'
     notes: null
     custom: null
-    icon: '/images/audio.svg'
+    icon: require './../../images/audio.svg'
     selected: false
   ,
     category: 'Social'
@@ -244,7 +244,7 @@ srv = ->
     description: 'Add this feature if your app requires users to have a profile, including the ability to edit it. Please specify below your desired usage and the information you need in the profile.'
     notes: null
     custom: null
-    icon: '/images/audio.svg'
+    icon: require './../../images/audio.svg'
     selected: false
   ,
     category: 'Social'
@@ -253,7 +253,7 @@ srv = ->
     description: 'Allow direct communication between two or more users. Please specify your desired functionality below.'
     notes: null
     custom: null
-    icon: '/images/audio.svg'
+    icon: require './../../images/audio.svg'
     selected: false
   ]
 
@@ -273,22 +273,27 @@ srv = ->
     name: 'Blue'
     id: 'BLUE'
     selected: false
+    img: require './../../images/Blue'
   ,
     name: 'Red'
     id: 'RED'
     selected: false
+    img: require './../../images/Red'
   ,
     name: 'Green'
     id: 'GREEN'
     selected: false
+    img: require './../../images/Green'
   ,
     name: 'Orange'
     id: 'ORANGE'
     selected: false
+    img: require './../../images/Orange'
   ,
     name: 'Black'
     id: 'BLACK'
     selected: false
+    img: require './../../images/Black'
   ]
 
   service.icons = [
@@ -296,19 +301,19 @@ srv = ->
     description: 'A one dimensional, colorful icon style.'
     id: 'FLAT_COLORS'
     selected: false
-    img: 'flat-colors'
+    img: require './../../images/flat-colors.svg'
   ,
     name: 'Thin Line'
     description: 'A lighter weight and modern icon style.'
     id: 'THIN_LINE'
     selected: false
-    img: 'thin-line'
+    img: require './../../images/thin-line.svg'
   ,
     name: 'Solid Line'
     description: 'A bold and visually powerful icon style.'
     id: 'SOLID_LINE'
     selected: false
-    img: 'solid-line'
+    img: require './../../images/solid-line.svg'
   ]
 
   service

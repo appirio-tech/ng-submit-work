@@ -27,4 +27,4 @@ FeatureListExample = ->
 
   activate()
 
-angular.module('appirio-tech-ng-work-layout').controller 'FeatureListExample', FeatureListExample
+angular.module('example').controller 'FeatureListExample', FeatureListExample

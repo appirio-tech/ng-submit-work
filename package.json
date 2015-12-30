@@ -1,11 +1,18 @@
 {
-  "private": true,
-  "engines": {
-    "node": ">=0.10.0"
-  },
+  "name": "appirio-tech-ng-submit-work",
+  "version": "3.0.1",
+  "main": "./src/src.coffee",
   "devDependencies": {
-    "appirio-styles": "0.x.x",
-    "appirio-gulp-tasks": "3.x.x",
-    "gulp": "^3.8.11"
+    "appirio-tech-webpack-config": "0.x.x"
+  },
+  "scripts": {
+    "dev": "webpack-dev-server -d --colors",
+    "clean": "rm -r dist",
+    "build": "webpack --config webpack.config.js; cp example/index.html dist/"
+  },
+  "dependencies": {
+    "appirio-tech-ng-ui-components": "2.x.x",
+    "appirio-tech-ng-file-upload": "1.x.x",
+    "appirio-tech-ng-optimist": "1.x.x"
   }
 }

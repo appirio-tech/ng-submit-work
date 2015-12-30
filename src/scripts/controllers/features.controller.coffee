@@ -33,19 +33,19 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
 
   vm.categoriesList = [
     category: 'Custom Features'
-    icon    : '/images/custom-features.svg'
+    icon    : require './../../images/custom-features.svg'
   ,
     category: 'Login & Registration'
-    icon    : '/images/login-reg.svg'
+    icon    : require './../../images/login-reg.svg'
   ,
     category: 'General Building Blocks'
-    icon    : '/images/general-building-blocks.svg'
+    icon    : require './../../images/general-building-blocks.svg'
   ,
     category: 'Ecommerce'
-    icon    : '/images/ecommerce.svg'
+    icon    : require './../../images/ecommerce.svg'
   ,
     category: 'Social'
-    icon    : '/images/social.svg'
+    icon    : require './../../images/social.svg'
   ]
 
   vm.filterByCategory = (list, category) ->
@@ -90,7 +90,7 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
     vm.customFeature = angular.copy config.customFeatureTemplate
     vm.showDefineFeaturesForm = false
     vm.addingCustomFeature = false
-    vm.activePreview = feature.title
+    vm.activePreview = require "./../../images/#{feature.title}.png"
 
   vm.saveNotes = ->
     vm.updatedFeatures.forEach (updatedFeature) ->

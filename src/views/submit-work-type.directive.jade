@@ -65,17 +65,17 @@ form(ng-submit="vm.validateAllSections()")
             ng-class="{ selected: vm.projectType == projectType.id }"
             ng-if="projectType.id == 'DESIGN'"
           )
-            img.inactive(src="/images/design-thin.svg")
+            img.inactive(src=require("./../images/design-thin.svg"))
 
-            img.active(src="/images/design-white-thin.svg")
+            img.active(src=require("./../images/design-white-thin.svg"))
 
           .house.flex.column.center.middle(
             ng-class="{ selected: vm.projectType == projectType.id }"
             ng-if="projectType.id == 'DESIGN_AND_CODE'"
           )
-            img.inactive(src="/images/design-development.svg")
+            img.inactive(src=require("./../images/design-development.svg"))
 
-            img.active(src="/images/design-development-active.svg")
+            img.active(src=require("./../images/design-development-active.svg"))
 
           h4 {{projectType.name}}
 

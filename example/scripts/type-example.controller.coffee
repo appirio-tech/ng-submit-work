@@ -10,4 +10,4 @@ TypeController = ->
 
   activate()
 
-angular.module('appirio-tech-ng-work-layout').controller 'TypeController', TypeController
+angular.module('example').controller 'TypeController', TypeController

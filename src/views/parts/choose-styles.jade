@@ -24,13 +24,13 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
 
     ul.or-choices.flex.middle.center
       li.serif
-        img.header(src="/images/serif-header.svg")
+        img.header(ng-src=require("./../../images/serif-header.svg"))
 
         p Classic design, good legibility for large and small text.
 
         hr
         button.clean(ng-click="vm.toggleSelection('font', vm.serif)")
-          img(src="/images/serif.png")
+          img(ng-src=require("./../../images/serif.png"))
 
         button.action(selectable=true type="button" ng-model="vm.font" value="vm.serif")
 
@@ -38,14 +38,14 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
         .house OR
 
       li.sans-serif
-        img.header(src="/images/sans-serif-header.svg")
+        img.header(ng-src=require("./../../images/sans-serif-header.svg"))
 
         p Classic design, good legibility for large and small text.
 
         hr
 
         button.clean(ng-click="vm.toggleSelection('font', vm.sansSerif)")
-          img(src="/images/sans.png")
+          img(ng-src=require("./../../images/sans.png"))
 
         button.action(selectable=true type="button" ng-model="vm.font" value="vm.sansSerif")
 
@@ -59,7 +59,7 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
         h6 {{ color.name }}
 
         button.clean(ng-click="vm.toggleColorSelection(color, color.selected)")
-          img(src="/images/{{ color.name.toLowerCase() }}.png")
+          img(ng-src="{{ color.img }}")
 
         button.action(type="button" selectable=true ng-model="color.selected")
 
@@ -71,7 +71,7 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
     ul.flex.center
       li(ng-repeat="icon in vm.icons")
         button.clean(ng-click="vm.toggleSelection('icon', icon.id)")
-          img(src="/images/{{icon.img}}.svg")
+          img(ng-src="{{ icon.img }}")
 
         h6 {{icon.name}}
 

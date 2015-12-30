@@ -1,7 +1,7 @@
 header
   include parts/nav
 
-  img(src="/images/features-white.svg")
+  img(src=require("./../images/features-white.svg"))
 
   h1 Feature Requirements
 
@@ -11,9 +11,9 @@ header
   ul.dark-bg.flex.center.middle.flex-grow.selectable-choices
     li
       button.clean(ng-click="vm.showFeatures()")
-        img.icon.biggest(ng-if="!vm.featuresDefined" src="/images/define-feature.svg")
+        img.icon.biggest(ng-if="!vm.featuresDefined" src=require("./../images/define-feature.svg"))
 
-        img.icon.biggest(ng-if="vm.featuresDefined" src="/images/define-feature-selected.svg")
+        img.icon.biggest(ng-if="vm.featuresDefined" src=require("./../images/define-feature-selected.svg"))
 
       h4 Define features
 
@@ -23,9 +23,9 @@ header
 
     li
       button.clean(ng-click="vm.showUpload()")
-        img.icon.biggest(ng-if="!vm.uploaderHasFiles || vm.uploaderHasErrors || vm.uploaderUploading" src="/images/upload.svg")
+        img.icon.biggest(ng-if="!vm.uploaderHasFiles || vm.uploaderHasErrors || vm.uploaderUploading" src=require("./../images/upload.svg"))
 
-        img.icon.biggest(ng-if="vm.uploaderHasFiles && !vm.uploaderHasErrors && !vm.uploaderUploading" src="/images/upload-selected.svg")
+        img.icon.biggest(ng-if="vm.uploaderHasFiles && !vm.uploaderHasErrors && !vm.uploaderUploading" src=require("./../images/upload-selected.svg"))
 
       h4 Upload Requirements
 
