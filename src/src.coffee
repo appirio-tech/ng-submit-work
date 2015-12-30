@@ -1,5 +1,3 @@
-require.context './styles/', true, /^(.*\.(scss$))[^.]*$/igm
-
 require 'appirio-tech-ng-file-upload'
 require 'appirio-tech-ng-optimist'
 require './scripts/submit-work.module'
@@ -10,15 +8,17 @@ requireContextFiles = (files) ->
   for path in paths
     files path
 
+styles      = require.context './styles/', true, /^(.*\.(scss$))[^.]*$/igm
 directives  = require.context './scripts/directives/', true, /^(.*\.(coffee$))[^.]*$/igm
 controllers = require.context './scripts/controllers/', true, /^(.*\.(coffee$))[^.]*$/igm
 services    = require.context './scripts/services/', true, /^(.*\.(coffee$))[^.]*$/igm
-views       = require.context './views/', true, /^(.*\.(jade$))[^.]*$/igm
 
+requireContextFiles styles
 requireContextFiles directives
 requireContextFiles controllers
 requireContextFiles services
 
+views     = require.context './views/', true, /^(.*\.(jade$))[^.]*$/igm
 viewPaths = views.keys()
 
 templateCache = ($templateCache) ->
