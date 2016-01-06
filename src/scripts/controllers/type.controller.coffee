@@ -34,6 +34,13 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
     model.selected = !value
     vm.validateSection(sectionName, vmModel)
 
+  vm.makeSelection = (model, value, sectionName, vmModel) ->
+    if vm[model] == value
+      vm[model] = null
+    else
+      vm[model] = value
+    vm.validateSection(sectionName, vmModel)
+
   vm.showOrientation = ->
     showOrientation = true
 

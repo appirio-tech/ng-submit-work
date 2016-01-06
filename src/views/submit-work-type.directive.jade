@@ -105,21 +105,23 @@ form(ng-submit="vm.validateAllSections()")
 
       ul.type.flex.center
         li(ng-repeat="projectType in vm.projectTypes")
-          .house.flex.column.center.middle(
-            ng-class="{ selected: vm.projectType == projectType.id }"
-            ng-if="projectType.id == 'DESIGN'"
-          )
-            img.inactive(src=require("./../images/design-thin.svg"))
+          button.clean(type="button" ng-click="vm.makeSelection('projectType', projectType.id, 'brief-details', 'projectType')"  ng-if="projectType.id == 'DESIGN'")
+            .house.flex.column.center.middle(
+              ng-class="{ selected: vm.projectType == projectType.id }"
+              ng-if="projectType.id == 'DESIGN'"
+            )
+              img.inactive(src=require("./../images/design-thin.svg"))
 
-            img.active(src=require("./../images/design-white-thin.svg"))
+              img.active(src=require("./../images/design-white-thin.svg"))
 
-          .house.flex.column.center.middle(
-            ng-class="{ selected: vm.projectType == projectType.id }"
-            ng-if="projectType.id == 'DESIGN_AND_CODE'"
-          )
-            img.inactive(src=require("./../images/design-development.svg"))
+          button.clean(type="button" ng-click="vm.makeSelection('projectType', projectType.id, 'brief-details', 'projectType')" ng-if="projectType.id == 'DESIGN_AND_CODE'")
+            .house.flex.column.center.middle(
+              ng-class="{ selected: vm.projectType == projectType.id }"
+              ng-if="projectType.id == 'DESIGN_AND_CODE'"
+            )
+              img.inactive(src=require("./../images/design-development.svg"))
 
-            img.active(src=require("./../images/design-development-active.svg"))
+              img.active(src=require("./../images/design-development-active.svg"))
 
           h4 {{projectType.name}}
 
