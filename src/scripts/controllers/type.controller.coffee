@@ -30,6 +30,10 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
     else
       require "./../../images/#{name}.svg"
 
+  vm.toggleSelection = (model, value, sectionName, vmModel) ->
+    model.selected = !value
+    vm.validateSection(sectionName, vmModel)
+
   vm.showOrientation = ->
     showOrientation = true
 
@@ -113,7 +117,12 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
       errorElement = angular.element document.getElementById 'type-details'
       $document.scrollToElementAnimated errorElement
 
-    if vm.devicesError || vm.orientationError
+    if vm.orientationsError
+      foundErrors = true
+      errorElement = angular.element document.getElementById 'orientation-details'
+      $document.scrollToElementAnimated errorElement
+
+    if vm.devicesError
       foundErrors = true
       errorElement = angular.element document.getElementById 'platform-details'
       $document.scrollToElementAnimated errorElement
