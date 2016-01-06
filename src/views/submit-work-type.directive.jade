@@ -51,21 +51,52 @@ form(ng-submit="vm.validateAllSections()")
                 ng-click="vm.validateSection('type-details', ['devices'])"
               )
 
-        li(ng-class="{invisible: !vm.showOrientation()}")
-          p What screen orientations would you like to support?
+        //- li(ng-class="{invisible: !vm.showOrientation()}")
+        //-   p What screen orientations would you like to support?
 
-          ul
-            li(ng-repeat="orientation in vm.orientations")
-              checkbox(label="{{orientation.name}}" ng-model="orientation.selected" ng-click="vm.validateSection('type-details', ['orientations'])")
+        //-   ul
+        //-     li(ng-repeat="orientation in vm.orientations")
+        //-       checkbox(label="{{orientation.name}}" ng-model="orientation.selected" ng-click="vm.validateSection('type-details', ['orientations'])")
 
       p.error.transition(ng-class="{ show: vm.devicesError }") Please choose a device.
+
+    .continue-buttons
+      button(
+        type="button"
+        ng-click="vm.validateSection('type-details', ['devices'], true)"
+      ) continue
+
+  .full-height.flex.column(full-height=true)
+    .dark-bg.flex.column.center.flex-grow(id="orientation-details")
+      h2 iOS <strong>orientation details</strong>
+
+      ul.target-orientations
+        li
+          p What screen orientations would you like to support?
+
+          ul.flex.space-between
+            li.flex.center.column.middle.flex-grow(ng-repeat="orientation in vm.orientations")
+              //- checkbox(label="{{device.name}}" ng-model="device.selected" ng-click="vm.validateSection('type-details', ['devices'])")
+              .orientation-icon-container.flex.center
+                img(ng-if="!orientation.selected" ng-src="{{vm.getIconPath(orientation.name)}}")
+
+                img(ng-if="orientation.selected" ng-src="{{vm.getIconPath(orientation.name, true)}}")
+
+              span.orientation-name {{orientation.name}}
+
+              button.action(
+                type="button"
+                selectable="true"
+                ng-model="orientation.selected"
+                ng-click="vm.validateSection('type-details', ['orientations'])"
+              )
 
       p.error.transition(ng-class="{ show: vm.orientationsError }") Please choose an orientation.
 
     .continue-buttons
       button(
         type="button"
-        ng-click="vm.validateSection('type-details', ['devices', 'orientations'], true)"
+        ng-click="vm.validateSection('type-details', ['orientations'], true)"
       ) continue
 
   .full-height.flex.column(full-height=true)

@@ -106,14 +106,14 @@ submit-work-type {
     > li {
       margin    : 0 auto;
       margin-top: 30px;
-      max-width: 700px;
+      max-width: 670px;
 
       &:first-child {
         margin-top: 0;
       }
 
       > ul {
-        margin-top : 20px;
+        margin-top : 66px;
 
         > li {
 
@@ -121,6 +121,49 @@ submit-work-type {
             background: $white;
             height: 230px;
             width: 200px;
+          }
+
+          .device-name {
+            font-size: 18px;
+            margin: 18px 0;
+          }
+        }
+      }
+    }
+  }
+
+  ul.target-orientations {
+    text-align: center;
+    margin-top: 10px;
+    color: $text-color;
+
+    label {
+      font-weight: 300;
+    }
+
+    > li {
+      margin    : 0 auto;
+      margin-top: 30px;
+      max-width: 915px;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      > ul {
+        margin-top : 66px;
+
+        > li {
+
+          .orientation-icon-container {
+            background: $white;
+            height: 230px;
+            width: 433px;
+          }
+
+          .orientation-name {
+            font-size: 18px;
+            margin: 25px 0;
           }
         }
       }
