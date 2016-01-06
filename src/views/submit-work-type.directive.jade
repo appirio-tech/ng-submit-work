@@ -32,11 +32,14 @@ form(ng-submit="vm.validateAllSections()")
 
       ul.target-platforms
         li
-          h5 Choose the <strong>devices</strong> on which you’d like your app to run 
+          p Choose the devices on which you’d like your app to run 
 
-          ul
-            li(ng-repeat="device in vm.devices")
-              checkbox(label="{{device.name}}" ng-model="device.selected" ng-click="vm.validateSection('type-details', ['devices'])")
+          ul.flex.space-between
+            li.flex.column(ng-repeat="device in vm.devices")
+              //- checkbox(label="{{device.name}}" ng-model="device.selected" ng-click="vm.validateSection('type-details', ['devices'])")
+                img.flex(ng-src="{{vm.getIconPath(device.name)}}")
+              .device-icon-container.flex.center
+                img(ng-src="{{vm.getIconPath(device.name)}}")
 
         li(ng-class="{invisible: !vm.showOrientation()}")
           h5 What <strong>screen</strong> orientations would you like to support?

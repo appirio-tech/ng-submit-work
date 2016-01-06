@@ -24,6 +24,9 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
   vm.projectTypes = angular.copy RequirementService.projectTypes
   vm.brief        = ''
 
+  vm.getIconPath = (name) ->
+    require "./../../images/#{name}.svg"
+
   vm.showOrientation = ->
     showOrientation = true
 
