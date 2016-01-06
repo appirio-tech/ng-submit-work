@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="102px" height="130px" viewBox="0 0 102 130" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
+    <title>ipad</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path id="path-1" d="M0,0 L100,0 L100,128 L0,128 L0,0 Z"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="ipad" sketch:type="MSArtboardGroup">
+            <g id="Page-1" sketch:type="MSLayerGroup" transform="translate(1.000000, 1.000000)">
+                <path d="M94.8,127.6 L5.2,127.6 C2.56,127.6 0.4,125.44 0.4,122.8 L0.4,5.2 C0.4,2.56 2.56,0.4 5.2,0.4 L94.8,0.4 C97.44,0.4 99.6,2.56 99.6,5.2 L99.6,122.8 C99.6,125.44 97.44,127.6 94.8,127.6 L94.8,127.6 Z" id="Stroke-1" stroke="#666666" stroke-width="2" sketch:type="MSShapeGroup"></path>
+                <mask id="mask-2" sketch:name="Clip 4" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Clip-4"></g>
+                <path d="M89.8,115.614 L10.2,115.614 L10.2,12.414 L89.8,12.414 L89.8,115.614 Z" id="Stroke-3" stroke="#666666" stroke-width="2" sketch:type="MSShapeGroup" mask="url(#mask-2)"></path>
+                <path d="M46.99324,121.08072 C46.99324,119.42032 48.33924,118.07392 50.00004,118.07392 C51.66044,118.07392 53.00684,119.42032 53.00684,121.08072 C53.00684,122.74112 51.66044,124.08752 50.00004,124.08752 C48.33924,124.08752 46.99324,122.74112 46.99324,121.08072 L46.99324,121.08072 Z" id="Stroke-5" stroke="#666666" stroke-width="2" sketch:type="MSShapeGroup" mask="url(#mask-2)"></path>
+            </g>
+        </g>
+    </g>
+</svg>

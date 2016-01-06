@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="83px" height="171px" viewBox="0 0 83 171" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
+    <title>iphone</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path id="path-1" d="M0,0 L81.163847,0 L81.163847,168.992976 L0,168.992976 L0,0 Z"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="iphone" sketch:type="MSArtboardGroup">
+            <g id="Page-1" sketch:type="MSLayerGroup" transform="translate(1.000000, 1.000000)">
+                <path d="M68.1165952,168.371678 L13.0472518,168.371678 C6.21297705,168.371678 0.621297705,162.779999 0.621297705,155.945724 L0.621297705,13.0472518 C0.621297705,6.21297705 6.21297705,0.621297705 13.0472518,0.621297705 L68.1165952,0.621297705 C74.95087,0.621297705 80.5425493,6.21297705 80.5425493,13.0472518 L80.5425493,155.945724 C80.5425493,162.779999 74.95087,168.371678 68.1165952,168.371678 L68.1165952,168.371678 Z" id="Stroke-1" stroke="#666666" stroke-width="2" sketch:type="MSShapeGroup"></path>
+                <mask id="mask-2" sketch:name="Clip 4" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Clip-4"></g>
+                <path d="M75.2615188,144.668549 L6.91877125,144.668549 L6.91877125,24.3592191 L75.2615188,24.3592191 L75.2615188,144.668549 Z" id="Stroke-3" stroke="#666666" stroke-width="2" sketch:type="MSShapeGroup" mask="url(#mask-2)"></path>
+                <path d="M46.3572585,17.4516934 L35.076356,17.4516934 C33.9108015,17.4516934 32.9571096,16.4980014 32.9571096,15.3318256 C32.9571096,14.1662711 33.9108015,13.2119578 35.076356,13.2119578 L46.3572585,13.2119578 C47.522813,13.2119578 48.4771262,14.1662711 48.4771262,15.3318256 C48.4771262,16.4980014 47.522813,17.4516934 46.3572585,17.4516934 L46.3572585,17.4516934 Z" id="Stroke-5" stroke="#666666" stroke-width="2" sketch:type="MSShapeGroup" mask="url(#mask-2)"></path>
+                <path d="M39.445073,9.23074427 C39.445073,8.4367258 40.0887374,7.79306138 40.8827559,7.79306138 C41.6767743,7.79306138 42.3204388,8.4367258 42.3204388,9.23074427 C42.3204388,10.0247627 41.6767743,10.6684272 40.8827559,10.6684272 C40.0887374,10.6684272 39.445073,10.0247627 39.445073,9.23074427 L39.445073,9.23074427 Z" id="Stroke-6" stroke="#666666" stroke-width="2" sketch:type="MSShapeGroup" mask="url(#mask-2)"></path>
+                <path d="M34.0487296,156.783979 C34.0487296,152.895277 37.2011942,149.742812 41.0898965,149.742812 C44.9792202,149.742812 48.1316847,152.895277 48.1316847,156.783979 C48.1316847,160.672681 44.9792202,163.825146 41.0898965,163.825146 C37.2011942,163.825146 34.0487296,160.672681 34.0487296,156.783979 L34.0487296,156.783979 Z" id="Stroke-7" stroke="#666666" stroke-width="2" sketch:type="MSShapeGroup" mask="url(#mask-2)"></path>
+            </g>
+        </g>
+    </g>
+</svg>
