@@ -35,14 +35,24 @@ form(ng-submit="vm.validateAllSections()")
           p Choose the devices on which you’d like your app to run 
 
           ul.flex.space-between
-            li.flex.column(ng-repeat="device in vm.devices")
+            li.flex.center.column.middle.flex-grow(ng-repeat="device in vm.devices")
               //- checkbox(label="{{device.name}}" ng-model="device.selected" ng-click="vm.validateSection('type-details', ['devices'])")
-                img.flex(ng-src="{{vm.getIconPath(device.name)}}")
               .device-icon-container.flex.center
-                img(ng-src="{{vm.getIconPath(device.name)}}")
+                img(ng-if="!device.selected" ng-src="{{vm.getIconPath(device.name)}}")
+
+                img(ng-if="device.selected" ng-src="{{vm.getIconPath(device.name, true)}}")
+
+              span.device-name {{device.name}}
+
+              button.action(
+                type="button"
+                selectable="true"
+                ng-model="device.selected"
+                ng-click="vm.validateSection('type-details', ['devices'])"
+              )
 
         li(ng-class="{invisible: !vm.showOrientation()}")
-          h5 What <strong>screen</strong> orientations would you like to support?
+          p What screen orientations would you like to support?
 
           ul
             li(ng-repeat="orientation in vm.orientations")
