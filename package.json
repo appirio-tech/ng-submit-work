@@ -1,6 +1,6 @@
 {
   "name": "appirio-tech-ng-submit-work",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "./src/src.coffee",
   "devDependencies": {
     "appirio-tech-webpack-config": "0.x.x",
