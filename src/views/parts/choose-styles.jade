@@ -14,6 +14,9 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
       button.clean(ng-click="vm.activateModal('icons')" ng-class="{active: vm.activeStyleModal == 'icons'}") icons
 
     li
+      button.clean(ng-click="vm.activateModal('notes')" ng-class="{active: vm.activeStyleModal == 'notes'}") notes
+
+    li
       button.clean(ng-click="vm.viewNext()")
         .icon.arrow.smallest.right
 
@@ -78,6 +81,14 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
         p {{icon.description}}
 
         button.action(type="button" selectable=true ng-model="vm.icon" value="icon.id")
+
+  main.dark-bg.notes.flex.column.center.flex-grow(ng-show="vm.activeStyleModal == 'notes' ")
+    .design-notes
+      h2  Add any <strong>additional notes</strong>
+
+      p Add any other preferences, notes or details that you would like the designers to know.
+
+      textarea(ng-model="vm.designNotes" placeholder="Notes...")
 
   footer
     button(ng-hide="vm.backButtonDisabled" ng-click="vm.viewPrevious()") back
