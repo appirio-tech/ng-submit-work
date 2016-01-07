@@ -32,27 +32,71 @@ form(ng-submit="vm.validateAllSections()")
 
       ul.target-platforms
         li
-          h5 Choose the <strong>devices</strong> on which you’d like your app to run 
+          p Choose the devices on which you’d like your app to run 
 
-          ul
-            li(ng-repeat="device in vm.devices")
-              checkbox(label="{{device.name}}" ng-model="device.selected" ng-click="vm.validateSection('type-details', ['devices'])")
+          ul.flex.space-between
+            li.flex.center.column.middle(ng-repeat="device in vm.devices")
+              button.clean(type="button" ng-click="vm.toggleSelection(device, device.selected, 'orientation-details', ['devices'])")
+                .device-icon-container.flex.center
+                    img(ng-if="!device.selected" ng-src="{{vm.getIconPath(device.name)}}")
 
-        li(ng-class="{invisible: !vm.showOrientation()}")
-          h5 What <strong>screen</strong> orientations would you like to support?
+                    img(ng-if="device.selected" ng-src="{{vm.getIconPath(device.name, true)}}")
 
-          ul
-            li(ng-repeat="orientation in vm.orientations")
-              checkbox(label="{{orientation.name}}" ng-model="orientation.selected" ng-click="vm.validateSection('type-details', ['orientations'])")
+              span.device-name {{device.name}}
+
+              button.action(
+                type="button"
+                selectable="true"
+                ng-model="device.selected"
+                ng-click="vm.validateSection('orientation-details', ['devices'])"
+              )
 
       p.error.transition(ng-class="{ show: vm.devicesError }") Please choose a device.
+
+    .continue-buttons
+      button(
+        ng-if="!vm.showOrientation()"
+        type="button"
+        ng-click="vm.validateSection('type-details', ['devices'], true)"
+      ) continue
+
+      button(
+        ng-if="vm.showOrientation()"
+        type="button"
+        ng-click="vm.validateSection('orientation-details', ['devices'], true)"
+      ) continue
+
+  .full-height.flex.column(full-height=true ng-show="vm.showOrientation()")
+    .dark-bg.flex.column.center.flex-grow(id="orientation-details")
+      h2 iOS <strong>orientation details</strong>
+
+      ul.target-orientations
+        li
+          p What screen orientations would you like to support?
+
+          ul.flex.space-between
+            li.flex.center.column.middle(ng-repeat="orientation in vm.orientations")
+              button.clean(type="button" ng-click="vm.toggleSelection(orientation, orientation.selected, 'type-details', ['orientations'])")
+                .orientation-icon-container.flex.center
+                  img(ng-if="!orientation.selected" ng-src="{{vm.getIconPath(orientation.name)}}")
+
+                  img(ng-if="orientation.selected" ng-src="{{vm.getIconPath(orientation.name, true)}}")
+
+              span.orientation-name {{orientation.name}}
+
+              button.action(
+                type="button"
+                selectable="true"
+                ng-model="orientation.selected"
+                ng-click="vm.validateSection('type-details', ['orientations'])"
+              )
 
       p.error.transition(ng-class="{ show: vm.orientationsError }") Please choose an orientation.
 
     .continue-buttons
       button(
         type="button"
-        ng-click="vm.validateSection('type-details', ['devices', 'orientations'], true)"
+        ng-click="vm.validateSection('type-details', ['orientations'], true)"
       ) continue
 
   .full-height.flex.column(full-height=true)
@@ -61,21 +105,23 @@ form(ng-submit="vm.validateAllSections()")
 
       ul.type.flex.center
         li(ng-repeat="projectType in vm.projectTypes")
-          .house.flex.column.center.middle(
-            ng-class="{ selected: vm.projectType == projectType.id }"
-            ng-if="projectType.id == 'DESIGN'"
-          )
-            img.inactive(src=require("./../images/design-thin.svg"))
+          button.clean(type="button" ng-click="vm.makeSelection('projectType', projectType.id, 'brief-details', 'projectType')"  ng-if="projectType.id == 'DESIGN'")
+            .house.flex.column.center.middle(
+              ng-class="{ selected: vm.projectType == projectType.id }"
+              ng-if="projectType.id == 'DESIGN'"
+            )
+              img.inactive(src=require("./../images/design-thin.svg"))
 
-            img.active(src=require("./../images/design-white-thin.svg"))
+              img.active(src=require("./../images/design-white-thin.svg"))
 
-          .house.flex.column.center.middle(
-            ng-class="{ selected: vm.projectType == projectType.id }"
-            ng-if="projectType.id == 'DESIGN_AND_CODE'"
-          )
-            img.inactive(src=require("./../images/design-development.svg"))
+          button.clean(type="button" ng-click="vm.makeSelection('projectType', projectType.id, 'brief-details', 'projectType')" ng-if="projectType.id == 'DESIGN_AND_CODE'")
+            .house.flex.column.center.middle(
+              ng-class="{ selected: vm.projectType == projectType.id }"
+              ng-if="projectType.id == 'DESIGN_AND_CODE'"
+            )
+              img.inactive(src=require("./../images/design-development.svg"))
 
-            img.active(src=require("./../images/design-development-active.svg"))
+              img.active(src=require("./../images/design-development-active.svg"))
 
           h4 {{projectType.name}}
 

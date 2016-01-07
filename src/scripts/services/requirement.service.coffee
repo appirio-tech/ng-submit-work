@@ -20,12 +20,12 @@ srv = ->
     id: 'IWATCH'
     selected: false
   ,
-    name: 'iPhone'
-    id: 'IPHONE'
-    selected: false
-  ,
     name: 'iPad'
     id: 'IPAD'
+    selected: false
+  ,
+    name: 'iPhone'
+    id: 'IPHONE'
     selected: false
   ]
 
