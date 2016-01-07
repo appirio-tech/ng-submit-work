@@ -20,7 +20,7 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, $document, SubmitWorkS
   vm.backButtonDisabled    = false
   vm.specsDefined          = false
   vm.urlAdded              = false
-  vm.styleModals           = ['fonts', 'colors', 'icons']
+  vm.styleModals           = ['fonts', 'colors', 'icons', 'notes']
   vm.urlRegEx              = /^(http(s?):\/\/)?(www\.)?[a-zA-Z0-9\.\-\_]+(\.[a-zA-Z]{2,3})+(\/[a-zA-Z0-9\_\-\s\.\/\?\%\#\&\=]*)?$/
   vm.serif                 = 'SERIF'
   vm.sansSerif             = 'SANS_SERIF'
@@ -112,6 +112,7 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, $document, SubmitWorkS
       colorSwatchIds: vm.colors.filter(isSelected).map(getId)
       iconsetIds:  if vm.icon then [ vm.icon ] else null
       designUrls: if vm.url then [ transformToUrl(vm.url) ] else null
+      designNotes: if vm.designNotes then vm.designNotes else null
 
     updates
 
@@ -148,10 +149,11 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, $document, SubmitWorkS
       vm.loading = true
       return false
 
-    vm.loading = false
-    vm.font    = vm.font || work.fontIds?[0]
-    vm.icon    = vm.icon || work.iconsetIds?[0]
-    vm.url     = vm.url || work.designUrls?[0]
+    vm.loading     = false
+    vm.font        = vm.font || work.fontIds?[0]
+    vm.icon        = vm.icon || work.iconsetIds?[0]
+    vm.url         = vm.url || work.designUrls?[0]
+    vm.designNotes = vm.designNotes || work.designNotes
 
     vm.fonts   = angular.copy RequirementService.fonts
     vm.colors  = angular.copy RequirementService.colors
