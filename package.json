@@ -1,9 +1,10 @@
 {
   "name": "appirio-tech-ng-submit-work",
-  "version": "3.0.1",
+  "version": "0.0.0",
   "main": "./src/src.coffee",
   "devDependencies": {
-    "appirio-tech-webpack-config": "0.x.x"
+    "appirio-tech-webpack-config": "0.x.x",
+    "npm-prepublish": "^1.2.1"
   },
   "scripts": {
     "dev": "webpack-dev-server -d --colors",
