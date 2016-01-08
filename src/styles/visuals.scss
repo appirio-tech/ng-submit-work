@@ -85,8 +85,12 @@ submit-work-visuals {
     }
 
     button {
-      &.active {
-        color: $grey-darkest;
+      &.clean {
+        color: $primary-color;
+
+        &.active {
+          color: $grey-darkest;
+        }
       }
     }
 
@@ -118,6 +122,14 @@ submit-work-visuals {
             margin-top: 15px;
           }
         }
+      }
+    }
+
+    .notes {
+      textarea {
+        max-width : 550px;
+        height    : 160px;
+        margin    : 25px auto 0 auto;
       }
     }
   }
