@@ -16,8 +16,8 @@ srv = ->
   ]
 
   service.devices = [
-    name: 'iWatch'
-    id: 'IWATCH'
+    name: 'Apple Watch'
+    id: 'APPLE_WATCH'
     selected: false
   ,
     name: 'iPad'
