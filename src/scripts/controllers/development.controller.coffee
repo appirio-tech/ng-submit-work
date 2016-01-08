@@ -16,6 +16,7 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
   vm.specsDefined           = false
   vm.activeDevelopmentModal = null
   vm.projectType            = null
+  vm.currentApiIntegration  = null
   vm.developmentModals      = ['offlineAccess', 'personalInformation', 'security', 'thirdPartyIntegrations']
 
   vm.securityLevels =
@@ -61,14 +62,24 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
     else
       vm.work[model] = value
 
+  vm.addCurrentApiIntegration = ->
+    if vm.currentApiIntegration
+      vm.work.apiIntegrations.push vm.currentApiIntegration
+      vm.currentApiIntegration = null
+
+  vm.removeApiIntegration = (index) ->
+    vm.work.apiIntegrations.splice(index, 1)
+
   vm.save = (done = false, kickoff = false) ->
     uploaderValid = !vm.uploaderUploading && !vm.uploaderHasErrors
     updates = vm.work
     updates.status = if kickoff then 'SUBMITTED' else 'INCOMPLETE'
 
     for name, prop of updates
-      unless prop
-        prop = null
+      if Array.isArray prop
+        prop = null unless prop.length > 0
+      else
+        prop = null unless prop
 
     SubmitWorkService.save(updates).then ->
       if done && kickoff && uploaderValid
@@ -102,11 +113,15 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
       offlineAccess:           true
       usesPersonalInformation: true
       securityLevel:           true
-      numberOfApiIntegrations: true
+      apiIntegrations:         true
 
     for key, value of updates
-      if specKeys[key] && value?
-        someCompleted = true
+      if Array.isArray value
+        if specKeys[key] && value.length > 0
+          someCompleted = true
+      else
+        if specKeys[key] && value?
+          someCompleted = true
 
     someCompleted
 
@@ -126,7 +141,7 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
       offlineAccess: work.offlineAccess
       usesPersonalInformation: work.usesPersonalInformation
       securityLevel: work.securityLevel
-      numberOfApiIntegrations: work.numberOfApiIntegrations
+      apiIntegrations: work.apiIntegrations || []
 
     vm.specsDefined = someSpecsSelected(vm.work)
     vm.projectType = work.projectType

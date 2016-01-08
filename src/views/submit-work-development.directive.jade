@@ -156,12 +156,23 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
 
         button.action(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.complete")
 
-  main.dark-bg.third-party-integrations.flex.column.center.flex-grow(ng-show= "vm.activeDevelopmentModal == 'thirdPartyIntegrations'")
-    h2 How many 3rd party integrations</strong>?
+  main.dark-bg.third-party-integrations.flex.column.center.flex-grow(ng-show="vm.activeDevelopmentModal == 'thirdPartyIntegrations'" lock-height="lock-height")
+    h2 3rd party <strong>integrations?</strong>
 
-    p Enter the number of required 3rd party integrations. Examples include: Facebook, Twitter, Yelp, Google Maps, and Docusign.
+    p Enter the 3rd party integrations you'll need for this app. Ex: Facebook, Google Maps.
 
-    input(type="number" min=1 max=6 ng-model="vm.work.numberOfApiIntegrations")
+    .apiInput.flex.center.column
+      form.flex.center.middle(ng-submit="vm.addCurrentApiIntegration()")
+        input(type="text" ng-model="vm.currentApiIntegration")
+
+        button.action(ng-click="vm.addCurrentApiIntegration()") Add
+
+      ul.apiList.flex.middle.column
+        li.apiName.flex.space-between(ng-repeat="api in vm.work.apiIntegrations track by $index")
+          strong {{api}}
+
+          button.clean(ng-click="vm.removeApiIntegration($index)")
+            p &times;
 
   footer
     button(ng-hide="vm.backButtonDisabled" ng-click="vm.viewPrevious()") back

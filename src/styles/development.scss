@@ -31,6 +31,46 @@ submit-work-development {
     > p {
       margin-top: 15px;
     }
+
+    .apiInput {
+      width: 100%;
+      margin-top: 30px;
+      margin-bottom: 30px;
+
+      input {
+        max-width: 220px;
+        height: 40px;
+        margin-right: 20px;
+      }
+
+      button {
+        &.action {
+          width: 100px;
+        }
+      }
+
+      .apiList {
+        width: 100%;
+        margin-top: 40px;
+
+
+        .apiName {
+          width: 100%;
+          max-width: 330px;
+          margin-bottom: 30px;
+
+          p {
+            font-size: 18px;
+          }
+
+          button {
+            p {
+              font-size: 25px;
+            }
+          }
+        }
+      }
+    }
   }
 
   .define-development {
@@ -45,13 +85,18 @@ submit-work-development {
       > li {
         margin: 0 15px;
       }
-    }
 
-    button {
-      &.active {
-        color: $grey-darkest;
+      button {
+        &.clean {
+          color: $primary-color;
+
+          &.active {
+            color: $grey-darkest;
+          }
+        }
       }
     }
+
 
     > main {
       width     : 100%;
