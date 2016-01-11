@@ -49,7 +49,7 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
 
     selectedName = selected[0]?.name
 
-    if selected.length == 0 || (selected.length == 1 && selectedName == 'iWatch')
+    if selected.length == 0 || (selected.length == 1 && selectedName == 'Apple Watch')
       showOrientation = false
 
     showOrientation
