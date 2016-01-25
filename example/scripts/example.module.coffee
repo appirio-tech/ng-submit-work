@@ -5,7 +5,6 @@ dependencies = [
   'ngResource'
   'app.constants'
   'appirio-tech-ng-ui-components'
-  'ap-file-upload'
   'appirio-tech-ng-submit-work'
 ]
 

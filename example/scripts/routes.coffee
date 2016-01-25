@@ -12,6 +12,7 @@ config = ($stateProvider) ->
   states['submit-work-features'] =
     url         : '/submit-work/features'
     title       : 'submit work features'
+    controller  : 'FeaturesExampleController as vm'
     templateUrl : 'views/submit-work-features.example.html'
 
   states['submit-work-visuals'] =

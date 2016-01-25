@@ -7,6 +7,7 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
 
   vm                        = this
   vm.workId                 = $scope.workId
+  vm.store                  = $scope.store
   vm.loading                = true
   vm.featureTitleError      = false
   vm.showFeaturesModal      = false
@@ -162,7 +163,12 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
     updates
 
   configureUploader = ->
-    vm.uploaderConfig = SubmitWorkUploaderService.generateConfig vm.workId, 'features'
+    uploaderConfig = SubmitWorkUploaderService.generateConfig vm.workId, 'features'
+
+    { id, assetType, category } = uploaderConfig.presign.params
+
+    vm.store.fileUploader = { id, assetType, category }
+
 
   onChange = ->
     work = SubmitWorkService.get()

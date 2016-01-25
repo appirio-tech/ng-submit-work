@@ -1,9 +1,11 @@
 require 'appirio-tech-api-schemas'
+require '../src/src'
 require './styles/main.scss'
 require './scripts/example.module'
 require './scripts/feature-list.example'
 require './scripts/routes'
 require './scripts/type-example.controller'
+require './scripts/features.example.controller'
 
 exampleNav = require './nav.jade'
 
