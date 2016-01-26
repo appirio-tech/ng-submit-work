@@ -1,5 +1,7 @@
 'use strict'
 
+{ setFileUploader } = require 'appirio-tech-client-app-layer'
+
 SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWorkAPIService, SubmitWorkUploaderService, RequirementService) ->
   if $scope.workId
     localStorageKey               = "recentSubmitWorkSection-#{$scope.workId}"
@@ -167,8 +169,7 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
 
     { id, assetType, category } = uploaderConfig.presign.params
 
-    vm.store.fileUploader = { id, assetType, category }
-
+    vm.store.dispatch setFileUploader({ id, assetType, category })
 
   onChange = ->
     work = SubmitWorkService.get()
