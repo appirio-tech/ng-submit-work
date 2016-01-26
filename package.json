@@ -14,7 +14,7 @@
   "dependencies": {
     "appirio-tech-client-app-layer": "https://github.com/appirio-tech/client-app-layer.git#attachments",
     "appirio-tech-ng-auth": "^4.1.1",
-    "appirio-tech-file-upload": "https://github.com/appirio-tech/file-uploader.git#FileUploader",
+    "appirio-tech-file-uploader": "https://github.com/appirio-tech/file-uploader.git#FileUploader",
     "appirio-tech-ng-optimist": "1.x.x",
     "appirio-tech-ng-ui-components": "2.x.x"
   }
