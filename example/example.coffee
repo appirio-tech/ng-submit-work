@@ -6,6 +6,8 @@ require './scripts/feature-list.example'
 require './scripts/routes'
 require './scripts/type-example.controller'
 require './scripts/features.example.controller'
+require './scripts/development.example.controller'
+require './scripts/visual.example.controller'
 
 exampleNav = require './nav.jade'
 

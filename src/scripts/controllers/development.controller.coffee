@@ -1,11 +1,14 @@
 'use strict'
 
-SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService, SubmitWorkUploaderService) ->
+{ setFileUploader } = require 'appirio-tech-client-app-layer'
+
+SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService) ->
   if $scope.workId
     localStorageKey               = "recentSubmitWorkSection-#{$scope.workId}"
     localStorage[localStorageKey] = 'development'
 
   vm                        = this
+  vm.store                  = $scope.store
   vm.loading                = true
   vm.workId                 = $scope.workId
   vm.showUploadSpecs        = false
@@ -126,7 +129,13 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
     someCompleted
 
   configureUploader = ->
-    vm.uploaderConfig = SubmitWorkUploaderService.generateConfig vm.workId, 'development'
+    uploaderOptions =
+      id            : vm.workId
+      category      : 'work'
+      assetType     : 'development'
+      enableCaptions: false
+
+    vm.store.dispatch setFileUploader uploaderOptions
 
   onChange = ->
     work = SubmitWorkService.get()
@@ -171,6 +180,6 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
 
   vm
 
-SubmitWorkDevelopmentController.$inject = ['$scope', '$rootScope', '$state', 'SubmitWorkService', 'SubmitWorkUploaderService']
+SubmitWorkDevelopmentController.$inject = ['$scope', '$rootScope', '$state', 'SubmitWorkService']
 
 angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkDevelopmentController', SubmitWorkDevelopmentController
