@@ -12,9 +12,9 @@
     "build": "webpack --config webpack.config.js; cp example/index.html dist/"
   },
   "dependencies": {
-    "appirio-tech-client-app-layer": "https://github.com/appirio-tech/client-app-layer.git#master",
+    "appirio-tech-client-app-layer": "0.x.x",
     "appirio-tech-ng-auth": "^4.1.1",
-    "appirio-tech-file-uploader": "https://github.com/appirio-tech/file-uploader.git#FileUploader",
+    "appirio-tech-file-uploader": "0.x.x",
     "appirio-tech-ng-optimist": "1.x.x",
     "appirio-tech-ng-ui-components": "2.x.x"
   }
