@@ -1,7 +1,7 @@
 'use strict'
 
 Provider              = require '../provider'
-FileUploaderContainer = require('appirio-tech-file-uploader').default
+FileUploaderContainer = require('appirio-tech-react-components/components/FileUploader/FileUploaderContainer')
 
 directive = (reactDirective) ->
   reactDirective Provider(FileUploaderContainer)
