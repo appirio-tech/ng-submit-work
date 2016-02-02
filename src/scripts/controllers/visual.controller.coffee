@@ -1,11 +1,14 @@
 'use strict'
 
-SubmitWorkVisualController = ($scope, $rootScope, $state, $document, SubmitWorkService, SubmitWorkUploaderService, RequirementService) ->
+{ setFileUploader } = require 'appirio-tech-client-app-layer'
+
+SubmitWorkVisualController = ($scope, $rootScope, $state, $document, SubmitWorkService, RequirementService) ->
   if $scope.workId
     localStorageKey               = "recentSubmitWorkSection-#{$scope.workId}"
     localStorage[localStorageKey] = 'visuals'
 
   vm                       = this
+  vm.store                 = $scope.store
   vm.workId                = $scope.workId
   vm.loading               = true
   vm.uploaderUploading     = null
@@ -140,7 +143,13 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, $document, SubmitWorkS
       vm.showFinishDesignButton = false
 
   configureUploader = ->
-    vm.uploaderConfig = SubmitWorkUploaderService.generateConfig vm.workId, 'visuals'
+    uploaderOptions =
+      id            : vm.workId
+      category      : 'work'
+      assetType     : 'visuals'
+      enableCaptions: false
+
+    vm.store.dispatch setFileUploader uploaderOptions
 
   onChange = ->
     work = SubmitWorkService.get()
@@ -204,6 +213,6 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, $document, SubmitWorkS
 
   activate()
 
-SubmitWorkVisualController.$inject = ['$scope', '$rootScope', '$state', '$document', 'SubmitWorkService', 'SubmitWorkUploaderService', 'RequirementService']
+SubmitWorkVisualController.$inject = ['$scope', '$rootScope', '$state', '$document', 'SubmitWorkService', 'RequirementService']
 
 angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkVisualController', SubmitWorkVisualController

@@ -1,12 +1,15 @@
 'use strict'
 
-SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWorkAPIService, SubmitWorkUploaderService, RequirementService) ->
+{ setFileUploader } = require 'appirio-tech-client-app-layer'
+
+SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWorkAPIService, RequirementService) ->
   if $scope.workId
     localStorageKey               = "recentSubmitWorkSection-#{$scope.workId}"
     localStorage[localStorageKey] = 'features'
 
   vm                        = this
   vm.workId                 = $scope.workId
+  vm.store                  = $scope.store
   vm.loading                = true
   vm.featureTitleError      = false
   vm.showFeaturesModal      = false
@@ -162,7 +165,13 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
     updates
 
   configureUploader = ->
-    vm.uploaderConfig = SubmitWorkUploaderService.generateConfig vm.workId, 'features'
+    uploaderOptions =
+      id            : vm.workId
+      category      : 'work'
+      assetType     : 'features'
+      enableCaptions: false
+
+    vm.store.dispatch setFileUploader uploaderOptions
 
   onChange = ->
     work = SubmitWorkService.get()
@@ -222,6 +231,6 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
 
   vm
 
-SubmitWorkFeaturesController.$inject = ['$scope', '$rootScope', 'SubmitWorkService', 'SubmitWorkAPIService', 'SubmitWorkUploaderService', 'RequirementService']
+SubmitWorkFeaturesController.$inject = ['$scope', '$rootScope', 'SubmitWorkService', 'SubmitWorkAPIService', 'RequirementService']
 
 angular.module('appirio-tech-ng-submit-work').controller 'SubmitWorkFeaturesController', SubmitWorkFeaturesController

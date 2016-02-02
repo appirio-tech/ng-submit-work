@@ -219,13 +219,13 @@ submit-work-complete {
       }
     }
 
-    ap-uploader {
+    file-uploader {
+      display: block;
       margin-top: 30px;
 
-      uploaded-files {
+      .UploadedFiles {
         overflow        : auto;
         max-height      : 398px;
-        padding         : 15px;
         background-color: $grey-lightest;
       }
     }

@@ -1,5 +1,6 @@
 {
   "name": "appirio-tech-ng-submit-work",
+  "version": "0.0.0",
   "main": "./src/src.coffee",
   "devDependencies": {
     "appirio-tech-webpack-config": "0.x.x",
@@ -11,8 +12,10 @@
     "build": "webpack --config webpack.config.js; cp example/index.html dist/"
   },
   "dependencies": {
-    "appirio-tech-ng-ui-components": "2.x.x",
-    "appirio-tech-ng-file-upload": "1.x.x",
-    "appirio-tech-ng-optimist": "1.x.x"
+    "appirio-tech-client-app-layer": "0.x.x",
+    "appirio-tech-ng-auth": "^4.1.1",
+    "appirio-tech-file-uploader": "0.x.x",
+    "appirio-tech-ng-optimist": "1.x.x",
+    "appirio-tech-ng-ui-components": "2.x.x"
   }
 }
