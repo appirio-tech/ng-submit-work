@@ -2,6 +2,7 @@
 
 TypeController = ->
   vm = this
+  vm.permissions = []
 
   activate = ->
     vm.appName = 'Big Boss App'

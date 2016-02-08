@@ -5,6 +5,7 @@ directive = ->
   templateUrl : 'views/submit-work-type.directive.html'
   controller  : 'SubmitWorkTypeController as vm'
   scope       :
-    workId : '@workId'
+    workId: '@'
+    permissions: '='
 
 angular.module('appirio-tech-ng-submit-work').directive 'submitWorkType', directive

@@ -9,6 +9,12 @@ config = ($stateProvider) ->
     controller  : 'TypeController as vm'
     templateUrl : 'views/submit-work-type.example.html'
 
+  states['submit-work-type-no-update'] =
+    url         : '/submit-work-type-no-update'
+    title       : 'submit work type no update'
+    controller  : 'TypeController as vm'
+    templateUrl : 'views/submit-work-type-no-update.example.html'
+
   states['submit-work-features'] =
     url         : '/submit-work/features'
     title       : 'submit work features'
