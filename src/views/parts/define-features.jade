@@ -15,7 +15,7 @@ modal.full.define-features(show="vm.showFeaturesModal" ng-if="vm.showFeaturesMod
               activate-feature="vm.activateFeature(feature)"
             )
       li
-        button.clean(ng-click="vm.toggleDefineFeatures()")
+        button.clean(ng-click="vm.toggleDefineFeatures()" ng-disabled="vm.readOnly")
           span Define a new feature
 
           .icon +
@@ -34,9 +34,9 @@ modal.full.define-features(show="vm.showFeaturesModal" ng-if="vm.showFeaturesMod
 
           textarea(placeholder="Notes..." ng-model="vm.activeFeature.notes" ng-change="vm.activeFeatureChangedNotes()")
 
-          button.action(ng-if="!vm.activeFeature.selected" ng-click="vm.applyFeature()") Add this feature
+          button.action(ng-if="!vm.activeFeature.selected" ng-click="vm.applyFeature()" ng-disabled="vm.readOnly") Add this feature
 
-          button(ng-if="vm.activeFeature.selected" ng-click="vm.removeFeature()") remove feature
+          button(ng-if="vm.activeFeature.selected" ng-click="vm.removeFeature()" ng-disabled="vm.readOnly") remove feature
 
           //- button.action(ng-if="vm.activeFeatureChangedNotes(vm.activeFeature)" ng-click="vm.saveNotes()") save notes
 
@@ -53,7 +53,7 @@ modal.full.define-features(show="vm.showFeaturesModal" ng-if="vm.showFeaturesMod
 
           textarea(ng-model="vm.customFeature.description" required=true placeholder="Briefly describe the feature, including how it will be used, and provide examples that will help designers and developers understand it.")
 
-          button.action(type="submit") add
+          button.action(type="submit" ng-disabled="vm.readOnly") add
 
           button.cancel(type="button" ng-click="vm.hideCustomFeatures()") Cancel
 
@@ -69,4 +69,4 @@ modal.full.define-features(show="vm.showFeaturesModal" ng-if="vm.showFeaturesMod
       li.flex.middle.space-between
         .count {{vm.selectedFeaturesCount}} features added
 
-        button.action(ng-click="vm.save()") Save
+        button.action(ng-click="vm.save()" ng-disabled="vm.readOnly") Save

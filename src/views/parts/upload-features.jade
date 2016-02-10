@@ -6,6 +6,6 @@ modal.upload-documents(show="vm.showUploadModal" background-click-close=true)
 
     p Upload a brief, requirements, specs, or feature list.
 
-    file-uploader(store="vm.store")
+    file-uploader(store="vm.store" disable-click="vm.readOnly" drag-and-drop="vm.dragAndDrop")
 
     button(ng-click="vm.hideUpload()") Done

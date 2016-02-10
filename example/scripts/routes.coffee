@@ -21,6 +21,12 @@ config = ($stateProvider) ->
     controller  : 'FeaturesExampleController as vm'
     templateUrl : 'views/submit-work-features.example.html'
 
+  states['submit-work-features-no-update'] =
+    url         : '/submit-work/features-no-update'
+    title       : 'submit work features no update'
+    controller  : 'FeaturesExampleController as vm'
+    templateUrl : 'views/submit-work-features-no-update.example.html'
+
   states['submit-work-visuals'] =
     url         : '/submit-work/visuals'
     title       : 'submit work visuals'
@@ -43,6 +49,7 @@ config = ($stateProvider) ->
     title       : 'feature-list'
     controller  : 'FeatureListExample as vm'
     templateUrl : 'views/feature-list.example.html'
+
 
   for key, state of states
     $stateProvider.state key, state

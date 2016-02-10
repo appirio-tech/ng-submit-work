@@ -23,6 +23,9 @@ SubmitWorkFeaturesController = ($scope, $rootScope, SubmitWorkService, SubmitWor
   vm.uploaderHasErrors      = null
   vm.uploaderHasFiles       = null
   vm.features               = []
+  permissions               = $scope.permissions || ['UPDATE']
+  vm.readOnly               = permissions.indexOf('UPDATE') == -1
+  vm.dragAndDrop            = true
 
   config =
     customFeatureTemplate:
