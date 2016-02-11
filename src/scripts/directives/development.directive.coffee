@@ -7,5 +7,6 @@ directive = ->
   scope       :
     workId : '@workId'
     store: '='
+    permissions: '='
 
 angular.module('appirio-tech-ng-submit-work').directive 'submitWorkDevelopment', directive

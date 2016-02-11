@@ -45,6 +45,12 @@ config = ($stateProvider) ->
     controller  : 'DevelopmentExampleController as vm'
     templateUrl : 'views/submit-work-development.example.html'
 
+  states['submit-work-development-no-update'] =
+    url         : '/submit-work/development-no-update'
+    title       : 'submit work development no update'
+    controller  : 'DevelopmentExampleController as vm'
+    templateUrl : 'views/submit-work-development-no-update.example.html'
+
   states['submit-work-complete'] =
     url         : '/submit-work/complete'
     title       : 'submit work complete'

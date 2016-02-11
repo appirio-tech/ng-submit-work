@@ -12,4 +12,5 @@
   button.kick-off.action(
     ng-if="vm.projectType != 'DESIGN_AND_CODE'"
     ng-click="vm.save(true, true)"
+    ng-disabled="vm.readOnly"
   ) kick off project
