@@ -5,6 +5,7 @@ store = require './store'
 ctrl =  ->
   vm       = this
   vm.store = store
+  vm.permissions = []
 
   vm
 

@@ -6,6 +6,6 @@ modal.upload-documents(show="vm.showUploadStylesModal" background-click-close=tr
 
     p Upload any guidelines, style guides, or prior designs.
 
-    file-uploader(store="vm.store")
+    file-uploader(store="vm.store" disable-click="vm.readOnly" drag-and-drop="vm.dragAndDrop")
 
     button(ng-click="vm.hideUploadStyles()") Done

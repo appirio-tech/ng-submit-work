@@ -4,6 +4,6 @@ modal.upload-documents(show="vm.showUploadSpecs" background-click-close=true)
 
     h2 Upload documents
 
-    file-uploader(store="vm.store")
+    file-uploader(store="vm.store" disable-click="vm.readOnly" drag-and-drop="vm.dragAndDrop")
 
     button(ng-click="vm.hideUploadSpecs()") Done
