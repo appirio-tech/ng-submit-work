@@ -20,8 +20,8 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
   vm.activeDevelopmentModal = null
   vm.projectType            = null
   vm.currentApiIntegration  = null
-  permissions               = $scope.permissions || ['UPDATE']
-  vm.readOnly               = permissions.indexOf('UPDATE') == -1
+  permissions               = $scope.permissions || ['ALL']
+  vm.readOnly               = permissions.indexOf('UPDATE') == -1 && permissions.indexOf('ALL') == -1
   vm.dragAndDrop            = true
   vm.developmentModals      = ['offlineAccess', 'personalInformation', 'security', 'thirdPartyIntegrations']
 

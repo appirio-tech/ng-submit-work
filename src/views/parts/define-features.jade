@@ -32,7 +32,7 @@ modal.full.define-features(show="vm.showFeaturesModal" ng-if="vm.showFeaturesMod
 
           p {{vm.activeFeature.description}}
 
-          textarea(placeholder="Notes..." ng-model="vm.activeFeature.notes" ng-change="vm.activeFeatureChangedNotes()")
+          textarea(placeholder="Notes..." ng-model="vm.activeFeature.notes" ng-change="vm.activeFeatureChangedNotes()" ng-disabled="vm.readOnly")
 
           button.action(ng-if="!vm.activeFeature.selected" ng-click="vm.applyFeature()" ng-disabled="vm.readOnly") Add this feature
 

@@ -169,7 +169,7 @@ form(ng-submit="vm.validateAllSections()")
       p.error.transition(ng-class="{ show: vm.briefError }") Please enter project details.
 
       .continue-buttons
-        button.action(type="submit") Create Project
+        button.action(type="submit" ng-disabled="vm.readOnly") Create Project
 
 modal(show="vm.showSuccessModal" background-click-close=true)
   .success
