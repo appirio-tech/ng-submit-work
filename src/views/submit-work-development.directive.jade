@@ -183,6 +183,6 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
 
     button.action.action(ng-hide="vm.nextButtonDisabled" ng-click="vm.viewNext()") next
 
-    button.action(ng-show="vm.showFinishDevelopmentButton" ng-click="vm.save()") Save
+    button.action(ng-show="vm.showFinishDevelopmentButton" ng-click="vm.save()" ng-disabled="vm.readOnly") Save
 
 include parts/upload-requirements
