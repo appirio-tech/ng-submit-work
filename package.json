@@ -16,6 +16,6 @@
     "appirio-tech-ng-auth": "^4.1.1",
     "appirio-tech-ng-optimist": "1.x.x",
     "appirio-tech-ng-ui-components": "2.x.x",
-    "appirio-tech-react-components": "0.0.2"
+    "appirio-tech-react-components": "0.x.x"
   }
 }

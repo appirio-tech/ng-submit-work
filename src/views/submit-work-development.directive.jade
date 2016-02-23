@@ -36,7 +36,7 @@ header
   .continue-buttons
     button.save(ng-click="vm.save(true, false)") save
 
-    button.kick-off.action(ng-click="vm.save(true, true)") kick off project
+    button.kick-off.action(ng-click="vm.save(true, true)" ng-disabled="vm.readOnly") kick off project
 
 modal.full.define-development(show="vm.showDefineSpecsModal" background-click-close=true)
   ul.nav
@@ -73,6 +73,7 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
           value="true"
           selectable="action"
           type="button"
+          ng-disabled="vm.readOnly"
         )
 
         p Users will need to use the app even when they’re offline. This feature increases complexity and cost.
@@ -87,6 +88,7 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
           value="false"
           selectable="action"
           type="button"
+          ng-disabled="vm.readOnly"
         )
 
         p The application will gracefully present a message to users to please connect to the internet.
@@ -104,6 +106,7 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
           value="true"
           selectable="action"
           type="button"
+          ng-disabled="vm.readOnly"
         )
 
         p Storing or transmitting personal information requires security and encryption, adding complexity and cost.
@@ -118,6 +121,7 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
           value="false"
           selectable="action"
           type="button"
+          ng-disabled="vm.readOnly"
         )
 
         p The app is not transferring or storing personal information.
@@ -127,34 +131,34 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
 
     ul.selectable-choices.flex.center
       li
-        button.clean(ng-click="vm.toggleSelection('securityLevel', vm.securityLevels.none)")
+        button.clean(ng-click="vm.toggleSelection('securityLevel', vm.securityLevels.none)" ng-disabled="vm.readOnly")
           img(ng-src=require("./../images/security-none.svg"))
 
         h6 Standard
 
         p Standard measures, including https, that are sufficient for the majority of the apps.
 
-        button.action(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.none")
+        button.action(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.none" ng-disabled="vm.readOnly")
 
       li
-        button.clean(ng-click="vm.toggleSelection('securityLevel', vm.securityLevels.minimal)")
+        button.clean(ng-disabled="vm.readOnly" ng-click="vm.toggleSelection('securityLevel', vm.securityLevels.minimal)")
           img(ng-src=require("./../images/security-minimal.svg"))
 
         h6 Enhanced
 
         p Includes encrypting data stored on devices and other precautions needed when viewing sensitive data in an app.
 
-        button.action(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.minimal")
+        button.action(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.minimal" ng-disabled="vm.readOnly")
 
       li
-        button.clean(ng-click="vm.toggleSelection('securityLevel', vm.securityLevels.complete)")
+        button.clean(ng-disabled="vm.readOnly" ng-click="vm.toggleSelection('securityLevel', vm.securityLevels.complete)")
           img(ng-src=require("./../images/security-complete.svg"))
 
         h6 Maximum security
 
         p Includes custom certificates for all service calls and other measures needed for highly-secure apps.
 
-        button.action(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.complete")
+        button.action(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.complete" ng-disabled="vm.readOnly")
 
   main.dark-bg.third-party-integrations.flex.column.center.flex-grow(ng-show="vm.activeDevelopmentModal == 'thirdPartyIntegrations'")
     h2 3rd party <strong>integrations?</strong>
@@ -163,15 +167,15 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
 
     .api-input.flex.center.column
       form.flex.center.middle(ng-submit="vm.addCurrentApiIntegration()")
-        input(type="text" ng-model="vm.currentApiIntegration")
+        input(type="text" ng-model="vm.currentApiIntegration" ng-disabled="vm.readOnly")
 
-        button.action(ng-click="vm.addCurrentApiIntegration()") Add
+        button.action(ng-click="vm.addCurrentApiIntegration()" ng-disabled="vm.readOnly") Add
 
       ul.api-list.flex.middle.column
         li.api-name.flex.space-between(ng-repeat="api in vm.work.apiIntegrations track by $index")
           strong {{api}}
 
-          button.clean(ng-click="vm.removeApiIntegration($index)")
+          button.clean(ng-click="vm.removeApiIntegration($index)" ng-disabled="vm.readOnly")
             p &times;
 
   footer
@@ -179,6 +183,6 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
 
     button.action.action(ng-hide="vm.nextButtonDisabled" ng-click="vm.viewNext()") next
 
-    button.action(ng-show="vm.showFinishDevelopmentButton" ng-click="vm.save()") Save
+    button.action(ng-show="vm.showFinishDevelopmentButton" ng-click="vm.save()" ng-disabled="vm.readOnly") Save
 
 include parts/upload-requirements

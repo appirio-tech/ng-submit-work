@@ -32,10 +32,10 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
         p Classic design, good legibility for large and small text.
 
         hr
-        button.clean(ng-click="vm.toggleSelection('font', vm.serif)")
+        button.clean(ng-click="vm.toggleSelection('font', vm.serif)" ng-disabled="vm.readOnly")
           img(ng-src=require("./../../images/serif.png"))
 
-        button.action(selectable=true type="button" ng-model="vm.font" value="vm.serif")
+        button.action(selectable=true type="button" ng-model="vm.font" value="vm.serif" ng-disabled="vm.readOnly")
 
       li.or(ng-repeat-end ng-if="font.name == 'Serif' ")
         .house OR
@@ -47,10 +47,10 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
 
         hr
 
-        button.clean(ng-click="vm.toggleSelection('font', vm.sansSerif)")
+        button.clean(ng-click="vm.toggleSelection('font', vm.sansSerif)" ng-disabled="vm.readOnly")
           img(ng-src=require("./../../images/sans.png"))
 
-        button.action(selectable=true type="button" ng-model="vm.font" value="vm.sansSerif")
+        button.action(selectable=true type="button" ng-model="vm.font" value="vm.sansSerif"  ng-disabled="vm.readOnly")
 
   main.dark-bg.colors.flex.column.center.flex-grow(ng-show="vm.activeStyleModal == 'colors' ")
     h2 Pick <strong>the colors</strong> that you prefer
@@ -61,10 +61,10 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
       li(ng-repeat="color in vm.colors")
         h6 {{ color.name }}
 
-        button.clean(ng-click="vm.toggleColorSelection(color, color.selected)")
+        button.clean(ng-click="vm.toggleColorSelection(color, color.selected)" ng-disabled="vm.readOnly")
           img(ng-src="{{ color.img }}")
 
-        button.action(type="button" selectable=true ng-model="color.selected")
+        button.action(type="button" selectable=true ng-model="color.selected"  ng-disabled="vm.readOnly")
 
   main.dark-bg.icons.flex.column.center.flex-grow(ng-show="vm.activeStyleModal == 'icons' ")
     h2 Pick the <strong>icon styles</strong> that you prefer
@@ -73,14 +73,14 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
 
     ul.flex.center
       li(ng-repeat="icon in vm.icons")
-        button.clean(ng-click="vm.toggleSelection('icon', icon.id)")
+        button.clean(ng-click="vm.toggleSelection('icon', icon.id)"  ng-disabled="vm.readOnly")
           img(ng-src="{{ icon.img }}")
 
         h6 {{icon.name}}
 
         p {{icon.description}}
 
-        button.action(type="button" selectable=true ng-model="vm.icon" value="icon.id")
+        button.action(type="button" selectable=true ng-model="vm.icon" value="icon.id" ng-disabled="vm.readOnly")
 
   main.dark-bg.notes.flex.column.center.flex-grow(ng-show="vm.activeStyleModal == 'notes' ")
     .design-notes
@@ -88,7 +88,7 @@ modal.full.choose-styles(show="vm.showChooseStylesModal" background-click-close=
 
       p Add any other preferences, notes or details that you would like the designers to know.
 
-      textarea(ng-model="vm.designNotes" placeholder="Notes...")
+      textarea(ng-model="vm.designNotes" placeholder="Notes..." ng-disabled="vm.readOnly")
 
   footer
     button(ng-hide="vm.backButtonDisabled" ng-click="vm.viewPrevious()") back

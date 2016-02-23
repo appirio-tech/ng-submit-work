@@ -10,6 +10,8 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
   vm.projectTypeError = false
   vm.briefError       = false
   userProjectNames    = null
+  permissions         = $scope.permissions || ['ALL']
+  vm.readOnly         = permissions.indexOf('UPDATE') == -1 && permissions.indexOf('ALL') == -1
 
   # TODO: move route directing out of here
   if $scope.workId

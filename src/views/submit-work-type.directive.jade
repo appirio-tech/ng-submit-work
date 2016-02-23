@@ -14,6 +14,7 @@ form(ng-submit="vm.validateAllSections()")
         ng-model="vm.name"
         ng-class="{error: (vm.nameError && !vm.name.length) || (vm.nameError && vm.name.length) }"
         autofocus=true
+        ng-disabled="vm.readOnly"
       )
 
       p.error.transition(ng-class="{ show: vm.nameError && !vm.name.length }") Please name your project.
@@ -36,7 +37,7 @@ form(ng-submit="vm.validateAllSections()")
 
           ul.flex.space-between
             li.flex.center.column.middle(ng-repeat="device in vm.devices")
-              button.clean(type="button" ng-click="vm.toggleSelection(device, device.selected, 'orientation-details', ['devices'])")
+              button.clean(type="button" ng-click="vm.toggleSelection(device, device.selected, 'orientation-details', ['devices'])" ng-disabled="vm.readOnly")
                 .device-icon-container.flex.center
                     img(ng-if="!device.selected" ng-src="{{vm.getIconPath(device.name)}}")
 
@@ -49,6 +50,7 @@ form(ng-submit="vm.validateAllSections()")
                 selectable="true"
                 ng-model="device.selected"
                 ng-click="vm.validateSection('orientation-details', ['devices'])"
+                ng-disabled="vm.readOnly"
               )
 
       p.error.transition(ng-class="{ show: vm.devicesError }") Please choose a device.
@@ -76,7 +78,11 @@ form(ng-submit="vm.validateAllSections()")
 
           ul.flex.space-between
             li.flex.center.column.middle(ng-repeat="orientation in vm.orientations")
-              button.clean(type="button" ng-click="vm.toggleSelection(orientation, orientation.selected, 'type-details', ['orientations'])")
+              button.clean(
+                type="button"
+                ng-click="vm.toggleSelection(orientation, orientation.selected, 'type-details', ['orientations'])"
+                ng-disabled="vm.readOnly"
+                )
                 .orientation-icon-container.flex.center
                   img(ng-if="!orientation.selected" ng-src="{{vm.getIconPath(orientation.name)}}")
 
@@ -89,6 +95,7 @@ form(ng-submit="vm.validateAllSections()")
                 selectable="true"
                 ng-model="orientation.selected"
                 ng-click="vm.validateSection('type-details', ['orientations'])"
+                ng-disabled="vm.readOnly"
               )
 
       p.error.transition(ng-class="{ show: vm.orientationsError }") Please choose an orientation.
@@ -105,7 +112,12 @@ form(ng-submit="vm.validateAllSections()")
 
       ul.type.flex.center
         li(ng-repeat="projectType in vm.projectTypes")
-          button.clean(type="button" ng-click="vm.makeSelection('projectType', projectType.id, 'brief-details', 'projectType')"  ng-if="projectType.id == 'DESIGN'")
+          button.clean(
+            type="button"
+            ng-click="vm.makeSelection('projectType', projectType.id, 'brief-details', 'projectType')"
+            ng-if="projectType.id == 'DESIGN'"
+            ng-disabled="vm.readOnly"
+            )
             .house.flex.column.center.middle(
               ng-class="{ selected: vm.projectType == projectType.id }"
               ng-if="projectType.id == 'DESIGN'"
@@ -114,7 +126,12 @@ form(ng-submit="vm.validateAllSections()")
 
               img.active(src=require("./../images/design-white-thin.svg"))
 
-          button.clean(type="button" ng-click="vm.makeSelection('projectType', projectType.id, 'brief-details', 'projectType')" ng-if="projectType.id == 'DESIGN_AND_CODE'")
+          button.clean(
+            type="button"
+            ng-click="vm.makeSelection('projectType', projectType.id, 'brief-details', 'projectType')"
+            ng-if="projectType.id == 'DESIGN_AND_CODE'"
+            ng-disabled="vm.readOnly"
+            )
             .house.flex.column.center.middle(
               ng-class="{ selected: vm.projectType == projectType.id }"
               ng-if="projectType.id == 'DESIGN_AND_CODE'"
@@ -130,6 +147,7 @@ form(ng-submit="vm.validateAllSections()")
           button.action(
             type="button"
             selectable="true"
+            ng-disabled="vm.readOnly"
             ng-model="vm.projectType"
             ng-click="vm.validateSection('brief-details', 'projectType')"
             value="projectType.id"
@@ -146,12 +164,12 @@ form(ng-submit="vm.validateAllSections()")
     .dark-bg.flex.column.center.flex-grow(id="brief-details")
       h2 <strong>share a brief</strong> overview
 
-      textarea.brief(placeholder="You can include a short pitch for your app or just quickly describe how it will be used and by whom. Don't worry, you will get a chance to add more details later in the process." ng-model="vm.brief" ng-change="vm.validateSection('brief-details', 'brief')")
+      textarea.brief(placeholder="You can include a short pitch for your app or just quickly describe how it will be used and by whom. Don't worry, you will get a chance to add more details later in the process." ng-model="vm.brief" ng-change="vm.validateSection('brief-details', 'brief')" ng-disabled="vm.readOnly")
 
       p.error.transition(ng-class="{ show: vm.briefError }") Please enter project details.
 
       .continue-buttons
-        button.action(type="submit") Create Project
+        button.action(type="submit" ng-disabled="vm.readOnly") Create Project
 
 modal(show="vm.showSuccessModal" background-click-close=true)
   .success

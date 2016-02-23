@@ -27,6 +27,9 @@ SubmitWorkVisualController = ($scope, $rootScope, $state, $document, SubmitWorkS
   vm.urlRegEx              = /^(http(s?):\/\/)?(www\.)?[a-zA-Z0-9\.\-\_]+(\.[a-zA-Z]{2,3})+(\/[a-zA-Z0-9\_\-\s\.\/\?\%\#\&\=]*)?$/
   vm.serif                 = 'SERIF'
   vm.sansSerif             = 'SANS_SERIF'
+  permissions              = $scope.permissions || ['ALL']
+  vm.readOnly              = permissions.indexOf('UPDATE') == -1 && permissions.indexOf('ALL') == -1
+  vm.dragAndDrop           = true
 
   vm.scrollTo = (id) ->
     element = angular.element document.getElementById id
