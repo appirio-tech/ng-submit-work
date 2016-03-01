@@ -5,6 +5,7 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
   vm.loading          = false
   vm.showSuccessModal = false
   vm.nameError        = false
+  vm.platformsError   = false
   vm.devicesError     = false
   vm.orientationError = false
   vm.projectTypeError = false
@@ -22,6 +23,7 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
 
   vm.name         = ''
   vm.devices      = angular.copy RequirementService.devices
+  vm.platforms    = angular.copy RequirementService.platforms
   vm.orientations = angular.copy RequirementService.orientations
   vm.projectTypes = angular.copy RequirementService.projectTypes
   vm.brief        = ''
@@ -51,7 +53,7 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
 
     selectedName = selected[0]?.name
 
-    if selected.length == 0 || (selected.length == 1 && selectedName == 'Apple Watch')
+    if selected.length == 0 || (selected.length == 1 && selectedName == 'Watch')
       showOrientation = false
 
     showOrientation
@@ -109,6 +111,7 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
 
   vm.validateAllSections = ->
     vm.validateSection('platform-details', 'name')
+    vm.validateSection('device-details', ['platforms'])
     vm.validateSection('type-details', ['devices', 'orientations'])
     vm.validateSection('brief-details', 'projectType')
     vm.validateSection('brief-details', 'brief')
@@ -116,30 +119,32 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
     foundErrors = false
     errorElement = null
 
-    if vm.briefError
+    setErrorElement = (elementId) ->
       foundErrors = true
-      errorElement = angular.element document.getElementById 'brief-details'
-      $document.scrollToElementAnimated errorElement
+      errorElement = angular.element document.getElementById elementId
+
+      if elementId == 'app-name'
+         $document.scrollTopAnimated(0)
+      else
+        $document.scrollToElementAnimated errorElement
+
+    if vm.briefError
+      setErrorElement('brief-details')
 
     if vm.projectTypeError
-      foundErrors = true
-      errorElement = angular.element document.getElementById 'type-details'
-      $document.scrollToElementAnimated errorElement
+      setErrorElement('type-details')
 
     if vm.orientationsError
-      foundErrors = true
-      errorElement = angular.element document.getElementById 'orientation-details'
-      $document.scrollToElementAnimated errorElement
+      setErrorElement('orientation-details')
 
     if vm.devicesError
-      foundErrors = true
-      errorElement = angular.element document.getElementById 'platform-details'
-      $document.scrollToElementAnimated errorElement
+      setErrorElement('device-details')
+
+    if vm.platformsError
+      setErrorElement('platform-details')
 
     if vm.nameError
-      foundErrors = true
-      errorElement = angular.element document.getElementById 'app-name'
-      $document.scrollTopAnimated(0)
+      setErrorElement('app-name')
 
     unless foundErrors
       vm.create()
@@ -170,6 +175,9 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
     unless updates.brief.length > 0
       valid = false
 
+    unless updates.platformIds.length > 0
+      valid = false
+
     unless updates.deviceIds.length > 0
       valid = false
 
@@ -189,6 +197,7 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
       projectType   : vm.projectType.trim()
       name          : vm.name.trim()
       brief         : vm.brief.trim()
+      platformIds   : vm.platforms.filter(isSelected).map(getId)
       deviceIds     : vm.devices.filter(isSelected).map(getId)
       orientationIds: vm.orientations.filter(isSelected).map(getId)
 

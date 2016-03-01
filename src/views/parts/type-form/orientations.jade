@@ -1,0 +1,37 @@
+.full-height.flex.column(full-height=true ng-show="vm.showOrientation()")
+  .dark-bg.flex.column.center.flex-grow(id="orientation-details")
+    h2 <strong>orientations</strong>
+
+    ul.target-orientations
+      li
+        p What screen orientations would you like to support?
+
+        ul.flex.space-between
+          li.flex.center.column.middle(ng-repeat="orientation in vm.orientations")
+            button.clean(
+              type="button"
+              ng-click="vm.toggleSelection(orientation, orientation.selected, 'type-details', ['orientations'])"
+              ng-disabled="vm.readOnly"
+              )
+              .orientation-icon-container.flex.center
+                img(ng-if="!orientation.selected" ng-src="{{vm.getIconPath(orientation.name)}}")
+
+                img(ng-if="orientation.selected" ng-src="{{vm.getIconPath(orientation.name, true)}}")
+
+            span.orientation-name {{orientation.name}}
+
+            button.action(
+              type="button"
+              selectable="true"
+              ng-model="orientation.selected"
+              ng-click="vm.validateSection('type-details', ['orientations'])"
+              ng-disabled="vm.readOnly"
+            )
+
+    p.error.transition(ng-class="{ show: vm.orientationsError }") Please choose an orientation.
+
+  .continue-buttons
+    button(
+      type="button"
+      ng-click="vm.validateSection('type-details', ['orientations'], true)"
+    ) continue
