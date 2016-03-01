@@ -22,6 +22,7 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
 
   vm.name         = ''
   vm.devices      = angular.copy RequirementService.devices
+  vm.platforms    = angular.copy RequirementService.platforms
   vm.orientations = angular.copy RequirementService.orientations
   vm.projectTypes = angular.copy RequirementService.projectTypes
   vm.brief        = ''
@@ -51,7 +52,7 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
 
     selectedName = selected[0]?.name
 
-    if selected.length == 0 || (selected.length == 1 && selectedName == 'Apple Watch')
+    if selected.length == 0 || (selected.length == 1 && selectedName == 'Watch')
       showOrientation = false
 
     showOrientation

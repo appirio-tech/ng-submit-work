@@ -29,9 +29,37 @@ form(ng-submit="vm.validateAllSections()")
 
   .full-height.flex.column(full-height=true)
     .dark-bg.flex.column.center.flex-grow(id="platform-details")
-      h2 iOS <strong>platform details</strong>
+      h2 <strong>platforms</strong>
 
       ul.target-platforms
+        li
+          p Choose iOS, Android, or both.
+
+          ul.flex.space-between
+            li.flex.center.column.middle(ng-repeat="platform in vm.platforms")
+              button.clean(type="button" ng-click="vm.toggleSelection(platform, platform.selected, 'orientation-details', ['platforms'])" ng-disabled="vm.readOnly")
+                .platform-icon-container.flex.center
+                    img(ng-if="!platform.selected" ng-src="{{vm.getIconPath(platform.name)}}")
+
+                    img(ng-if="platform.selected" ng-src="{{vm.getIconPath(platform.name, true)}}")
+
+              span.platform-name {{platform.name}}
+
+              button.action(
+                type="button"
+                selectable="true"
+                ng-model="platform.selected"
+                ng-click="vm.validateSection('device-details', ['platforms'])"
+                ng-disabled="vm.readOnly"
+              )
+
+      p.error.transition(ng-class="{ show: vm.platformsError }") Please choose a platform.
+
+  .full-height.flex.column(full-height=true)
+    .dark-bg.flex.column.center.flex-grow(id="device-details")
+      h2 <strong>devices</strong>
+
+      ul.target-devices
         li
           p Choose the devices on which you’d like your app to run 
 
@@ -70,7 +98,7 @@ form(ng-submit="vm.validateAllSections()")
 
   .full-height.flex.column(full-height=true ng-show="vm.showOrientation()")
     .dark-bg.flex.column.center.flex-grow(id="orientation-details")
-      h2 iOS <strong>orientation details</strong>
+      h2 <strong>orientations</strong>
 
       ul.target-orientations
         li

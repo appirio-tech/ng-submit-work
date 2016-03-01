@@ -15,17 +15,27 @@ srv = ->
     selected: false
   ]
 
+  service.platforms = [
+      name: 'Android'
+      id: 'ANDROID'
+      selected: false
+    ,
+      name: 'iOS'
+      id: 'IOS'
+      selected: false
+  ]
+
   service.devices = [
-    name: 'Apple Watch'
-    id: 'APPLE_WATCH'
+    name: 'Watch'
+    id: 'WATCH'
     selected: false
   ,
-    name: 'iPad'
-    id: 'IPAD'
+    name: 'Tablet'
+    id: 'TABLET'
     selected: false
   ,
-    name: 'iPhone'
-    id: 'IPHONE'
+    name: 'Phone'
+    id: 'PHONE'
     selected: false
   ]
 
