@@ -16,12 +16,12 @@ srv = ->
   ]
 
   service.platforms = [
-      name: 'Android'
-      id: 'ANDROID'
-      selected: false
-    ,
       name: 'iOS'
       id: 'IOS'
+      selected: false
+    ,
+      name: 'Android'
+      id: 'ANDROID'
       selected: false
   ]
 

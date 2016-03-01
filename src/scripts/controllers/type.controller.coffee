@@ -5,6 +5,7 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
   vm.loading          = false
   vm.showSuccessModal = false
   vm.nameError        = false
+  vm.platformsError   = false
   vm.devicesError     = false
   vm.orientationError = false
   vm.projectTypeError = false
@@ -110,6 +111,7 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
 
   vm.validateAllSections = ->
     vm.validateSection('platform-details', 'name')
+    vm.validateSection('device-details', ['platforms'])
     vm.validateSection('type-details', ['devices', 'orientations'])
     vm.validateSection('brief-details', 'projectType')
     vm.validateSection('brief-details', 'brief')
@@ -133,6 +135,11 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
       $document.scrollToElementAnimated errorElement
 
     if vm.devicesError
+      foundErrors = true
+      errorElement = angular.element document.getElementById 'device-details'
+      $document.scrollToElementAnimated errorElement
+
+    if vm.platformsError
       foundErrors = true
       errorElement = angular.element document.getElementById 'platform-details'
       $document.scrollToElementAnimated errorElement
@@ -190,6 +197,7 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
       projectType   : vm.projectType.trim()
       name          : vm.name.trim()
       brief         : vm.brief.trim()
+      platformIds   : vm.platforms.filter(isSelected).map(getId)
       deviceIds     : vm.devices.filter(isSelected).map(getId)
       orientationIds: vm.orientations.filter(isSelected).map(getId)
 

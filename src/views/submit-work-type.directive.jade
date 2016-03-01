@@ -33,12 +33,12 @@ form(ng-submit="vm.validateAllSections()")
 
       ul.target-platforms
         li
-          p Choose iOS, Android, or both.
+          p iOS, Android, or both.
 
           ul.flex.space-between
             li.flex.center.column.middle(ng-repeat="platform in vm.platforms")
               button.clean(type="button" ng-click="vm.toggleSelection(platform, platform.selected, 'orientation-details', ['platforms'])" ng-disabled="vm.readOnly")
-                .platform-icon-container.flex.center
+                .platform-icon-container.flex.center.middle
                     img(ng-if="!platform.selected" ng-src="{{vm.getIconPath(platform.name)}}")
 
                     img(ng-if="platform.selected" ng-src="{{vm.getIconPath(platform.name, true)}}")
@@ -49,11 +49,17 @@ form(ng-submit="vm.validateAllSections()")
                 type="button"
                 selectable="true"
                 ng-model="platform.selected"
-                ng-click="vm.validateSection('device-details', ['platforms'])"
+                ng-click="vm.validateSection('device-details', ['platforms'] )"
                 ng-disabled="vm.readOnly"
               )
 
       p.error.transition(ng-class="{ show: vm.platformsError }") Please choose a platform.
+
+    .continue-buttons
+      button(
+        type="button"
+        ng-click="vm.validateSection('device-details', ['platforms'], true)"
+      ) continue
 
   .full-height.flex.column(full-height=true)
     .dark-bg.flex.column.center.flex-grow(id="device-details")
