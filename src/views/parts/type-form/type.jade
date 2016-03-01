@@ -1,0 +1,51 @@
+.full-height.flex.column(full-height=true)
+  .type.dark-bg.flex.column.center.flex-grow(id="type-details")
+    h2 What <strong>type of work</strong> are you looking for?
+
+    ul.type.flex.center
+      li(ng-repeat="projectType in vm.projectTypes")
+        button.clean(
+          type="button"
+          ng-click="vm.makeSelection('projectType', projectType.id, 'brief-details', 'projectType')"
+          ng-if="projectType.id == 'DESIGN'"
+          ng-disabled="vm.readOnly"
+          )
+          .house.flex.column.center.middle(
+            ng-class="{ selected: vm.projectType == projectType.id }"
+            ng-if="projectType.id == 'DESIGN'"
+          )
+            img.inactive(src=require("./../../../images/design-thin.svg"))
+
+            img.active(src=require("./../../../images/design-white-thin.svg"))
+
+        button.clean(
+          type="button"
+          ng-click="vm.makeSelection('projectType', projectType.id, 'brief-details', 'projectType')"
+          ng-if="projectType.id == 'DESIGN_AND_CODE'"
+          ng-disabled="vm.readOnly"
+          )
+          .house.flex.column.center.middle(
+            ng-class="{ selected: vm.projectType == projectType.id }"
+            ng-if="projectType.id == 'DESIGN_AND_CODE'"
+          )
+            img.inactive(src=require("./../../../images/design-development.svg"))
+
+            img.active(src=require("./../../../images/design-development-active.svg"))
+
+        h4 {{projectType.name}}
+
+        p {{ projectType.description }}
+
+        button.action(
+          type="button"
+          selectable="true"
+          ng-disabled="vm.readOnly"
+          ng-model="vm.projectType"
+          ng-click="vm.validateSection('brief-details', 'projectType')"
+          value="projectType.id"
+        )
+
+    p.error.transition(ng-class="{ show: vm.projectTypeError }") Please choose a type of work.
+
+  .continue-buttons
+    button(type="button" ng-click="vm.validateSection('brief-details', 'projectType', true)") continue

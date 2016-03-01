@@ -1,0 +1,40 @@
+.full-height.flex.column(full-height=true)
+  .dark-bg.flex.column.center.flex-grow(id="device-details")
+    h2 <strong>devices</strong>
+
+    ul.target-devices
+      li
+        p Choose the devices on which you’d like your app to run 
+
+        ul.flex.space-between
+          li.flex.center.column.middle(ng-repeat="device in vm.devices")
+            button.clean(type="button" ng-click="vm.toggleSelection(device, device.selected, 'orientation-details', ['devices'])" ng-disabled="vm.readOnly")
+              .device-icon-container.flex.center
+                  img(ng-if="!device.selected" ng-src="{{vm.getIconPath(device.name)}}")
+
+                  img(ng-if="device.selected" ng-src="{{vm.getIconPath(device.name, true)}}")
+
+            span.device-name {{device.name}}
+
+            button.action(
+              type="button"
+              selectable="true"
+              ng-model="device.selected"
+              ng-click="vm.validateSection('orientation-details', ['devices'])"
+              ng-disabled="vm.readOnly"
+            )
+
+    p.error.transition(ng-class="{ show: vm.devicesError }") Please choose a device.
+
+  .continue-buttons
+    button(
+      ng-if="!vm.showOrientation()"
+      type="button"
+      ng-click="vm.validateSection('type-details', ['devices'], true)"
+    ) continue
+
+    button(
+      ng-if="vm.showOrientation()"
+      type="button"
+      ng-click="vm.validateSection('orientation-details', ['devices'], true)"
+    ) continue

@@ -1,0 +1,22 @@
+.flush-height.flex.column(flush-height="lock")
+  .dark-bg.flex.column.center.middle.flex-grow(id="app-name")
+    input(
+      type="text"
+      placeholder="Name your project..."
+      ng-change="vm.validateSection('platform-details', 'name', false)"
+      ng-keydown="vm.interceptSubmit($event)"
+      ng-model="vm.name"
+      ng-class="{error: (vm.nameError && !vm.name.length) || (vm.nameError && vm.name.length) }"
+      autofocus=true
+      ng-disabled="vm.readOnly"
+    )
+
+    p.error.transition(ng-class="{ show: vm.nameError && !vm.name.length }") Please name your project.
+
+    p.error.transition(ng-class="{ show: vm.nameError && vm.name.length }") This name already exists.
+
+  .continue-buttons
+    button(
+      type="button"
+      ng-click="vm.validateSection('platform-details', 'name', true)"
+    ) continue

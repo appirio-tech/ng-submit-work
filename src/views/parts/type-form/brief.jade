@@ -1,0 +1,12 @@
+.full-height.flex.column.has-loader(full-height=true)
+  loader(ng-if="vm.loading")
+
+  .dark-bg.flex.column.center.flex-grow(id="brief-details")
+    h2 <strong>share a brief</strong> overview
+
+    textarea.brief(placeholder="You can include a short pitch for your app or just quickly describe how it will be used and by whom. Don't worry, you will get a chance to add more details later in the process." ng-model="vm.brief" ng-change="vm.validateSection('brief-details', 'brief')" ng-disabled="vm.readOnly")
+
+    p.error.transition(ng-class="{ show: vm.briefError }") Please enter project details.
+
+    .continue-buttons
+      button.action(type="submit" ng-disabled="vm.readOnly") Create Project

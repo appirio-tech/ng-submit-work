@@ -119,35 +119,32 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
     foundErrors = false
     errorElement = null
 
-    if vm.briefError
+    setErrorElement = (elementId) ->
       foundErrors = true
-      errorElement = angular.element document.getElementById 'brief-details'
-      $document.scrollToElementAnimated errorElement
+      errorElement = angular.element document.getElementById elementId
+
+      if elementId == 'app-name'
+         $document.scrollTopAnimated(0)
+      else
+        $document.scrollToElementAnimated errorElement
+
+    if vm.briefError
+      setErrorElement('brief-details')
 
     if vm.projectTypeError
-      foundErrors = true
-      errorElement = angular.element document.getElementById 'type-details'
-      $document.scrollToElementAnimated errorElement
+      setErrorElement('type-details')
 
     if vm.orientationsError
-      foundErrors = true
-      errorElement = angular.element document.getElementById 'orientation-details'
-      $document.scrollToElementAnimated errorElement
+      setErrorElement('orientation-details')
 
     if vm.devicesError
-      foundErrors = true
-      errorElement = angular.element document.getElementById 'device-details'
-      $document.scrollToElementAnimated errorElement
+      setErrorElement('device-details')
 
     if vm.platformsError
-      foundErrors = true
-      errorElement = angular.element document.getElementById 'platform-details'
-      $document.scrollToElementAnimated errorElement
+      setErrorElement('platform-details')
 
     if vm.nameError
-      foundErrors = true
-      errorElement = angular.element document.getElementById 'app-name'
-      $document.scrollTopAnimated(0)
+      setErrorElement('app-name')
 
     unless foundErrors
       vm.create()
@@ -176,6 +173,9 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
       valid = false
 
     unless updates.brief.length > 0
+      valid = false
+
+    unless updates.platformIds.length > 0
       valid = false
 
     unless updates.deviceIds.length > 0
