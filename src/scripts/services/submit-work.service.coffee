@@ -17,6 +17,7 @@ SubmitWorkService = ($rootScope, OptimistModel, SubmitWorkAPIService, ProjectsAP
     colorSwatchIds: []
     iconsetIds: []
     designUrls: []
+    buildMethod: null
     offlineAccess: null
     offlineAccessComment: null
     usesPersonalInformation: null

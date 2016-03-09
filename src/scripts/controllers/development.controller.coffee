@@ -23,12 +23,17 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
   permissions               = $scope.permissions || ['ALL']
   vm.readOnly               = permissions.indexOf('UPDATE') == -1 && permissions.indexOf('ALL') == -1
   vm.dragAndDrop            = true
-  vm.developmentModals      = ['offlineAccess', 'personalInformation', 'security', 'thirdPartyIntegrations']
+  vm.developmentModals      = ['buildMethod', 'offlineAccess', 'personalInformation', 'security', 'thirdPartyIntegrations']
 
   vm.securityLevels =
     none    : 'none'
     minimal : 'minimal'
     complete: 'complete'
+
+  vm.buildMethods =
+    native: 'native'
+    html5: 'html5'
+    hybrid: 'hybrid'
 
   vm.uploadSpecs = ->
     vm.showUploadSpecs = true
@@ -39,7 +44,7 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
 
   vm.showDefineSpecs = ->
     vm.showDefineSpecsModal = true
-    vm.activateModal('offlineAccess')
+    vm.activateModal('buildMethod')
 
   vm.hideDefineSpecs = ->
     vm.showDefineSpecsModal = false
@@ -116,6 +121,7 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
     someCompleted = false
 
     specKeys =
+      buildMethod:             true
       offlineAccess:           true
       usesPersonalInformation: true
       securityLevel:           true
@@ -150,10 +156,11 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
     vm.loading = false
 
     vm.work =
-      offlineAccess: work.offlineAccess
+      buildMethod:             work.buildMethod
+      offlineAccess:           work.offlineAccess
       usesPersonalInformation: work.usesPersonalInformation
-      securityLevel: work.securityLevel
-      apiIntegrations: work.apiIntegrations || []
+      securityLevel:           work.securityLevel
+      apiIntegrations:         work.apiIntegrations || []
 
     vm.specsDefined = someSpecsSelected(vm.work)
     vm.projectType = work.projectType

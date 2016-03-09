@@ -14,6 +14,28 @@ submit-work-development {
     max-width: 400px;
   }
 
+  .build-method {
+
+    .selectable-choices {
+      max-width: 800px;
+      margin-top: 50px;
+
+      li {
+        width: 200px;
+        button.method {
+          width: 100%;
+
+          .icon-container {
+            background: #fff;
+            height: 230px;
+            width: 100%;
+            max-width: 200px;
+          }
+        }
+      }
+    }
+  }
+
   .security {
     > ul {
       margin-top: 30px;
