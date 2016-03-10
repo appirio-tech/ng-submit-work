@@ -70,9 +70,9 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
       li.flex.column
         button.clean.method(ng-click="vm.toggleSelection('buildMethod', vm.buildMethods.native)" ng-disabled="vm.readOnly")
           .icon-container.flex.center
-            img(ng-if="vm.work.buildMethod == 'native'" ng-src=require("./../images/phone-selected.svg"))
+            img(ng-if="vm.work.buildMethod == 'native'" ng-src=require("./../images/Phone-selected.svg"))
 
-            img(ng-if="vm.work.buildMethod != 'native'" ng-src=require("./../images/phone.svg"))
+            img(ng-if="vm.work.buildMethod != 'native'" ng-src=require("./../images/Phone.svg"))
 
         h6 native app
 
@@ -81,9 +81,9 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
       li.flex.column
         button.clean.method(ng-disabled="vm.readOnly" ng-click="vm.toggleSelection('buildMethod', vm.buildMethods.html5)")
           .icon-container.flex.center
-            img(ng-if="vm.work.buildMethod == 'html5'" ng-src=require("./../images/html5-selected.svg"))
+            img(ng-if="vm.work.buildMethod == 'html5'" ng-src=require("./../images/Html5-selected.svg"))
 
-            img(ng-if="vm.work.buildMethod != 'html5'" ng-src=require("./../images/html5.svg"))
+            img(ng-if="vm.work.buildMethod != 'html5'" ng-src=require("./../images/Html5.svg"))
 
         h6 html5 app
 
@@ -92,9 +92,9 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
       li.flex.column
         button.clean.method(ng-disabled="vm.readOnly" ng-click="vm.toggleSelection('buildMethod', vm.buildMethods.hybrid)")
           .icon-container.flex.center
-            img(ng-if="vm.work.buildMethod == 'hybrid'" ng-src=require("./../images/hybrid-selected.svg"))
+            img(ng-if="vm.work.buildMethod == 'hybrid'" ng-src=require("./../images/Hybrid-selected.svg"))
 
-            img(ng-if="vm.work.buildMethod != 'hybrid'" ng-src=require("./../images/hybrid.svg"))
+            img(ng-if="vm.work.buildMethod != 'hybrid'" ng-src=require("./../images/Hybrid.svg"))
 
         h6 hybrid
 
