@@ -45,6 +45,9 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
         .icon.arrow.smallest
 
     li
+      button.clean(ng-click="vm.activateModal('buildMethod')" ng-class="{active: vm.activeDevelopmentModal == 'buildMethod'}") build method
+
+    li
       button.clean(ng-click="vm.activateModal('offlineAccess')" ng-class="{active: vm.activeDevelopmentModal == 'offlineAccess'}") offline access
 
     li
@@ -60,7 +63,44 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
       button.clean(ng-click="vm.viewNext()")
         .icon.arrow.smallest.right
 
-  main.dark-bg.flex.column.center.flex-grow(ng-show= "vm.activeDevelopmentModal == 'offlineAccess'")
+  main.dark-bg.build-method.flex.column.center.middle.flex-grow(ng-show= "vm.activeDevelopmentModal == 'buildMethod'")
+    h2 How do you want your app to be built?
+
+    ul.selectable-choices.flex.space-between
+      li.flex.column
+        button.clean.method(ng-click="vm.toggleSelection('buildMethod', vm.buildMethods.native)" ng-disabled="vm.readOnly")
+          .icon-container.flex.center
+            img(ng-if="vm.work.buildMethod == 'native'" ng-src=require("./../images/phone-selected.svg"))
+
+            img(ng-if="vm.work.buildMethod != 'native'" ng-src=require("./../images/phone.svg"))
+
+        h6 native app
+
+        button.action(selectable=true type="button" ng-model="vm.work.buildMethod" value="vm.buildMethods.native" ng-disabled="vm.readOnly")
+
+      li.flex.column
+        button.clean.method(ng-disabled="vm.readOnly" ng-click="vm.toggleSelection('buildMethod', vm.buildMethods.html5)")
+          .icon-container.flex.center
+            img(ng-if="vm.work.buildMethod == 'html5'" ng-src=require("./../images/html5-selected.svg"))
+
+            img(ng-if="vm.work.buildMethod != 'html5'" ng-src=require("./../images/html5.svg"))
+
+        h6 html5 app
+
+        button.action(selectable=true type="button" ng-model="vm.work.buildMethod" value="vm.buildMethods.html5" ng-disabled="vm.readOnly")
+
+      li.flex.column
+        button.clean.method(ng-disabled="vm.readOnly" ng-click="vm.toggleSelection('buildMethod', vm.buildMethods.hybrid)")
+          .icon-container.flex.center
+            img(ng-if="vm.work.buildMethod == 'hybrid'" ng-src=require("./../images/hybrid-selected.svg"))
+
+            img(ng-if="vm.work.buildMethod != 'hybrid'" ng-src=require("./../images/hybrid.svg"))
+
+        h6 hybrid
+
+        button.action(selectable=true type="button" ng-model="vm.work.buildMethod" value="vm.buildMethods.hybrid" ng-disabled="vm.readOnly")
+
+  main.dark-bg.flex.column.center.flex-grow(ng-show="vm.activeDevelopmentModal == 'offlineAccess'")
     h2 Does your application need offline access? 
 
     p Do your users need to be able to interact with the application when they are unable to connect to the internet (over the air or via wifi)?
