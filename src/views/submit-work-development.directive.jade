@@ -83,7 +83,7 @@ modal.full.define-development(show="vm.showDefineSpecsModal" background-click-cl
           .icon-container.flex.center
             img(ng-if="vm.work.buildMethod == 'html5'" ng-src=require("./../images/Html5-selected.svg"))
 
-            img(ng-if="vm.work.buildMethod != 'html5'" ng-src=require("./../images/Html5.svg"))
+            img.html5(ng-if="vm.work.buildMethod != 'html5'" ng-src=require("./../images/Html5.svg"))
 
         h6 html5 app
 
