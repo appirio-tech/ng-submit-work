@@ -95,7 +95,7 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
       model = models
       modelError = "#{model}Error"
       if vm[model]?.length
-        if (userProjectNames?.indexOf vm[model].toLowerCase() ) > -1
+        if (userProjectNames?.indexOf vm[model].toLowerCase() ) > -1 && (model == 'name')
           vm[modelError] = true
           foundErrors = true
         else
