@@ -35,6 +35,8 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
     html5: 'html5'
     hybrid: 'hybrid'
 
+  vm.unsure = 'unsure'
+
   vm.uploadSpecs = ->
     vm.showUploadSpecs = true
 

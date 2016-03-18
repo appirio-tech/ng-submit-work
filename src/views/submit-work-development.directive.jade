@@ -118,9 +118,6 @@ modal.slide.full.define-development(show="vm.showDefineSpecsModal" background-cl
 
         p Users will need to use the app even when they’re offline. This feature increases complexity and cost.
 
-      li.or
-        .house OR
-
       li
         button.big(
           ng-model="vm.work.offlineAccess"
@@ -132,6 +129,18 @@ modal.slide.full.define-development(show="vm.showDefineSpecsModal" background-cl
         )
 
         p The application will gracefully present a message to users to please connect to the internet.
+
+      li
+        button.big(
+          ng-model="vm.work.offlineAccess"
+          label="not sure"
+          value="vm.unsure"
+          selectable="action"
+          type="button"
+          ng-disabled="vm.readOnly"
+        )
+
+        p Select this option if you’d like our copilot to contact you to help you make the decision.
 
   main.dark-bg.flex.column.center.flex-grow(ng-show= "vm.activeDevelopmentModal == 'personalInformation'")
     h2 Personal information
@@ -151,9 +160,6 @@ modal.slide.full.define-development(show="vm.showDefineSpecsModal" background-cl
 
         p Storing or transmitting personal information requires security and encryption, adding complexity and cost.
 
-      li.or
-        .house OR
-
       li
         button.big(
           ng-model="vm.work.usesPersonalInformation"
@@ -165,6 +171,18 @@ modal.slide.full.define-development(show="vm.showDefineSpecsModal" background-cl
         )
 
         p The app is not transferring or storing personal information.
+
+      li
+        button.big(
+          ng-model="vm.work.usesPersonalInformation"
+          label="not sure"
+          value="vm.personalInfoValues.unsure"
+          selectable="action"
+          type="button"
+          ng-disabled="vm.readOnly"
+        )
+
+        p Select this option if you’d like our copilot to contact you to help you make the decision.
 
   main.dark-bg.security.flex.column.center.flex-grow(ng-show= "vm.activeDevelopmentModal == 'security'")
     h2 What level of security do you need?
