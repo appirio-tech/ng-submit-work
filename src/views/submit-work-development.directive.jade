@@ -176,7 +176,7 @@ modal.slide.full.define-development(show="vm.showDefineSpecsModal" background-cl
         button.big(
           ng-model="vm.work.usesPersonalInformation"
           label="not sure"
-          value="vm.personalInfoValues.unsure"
+          value="vm.unsure"
           selectable="action"
           type="button"
           ng-disabled="vm.readOnly"
@@ -217,6 +217,16 @@ modal.slide.full.define-development(show="vm.showDefineSpecsModal" background-cl
         p Includes custom certificates for all service calls and other measures needed for highly-secure apps.
 
         button.action(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.securityLevels.complete" ng-disabled="vm.readOnly")
+
+      li
+        button.clean(ng-disabled="vm.readOnly" ng-click="vm.toggleSelection('securityLevel', vm.unsure)")
+          img(ng-src=require("./../images/help-me.svg"))
+
+        h6 Not Sure
+
+        p Select this option if you’d like our copilot to contact you to help you make the decision.
+
+        button.action(selectable=true type="button" ng-model="vm.work.securityLevel" value="vm.unsure" ng-disabled="vm.readOnly")
 
   main.dark-bg.third-party-integrations.flex.column.center.flex-grow(ng-show="vm.activeDevelopmentModal == 'thirdPartyIntegrations'")
     h2 3rd party <strong>integrations?</strong>
