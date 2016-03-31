@@ -3,9 +3,13 @@ modal.full(show="vm.show")
     .icon-house
       .icon.biggest.checkmark-white
 
-    h1 Project submitted!
+    h1(ng-if="!vm.isUpsell") Project submitted!
 
-    p Your project has been submitted for review. A copilot from our community will look over your requirements and be in touch shortly with updates or questions. Please keep an eye out for an email.
+    h1(ng-if="vm.isUpsell") Development Request Submitted!
+
+    p(ng-if="!vm.isUpsell") Your project has been submitted for review. A copilot from our community will look over your requirements and be in touch shortly with updates or questions. Please keep an eye out for an email.
+
+    p(ng-if="vm.isUpsell") Development Request Submitted! Your request has been submitted for review. Your copilot will look over your requirements and be in touch shortly with updates or questions. Please keep an eye out for the email.
 
     button.action(ui-sref="view-work-multiple" ng-click="vm.show = false") Go to your dashboard
 

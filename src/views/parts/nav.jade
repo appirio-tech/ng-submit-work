@@ -1,4 +1,4 @@
-ul.navs.flex.center
+ul.navs.flex.center(ng-if="!vm.isUpsell")
   li(ng-class="{ active: vm.section == 1 }")
     a(ui-sref="submit-work-features({ id: vm.workId })") Features
 
@@ -8,4 +8,4 @@ ul.navs.flex.center
   li(ng-if="vm.projectType == 'DESIGN_AND_CODE'" ng-class="{ active: vm.section == 3 }")
     a(ui-sref="submit-work-development({ id: vm.workId })") Development
 
-progress(value="{{ vm.section }}" max="{{ vm.numberOfSections }}")
+progress(value="{{ vm.section }}" max="{{ vm.numberOfSections }}" ng-if="!vm.isUpsell")

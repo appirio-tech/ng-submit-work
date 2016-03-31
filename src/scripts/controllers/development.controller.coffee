@@ -81,7 +81,7 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
   vm.removeApiIntegration = (index) ->
     vm.work.apiIntegrations.splice(index, 1)
 
-  vm.save = (done = false, kickoff = false) ->
+  vm.save = (done = false, kickoff = false, upsell=false) ->
     uploaderValid = !vm.uploaderUploading && !vm.uploaderHasErrors
     updates = vm.work
     updates.status = if kickoff then 'SUBMITTED' else 'INCOMPLETE'
@@ -93,8 +93,11 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
         prop = null unless prop
 
     SubmitWorkService.save(updates).then ->
-      if done && kickoff && uploaderValid
+      if done && kickoff && !upsell && uploaderValid
         $state.go 'submit-work-complete', { id: vm.workId }
+      else if done && kickoff && upsell && uploaderValid
+        SubmitWorkService.upsell().then ->
+          $state.go 'submit-work-complete', { id: vm.workId }
       else if done
         $state.go 'view-work-multiple'
       else
@@ -166,6 +169,7 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
     vm.projectType = work.projectType
     vm.section = 3
     vm.numberOfSections = 3
+    vm.isUpsell = (vm.projectType == 'DESIGN') && (vm.work.status == 'COMPLETE')
 
   activate = ->
     $scope.$watch 'vm.showDefineSpecsModal', (newValue, oldValue) ->

@@ -34,9 +34,11 @@ header
       button.action(ng-click="vm.uploadSpecs()") select
 
   .continue-buttons
-    button.save(ng-click="vm.save(true, false)") save
+    button.save(ng-click="vm.save(true, false)" ng-if="!vm.isUpsell") save
 
-    button.kick-off.action(ng-click="vm.save(true, true)" ng-disabled="vm.readOnly") kick off project
+    button.kick-off.action(ng-if="!vm.isUpsell" ng-click="vm.save(true, true)" ng-disabled="vm.readOnly") kick off project
+
+    button.kick-off.action(ng-if="vm.isUpsell" ng-click="vm.save(true, true, true)" ng-disabled="vm.readOnly") request development upgrade
 
 modal.slide.full.define-development(show="vm.showDefineSpecsModal" background-click-close=true)
   ul.nav
