@@ -14,6 +14,7 @@
   "dependencies": {
     "appirio-tech-client-app-layer": "0.x.x",
     "appirio-tech-ng-api-services": "1.x.x",
+    "appirio-tech-ng-auth": "4.x.x",
     "appirio-tech-ng-optimist": "1.x.x",
     "appirio-tech-ng-ui-components": "2.x.x",
     "appirio-tech-react-components": "0.x.x"

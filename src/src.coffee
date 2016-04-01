@@ -1,5 +1,6 @@
 require 'appirio-tech-ng-ui-components'
 require 'appirio-tech-ng-api-services'
+require 'appirio-tech-ng-auth'
 require 'appirio-tech-ng-optimist'
 require './scripts/submit-work.module'
 
