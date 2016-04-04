@@ -84,7 +84,13 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
   vm.save = (done = false, kickoff = false, upsell=false) ->
     uploaderValid = !vm.uploaderUploading && !vm.uploaderHasErrors
     updates = vm.work
-    updates.status = if kickoff then 'SUBMITTED' else 'INCOMPLETE'
+
+    if kickoff
+      unless vm.isUpsell
+        updates.status = 'SUBMITTED'
+    else
+      unless vm.isUpsell
+        updates.status = 'INCOMPLETE'
 
     for name, prop of updates
       if Array.isArray prop
@@ -169,7 +175,7 @@ SubmitWorkDevelopmentController = ($scope, $rootScope, $state, SubmitWorkService
     vm.projectType = work.projectType
     vm.section = 3
     vm.numberOfSections = 3
-    vm.isUpsell = (vm.projectType == 'DESIGN') && (vm.work.status == 'COMPLETE')
+    vm.isUpsell = (vm.projectType == 'DESIGN') && (work.status == 'COMPLETE')
 
   activate = ->
     $scope.$watch 'vm.showDefineSpecsModal', (newValue, oldValue) ->
