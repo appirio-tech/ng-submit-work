@@ -8,7 +8,7 @@ SubmitWorkCompleteController = ($scope, $rootScope, $state, SubmitWorkService) -
 
   onChange = ->
     work = SubmitWorkService.get()
-    vm.isUpsell = true
+    vm.isUpsell = work.upsell
 
   activate = ->
     $scope.$watch 'vm.show', (newValue) ->
