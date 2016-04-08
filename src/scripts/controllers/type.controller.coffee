@@ -10,6 +10,7 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
   vm.orientationError = false
   vm.projectTypeError = false
   vm.briefError       = false
+  vm.createError      = false
   userProjectNames    = null
   permissions         = $scope.permissions || ['ALL']
   vm.readOnly         = permissions.indexOf('UPDATE') == -1 && permissions.indexOf('ALL') == -1
@@ -150,18 +151,23 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
       vm.create()
 
   vm.create = ->
+    vm.createError = false
     updates = getUpdates()
     updates.status = 'INCOMPLETE'
 
     if isValid(updates)
       vm.loading = true
 
-      promise = SubmitWorkService.create(updates)
-
-      promise.then ->
+      success = (res) ->
         work = SubmitWorkService.get()
 
         $state.go 'submit-work-features', { id: work.id }
+
+      failure = (err) ->
+        vm.loading = false
+        vm.createError = true
+
+      SubmitWorkService.create({}).then(success, failure)
 
   isValid = (updates) ->
     valid = true

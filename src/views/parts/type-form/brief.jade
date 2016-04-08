@@ -7,6 +7,7 @@
     textarea.brief(placeholder="You can include a short pitch for your app or just quickly describe how it will be used and by whom. Don't worry, you will get a chance to add more details later in the process." ng-model="vm.brief" ng-change="vm.validateSection('brief-details', 'brief')" ng-disabled="vm.readOnly")
 
     p.error.transition(ng-class="{ show: vm.briefError }") Please enter project details.
+    p.error.transition(ng-class="{ show: vm.createError }") Something went wrong creating your project. Please contact support.
 
     .continue-buttons
       button.action(type="submit" ng-disabled="vm.readOnly") Create Project
