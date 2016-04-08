@@ -2,7 +2,7 @@
 
 directive = ->
   restrict    : 'E'
-  templateUrl : 'views/submit-work-complete.directive.html'
+  template    : require('../../views/submit-work-complete.directive.jade')()
   controller  : 'SubmitWorkCompleteController as vm'
   scope       :
     workId : '@workId'

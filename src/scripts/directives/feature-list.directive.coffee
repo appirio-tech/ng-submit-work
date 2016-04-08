@@ -2,7 +2,7 @@
 
 directive = ->
   restrict    : 'E'
-  templateUrl : 'views/feature-list.directive.html'
+  template    : require('../../views/feature-list.directive.jade')()
   controller  : 'FeaturelistController as vm'
   scope       :
     activateFeature  : '&'
