@@ -167,7 +167,7 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
         vm.loading = false
         vm.createError = true
 
-      SubmitWorkService.create({}).then(success, failure)
+      SubmitWorkService.create(updates).then(success, failure)
 
   isValid = (updates) ->
     valid = true
