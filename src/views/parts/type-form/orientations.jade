@@ -1,4 +1,4 @@
-.full-height.flex.column(full-height=true ng-show="vm.showOrientation()")
+.full-height.flex.column(full-height=true ng-show="vm.showOrientation()" ng-if="!vm.otherPlatformSelected")
   .dark-bg.flex.column.center.flex-grow(id="orientation-details")
     h2 <strong>orientations</strong>
 

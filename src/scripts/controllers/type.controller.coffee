@@ -1,19 +1,20 @@
 'use strict'
 
 SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkService, ProjectsAPIService, RequirementService) ->
-  vm                  = this
-  vm.loading          = false
-  vm.showSuccessModal = false
-  vm.nameError        = false
-  vm.platformsError   = false
-  vm.devicesError     = false
-  vm.orientationError = false
-  vm.projectTypeError = false
-  vm.briefError       = false
-  vm.createError      = false
-  userProjectNames    = null
-  permissions         = $scope.permissions || ['ALL']
-  vm.readOnly         = permissions.indexOf('UPDATE') == -1 && permissions.indexOf('ALL') == -1
+  vm                       = this
+  vm.loading               = false
+  vm.showSuccessModal      = false
+  vm.nameError             = false
+  vm.platformsError        = false
+  vm.devicesError          = false
+  vm.orientationError      = false
+  vm.projectTypeError      = false
+  vm.briefError            = false
+  vm.createError           = false
+  vm.otherPlatformSelected = false
+  userProjectNames         = null
+  permissions              = $scope.permissions || ['ALL']
+  vm.readOnly              = permissions.indexOf('UPDATE') == -1 && permissions.indexOf('ALL') == -1
 
   # TODO: move route directing out of here
   if $scope.workId
@@ -54,7 +55,7 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
 
     selectedName = selected[0]?.name
 
-    if selected.length == 0 || (selected.length == 1 && selectedName == 'Watch')
+    if selected.length == 0 || (selected.length == 1 && (selectedName == 'Watch' || selectedName == 'Desktop' ))
       showOrientation = false
 
     showOrientation
@@ -150,6 +151,20 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
     unless foundErrors
       vm.create()
 
+  vm.toggleOtherPlatform = ->
+    vm.otherPlatformSelected = !vm.otherPlatformSelected
+
+    if vm.otherPlatformSelected
+      vm.platforms.forEach (platform) ->
+        unless platform.name == 'Other'
+          platform.selected = false
+    else
+      vm.platforms.forEach (platform) ->
+        if platform.name == 'Other'
+          platform.selected = false
+
+    vm.validateSection('device-details', ['platforms'] )
+
   vm.create = ->
     vm.createError = false
     updates = getUpdates()
@@ -198,6 +213,8 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
 
     getId = (item) ->
       item.id
+
+    vm.projectType = 'DESIGN_AND_CODE' if vm.platforms.filter(isSelected).map(getId) == ['WEB_APP']
 
     updates =
       projectType   : vm.projectType.trim()
