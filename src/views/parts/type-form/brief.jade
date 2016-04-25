@@ -10,4 +10,6 @@
     p.error.transition(ng-class="{ show: vm.createError }") Something went wrong creating your project. Please contact support.
 
     .continue-buttons
-      button.action(type="submit" ng-disabled="vm.readOnly") Create Project
+      button.action(type="submit" ng-if="!vm.otherPlatformSelected" ng-disabled="vm.readOnly") Create Project
+
+      button.action(type="submit" ng-if="vm.otherPlatformSelected" ng-disabled="vm.readOnly") Kick Off Project

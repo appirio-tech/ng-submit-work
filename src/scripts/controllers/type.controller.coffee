@@ -112,11 +112,16 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
         $document.scrollToElementAnimated nextSection
 
   vm.validateAllSections = ->
-    vm.validateSection('platform-details', 'name')
-    vm.validateSection('device-details', ['platforms'])
-    vm.validateSection('type-details', ['devices', 'orientations'])
-    vm.validateSection('brief-details', 'projectType')
-    vm.validateSection('brief-details', 'brief')
+    if !vm.otherPlatformSelected
+      vm.validateSection('platform-details', 'name')
+      vm.validateSection('device-details', ['platforms'])
+      vm.validateSection('type-details', ['devices', 'orientations'])
+      vm.validateSection('brief-details', 'projectType')
+      vm.validateSection('brief-details', 'brief')
+    else
+      vm.validateSection('platform-details', 'name')
+      vm.validateSection('brief-details', ['platforms'])
+      vm.validateSection('brief-details', 'brief')
 
     foundErrors = false
     errorElement = null
@@ -156,8 +161,10 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
 
     if vm.otherPlatformSelected
       vm.platforms.forEach (platform) ->
-        unless platform.name == 'Other'
+        if platform.name != 'Other'
           platform.selected = false
+        else
+          platform.selected = true
     else
       vm.platforms.forEach (platform) ->
         if platform.name == 'Other'
@@ -168,7 +175,7 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
   vm.create = ->
     vm.createError = false
     updates = getUpdates()
-    updates.status = 'INCOMPLETE'
+    updates.status = if vm.otherPlatformSelected then 'COMPLETE' else 'INCOMPLETE'
 
     if isValid(updates)
       vm.loading = true
@@ -176,7 +183,10 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
       success = (res) ->
         work = SubmitWorkService.get()
 
-        $state.go 'submit-work-features', { id: work.id }
+        if !vm.otherPlatformSelected
+          $state.go 'submit-work-complete', { id: work.id }
+        else
+          $state.go 'submit-work-features', { id: work.id }
 
       failure = (err) ->
         vm.loading = false
@@ -199,11 +209,12 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
     unless updates.platformIds.length > 0
       valid = false
 
-    unless updates.deviceIds.length > 0
-      valid = false
+    unless vm.otherPlatformSelected
+      unless updates.deviceIds.length > 0
+        valid = false
 
-    unless updates.orientationIds.length > 0
-      valid = false
+      unless updates.orientationIds.length > 0
+        valid = false
 
     valid
 
@@ -214,7 +225,10 @@ SubmitWorkTypeController = ($scope, $rootScope, $state, $document, SubmitWorkSer
     getId = (item) ->
       item.id
 
-    vm.projectType = 'DESIGN_AND_CODE' if vm.platforms.filter(isSelected).map(getId) == ['WEB_APP']
+    # TODO: Remove this work-around for 'other' platform option
+    if vm.platforms.filter(isSelected).map(getId)[0] == 'OTHER'
+      vm.projectType = 'DESIGN_AND_CODE'
+      vm.orientations = []
 
     updates =
       projectType   : vm.projectType.trim()
